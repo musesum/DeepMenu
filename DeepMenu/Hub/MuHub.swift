@@ -20,9 +20,12 @@ class MuHub: ObservableObject, Equatable {
     let pilot = MuPilot()   // captures touch events to dispatch to this hub
     var spotPod: MuPod?     // current spotlight pod
     var touchDock: MuDock?  // dock that is capturing touch events
+
     var touchBeginTime = TimeInterval(0) // starting time for tap candidate
     var touchDeltaTime = TimeInterval(0) // time elapsed since beginning
     var touchEndedTime = TimeInterval(0) // ending time for tap candidate
+    let tapInterval  = TimeInterval(0.5) // tap threshold
+
     var touchBeginXY = CGPoint.zero
     var touchNowXY = CGPoint.zero
     var touchDeltaXY = CGPoint.zero
@@ -132,7 +135,7 @@ class MuHub: ObservableObject, Equatable {
         self.touchNowXY = touchNowXY
 
         touchBeginTime = Date().timeIntervalSince1970
-        touchDeltaTime = touchEndedTime - touchBeginTime
+        touchDeltaTime = 0
         touchBeginXY = touchNowXY
         touchDeltaXY = .zero
 
@@ -145,9 +148,12 @@ class MuHub: ObservableObject, Equatable {
 
         // depth of dock
         anchorShift = dock.dockShift
-        anchorDock(true, dock, CGSize(touchDeltaXY))
-        updateHover(true)
-        spotPod?.superSelect()
+        anchorDock()
+
+        flightStatus = .explore
+        print(flightStatus.description, terminator: " ")
+        updateHover()
+        spotPod?.superSelect() // bookmark route through super pods
     }
 
     // touch began at first encountered dock
@@ -155,16 +161,15 @@ class MuHub: ObservableObject, Equatable {
 
         self.touchNowXY = touchNowXY
         touchDeltaXY = touchNowXY - touchBeginXY
+        touchDeltaTime = Date().timeIntervalSince1970 - touchBeginTime
 
-        let timeNow = Date().timeIntervalSince1970
-        touchDeltaTime = timeNow - touchBeginTime
+        anchorDock()
+        updateFlightStatus()
+        print(flightStatus.description, terminator: " ")
 
-        if let touchDock = touchDock {
-            anchorDock(false, touchDock, CGSize(touchDeltaXY))
-        }
-        updateHover(false)
+        updateHover()
     }
-    let tapInterval = TimeInterval(0.5) // tap threshold
+
     func touchEnd(_ touchNowXY: CGPoint) {
 
         self.touchNowXY = touchNowXY
@@ -218,20 +223,24 @@ class MuHub: ObservableObject, Equatable {
                       ? -maxSpace...0   // horizontal upper
                       : 0...maxSpace    // horizontal lower
                       : 0...0)          // vertical or hub
-        return (rangeW, rangeH)
 
+        return (rangeW, rangeH)
     }
 
     /// set fixed point for stretching/folding docks
-    func anchorDock(_ begin: Bool,
-                    _ dock: MuDock,
-                    _ deltaTouch: CGSize) {
+    func anchorDock() {
 
-        let (rangeW, rangeH) = getRanges(dock)
-        let dockOffset = (deltaTouch + anchorShift).clamp(rangeW, rangeH)
-        if begin { logTouch(dock.title, dockOffset, rangeW, rangeH, "🟢 ") }
-        //else   { logTouch(dock.title, dockOffset, rangeW, rangeH, "🟡 ") }
-        updateDockShift(dockOffset)
+        if let touchDock = touchDock {
+            let deltaTouch = CGSize(touchDeltaXY)
+            let (rangeW, rangeH) = getRanges(touchDock)
+            let dockOffset = (deltaTouch + anchorShift).clamp(rangeW, rangeH)
+            let begin = touchDeltaXY == .zero
+            let title = touchDock.title
+            if begin { logTouch(title, dockOffset, rangeW, rangeH, "🟢 ") }
+            //else   { logTouch(title, dockOffset, rangeW, rangeH, "🟡 ") }
+            updateDockShift(dockOffset)
+        }
+
     }
 
     func logTouch(_ title: String,
@@ -262,12 +271,9 @@ class MuHub: ObservableObject, Equatable {
         }
     }
 
-    func updateHover(_ begin: Bool) {
+    func updateHover() {
 
         resetHoverTimeout()
-
-        flightStatus = getFlightStatus(begin, touchBeginXY, touchNowXY)
-        print(flightStatus.description, terminator: " ")
 
         if flightStatus == .explore {
             if let spotNext = followHub(touchNowXY)  {
@@ -339,35 +345,31 @@ class MuHub: ObservableObject, Equatable {
     }
 
     /// cursor has not wandered past current spotlight pod?
-    func getFlightStatus(_ begin: Bool,
-                         _ beginXY: CGPoint,
-                         _ touchXY: CGPoint) -> MuFlightStatus {
+    func updateFlightStatus() {
 
-        if begin                             { return .explore }
-        guard let spotPod   = spotPod   else { return .explore }
-        guard let touchDock = touchDock else { return .explore }
+        guard let spotPod   = spotPod   else { return flightStatus = .explore }
+        guard let touchDock = touchDock else { return flightStatus = .explore }
 
         // still on same spotlight pod
-        let spotDistance = abs(spotPod.podXY.distance(touchXY))
-        if spotDistance < Layout.zone { return .hover }
+        let spotDistance = abs(spotPod.podXY.distance(touchNowXY))
+        if spotDistance < Layout.zone { return flightStatus = .hover }
 
         // on different pod inside same dock
-        if touchDock.bounds.contains(touchXY) { return .explore }
+        if touchDock.bounds.contains(touchNowXY) { return flightStatus = .explore }
 
         // touch began at hub
-        if touchDock.isHub == true { return .explore }
+        if touchDock.isHub == true { return flightStatus = .explore }
 
-        let dx = touchXY.x - beginXY.x
-        let dy = touchXY.y - beginXY.y
+        switch touchDock.border.axis  { // explore outward (✶) or hover inward (⌂)
+            case .vertical:
+                return flightStatus = (corner.contains(.right)
+                        ? touchDeltaXY.x < 0 ? .explore : .hover
+                        : touchDeltaXY.x > 0 ? .explore : .hover)
 
-        switch touchDock.border.axis  { // explore outward (✶) or hover inward (⬡)
-            case .vertical:  return (corner.contains(.right)
-                                     ? dx < 0 ? .explore : .hover
-                                     : dx > 0 ? .explore : .hover)
-
-            case .horizontal: return (corner.contains(.lower)
-                                      ? dy < 0 ? .explore : .hover
-                                      : dy > 0 ? .explore : .hover)
+            case .horizontal:
+                return flightStatus = (corner.contains(.lower)
+                        ? touchDeltaXY.y < 0 ? .explore : .hover
+                        : touchDeltaXY.y > 0 ? .explore : .hover)
         }
     }
 

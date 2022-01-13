@@ -12,7 +12,7 @@ enum MuFlightStatus {
     public var description: String {
         get {
             switch self {
-                case .hover   : return "⬡"
+                case .hover   : return "⌂"
                 case .explore : return "✶"
                 case .change  : return "◬"
                 case .draw    : return "✎"

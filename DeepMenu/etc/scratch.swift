@@ -28,7 +28,7 @@ enum FlightStatus {
     public var description: String {
         get {
             switch self {
-                case .hover   : return "⬡"
+                case .hover   : return "⌂"
                 case .explore : return "✶"
                 case .draw    : return "✎"
             }
