@@ -39,6 +39,7 @@
 		80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63F272F7CAD00355445 /* MuLayout.swift */; };
 		80B251DE2706BDBF00E63DA3 /* MuDockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B251DD2706BDBF00E63DA3 /* MuDockView.swift */; };
 		80B251E02707563300E63DA3 /* MuPodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B251DF2707563300E63DA3 /* MuPodView.swift */; };
+		80B8EE872790A08500149AA3 /* Range+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B8EE862790A08500149AA3 /* Range+ext.swift */; };
 		80C43F4D274EE92E002B0B76 /* MuFlightStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C43F4C274EE5E4002B0B76 /* MuFlightStatus.swift */; };
 		80C5E880270CCA1B0000832C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C5E87F270CCA1B0000832C /* Log.swift */; };
 		80C9A7BF270F4C4B0013CA49 /* Scroll+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C9A7BE270F4C4B0013CA49 /* Scroll+ext.swift */; };
@@ -104,6 +105,7 @@
 		80A9B63F272F7CAD00355445 /* MuLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLayout.swift; sourceTree = "<group>"; };
 		80B251DD2706BDBF00E63DA3 /* MuDockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuDockView.swift; sourceTree = "<group>"; };
 		80B251DF2707563300E63DA3 /* MuPodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodView.swift; sourceTree = "<group>"; };
+		80B8EE862790A08500149AA3 /* Range+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Range+ext.swift"; sourceTree = "<group>"; };
 		80C43F4C274EE5E4002B0B76 /* MuFlightStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuFlightStatus.swift; sourceTree = "<group>"; };
 		80C5E87F270CCA1B0000832C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		80C9A7BE270F4C4B0013CA49 /* Scroll+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scroll+ext.swift"; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				800D4AE8272B220700E71519 /* CG+ext.swift */,
+				80B8EE862790A08500149AA3 /* Range+ext.swift */,
 				80C9A7BE270F4C4B0013CA49 /* Scroll+ext.swift */,
 				8019DBF8271BEEED00420923 /* String+ext.swift */,
 				805B0EDE2748216700004A85 /* Comparable+ext.swift */,
@@ -475,6 +478,7 @@
 				80C9A7C7270F5A820013CA49 /* MuDockRectView.swift in Sources */,
 				8019DBFF271C8D5300420923 /* MuPodIconView.swift in Sources */,
 				8019DBF4271BD7A200420923 /* MuDock.swift in Sources */,
+				80B8EE872790A08500149AA3 /* Range+ext.swift in Sources */,
 				80C43F4D274EE92E002B0B76 /* MuFlightStatus.swift in Sources */,
 				8014B7CC2700DE3800691126 /* ContentView.swift in Sources */,
 				8064E7A327433B5400AF9DFD /* MuFlightAbove.swift in Sources */,

@@ -121,6 +121,17 @@ class MuHub: ObservableObject, Equatable {
             updateHover(begin, touchBeginXY, touchNowXY)
         }
     }
+    ///
+    var touchDockDepth: CGFloat { get {
+        guard let dock = touchDock else { return  0 }
+        let docks = dock.spoke?.docks ?? [dock]
+        var touchDockDepth = CGFloat(0)
+        for docki in docks {
+            if  dock.id == docki.id { break }
+            touchDockDepth += 1
+        }
+        return touchDockDepth
+    }}
     // touch began at first encountered dock
     func touchBegin(_ begin        : Bool,
                     _ dock         : MuDock?,
@@ -131,83 +142,87 @@ class MuHub: ObservableObject, Equatable {
         guard let dock = dock else {
             return touchHub(begin, touchBeginXY, touchNowXY, deltaTime)
         }
-
         self.touchDock = dock
-        let docks = dock.spoke?.docks ?? [dock]
 
         // depth of dock
-        var dockDepth = CGFloat(0)
-        for docki in docks {
-            if  dock.id == docki.id { break }
-            dockDepth += 1
-        }
-
-        anchorDock()
+        let deltaTouch = CGSize(width: touchNowXY.x - touchBeginXY.x ,
+                                height: touchNowXY.y - touchBeginXY.y )
+        anchorDock(begin, dock, deltaTouch, deltaTime)
         updateHover(begin, touchBeginXY, touchNowXY)
         if begin {
             spotPod?.superSelect()
         }
+    }
 
-        /// set fixed point for stretching/folding docks
-        func anchorDock() {
-            if begin {
-                dockShiftAnchor = dock.dockShift
-            }
-            // calc ranges
-            let oneSpace = Layout.diameter + Layout.spacing * 3 // distance between docks
-            let maxSpace = dockDepth * oneSpace // maximum distance up to dock
-            let vert = dock.border.axis == .vertical
-            let hori = dock.border.axis == .horizontal
-            let left = corner.contains(.left)
-            let upper = corner.contains(.upper)
+    func updateDockShift(_ dockOffset: CGSize) {
+        // update each dock's `dockShift` offset
+        guard let dock = touchDock else { return }
+        let docks = dock.spoke?.docks ?? [dock]
+        var dockIndex = CGFloat(0)
+        for dock in docks {
+            let factor = (dockIndex < touchDockDepth) ? dockIndex/touchDockDepth : 1
+            let www = dockOffset.width * factor
+            let hhh = dockOffset.height * factor
+            dock.dockShift = CGSize(width: www, height: hhh)
+            dockIndex += 1
+        }
+    }
 
-            let rangeW = (vert ? left
-                          ? -maxSpace...0   // vertical left
-                          : 0...maxSpace    // vertical right
-                          : 0...0)          // hoizontal or hub
+    func getRanges(_ dock: MuDock) -> (ClosedRange<CGFloat>, ClosedRange<CGFloat>) {
+        // calc ranges
+        let oneSpace = Layout.diameter + Layout.spacing * 3 // distance between docks
+        let maxSpace = touchDockDepth * oneSpace // maximum distance up to dock
+        let vert = dock.border.axis == .vertical
+        let hori = dock.border.axis == .horizontal
+        let left = corner.contains(.left)
+        let upper = corner.contains(.upper)
 
-            let rangeH = (hori ? upper
-                          ? -maxSpace...0   // horizontal upper
-                          : 0...maxSpace    // horizontal lower
-                          : 0...0)          // vertical or hub
+        let rangeW = (vert ? left
+                      ? -maxSpace...0   // vertical left
+                      : 0...maxSpace    // vertical right
+                      : 0...0)          // hoizontal or hub
 
-            let tw = touchNowXY.x - touchBeginXY.x // delta touch offset width
-            let th = touchNowXY.y - touchBeginXY.y // delta touch offset height
-            let dw = dockShiftAnchor.width         // starting dock offset width
-            let dh = dockShiftAnchor.height        // starting dock offset height
-            let ww = (tw + dw).clamped(to: rangeW) // combined touch and dock offset
-            let hh = (th + dh).clamped(to: rangeH) // clamped to range
-            logTouch()
+        let rangeH = (hori ? upper
+                      ? -maxSpace...0   // horizontal upper
+                      : 0...maxSpace    // horizontal lower
+                      : 0...0)          // vertical or hub
+        return (rangeW, rangeH)
 
-            // update each dock's `dockShift` offset
-            var dockIndex = CGFloat(0)
-            for dock in docks {
-                let factor = (dockIndex < dockDepth) ? dockIndex/dockDepth : 1
-                let www = ww * factor
-                let hhh = hh * factor
-                dock.dockShift = CGSize(width: www, height: hhh)
-                dockIndex += 1
-            }
-            func logTouch() {
+    }
 
-                let twh  = String(format: "%2.0f,%-2.0f", tw, th) // touch delta
-                let dwh  = String(format: "%2.0f,%-2.0f", dw, dh) // dock offset
-                let wwhh = String(format: "%2.0f,%-2.0f", ww, hh) // clamped
-                let clmp = String(format: "(%.0f…%.0f %.0f…%.0f)",
-                                  rangeW.lowerBound, rangeW.upperBound,
-                                  rangeH.lowerBound, rangeH.upperBound) // clamping ranges
-                let newLog = "\(dock.title) \(twh) \(dwh) \(wwhh) \(clmp)"
-                if begin || lastLog != newLog {
-                    lastLog = newLog
-                    if !begin { return } // skip 🟡 movement events for now
-                    let logTimeDot = String(format: "\n%.2f ", deltaTime) + (begin ? "🟢 " : "🟡 ")
-                    print(logTimeDot + newLog, terminator: " ")
-                }
+    /// set fixed point for stretching/folding docks
+    func anchorDock(_ begin: Bool,
+                    _ dock: MuDock,
+                    _ deltaTouch: CGSize,
+                    _ deltaTime: TimeInterval) { // tw, th
+        if begin {
+            dockShiftAnchor = dock.dockShift
+        }
+        let (rangeW, rangeH) = getRanges(dock)
+        let dockOffset = (deltaTouch + dockShiftAnchor).clamp(rangeW, rangeH)
+        logTouch()
+
+        updateDockShift(dockOffset)
+
+        func logTouch() {
+
+            let twh  = deltaTouch.string() // touch delta
+            let dwh  = dockShiftAnchor.string()  // dock offset
+            let wwhh = dockOffset.string() // clamped
+            let clamp = "(\(rangeW.string()) \(rangeH.string())"
+
+            let newLog = "\(dock.title) \(twh) \(dwh) \(wwhh) \(clamp)"
+            if begin || lastLog != newLog {
+                lastLog = newLog
+                if !begin { return } // skip 🟡 movement events for now
+                let logTimeDot = String(format: "\n%.2f ", deltaTime) + (begin ? "🟢 " : "🟡 ")
+                print(logTimeDot + newLog, terminator: " ")
             }
         }
     }
+
     let tapInterval = TimeInterval(0.5) // tap threshold
-    
+
     func touchEnd(_ deltaTime: TimeInterval) {
         print(String(format: "\n%.2f 🔴 ", deltaTime))
         if  deltaTime < tapInterval {

@@ -219,6 +219,14 @@ extension CGSize {
         let s = CGSize(width: ww, height: hh)
         return s
     }
+    public func string(_ format: String = "%2.0f,%-2.0f") -> String {
+        return String(format: format, width, height) // touch delta
+    }
+    public func clamp(_ widthRange: ClosedRange<CGFloat>,
+                      _ heightRange: ClosedRange<CGFloat>) -> CGSize {
+        return CGSize(width:  width.clamped(to: widthRange),
+                      height: height.clamped(to: heightRange) )
+    }
 }
 
 extension CGFloat {

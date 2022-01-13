@@ -20,9 +20,7 @@ class MuPilot: ObservableObject {
     var deltaOfs = CGSize.zero // difference between touch point and center in coord
     var pilotOfs: CGSize { get { hub?.flightAbove != .spoke ? .zero : deltaOfs }}
 
-    var alpha: CGFloat { get {
-        //?? touchBeginTime <= touchEndedTime ? 1 : 0
-        (touchNowXY == homeHubXY) || (touchNowXY == .zero) ? 1 : 0
+    var alpha: CGFloat { get { (touchNowXY == homeHubXY) || (touchNowXY == .zero) ? 1 : 0
     }}
 
     var touchDock: MuDock? // dock which captured DragGesture
