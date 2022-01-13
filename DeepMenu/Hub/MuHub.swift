@@ -154,15 +154,37 @@ class MuHub: ObservableObject, Equatable {
     func touchMove(_ touchNowXY: CGPoint) {
 
         self.touchNowXY = touchNowXY
+        touchDeltaXY = touchNowXY - touchBeginXY
 
         let timeNow = Date().timeIntervalSince1970
         touchDeltaTime = timeNow - touchBeginTime
-        touchDeltaXY = touchNowXY - touchBeginXY
 
         if let touchDock = touchDock {
             anchorDock(false, touchDock, CGSize(touchDeltaXY))
         }
         updateHover(false)
+    }
+    let tapInterval = TimeInterval(0.5) // tap threshold
+    func touchEnd(_ touchNowXY: CGPoint) {
+
+        self.touchNowXY = touchNowXY
+        touchDeltaXY = touchNowXY - touchBeginXY
+
+        touchEndedTime = Date().timeIntervalSince1970
+        touchDeltaTime = touchEndedTime - touchBeginTime
+
+        print(String(format: "\n%.2f 🔴 ", touchDeltaTime))
+        if  touchDeltaTime < tapInterval {
+
+            resetHoverTimeout(delay: 8)
+            if let touchDock = touchDock {
+                touchDock.beginTap()
+            } else {
+                toggleDocks(lowestDepth: 0)
+            }
+        }
+        flightAbove = .hub
+        touchDock = nil
     }
 
     func updateDockShift(_ dockOffset: CGSize) {
@@ -231,26 +253,6 @@ class MuHub: ObservableObject, Equatable {
         }
     }
 
-    let tapInterval = TimeInterval(0.5) // tap threshold
-
-    func touchEnd() {
-
-        touchEndedTime = Date().timeIntervalSince1970
-        touchDeltaTime = touchEndedTime - touchBeginTime
-
-        print(String(format: "\n%.2f 🔴 ", touchDeltaTime))
-        if  touchDeltaTime < tapInterval {
-
-            resetHoverTimeout(delay: 8)
-            if let touchDock = touchDock {
-                touchDock.beginTap()
-            } else {
-                toggleDocks(lowestDepth: 0)
-            }
-        }
-        flightAbove = .hub
-        touchDock = nil
-    }
 
     func toggleDocks(lowestDepth: Int) {
 

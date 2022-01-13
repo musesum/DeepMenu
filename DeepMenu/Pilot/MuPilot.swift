@@ -73,7 +73,7 @@ class MuPilot: ObservableObject {
         }
 
         func touchEnd() {
-            hub?.touchEnd()
+            hub?.touchEnd(touchXY)
             touchNowXY = homeHubXY
             deltaOfs = .zero
 
