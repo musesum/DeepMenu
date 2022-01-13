@@ -64,12 +64,12 @@ class MuPilot: ObservableObject {
             touchNowXY = touchXY
             flyPod = hubPod.copy(diameter: Layout.flyDiameter)
             touchBeginXY = touchXY
-            hub?.touchBegin(true, touchDock, touchXY)
+            hub?.touchBegin(touchDock, touchXY)
         }
 
         func touchMove() {
             touchNowXY = touchXY
-            hub?.touchBegin(false, touchDock, touchXY)
+            hub?.touchMove(touchXY)
         }
 
         func touchEnd() {
