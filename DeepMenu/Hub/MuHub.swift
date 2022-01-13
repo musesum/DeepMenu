@@ -20,6 +20,12 @@ class MuHub: ObservableObject, Equatable {
     let pilot = MuPilot()   // captures touch events to dispatch to this hub
     var spotPod: MuPod?     // current spotlight pod
     var touchDock: MuDock?  // dock that is capturing touch events
+    var touchBeginTime = TimeInterval(0) // starting time for tap candidate
+    var touchDeltaTime = TimeInterval(0) // time elapsed since beginning
+    var touchEndedTime = TimeInterval(0) // ending time for tap candidate
+    var touchBeginXY = CGPoint.zero
+    var touchNowXY = CGPoint.zero
+    var touchDeltaXY = CGPoint.zero
 
     init(_ corner: MuCorner) {
 
@@ -94,7 +100,7 @@ class MuHub: ObservableObject, Equatable {
         }
     }
 
-    var dockShiftAnchor = CGSize.zero
+    var anchorShift = CGSize.zero
     var lastLog = "" // compare to avoid duplicate log statements
 
     var beginDepths: ClosedRange<Int> { get {
@@ -108,19 +114,6 @@ class MuHub: ObservableObject, Equatable {
         return minDepth...maxDepth
     }}
 
-    // touch began at Hub
-    func touchHub(_ begin   : Bool = false,
-                  _ touchBeginXY : CGPoint,
-                  _ touchNowXY   : CGPoint,
-                  _ deltaTime    : TimeInterval) {
-
-        if begin {
-            flightAbove = .hub
-            toggleDocks(lowestDepth: 1) //?? -- fix by determining current state
-        } else {
-            updateHover(begin, touchBeginXY, touchNowXY)
-        }
-    }
     ///
     var touchDockDepth: CGFloat { get {
         guard let dock = touchDock else { return  0 }
@@ -135,20 +128,36 @@ class MuHub: ObservableObject, Equatable {
     // touch began at first encountered dock
     func touchBegin(_ begin        : Bool,
                     _ dock         : MuDock?,
-                    _ touchBeginXY : CGPoint,
-                    _ touchNowXY   : CGPoint,
-                    _ deltaTime    : TimeInterval) {
+                    _ touchNowXY   : CGPoint) {
+
+        self.touchNowXY = touchNowXY
+
+        if begin {
+            touchBeginTime = Date().timeIntervalSince1970
+            touchDeltaTime = touchEndedTime - touchBeginTime
+            touchBeginXY = touchNowXY
+            touchDeltaXY = .zero
+        } else {
+            let timeNow = Date().timeIntervalSince1970
+            touchDeltaTime = timeNow - touchBeginTime
+            touchDeltaXY = touchBeginXY - touchNowXY
+        }
 
         guard let dock = dock else {
-            return touchHub(begin, touchBeginXY, touchNowXY, deltaTime)
+            if begin {
+                flightAbove = .hub
+                toggleDocks(lowestDepth: 1) //?? -- fix by determining current state
+            } else {
+                updateHover(begin)
+            }
+            return
         }
         self.touchDock = dock
 
         // depth of dock
-        let deltaTouch = CGSize(width: touchNowXY.x - touchBeginXY.x ,
-                                height: touchNowXY.y - touchBeginXY.y )
-        anchorDock(begin, dock, deltaTouch, deltaTime)
-        updateHover(begin, touchBeginXY, touchNowXY)
+        let deltaTouchXY = touchNowXY - touchBeginXY
+        anchorDock(begin, dock, CGSize(deltaTouchXY))
+        updateHover(begin)
         if begin {
             spotPod?.superSelect()
         }
@@ -161,9 +170,7 @@ class MuHub: ObservableObject, Equatable {
         var dockIndex = CGFloat(0)
         for dock in docks {
             let factor = (dockIndex < touchDockDepth) ? dockIndex/touchDockDepth : 1
-            let www = dockOffset.width * factor
-            let hhh = dockOffset.height * factor
-            dock.dockShift = CGSize(width: www, height: hhh)
+            dock.dockShift = dockOffset * factor
             dockIndex += 1
         }
     }
@@ -193,21 +200,20 @@ class MuHub: ObservableObject, Equatable {
     /// set fixed point for stretching/folding docks
     func anchorDock(_ begin: Bool,
                     _ dock: MuDock,
-                    _ deltaTouch: CGSize,
-                    _ deltaTime: TimeInterval) { // tw, th
+                    _ deltaTouch: CGSize) { // tw, th
         if begin {
-            dockShiftAnchor = dock.dockShift
+            anchorShift = dock.dockShift
         }
         let (rangeW, rangeH) = getRanges(dock)
-        let dockOffset = (deltaTouch + dockShiftAnchor).clamp(rangeW, rangeH)
+        let dockOffset = (deltaTouch + anchorShift).clamp(rangeW, rangeH)
         logTouch()
 
         updateDockShift(dockOffset)
 
         func logTouch() {
 
-            let twh  = deltaTouch.string() // touch delta
-            let dwh  = dockShiftAnchor.string()  // dock offset
+            let twh  = touchDeltaXY.string() // touch delta
+            let dwh  = anchorShift.string()  // dock offset
             let wwhh = dockOffset.string() // clamped
             let clamp = "(\(rangeW.string()) \(rangeH.string())"
 
@@ -215,7 +221,7 @@ class MuHub: ObservableObject, Equatable {
             if begin || lastLog != newLog {
                 lastLog = newLog
                 if !begin { return } // skip 🟡 movement events for now
-                let logTimeDot = String(format: "\n%.2f ", deltaTime) + (begin ? "🟢 " : "🟡 ")
+                let logTimeDot = String(format: "\n%.2f ", touchDeltaTime) + (begin ? "🟢 " : "🟡 ")
                 print(logTimeDot + newLog, terminator: " ")
             }
         }
@@ -223,9 +229,12 @@ class MuHub: ObservableObject, Equatable {
 
     let tapInterval = TimeInterval(0.5) // tap threshold
 
-    func touchEnd(_ deltaTime: TimeInterval) {
-        print(String(format: "\n%.2f 🔴 ", deltaTime))
-        if  deltaTime < tapInterval {
+    func touchEnd() {
+        touchEndedTime = Date().timeIntervalSince1970
+        touchDeltaTime = touchEndedTime - touchBeginTime
+
+        print(String(format: "\n%.2f 🔴 ", touchDeltaTime))
+        if  touchDeltaTime < tapInterval {
 
             resetHoverTimeout(delay: 8)
             if let touchDock = touchDock {
@@ -246,17 +255,15 @@ class MuHub: ObservableObject, Equatable {
         }
     }
 
-    func updateHover(_ begin: Bool,
-                     _ beginXY: CGPoint,
-                     _ touchXY: CGPoint) {
+    func updateHover(_ begin: Bool) {
 
         resetHoverTimeout()
 
-        flightStatus = getFlightStatus(begin, beginXY, touchXY)
+        flightStatus = getFlightStatus(begin, touchBeginXY, touchNowXY)
         print(flightStatus.description, terminator: " ")
 
         if flightStatus == .explore {
-            if let spotNext = followHub(touchXY)  {
+            if let spotNext = followHub(touchNowXY)  {
                 spotPod = spotNext
                 flightAbove = .spoke
             } else {
@@ -264,7 +271,7 @@ class MuHub: ObservableObject, Equatable {
             }
             spotPod?.superSpotlight()
         }
-        alignFlightWithSpotPod(touchXY)
+        alignFlightWithSpotPod(touchNowXY)
     }
 
     func followHub(_ touchXY: CGPoint) -> MuPod? {

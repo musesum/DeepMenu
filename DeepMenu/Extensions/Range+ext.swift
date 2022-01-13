@@ -11,6 +11,6 @@ extension ClosedRange {
     public func string(_ format: String = "(%.0f…%.0f %.0f…%.0f)") -> String {
         return String(format: format,
                       lowerBound as! CVarArg,
-                      upperBound as! CVarArg)
+                      upperBound as? CVarArg ?? 9999)
     }
 }

@@ -25,11 +25,7 @@ class MuPilot: ObservableObject {
 
     var touchDock: MuDock? // dock which captured DragGesture
     var touchBeginXY = CGPoint.zero // touch starting position
-    var touchBeginTime = TimeInterval(0) // starting time for tap candidate
-    var touchEndedTime = TimeInterval(0) // ending time for tap candidate
-    var tap1Time       = TimeInterval(0) // ending time for single tap
-    var tap2Time       = TimeInterval(0) // ending time for double tap
-    var tap3Time       = TimeInterval(0) // ending time for triple tap
+
 
     init() {
         hubModel = MuPodModel("⚫︎") // name changed below
@@ -67,21 +63,17 @@ class MuPilot: ObservableObject {
         func touchBegin() {
             touchNowXY = touchXY
             flyPod = hubPod.copy(diameter: Layout.flyDiameter)
-            touchBeginTime = Date().timeIntervalSince1970
             touchBeginXY = touchXY
-            hub?.touchBegin(true, touchDock, touchBeginXY, touchNowXY, 0)
+            hub?.touchBegin(true, touchDock, touchXY)
         }
 
         func touchMove() {
             touchNowXY = touchXY
-            let deltaTime = Date().timeIntervalSince1970 - touchBeginTime
-            hub?.touchBegin(false, touchDock, touchBeginXY, touchNowXY, deltaTime)
+            hub?.touchBegin(false, touchDock, touchXY)
         }
 
         func touchEnd() {
-            touchEndedTime = Date().timeIntervalSince1970
-            let deltaTime = touchEndedTime - touchBeginTime
-            hub?.touchEnd(deltaTime)
+            hub?.touchEnd()
             touchNowXY = homeHubXY
             deltaOfs = .zero
 

@@ -175,10 +175,18 @@ extension CGPoint {
         }
         return self
     }
+    public func string(_ format: String = "%2.0f,%-2.0f") -> String {
+        return String(format: format, x, y) // touch delta
+    }
 }
 
 extension CGSize {
 
+    public init(_ xy: CGPoint) {
+        self.init()
+        self.width = xy.x
+        self.height = xy.y
+    }
     public static func - (lhs: CGSize, rhs: CGSize) -> CGSize {
         let ww = lhs.width - rhs.width
         let hh = lhs.height - rhs.height
@@ -219,9 +227,11 @@ extension CGSize {
         let s = CGSize(width: ww, height: hh)
         return s
     }
+
     public func string(_ format: String = "%2.0f,%-2.0f") -> String {
         return String(format: format, width, height) // touch delta
     }
+
     public func clamp(_ widthRange: ClosedRange<CGFloat>,
                       _ heightRange: ClosedRange<CGFloat>) -> CGSize {
         return CGSize(width:  width.clamped(to: widthRange),
