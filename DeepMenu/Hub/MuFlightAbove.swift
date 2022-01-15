@@ -11,9 +11,9 @@ enum MuFlightAbove: String  {
     public var description: String {
         get {
             switch self {
-                case .hub : return "◯"
-                case .space: return "▢⃞"
-                case .spoke : return "━"
+                case .hub : return "⦿"    //❂
+                case .spoke : return "⌖" // ✢
+                case .space: return "⬚"  // 🔭
             }
         }
     }

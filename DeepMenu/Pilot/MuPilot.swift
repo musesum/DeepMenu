@@ -8,7 +8,7 @@ import SwiftUI
  */
 class MuPilot: ObservableObject {
 
-    @Published var touchNowXY = CGPoint.zero    // current position
+    @Published var pointNow = CGPoint.zero    // current position
     var homeHubXY = CGPoint.zero  // starting position of touch
 
     var hubModel: MuPodModel
@@ -20,11 +20,11 @@ class MuPilot: ObservableObject {
     var deltaOfs = CGSize.zero // difference between touch point and center in coord
     var pilotOfs: CGSize { get { hub?.flightAbove != .spoke ? .zero : deltaOfs }}
 
-    var alpha: CGFloat { get { (touchNowXY == homeHubXY) || (touchNowXY == .zero) ? 1 : 0
+    var alpha: CGFloat { get { (pointNow == homeHubXY) || (pointNow == .zero) ? 1 : 0
     }}
 
     var touchDock: MuDock? // dock which captured DragGesture
-    var touchBeginXY = CGPoint.zero // touch starting position
+    var pointDelta = CGPoint.zero // touch starting position
 
 
     init() {
@@ -61,20 +61,20 @@ class MuPilot: ObservableObject {
         else                  { touchMove() }
 
         func touchBegin() {
-            touchNowXY = touchXY
+            pointNow = touchXY
             flyPod = hubPod.copy(diameter: Layout.flyDiameter)
-            touchBeginXY = touchXY
+            pointDelta = touchXY
             hub?.touchBegin(touchDock, touchXY)
         }
 
         func touchMove() {
-            touchNowXY = touchXY
+            pointNow = touchXY
             hub?.touchMove(touchXY)
         }
 
         func touchEnd() {
             hub?.touchEnd(touchXY)
-            touchNowXY = homeHubXY
+            pointNow = homeHubXY
             deltaOfs = .zero
 
             DispatchQueue.main.asyncAfter(deadline: .now() + Layout.animate) {
@@ -91,21 +91,21 @@ class MuPilot: ObservableObject {
     func updateHome(_ fr: CGRect) {
         if let hub = hub {
             homeHubXY = hub.cornerXY(in: fr)
-            touchNowXY = homeHubXY
-            // log("home: ", xy: touchNowXY)
+            pointNow = homeHubXY
+            // log("home: ", xy: pointNow)
         }
     }
 
     /** center flyPod either on spotlight pod or on finger
 
      MuHub::alignFlightWithSpotPod(touchXY)
-     will set a deltaXY between touchXY and spotXY.
+     will set a pointDelta between touchXY and spotXY.
      When there is no spotPod, then the the delta is .zero,
      allowing the flyPod to center on finger, which is
      handled by MuPilotView.flyPod.offset.
      */
-    func updateDelta(_ deltaXY: CGPoint) {
-        deltaOfs = .zero + deltaXY
+    func updateDelta(_ pointDelta: CGPoint) {
+        deltaOfs = .zero + pointDelta
         if let hub = hub,
            hub.corner.contains(.right) {
             deltaOfs.width -= 2 * Layout.spacing

@@ -31,8 +31,8 @@ struct MuPilotView: View {
             GeometryReader { geo in
                 if let flyPod = pilot.flyPod {
                     MuPodView(pod: flyPod)
-                        .position(pilot.touchNowXY)
-                        .animation(.easeInOut(duration: Layout.animate), value: pilot.touchNowXY)
+                        .position(pilot.pointNow)
+                        .animation(.easeInOut(duration: Layout.animate), value: pilot.pointNow)
                         .opacity(1-pilot.alpha)
                         .offset(pilot.pilotOfs)
                 }
