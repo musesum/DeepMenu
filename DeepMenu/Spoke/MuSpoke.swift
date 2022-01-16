@@ -29,8 +29,10 @@ class MuSpoke: Identifiable, ObservableObject {
         }
         showDocks(depth: 1)
     }
-    
-    func nearestPod(_ podXY: CGPoint, _ touchDock: MuDock?) -> MuPod? {
+
+    /// find nearest pod to touch point
+    func nearestPod(_ touchNow: CGPoint,
+                    _ touchDock: MuDock?) -> MuPod? {
         var skipPreDocks = touchDock?.spoke?.id == id //??
 
         for dock in docks {
@@ -38,7 +40,7 @@ class MuSpoke: Identifiable, ObservableObject {
             if skipPreDocks && (touchDock?.id != dock.id) { continue }
             else { skipPreDocks = false }
 
-            if let nextPod = dock.findHover(podXY) {
+            if let nextPod = dock.findHover(touchNow) {
                 if spotPod?.id != nextPod.id {
                     spotPod = nextPod
                     refreshDocks(nextPod.dock, nextPod)
@@ -49,7 +51,9 @@ class MuSpoke: Identifiable, ObservableObject {
         return nil
     }
 
-    func refreshDocks(_ spotDock: MuDock, _ spotPod: MuPod) {
+    /// evenly space docs leading up to spotDock's position
+    func refreshDocks(_ spotDock: MuDock,
+                      _ spotPod: MuPod) {
 
         // tapped on spotlight
         if let nextDock = spotDock.nextDock,

@@ -33,13 +33,16 @@ class MuTouch {
         timeDelta = Date().timeIntervalSince1970 - timeBegin
     }
     func ended(_ pointNow: CGPoint) {
+
         self.pointNow = pointNow
         pointDelta = pointNow - pointBegin
+
         timeEnded = Date().timeIntervalSince1970
         timeDelta = timeEnded - timeBegin
-        if timeDelta < tapInterval {
-            tapCount += 1
-        }
+        tapCount = tapped ? tapCount + 1 : 0
         print(String(format: "\n%.2f 🔴 ", timeDelta))
+    }
+    var tapped: Bool {
+        timeDelta < tapInterval
     }
 }

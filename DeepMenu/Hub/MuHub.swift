@@ -27,7 +27,7 @@ class MuHub: ObservableObject, Equatable {
         self.corner = corner
         pilot.setHub(self)
 
-        let testVert = MuPodModels.testBase(8, spoke: 4)
+        let testVert = MuPodModels.testBase(5, spoke: 5)
         let testHori = MuPodModels.testSpoke()
         let hDock  = MuDock (subModels: testVert, axis: .horizontal)
         let vDock  = MuDock (subModels: testHori, axis: .vertical)
@@ -121,10 +121,10 @@ class MuHub: ObservableObject, Equatable {
         return touchDockDepth
     }}
     // touch began at first encountered dock
-    func touchBegin(_ dock: MuDock?,
-                    _ pointNow: CGPoint) {
+    func begin(_ dock: MuDock?,
+               _ touchNow: CGPoint) {
 
-        touch.begin(pointNow)
+        touch.begin(touchNow)
 
         guard let dock = dock else {
             flightAbove = .hub
@@ -144,7 +144,7 @@ class MuHub: ObservableObject, Equatable {
     }
 
     // touch began at first encountered dock
-    func touchMove(_ pointNow: CGPoint) {
+    func moved(_ pointNow: CGPoint) {
 
         touch.moved(pointNow)
         anchorDock()
@@ -153,7 +153,7 @@ class MuHub: ObservableObject, Equatable {
         updateHover()
     }
 
-    func touchEnd(_ pointNow: CGPoint) {
+    func ended(_ pointNow: CGPoint) {
 
         touch.ended(pointNow)
 
@@ -212,6 +212,7 @@ class MuHub: ObservableObject, Equatable {
             let deltaTouch = CGSize(touch.pointDelta)
             let (rangeW, rangeH) = getRanges(touchDock)
             let dockOffset = (deltaTouch + anchorShift).clamp(rangeW, rangeH)
+
             let begin = touch.pointDelta == .zero
             let title = touchDock.title
             if begin { logTouch(title, dockOffset, rangeW, rangeH, "🟢 ") }
@@ -223,16 +224,16 @@ class MuHub: ObservableObject, Equatable {
 
     func logTouch(_ title: String,
                   _ dockOffset: CGSize,
-                  _ rangeW: ClosedRange<CGFloat>,
-                  _ rangeH: ClosedRange<CGFloat>,
+                  _ rangeWidth: ClosedRange<CGFloat>,
+                  _ rangeHeight: ClosedRange<CGFloat>,
                   _ suffix: String) {
 
-        let twh  = touch.pointDelta.string() // touch delta
-        let dwh  = anchorShift.string()  // dock offset
-        let wwhh = dockOffset.string() // clamped
-        let clamp = "\(rangeW.string()) \(rangeH.string())"
+        let touchDelta  = touch.pointDelta.string()
+        let anchorShift = anchorShift.string()
+        let dockOffset = dockOffset.string() // clamped
+        let clamp = "\(rangeWidth.string()) \(rangeHeight.string())"
 
-        let newLog = "\(title) \(twh) \(dwh) \(wwhh) \(clamp)"
+        let newLog = "\(title) \(touchDelta) \(anchorShift) \(dockOffset) \(clamp)"
         if lastLog != newLog {
             lastLog = newLog
             let logTimeDot = String(format: "\n%.2f ", touch.timeDelta) + suffix
@@ -265,7 +266,7 @@ class MuHub: ObservableObject, Equatable {
         alignFlightWithSpotPod(touch.pointNow)
     }
 
-    func followHub(_ touchXY: CGPoint) -> MuPod? {
+    func followHub(_ touchNow: CGPoint) -> MuPod? {
 
         func setSpotSpoke(_ spokeNext: MuSpoke) {
 
@@ -282,7 +283,7 @@ class MuHub: ObservableObject, Equatable {
 
         // have been exploring a spoke already
         if let spotSpoke = spotSpoke {
-            if let nearestPod = spotSpoke.nearestPod(touchXY, touchDock){
+            if let nearestPod = spotSpoke.nearestPod(touchNow, touchDock) {
                 // still within same spotlight spoke
                 return nearestPod
             } else {
@@ -291,7 +292,7 @@ class MuHub: ObservableObject, Equatable {
                     // skip spotlight spoke
                     if spoke.id == spotSpoke.id { continue }
                     // look for nearestPod
-                    if let nearestPod = spoke.nearestPod(touchXY, touchDock) {
+                    if let nearestPod = spoke.nearestPod(touchNow, touchDock) {
                         // found a pod on another spoke
                         setSpotSpoke(spoke)
                         return nearestPod
@@ -302,7 +303,7 @@ class MuHub: ObservableObject, Equatable {
         // starting out from hub
         else {
             for spoke in spokes {
-                if let nearestPod = spoke.nearestPod(touchXY, touchDock)  {
+                if let nearestPod = spoke.nearestPod(touchNow, touchDock)  {
                     setSpotSpoke(spoke)
                     return nearestPod
                 }
@@ -312,10 +313,10 @@ class MuHub: ObservableObject, Equatable {
     }
 
     /// either center flight icon on spotPod or track finger
-    private func alignFlightWithSpotPod(_ touchXY: CGPoint) {
+    private func alignFlightWithSpotPod(_ touchNow: CGPoint) {
 
         if let spotXY = spotPod?.podXY {
-            let pointDelta = spotXY - touchXY
+            let pointDelta = spotXY - touchNow
             pilot.updateDelta(pointDelta)
         } else {
             pilot.updateDelta(.zero)
@@ -374,3 +375,4 @@ class MuHub: ObservableObject, Equatable {
                                           block: resetting)
     }
 }
+

@@ -86,7 +86,8 @@ class MuDock: Identifiable, ObservableObject {
     /**
      May be updated after init for root spoke inside updateHub
      */
-    func updateSpoke(_ spoke: MuSpoke?, _ hub: MuHub?) {
+    func updateSpoke(_ spoke: MuSpoke?,
+                     _ hub: MuHub?) {
 
         self.hub = hub
         guard let spoke = spoke else { return }
@@ -119,14 +120,14 @@ class MuDock: Identifiable, ObservableObject {
         }
     }
 
-    func findHover(_ hoverXY: CGPoint) -> MuPod? {
+    func findHover(_ touchNow: CGPoint) -> MuPod? {
 
-        if !bounds.contains(hoverXY) {
+        if !bounds.contains(touchNow) {
             return nil
         }
         for pod in subPods {
 
-            if pod.podXY.distance(hoverXY) < border.diameter {
+            if pod.podXY.distance(touchNow) < border.diameter {
                 spotPod = pod
                 pod.superSpotlight()
                 return pod

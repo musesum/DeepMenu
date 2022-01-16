@@ -9,72 +9,56 @@ import SwiftUI
 class MuPilot: ObservableObject {
 
     @Published var pointNow = CGPoint.zero    // current position
-    var homeHubXY = CGPoint.zero  // starting position of touch
+    var pointHome = CGPoint.zero  // starting position of touch
+    var alpha: CGFloat { get { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }}
 
-    var hubModel: MuPodModel
+    var hub: MuHub?
     var hubPod: MuPod   // fixed corner pod space
     var flyPod: MuPod?  // flying pod from hub
-    var hub: MuHub?
     var hubDock: MuDock
-
     var deltaOfs = CGSize.zero // difference between touch point and center in coord
     var pilotOfs: CGSize { get { hub?.flightAbove != .spoke ? .zero : deltaOfs }}
-
-    var alpha: CGFloat { get { (pointNow == homeHubXY) || (pointNow == .zero) ? 1 : 0
-    }}
 
     var touchDock: MuDock? // dock which captured DragGesture
     var pointDelta = CGPoint.zero // touch starting position
 
-
     init() {
-        hubModel = MuPodModel("⚫︎") // name changed below
+        let hubPodModel = MuPodModel("⚫︎") // name changed below
         hubDock = MuDock(isHub: true, axis: .horizontal)
-        hubPod = MuPod(.hub, hubDock, hubModel, icon: Layout.hoverRing)
+        hubPod = MuPod(.hub, hubDock, hubPodModel, icon: Layout.hoverRing)
         hubDock.addPod(hubPod)
     }
     
     func setHub(_ hub: MuHub) {
         self.hub = hub
-        switch hub.corner {
-            case [.lower, .right]: hubModel.name = "◢"
-            case [.lower, .left ]: hubModel.name = "◣"
-            case [.upper, .right]: hubModel.name = "◥"
-            case [.upper, .left ]: hubModel.name = "◤"
-
-            // reserved for later middling hubs
-            case [.upper]: hubModel.name = "▲"
-            case [.right]: hubModel.name = "▶︎"
-            case [.lower]: hubModel.name = "▼"
-            case [.left ]: hubModel.name = "◀︎"
-            default:       break
-        }
+        hubPod.model.setName(from: hub.corner)
     }
 
-    /**  via MuDockView::@GestureState touchXY .onChange,
-     which also detects end when touchXY is reset to .zero
+    /**  via MuDockView::@GestureState touchNow .onChange,
+     which also detects end when touchNow is reset to .zero
      */
-    func touchUpdate(_ touchXY: CGPoint, _ touchDock: MuDock?) {
+    func touchUpdate(_ touchNow: CGPoint,
+                     _ touchDock: MuDock?) {
 
-        if touchXY == .zero   { touchEnd() }
-        else if flyPod == nil { touchBegin() }
-        else                  { touchMove() }
+        if touchNow == .zero  { ended() }
+        else if flyPod == nil { begin() }
+        else                  { moved() }
 
-        func touchBegin() {
-            pointNow = touchXY
+        func begin() {
+            pointNow = touchNow
             flyPod = hubPod.copy(diameter: Layout.flyDiameter)
-            pointDelta = touchXY
-            hub?.touchBegin(touchDock, touchXY)
+            pointDelta = touchNow
+            hub?.begin(touchDock, touchNow)
         }
 
-        func touchMove() {
-            pointNow = touchXY
-            hub?.touchMove(touchXY)
+        func moved() {
+            pointNow = touchNow
+            hub?.moved(touchNow)
         }
 
-        func touchEnd() {
-            hub?.touchEnd(touchXY)
-            pointNow = homeHubXY
+        func ended() {
+            hub?.ended(touchNow)
+            pointNow = pointHome
             deltaOfs = .zero
 
             DispatchQueue.main.asyncAfter(deadline: .now() + Layout.animate) {
@@ -90,16 +74,16 @@ class MuPilot: ObservableObject {
 
     func updateHome(_ fr: CGRect) {
         if let hub = hub {
-            homeHubXY = hub.cornerXY(in: fr)
-            pointNow = homeHubXY
+            pointHome = hub.cornerXY(in: fr)
+            pointNow = pointHome
             // log("home: ", xy: pointNow)
         }
     }
 
     /** center flyPod either on spotlight pod or on finger
 
-     MuHub::alignFlightWithSpotPod(touchXY)
-     will set a pointDelta between touchXY and spotXY.
+     MuHub::alignFlightWithSpotPod(touchNow)
+     will set a pointDelta between touchNow and spotXY.
      When there is no spotPod, then the the delta is .zero,
      allowing the flyPod to center on finger, which is
      handled by MuPilotView.flyPod.offset.

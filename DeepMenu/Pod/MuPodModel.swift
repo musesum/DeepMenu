@@ -21,4 +21,20 @@ class MuPodModel: Identifiable {
         self.title = (suprModel?.title ?? "") + name
         self.subModels = subModels
     }
+    func setName(from corner: MuCorner) {
+        switch corner {
+            case [.lower, .right]: name = "◢"
+            case [.lower, .left ]: name = "◣"
+            case [.upper, .right]: name = "◥"
+            case [.upper, .left ]: name = "◤"
+
+                // reserved for later middling hubs
+            case [.upper]: name = "▲"
+            case [.right]: name = "▶︎"
+            case [.lower]: name = "▼"
+            case [.left ]: name = "◀︎"
+            default:       break
+        }
+    }
+
 }

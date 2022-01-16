@@ -19,7 +19,7 @@ struct MuPilotView: View {
 
                     .padding(Layout.spacing)
                     .opacity(pilot.alpha + 0.1)
-                    .position(pilot.homeHubXY)
+                    .position(pilot.pointHome)
 
                     .gesture(
                         DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
