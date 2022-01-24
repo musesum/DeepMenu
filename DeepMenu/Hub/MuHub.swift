@@ -10,8 +10,7 @@ class MuHub: ObservableObject, Equatable {
         return lhs.id == rhs.id
     }
 
-    @Published var flightAbove = MuFlightAbove.hub
-    var flightStatus: MuFlightStatus = .explore
+    @Published var status = MuHubStatus.hub
 
     var corner: MuCorner
     var spokes = [MuSpoke]() // usually a vertical and horizon spoke
@@ -29,8 +28,8 @@ class MuHub: ObservableObject, Equatable {
 
         let testVert = MuPodModels.testBase(5, spoke: 5)
         let testHori = MuPodModels.testSpoke()
-        let hDock  = MuDock (subModels: testVert, axis: .horizontal)
-        let vDock  = MuDock (subModels: testHori, axis: .vertical)
+        let hDock  = MuDock(subModels: testVert, axis: .horizontal)
+        let vDock  = MuDock(subModels: testHori, axis: .vertical)
         let hSpoke = MuSpoke(docks: [hDock], hub: self)
         let vSpoke = MuSpoke(docks: [vDock], hub: self)
 
@@ -40,7 +39,7 @@ class MuHub: ObservableObject, Equatable {
     }
 
     /**
-     Adjust spoke offsets iPhone and iPad to avoid false positives on springboard and notes app.
+     Adjust spoke offsets iPhone and iPad to avoid false positives, now that springboard adds a corner hotspot for launching the notes app.
      Also, adjust pilot offsets for home hub and for flying.
 
      The fly ring is bigger than the home ring, so the offsets are different. To test alignment, comment out the `.opacity(...)` statements in MuDockView. The fly ring should come to home after dragDone and encircle the home ring.
@@ -51,8 +50,8 @@ class MuHub: ObservableObject, Equatable {
 
         let margin = 2 * Layout.spacing
         let x = (idiom == .pad ? margin : 0)
-        let y = ((corner.contains(.upper) && idiom == .phone) ||
-                  (corner.contains(.lower) && idiom == .pad))  ? margin : 0
+        let y = ( (corner.contains(.upper) && idiom == .phone) ||
+                  (corner.contains(.lower) && idiom == .pad)) ? margin : 0
         let xx = x + Layout.diameter + margin
         let yy = y + Layout.diameter + margin
 
@@ -84,7 +83,7 @@ class MuHub: ObservableObject, Equatable {
         let w = frame.size.width
         let h = frame.size.height
         let s = Layout.spacing
-        let r = Layout.diameter/2
+        let r = Layout.diameter / 2
 
         switch corner {
             case [.lower, .right]: return CGPoint(x: w - x - r - s, y: h - y - r - s)
@@ -127,7 +126,7 @@ class MuHub: ObservableObject, Equatable {
         touch.begin(touchNow)
 
         guard let dock = dock else {
-            flightAbove = .hub
+            status = .hub
             toggleDocks(lowestDepth: 1) //?? -- fix by determining current state
             return
         }
@@ -136,9 +135,6 @@ class MuHub: ObservableObject, Equatable {
         // depth of dock
         anchorShift = dock.dockShift
         anchorDock()
-
-        flightStatus = .explore
-        print(flightStatus.description, terminator: " ")
         updateHover()
         spotPod?.superSelect() // bookmark route through super pods
     }
@@ -148,8 +144,6 @@ class MuHub: ObservableObject, Equatable {
 
         touch.moved(pointNow)
         anchorDock()
-        updateFlightStatus()
-        print(flightStatus.description, terminator: " ")
         updateHover()
     }
 
@@ -159,14 +153,14 @@ class MuHub: ObservableObject, Equatable {
 
         if touch.tapCount > 0 {
 
-            resetHoverTimeout(delay: 8)
+            resetHubTimer(delay: 8)
             if let touchDock = touchDock {
                 touchDock.beginTap()
             } else {
                 toggleDocks(lowestDepth: 0)
             }
         }
-        flightAbove = .hub
+        status = .hub
         touchDock = nil
     }
 
@@ -215,61 +209,70 @@ class MuHub: ObservableObject, Equatable {
 
             let begin = touch.pointDelta == .zero
             let title = touchDock.title
-            if begin { logTouch(title, dockOffset, rangeW, rangeH, "🟢 ") }
-            //else   { logTouch(title, dockOffset, rangeW, rangeH, "🟡 ") }
+            if begin { log(title, dockOffset, rangeW, rangeH) }
+            // else  { log(title, dockOffset, rangeW, rangeH) }
             updateDockShift(dockOffset)
         }
+        func log(_ title: String,
+                 _ dockOffset: CGSize,
+                 _ rangeWidth: ClosedRange<CGFloat>,
+                 _ rangeHeight: ClosedRange<CGFloat>) {
 
-    }
+            let touchDelta  = touch.pointDelta.string()
+            let anchorShift = anchorShift.string()
+            let dockOffset = dockOffset.string() // clamped
+            let clamp = "\(rangeWidth.string()) \(rangeHeight.string())"
 
-    func logTouch(_ title: String,
-                  _ dockOffset: CGSize,
-                  _ rangeWidth: ClosedRange<CGFloat>,
-                  _ rangeHeight: ClosedRange<CGFloat>,
-                  _ suffix: String) {
-
-        let touchDelta  = touch.pointDelta.string()
-        let anchorShift = anchorShift.string()
-        let dockOffset = dockOffset.string() // clamped
-        let clamp = "\(rangeWidth.string()) \(rangeHeight.string())"
-
-        let newLog = "\(title) \(touchDelta) \(anchorShift) \(dockOffset) \(clamp)"
-        if lastLog != newLog {
-            lastLog = newLog
-            let logTimeDot = String(format: "\n%.2f ", touch.timeDelta) + suffix
-            print(logTimeDot + newLog, terminator: " ")
+            let newLog = "\(title) \(touchDelta) \(anchorShift) \(dockOffset) \(clamp)"
+            if lastLog != newLog {
+                lastLog = newLog
+                print(newLog, terminator: " ")
+            }
         }
     }
 
+    /// save time with going from depth 0 to depth 1
+    var toggleDepth01Time = TimeInterval(0)
 
     func toggleDocks(lowestDepth: Int) {
+        // going from depth 0 -> 1
+        if lowestDepth == 1, beginDepths == 0...0 {
+            toggleDepth01Time = Date().timeIntervalSince1970
+        }
+        // skip going from 1 -> 0  if recently went from 0 -> 1
+        else if lowestDepth == 0 {
+            let deltaTime = Date().timeIntervalSince1970 - toggleDepth01Time
+            // already expanded from 0 to 1 at beginning of tap
+            if deltaTime < MuTouch.tapInterval {
+                return
+            }
+        }
 
         let depth = (beginDepths == 1...1 ? lowestDepth : 1)
         for spoke in spokes {
             spoke.showDocks(depth: depth)
         }
+        spotSpoke = nil //??
     }
 
     func updateHover() {
 
-        resetHoverTimeout()
+        resetHubTimer()
 
-        if flightStatus == .explore {
+        if isExploring() {
             if let spotNext = followHub(touch.pointNow)  {
                 spotPod = spotNext
-                flightAbove = .spoke
-            } else {
-                flightAbove = .space
+                // print(".", terminator: "")
             }
             spotPod?.superSpotlight()
         }
-        alignFlightWithSpotPod(touch.pointNow)
+        alignFlightWithSpotPod(touch.pointNow) //??
     }
 
     func followHub(_ touchNow: CGPoint) -> MuPod? {
 
         func setSpotSpoke(_ spokeNext: MuSpoke) {
-
+            
             for hideSpoke in spokes {
                 if hideSpoke.id != spokeNext.id {
                     hideSpoke.showDocks(depth: 0)
@@ -277,6 +280,7 @@ class MuHub: ObservableObject, Equatable {
                 spotSpoke = spokeNext
                 spotSpoke?.showDocks(depth: 99) 
             }
+            status = .spoke
         }
 
         // begin -------------------------------------------
@@ -309,6 +313,15 @@ class MuHub: ObservableObject, Equatable {
                 }
             }
         }
+        if pilot.pointHome.distance(touchNow) < Layout.diameter {
+             if status != .hub {
+                status = .hub
+                toggleDocks(lowestDepth: 1)
+            }
+        }
+        else {
+            status = .space
+        }
         return nil
     }
 
@@ -324,42 +337,43 @@ class MuHub: ObservableObject, Equatable {
     }
 
     /// cursor has not wandered past current spotlight pod?
-    func updateFlightStatus() {
+    func isExploring() -> Bool { //?? updateFlightStatus
 
-        guard let spotPod   = spotPod   else { return flightStatus = .explore }
-        guard let touchDock = touchDock else { return flightStatus = .explore }
+        guard let spotPod   = spotPod   else { return true }
+        guard let touchDock = touchDock else { return true }
         let pointNow = touch.pointNow
         let pointDelta = touch.pointDelta
 
         // still on same spotlight pod
         let spotDistance = abs(spotPod.podXY.distance(pointNow))
-        if spotDistance < Layout.zone { return flightStatus = .hover }
+        if spotDistance < Layout.zone { return false }
 
         // on different pod inside same dock
-        if touchDock.bounds.contains(pointNow) { return flightStatus = .explore }
+        if touchDock.bounds.contains(pointNow) { return true }
 
         // touch began at hub
-        if touchDock.isHub == true { return flightStatus = .explore }
+        if touchDock.isHub == true { return true }
 
         switch touchDock.border.axis  { // explore outward (✶) or hover inward (⌂)
             case .vertical:
-                return flightStatus = (corner.contains(.right)
-                        ? pointDelta.x < 0 ? .explore : .hover
-                        : pointDelta.x > 0 ? .explore : .hover)
+                return (corner.contains(.right)
+                        ? pointDelta.x < 0
+                        : pointDelta.x > 0)
 
             case .horizontal:
-                return flightStatus = (corner.contains(.lower)
-                        ? pointDelta.y < 0 ? .explore : .hover
-                        : pointDelta.y > 0 ? .explore : .hover)
+                return (corner.contains(.lower)
+                        ? pointDelta.y < 0
+                        : pointDelta.y > 0)
         }
     }
 
-    var hoverTimer: Timer?
+    /// timer for auto-folding docks back into spokes
+    var hubTimer: Timer?
 
     /// cancel timer that auto-tucks in docks
-    func resetHoverTimeout(delay: TimeInterval = -1) {
+    func resetHubTimer(delay: TimeInterval = -1) {
 
-        hoverTimer?.invalidate()
+        hubTimer?.invalidate()
         return
         
         if delay < 0 { return } // started dragging, so don't finish old one
@@ -368,9 +382,9 @@ class MuHub: ObservableObject, Equatable {
             for spoke in spokes {
                 spoke.showDocks(depth: 0)
             }
-            flightAbove = .space
+            status = .hub
         }
-        hoverTimer = Timer.scheduledTimer(withTimeInterval: delay,
+        hubTimer = Timer.scheduledTimer(withTimeInterval: delay,
                                           repeats: false,
                                           block: resetting)
     }

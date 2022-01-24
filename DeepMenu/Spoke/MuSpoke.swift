@@ -119,10 +119,10 @@ class MuSpoke: Identifiable, ObservableObject {
         var lag = TimeInterval(0)
         var newDocks = [MuDock]()
 
-        logBegin()
+        logStart()
         if      depthShown < depthNext { expandDocks() }
         else if depthShown > depthNext { contractDocks() }
-        logEnd()
+        logFinish()
 
         func expandDocks() {
             var countUp = 0
@@ -150,13 +150,13 @@ class MuSpoke: Identifiable, ObservableObject {
             }
             depthShown = depthNext
         }
-        func logBegin() {
+        func logStart() {
             let isHub = docks.first?.isHub == true
             let vert = (axis == .vertical)
             let axStr = isHub ? " ⃝" : vert ? "V⃝" : "H⃝"
             print ("\(axStr) \(depthShown)⇨\(depthNext)", terminator: "=")
         }
-        func logEnd() {
+        func logFinish() {
             print (depthShown, terminator: " ")
         }
     }

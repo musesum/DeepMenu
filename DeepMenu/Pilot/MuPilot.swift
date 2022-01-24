@@ -17,7 +17,7 @@ class MuPilot: ObservableObject {
     var flyPod: MuPod?  // flying pod from hub
     var hubDock: MuDock
     var deltaOfs = CGSize.zero // difference between touch point and center in coord
-    var pilotOfs: CGSize { get { hub?.flightAbove != .spoke ? .zero : deltaOfs }}
+    var pilotOfs: CGSize { get { hub?.status != .spoke ? .zero : deltaOfs }}
 
     var touchDock: MuDock? // dock which captured DragGesture
     var pointDelta = CGPoint.zero // touch starting position
@@ -62,14 +62,13 @@ class MuPilot: ObservableObject {
             deltaOfs = .zero
 
             DispatchQueue.main.asyncAfter(deadline: .now() + Layout.animate) {
-                self.touchDone()
+                touchDone()
             }
         }
-    }
-
-    func touchDone() {
-        hub?.resetHoverTimeout(delay: 4)
-        flyPod = nil
+        func touchDone() {
+            hub?.resetHubTimer(delay: 4)
+            flyPod = nil
+        }
     }
 
     func updateHome(_ fr: CGRect) {
