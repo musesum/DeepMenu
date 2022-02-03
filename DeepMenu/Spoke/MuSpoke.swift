@@ -33,10 +33,10 @@ class MuSpoke: Identifiable, ObservableObject {
     /// find nearest pod to touch point
     func nearestPod(_ touchNow: CGPoint,
                     _ touchDock: MuDock?) -> MuPod? {
-        var skipPreDocks = touchDock?.spoke?.id == id //??
+        var skipPreDocks = touchDock?.spoke?.id == id
 
         for dock in docks {
-            if dock.show == false { continue } //??
+            if dock.show == false { continue } 
             if skipPreDocks && (touchDock?.id != dock.id) { continue }
             else { skipPreDocks = false }
 
@@ -119,10 +119,10 @@ class MuSpoke: Identifiable, ObservableObject {
         var lag = TimeInterval(0)
         var newDocks = [MuDock]()
 
-        logStart()
+        //?? logStart()
         if      depthShown < depthNext { expandDocks() }
         else if depthShown > depthNext { contractDocks() }
-        logFinish()
+        //?? logFinish()
 
         func expandDocks() {
             var countUp = 0

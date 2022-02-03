@@ -8,12 +8,12 @@ class MuTouch {
     var timeBegin = TimeInterval(0) // starting time for tap candidate
     var timeDelta = TimeInterval(0) // time elapsed since beginning
     var timeEnded = TimeInterval(0) // ending time for tap candidate
-    var tapCount = 0                // number of taps
+    var tapCount  = 0               // number of taps
 
-    var pointBegin = CGPoint.zero
-    var pointNow   = CGPoint.zero
-    var pointDelta = CGPoint.zero
-    var moveThreshold = CGFloat(5)
+    var pointBegin = CGPoint.zero   // where touch started
+    var pointNow   = CGPoint.zero   // current position of touch
+    var pointDelta = CGPoint.zero   // pointNow - pointBegin
+    var moveThreshold = CGFloat(5)  // move distance to reset tapCount
 
     func begin(_ pointNow: CGPoint) {
         self.pointNow = pointNow

@@ -5,6 +5,7 @@ import SwiftUI
 struct Layout {
     static let diameter: CGFloat = 40
     static let spacing: CGFloat = 4
+    static var spotArea: CGFloat { get {diameter + spacing * 2} }
     static var zone: CGFloat { get { diameter + spacing }}
     static let flyDiameter: CGFloat = 46
     static let animate = CGFloat(0.33)

@@ -8,8 +8,8 @@ func log(_ text: String,
          wh: CGSize = .zero,
          terminator: String = "\n") {
 
-    let sizeStr  = (wh == .zero ? "" : String(format: " WH(%.1f, %.1f) ", wh.width, wh.height))
-    let pointStr = (xy == .zero ? "" : String(format: " XY(%.1f, %.1f) ", xy.x, xy.y))
-    //let pointStr = String(format: " XY(%.0f, %.0f) ", xy.x, xy.y)
+    let sizeStr  = (wh == .zero ? "" : String(format: "∘(%.0f, %.0f) ", wh.width, wh.height))
+    let pointStr = (xy == .zero ? "" : String(format: "∙(%.0f, %.0f) ", xy.x, xy.y))
+    //let pointStr = String(format: " (x:%.0f,y:%.0f) ", xy.x, xy.y)
     print(text + pointStr + sizeStr, terminator: terminator)
 }

@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FBD7FC20-A359-49CD-B4FE-3470CFF61347"
-            shouldBeEnabled = "No"
+            uuid = "28BBDB15-6B82-413C-B113-160372BF6F1F"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeepMenu/Hub/MuHub.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "317"
-            endingLineNumber = "317"
-            landmarkName = "followHub(_:)"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "updateStatus(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A4E4168A-E4D4-4F38-92A8-3A81DC4A8FED"
+            uuid = "E44E664E-1AAF-46FD-867A-0216BE2FE0DB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DeepMenu/Hub/MuHub.swift"
+            filePath = "DeepMenu/Touch/MuTouch.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "ended(_:)"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "moved(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

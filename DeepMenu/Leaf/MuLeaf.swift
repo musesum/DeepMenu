@@ -13,6 +13,6 @@ class MuLeaf: MuPod {
           icon: String = "",
           suprPod: MuPod?) {
         
-        super.init(type, dock, model, icon: icon, suprPod: suprPod)
+         super.init(type, dock, model, icon: icon, suprPod: suprPod)
     }
 }

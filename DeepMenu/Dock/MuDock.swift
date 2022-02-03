@@ -123,7 +123,7 @@ class MuDock: Identifiable, ObservableObject {
     func findHover(_ touchNow: CGPoint) -> MuPod? {
 
         if !bounds.contains(touchNow) {
-            return nil
+            //?? return nil
         }
         for pod in subPods {
 

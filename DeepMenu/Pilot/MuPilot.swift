@@ -16,8 +16,25 @@ class MuPilot: ObservableObject {
     var hubPod: MuPod   // fixed corner pod space
     var flyPod: MuPod?  // flying pod from hub
     var hubDock: MuDock
+
+    var touchOfs = CGSize.zero
     var deltaOfs = CGSize.zero // difference between touch point and center in coord
-    var pilotOfs: CGSize { get { hub?.status != .spoke ? .zero : deltaOfs }}
+    var pilotOfs: CGSize { get {
+        switch hub?.status ?? .hub {
+            case .hub:   return touchOfs
+            case .spoke: return deltaOfs
+            case .space: return touchOfs
+        }}}
+
+    func rightSideOffset(for hubStatus: MuHubStatus) -> CGFloat {
+        if let hub = hub,
+           hub.status == hubStatus,
+           hub.corner.contains(.right) {
+            return -(2 * Layout.spacing)
+        } else {
+            return 0
+        }
+    }
 
     var touchDock: MuDock? // dock which captured DragGesture
     var pointDelta = CGPoint.zero // touch starting position
@@ -45,10 +62,24 @@ class MuPilot: ObservableObject {
         else                  { moved() }
 
         func begin() {
+
             pointNow = touchNow
             flyPod = hubPod.copy(diameter: Layout.flyDiameter)
             pointDelta = touchNow
             hub?.begin(touchDock, touchNow)
+
+            touchOfs = CGSize(hubPod.podXY - touchNow)
+            touchOfs.width += rightSideOffset(for: .hub)
+//            if let hub = hub,
+//                hub.status == .hub,
+//                hub.corner.contains(.right) {
+//                touchOfs.width -= 2 * Layout.spacing
+//            }
+            log("touch", xy: touchNow, terminator: " ")
+            //log("fly", xy: flyPod?.podXY ?? .zero, terminator: " ")
+            //log("Δ", xy: touchNow-(flyPod?.podXY ?? .zero), terminator: " ")
+            log("hub", xy: hubPod.podXY, terminator: " ")
+            log("Δ", wh: touchOfs, terminator: " ")
         }
 
         func moved() {
@@ -60,6 +91,7 @@ class MuPilot: ObservableObject {
             hub?.ended(touchNow)
             pointNow = pointHome
             deltaOfs = .zero
+            touchOfs = .zero
 
             DispatchQueue.main.asyncAfter(deadline: .now() + Layout.animate) {
                 touchDone()
@@ -87,12 +119,10 @@ class MuPilot: ObservableObject {
      allowing the flyPod to center on finger, which is
      handled by MuPilotView.flyPod.offset.
      */
+
     func updateDelta(_ pointDelta: CGPoint) {
         deltaOfs = .zero + pointDelta
-        if let hub = hub,
-           hub.corner.contains(.right) {
-            deltaOfs.width -= 2 * Layout.spacing
-        }
-        //?? log("Δxy", wh: deltaOfs, terminator: "  ")
+        deltaOfs.width += rightSideOffset(for: .spoke)
+        log("Δ\(hub?.status.description ?? "")", wh: deltaOfs, terminator: " ")
     }
 }

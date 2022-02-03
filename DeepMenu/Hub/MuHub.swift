@@ -11,6 +11,12 @@ class MuHub: ObservableObject, Equatable {
     }
 
     @Published var status = MuHubStatus.hub
+    func updateStatus(_ newValue: MuHubStatus, _ debug: Int) {
+        if status != newValue {
+            status = newValue
+            print(status.description+String(debug), terminator: " ")
+        }
+    }
 
     var corner: MuCorner
     var spokes = [MuSpoke]() // usually a vertical and horizon spoke
@@ -126,7 +132,8 @@ class MuHub: ObservableObject, Equatable {
         touch.begin(touchNow)
 
         guard let dock = dock else {
-            status = .hub
+            // touching hub 
+            updateStatus(.hub, 1)
             toggleDocks(lowestDepth: 1) //?? -- fix by determining current state
             return
         }
@@ -135,7 +142,7 @@ class MuHub: ObservableObject, Equatable {
         // depth of dock
         anchorShift = dock.dockShift
         anchorDock()
-        updateHover()
+        updateHub()
         spotPod?.superSelect() // bookmark route through super pods
     }
 
@@ -144,7 +151,7 @@ class MuHub: ObservableObject, Equatable {
 
         touch.moved(pointNow)
         anchorDock()
-        updateHover()
+        updateHub()
     }
 
     func ended(_ pointNow: CGPoint) {
@@ -160,7 +167,7 @@ class MuHub: ObservableObject, Equatable {
                 toggleDocks(lowestDepth: 0)
             }
         }
-        status = .hub
+        updateStatus(.hub, 2)
         touchDock = nil
     }
 
@@ -252,24 +259,26 @@ class MuHub: ObservableObject, Equatable {
         for spoke in spokes {
             spoke.showDocks(depth: depth)
         }
-        spotSpoke = nil //??
+        spotSpoke = nil 
     }
 
-    func updateHover() {
+    /// [begin | moved] >> updateHub
+    func updateHub() {
 
         resetHubTimer()
 
         if isExploring() {
-            if let spotNext = followHub(touch.pointNow)  {
+            if let spotNext = followTouch(touch.pointNow)  {
                 spotPod = spotNext
                 // print(".", terminator: "")
             }
             spotPod?.superSpotlight()
         }
-        alignFlightWithSpotPod(touch.pointNow) //??
+        alignFlightWithSpotPod(touch.pointNow)
     }
 
-    func followHub(_ touchNow: CGPoint) -> MuPod? {
+
+    func followTouch(_ touchNow: CGPoint) -> MuPod? {
 
         func setSpotSpoke(_ spokeNext: MuSpoke) {
             
@@ -280,7 +289,7 @@ class MuHub: ObservableObject, Equatable {
                 spotSpoke = spokeNext
                 spotSpoke?.showDocks(depth: 99) 
             }
-            status = .spoke
+            updateStatus(.spoke, 3)
         }
 
         // begin -------------------------------------------
@@ -289,6 +298,7 @@ class MuHub: ObservableObject, Equatable {
         if let spotSpoke = spotSpoke {
             if let nearestPod = spotSpoke.nearestPod(touchNow, touchDock) {
                 // still within same spotlight spoke
+                updateStatus(.spoke, 6)
                 return nearestPod
             } else {
                 // no longer on spotSpoke
@@ -313,14 +323,18 @@ class MuHub: ObservableObject, Equatable {
                 }
             }
         }
-        if pilot.pointHome.distance(touchNow) < Layout.diameter {
-             if status != .hub {
-                status = .hub
+        // hovering over hub
+        if pilot.pointHome.distance(touchNow) < Layout.spotArea {
+            if status != .hub {
+                updateStatus(.hub, 4)
                 toggleDocks(lowestDepth: 1)
+            } else {
+                updateStatus(.hub, -4)
             }
+            pilot.hub?.alignFlightWithSpotPod(touchNow) //??
         }
         else {
-            status = .space
+            updateStatus(.space, 5)
         }
         return nil
     }
@@ -337,7 +351,7 @@ class MuHub: ObservableObject, Equatable {
     }
 
     /// cursor has not wandered past current spotlight pod?
-    func isExploring() -> Bool { //?? updateFlightStatus
+    func isExploring() -> Bool {
 
         guard let spotPod   = spotPod   else { return true }
         guard let touchDock = touchDock else { return true }
@@ -372,9 +386,8 @@ class MuHub: ObservableObject, Equatable {
 
     /// cancel timer that auto-tucks in docks
     func resetHubTimer(delay: TimeInterval = -1) {
-
+        #if false
         hubTimer?.invalidate()
-        return
         
         if delay < 0 { return } // started dragging, so don't finish old one
 
@@ -382,11 +395,12 @@ class MuHub: ObservableObject, Equatable {
             for spoke in spokes {
                 spoke.showDocks(depth: 0)
             }
-            status = .hub
+            updateStatus(.hub, 9)
         }
         hubTimer = Timer.scheduledTimer(withTimeInterval: delay,
                                           repeats: false,
                                           block: resetting)
+        #endif
     }
 }
 

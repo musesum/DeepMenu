@@ -13,7 +13,7 @@ class MuPod: Identifiable, ObservableObject {
     var dock: MuDock
     var suprPod: MuPod?    // super pod
     var subPods: [MuPod]  // sub pods
-    var podXY = CGPoint.zero // curreont position
+    var podXY = CGPoint.zero // current position
 
     var border: MuBorder
 
