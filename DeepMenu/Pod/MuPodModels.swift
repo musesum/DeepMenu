@@ -61,18 +61,19 @@ enum MuPodModels {
         return pods
     }
 
-    /**
-     Create a stochastic spoke of `MuPodModel`s
-     */
-    // Not clear what suprModel means (supervisor? super? parent?)
-    // param `spoke` here seems to be used more like `dock`, i.e. `spoke: 5` means 5 docks in this
-    static func testNumberedPods(_ base: Int, spoke: Int = 0, suprModel: MuPodModel? = nil) -> [MuPodModel] {
-        if spoke == 0 { return [] }
+    /// Recursively creates a stochastic array of Pods trees using numbers as the base naming.
+    /// - Parameters:
+    ///   - count: The number of pods per level (the same for all levels).
+    ///   - numLevels: How many sub-pod levels, including the initial one.
+    ///   - suprModel: The parent MuPodModel for this level .... TODO: not clear what suprModel means (supervisor? super? parent?)
+    /// - Returns: An array of number-styled MuPodModels
+    static func testNumberedPods(_ count: Int, numLevels: Int = 0, suprModel: MuPodModel? = nil) -> [MuPodModel] {
+        if numLevels == 0 { return [] }
         var pods = [MuPodModel]()
-        for i in 1 ... base {
+        for i in 1 ... count {
             let name = String(i)
             let podModel = MuPodModel(name, suprModel: suprModel)
-            let subModels = MuPodModels.testNumberedPods(base, spoke: spoke - 1, suprModel: podModel)
+            let subModels = MuPodModels.testNumberedPods(count, numLevels: numLevels - 1, suprModel: podModel)
             podModel.subModels = subModels
             pods.append(podModel)
         }
