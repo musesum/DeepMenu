@@ -35,8 +35,7 @@ enum MuPodModels {
     /**
      Create a stochastic spoke of `MuPodModel`s
      */
-    static func testSpoke(suprModel: MuPodModel? = nil,_ level: Int = 0) -> [MuPodModel] {
-
+    static func testLetteredPods(suprModel: MuPodModel? = nil,_ level: Int = 0) -> [MuPodModel] {
         let AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let az = "abcdefghijklmnopqrstuvwxyz"
         let _09 = "0123456789"
@@ -55,7 +54,7 @@ enum MuPodModels {
         for i in 0 ..< max {
             let name = names[i]
             let podModel = MuPodModel(name, suprModel: suprModel)
-            let subModels = MuPodModels.testSpoke(suprModel: podModel, level + 1)
+            let subModels = MuPodModels.testLetteredPods(suprModel: podModel, level + 1)
             podModel.subModels = subModels
             pods.append(podModel)
         }
@@ -65,13 +64,15 @@ enum MuPodModels {
     /**
      Create a stochastic spoke of `MuPodModel`s
      */
-    static func testBase(_ base: Int, spoke: Int = 0, suprModel: MuPodModel? = nil) -> [MuPodModel] {
+    // Not clear what suprModel means (supervisor? super? parent?)
+    // param `spoke` here seems to be used more like `dock`, i.e. `spoke: 5` means 5 docks in this
+    static func testNumberedPods(_ base: Int, spoke: Int = 0, suprModel: MuPodModel? = nil) -> [MuPodModel] {
         if spoke == 0 { return [] }
         var pods = [MuPodModel]()
         for i in 1 ... base {
             let name = String(i)
             let podModel = MuPodModel(name, suprModel: suprModel)
-            let subModels = MuPodModels.testBase(base, spoke: spoke - 1, suprModel: podModel)
+            let subModels = MuPodModels.testNumberedPods(base, spoke: spoke - 1, suprModel: podModel)
             podModel.subModels = subModels
             pods.append(podModel)
         }
