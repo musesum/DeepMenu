@@ -61,7 +61,9 @@ enum MuPodModels {
         return pods
     }
 
-    /// Recursively creates a stochastic array of Pods trees using numbers as the base naming.
+    /// Recursively creates a stochastic array of Pod trees using numbers as the base naming.
+    /// Example: testNumberedPods(3, numLevels: 2) would create e.g [1 => [11, 12, 13], 2 => [21, 22, 23], 3 => [31, 32, 33]]
+    ///        representing 2 Docks of Pods with 3 Pods in each Dock
     /// - Parameters:
     ///   - count: The number of pods per level (the same for all levels).
     ///   - numLevels: How many sub-pod levels, including the initial one.
