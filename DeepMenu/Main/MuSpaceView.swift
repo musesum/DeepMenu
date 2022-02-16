@@ -5,7 +5,7 @@ import Foundation
 import SwiftUI
 
 class MuSpace: ObservableObject {
-    @Published var color = Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 0.20)
+    @Published var color = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00)
     init() {}
 }
 

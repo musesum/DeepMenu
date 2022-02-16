@@ -11,6 +11,8 @@ Naming convention
 
         Space - where content and menues are
 
+        Pilot - follows your finger/thumb/pencil to select Pods and stack Docks
+
         Hub - Corner of Space that contains one or two Spokes
             each spoke is aligned horizonal or vertical
 
@@ -20,14 +22,15 @@ Naming convention
 
         Dock - contains one or more Pods
             stacked in levels of increasing detail
+            landing bay multiple docking pods
 
         Pod - an individual item to select
             spotPod - spotlight pod highlighted in bar
-
-        Pilot - follows your finger/thumb/pencil to select Pods and stack Docks
+            pods don't move -
 
         Border - Border and bounds for dock
 
+    Spot* - spotlight on current Pod, Dock
 Programming convention
 
     Views don't own Pods, Docks, Spoke, or Hub,
@@ -37,7 +40,7 @@ Programming convention
         Keep View(s) as functions, which down own source of truth
         Instead, use a 1:1 class:struct Mu<name>:Mu<name>View
 
-Components 
+Components - Mu<Name>
     Main - content View containing Hub and Space
     Space - where the actual non menu content goes
     Touch - Helper to manage touch deltas and tap timing
@@ -47,4 +50,4 @@ Components
     Dock - a series of sub-menue (sub-docks)
     Pod - individual nodes aligned along dock
     Leaf - last sub-dock contains a special pod 
-    Border - helper f
+    Border - helper function for drawing bezel around docks 
