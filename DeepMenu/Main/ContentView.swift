@@ -14,9 +14,9 @@ struct ContentViews {
 struct ContentView: View {
 
     let hub1 = MuHub([.lower, .right])
-//    let hub2 = MuHub([.lower, .left ])
-//    let hub3 = MuHub([.upper, .right])
-//    let hub4 = MuHub([.upper, .left ])
+    let hub2 = MuHub([.lower, .left ])
+    let hub3 = MuHub([.upper, .right])
+    let hub4 = MuHub([.upper, .left ])
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
