@@ -29,8 +29,8 @@ class MuSpokeTests: XCTestCase {
     func testObservableAndDocksPublished() throws {
         let spoke = MuSpoke(docks: [dock1], hub: hub)
         
+        // This won't compile if not observable and published
         let _ = spoke.$docks.sink(receiveValue: { print("ViewModel.docks updated, new value: \($0)") })
-
         let _ = spoke.objectWillChange.sink(receiveValue: { print("ViewModel updated: \($0)")})
     }
 }
