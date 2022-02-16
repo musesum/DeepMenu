@@ -125,6 +125,8 @@ class MuDock: Identifiable, ObservableObject {
         if !bounds.contains(touchNow) {
             //?? return nil
         }
+
+        // todo: this is rather inefficient
         for pod in subPods {
 
             if pod.podXY.distance(touchNow) < border.diameter {
