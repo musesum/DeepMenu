@@ -25,4 +25,12 @@ class MuSpokeTests: XCTestCase {
         XCTAssertNotNil(spoke)
         XCTAssertEqual(1, spoke.docks.count)
     }
+
+    func testObservableAndDocksPublished() throws {
+        let spoke = MuSpoke(docks: [dock1], hub: hub)
+        
+        let _ = spoke.$docks.sink(receiveValue: { print("ViewModel.docks updated, new value: \($0)") })
+
+        let _ = spoke.objectWillChange.sink(receiveValue: { print("ViewModel updated: \($0)")})
+    }
 }
