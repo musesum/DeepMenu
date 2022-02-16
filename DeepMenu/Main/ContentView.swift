@@ -3,45 +3,6 @@
 import SwiftUI
 
 /**
-
-Naming convention
-
-    Mu<name>View - Always a SwiftUI View
-    Mu<name>Model - A persistent model of pods, shared by Mu<name> views
-    Mu<name> - ObservableObject companion to a Mu<name>View
-
-    The <name> views follows a hierarchy of
-
-        Space - where content and menues are
-
-        Hub - Corner of Space that contains one or two Spokes
-            each spoke is aligned horizonal or vertical
-
-        Spoke - a hierarchy of stacked Docks
-            vSpoke instance - a static hierarchy of Docks for vert
-            hSpoke instance - a dynamic history of vert
-
-        Dock - contains one or more Pods
-            stacked in levels of increasing detail
-
-        Pod - an individual item to select
-            spotPod - spotlight pod highlighted in bar
-
-        Pilot - follows your finger/thumb/pencil to select Pods and stack Docks
-
-        Border - Border and bounds for dock
-
-Programming convention
-
-    Views don't own Pods, Docks, Spoke, or Hub,
-        which may be synchroniozed accross devices,
-        like iPhone, iDock, TV, watch, shareplay
-    So, no @State or @StateObjects are used
-        Keep View(s) as functions, which down own source of truth
-        Instead, use a 1:1 class:struct Mu<name>:Mu<name>View
- */
-
-/**
  ContentView.main is only used to remove annoying `taskbar`
  by adding HostingController to AppPortDelegates
     - note: TODO: remove this if Apple fixes
