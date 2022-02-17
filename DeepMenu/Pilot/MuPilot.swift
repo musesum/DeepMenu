@@ -64,17 +64,13 @@ class MuPilot: ObservableObject {
         func begin() {
 
             pointNow = touchNow
-            flyPod = hubPod.copy(diameter: Layout.flyDiameter)
+            flyPod = hubPod.copy()
             pointDelta = touchNow
             hub?.begin(touchDock, touchNow)
 
             touchOfs = CGSize(hubPod.podXY - touchNow)
             touchOfs.width += rightSideOffset(for: .hub)
-//            if let hub = hub,
-//                hub.status == .hub,
-//                hub.corner.contains(.right) {
-//                touchOfs.width -= 2 * Layout.spacing
-//            }
+
             log("touch", xy: touchNow, terminator: " ")
             //log("fly", xy: flyPod?.podXY ?? .zero, terminator: " ")
             //log("Δ", xy: touchNow-(flyPod?.podXY ?? .zero), terminator: " ")
