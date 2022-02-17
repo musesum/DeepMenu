@@ -38,14 +38,12 @@ enum FlightStatus {
 
 enum MuFlightAbove: String  {
 
-    //?? case hub   // unknown at beginning
     case space // flightAbove neither hori or vert
     case spoke  // flightAbove over a spoke's dock
 
     public var description: String {
         get {
             switch self {
-                //?? case .hub   : return "◯"
                 case .space : return "▢⃞"
                 case .spoke : return "━"
             }

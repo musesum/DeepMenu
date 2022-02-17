@@ -134,7 +134,7 @@ class MuHub: ObservableObject, Equatable {
         guard let dock = dock else {
             // touching hub 
             updateStatus(.hub, 1)
-            toggleDocks(lowestDepth: 1) //?? -- fix by determining current state
+            toggleDocks(lowestDepth: 1) //TODO: -- fix by determining current state
             return
         }
         self.touchDock = dock
@@ -331,7 +331,7 @@ class MuHub: ObservableObject, Equatable {
             } else {
                 updateStatus(.hub, -4)
             }
-            pilot.hub?.alignFlightWithSpotPod(touchNow) //??
+            pilot.hub?.alignFlightWithSpotPod(touchNow)
         }
         else {
             updateStatus(.space, 5)
