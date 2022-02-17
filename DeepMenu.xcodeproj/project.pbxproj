@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		57A0A23827BDAFAE00B5598B /* MuSpokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A23727BDAFAE00B5598B /* MuSpokeTests.swift */; };
+		57A0A26127BED18A00B5598B /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 57A0A26027BED18A00B5598B /* ViewInspector */; };
+		57A0A26327BED1E900B5598B /* MuSpokeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */; };
 		800064A327646D67004B4C63 /* MuLeaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800064A227646D67004B4C63 /* MuLeaf.swift */; };
 		8006196B27933375005960FF /* MuTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8006196A27933375005960FF /* MuTouch.swift */; };
 		800D4AE5272A2A6800E71519 /* MuSpoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE4272A2A6800E71519 /* MuSpoke.swift */; };
@@ -69,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		57A0A23727BDAFAE00B5598B /* MuSpokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuSpokeTests.swift; sourceTree = "<group>"; };
+		57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuSpokeViewTests.swift; sourceTree = "<group>"; };
 		800064A227646D67004B4C63 /* MuLeaf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeaf.swift; sourceTree = "<group>"; };
 		800619692791D984005960FF /* scratch2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch2.h; sourceTree = "<group>"; };
 		8006196A27933375005960FF /* MuTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouch.swift; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57A0A26127BED18A00B5598B /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				57A0A23727BDAFAE00B5598B /* MuSpokeTests.swift */,
+				57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */,
 			);
 			path = Spoke;
 			sourceTree = "<group>";
@@ -387,6 +392,9 @@
 				8014B7D82700DE3A00691126 /* PBXTargetDependency */,
 			);
 			name = DeepMenuTests;
+			packageProductDependencies = (
+				57A0A26027BED18A00B5598B /* ViewInspector */,
+			);
 			productName = DeepMenuTests;
 			productReference = 8014B7D62700DE3A00691126 /* DeepMenuTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -442,6 +450,7 @@
 			);
 			mainGroup = 8014B7BD2700DE3800691126;
 			packageReferences = (
+				57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = 8014B7C72700DE3800691126 /* Products */;
 			projectDirPath = "";
@@ -527,6 +536,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57A0A26327BED1E900B5598B /* MuSpokeViewTests.swift in Sources */,
 				57A0A23827BDAFAE00B5598B /* MuSpokeTests.swift in Sources */,
 				8014B7DB2700DE3A00691126 /* DeepMenuTests.swift in Sources */,
 			);
@@ -881,6 +891,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		57A0A26027BED18A00B5598B /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8014B7BE2700DE3800691126 /* Project object */;
 }
