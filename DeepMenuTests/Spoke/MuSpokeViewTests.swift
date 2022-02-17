@@ -19,7 +19,7 @@ class MuSpokeViewTests: XCTestCase {
     let hubUpperRight = MuHub([.upper, .right])
     let hubUpperLeft = MuHub([.upper, .left ])
 
-    let horizonalDock = MuDock(axis: .horizontal)
+    let horizontalDock = MuDock(axis: .horizontal)
     let verticalDock = MuDock(axis: .vertical)
 
     override func setUpWithError() throws {
@@ -29,13 +29,12 @@ class MuSpokeViewTests: XCTestCase {
     }
 
     func testLayoutRelativeToHubPlacement() throws {
-        let horizontalLowerRightSpoke = MuSpoke(docks: [horizonalDock], hub: hubLowerRight)
-
+        let horizontalLowerRightSpoke = MuSpoke(docks: [horizontalDock], hub: hubLowerRight)
         var spokeView = MuSpokeView(spoke: horizontalLowerRightSpoke).environmentObject(hubLowerRight)
         var vStackView = try spokeView.inspect().view(MuSpokeView.self).vStack()
         XCTAssertEqual(HorizontalAlignment.trailing, try vStackView.alignment())
 
-        let horizontalLowerLeftSpoke = MuSpoke(docks: [horizonalDock], hub: hubLowerLeft)
+        let horizontalLowerLeftSpoke = MuSpoke(docks: [horizontalDock], hub: hubLowerLeft)
         spokeView = MuSpokeView(spoke: horizontalLowerLeftSpoke).environmentObject(hubLowerLeft)
         vStackView = try spokeView.inspect().view(MuSpokeView.self).vStack()
         XCTAssertEqual(HorizontalAlignment.leading, try vStackView.alignment())
