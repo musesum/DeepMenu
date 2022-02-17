@@ -47,8 +47,10 @@ class MuPod: Identifiable, Equatable, ObservableObject {
         }
     }
     
-    func copy(diameter: CGFloat) -> MuPod {
-        let pod = MuPod(border.type, dock, model,
+    func copy() -> MuPod {
+        let pod = MuPod(border.type,
+                        dock,
+                        model,
                         icon: icon,
                         suprPod: self,
                         subPods: subPods)

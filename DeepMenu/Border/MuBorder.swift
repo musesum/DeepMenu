@@ -10,7 +10,7 @@ class MuBorder {
     // changed by type
     lazy var diaFactor: CGFloat = [.polar,.rect].contains(type) ? 4 : 1
     lazy var diameter = Layout.diameter * diaFactor
-    lazy var spacing: CGFloat = Layout.spacing //?? type == .pod ? 0 :
+    lazy var spacing: CGFloat = Layout.spacing
     lazy var cornerRadius: CGFloat = (type == .polar
                                       ? (diameter + spacing) / 2
                                       : Layout.diameter / 2)

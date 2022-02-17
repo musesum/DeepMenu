@@ -41,7 +41,7 @@ class MuDock: Identifiable, ObservableObject {
         self.level = level
         self.isHub = isHub
         self.show = show
-        self.border = MuBorder(type: .dock, count: subPods.count, axis: axis) //??
+        self.border = MuBorder(type: .dock, count: subPods.count, axis: axis)
 
         prevDock?.nextDock = self
         updateSpoke(spoke, hub)
@@ -117,11 +117,12 @@ class MuDock: Identifiable, ObservableObject {
 
     func findHover(_ touchNow: CGPoint) -> MuPod? {
 
+        // not hovering over dock? 
         if !bounds.contains(touchNow) {
-            //?? return nil
+            //TODO: return nil has false positives
         }
 
-        // todo: this is rather inefficient
+        //TODO: this is rather inefficient, is a workaround for the above
         for pod in subPods {
 
             if pod.podXY.distance(touchNow) < border.diameter {

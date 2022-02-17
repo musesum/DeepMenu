@@ -119,10 +119,10 @@ class MuSpoke: Identifiable, ObservableObject {
         var lag = TimeInterval(0)
         var newDocks = [MuDock]()
 
-        //?? logStart()
+        // logStart()
         if      depthShown < depthNext { expandDocks() }
         else if depthShown > depthNext { contractDocks() }
-        //?? logFinish()
+        // logFinish()
 
         func expandDocks() {
             var countUp = 0

@@ -30,7 +30,25 @@ Naming convention
 
         Border - Border and bounds for dock
 
-    Spot* - spotlight on current Pod, Dock
+    
+    spot* - spotlight on current Pod, Dock
+    
+    prefixes - may be a single letter to prefix to a variable name
+    
+        x* - point x in a CGPoint
+    
+        y* - point y in a CGPoint
+    
+        w* - width in a CGSize
+    
+        h* - height in a CGSize
+    
+        r* - radius / distance from center of a pod
+    
+        s* - spacing between pods
+        
+        supr - super `Pod` or `Model` / parent in a hierarchy
+         
 Programming convention
 
     Views don't own Pods, Docks, Spoke, or Hub,
@@ -41,13 +59,23 @@ Programming convention
         Instead, use a 1:1 class:struct Mu<name>:Mu<name>View
 
 Components - Mu<Name>
+
     Main - content View containing Hub and Space
+
     Space - where the actual non menu content goes
+
     Touch - Helper to manage touch deltas and tap timing
+
     Pilot - move from pod to pod or into open space
+
     Hub - starting poinrt in the corners, contains 1 or 2 spokes
+
     Spoke - contains unfolding docks of either horizontal or vertical docs
+
     Dock - a series of sub-menue (sub-docks)
+
     Pod - individual nodes aligned along dock
+
     Leaf - last sub-dock contains a special pod 
+
     Border - helper function for drawing bezel around docks 
