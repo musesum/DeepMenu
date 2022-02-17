@@ -2,8 +2,12 @@
 
 import SwiftUI
 
-class MuPod: Identifiable, ObservableObject {
+class MuPod: Identifiable, Equatable, ObservableObject {
     let id = MuIdentity.getId()
+
+    static func == (lhs: MuPod, rhs: MuPod) -> Bool {
+        return lhs.id == rhs.id
+    }
 
     @Published var spotlight = false // true when selected or under cursor
     var spotTime = TimeInterval(0)

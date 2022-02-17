@@ -18,7 +18,6 @@ class MuDock: Identifiable, ObservableObject {
     var nextDock: MuDock?   // sub dock expanding from spotlight pod
     var suprPod: MuPod?     // super dock's spotlight pod
     var subPods: [MuPod]    // the pods on this dock, incl spotPod
-    var podIds = Set<Int>() // set of pod.id's on this dock
     var spotPod: MuPod?     // current spotlight pod
 
     @Published var dockShift: CGSize = .zero
@@ -70,19 +69,21 @@ class MuDock: Identifiable, ObservableObject {
 
         prevDock?.nextDock = self
 
-        for model in subModels {
-            let pod = (subModels.count > 1) || (model.subModels?.count ?? 0 > 0)
-            ? MuPod (.pod,  self, model, suprPod: suprPod)
-            : MuLeaf(.rect, self, model, suprPod: suprPod)
-            subPods.append(pod)
-            podIds.insert(pod.id)
-        }
+        buildSubPodsFromSubModels(subModels)
         updateSpoke(spoke, hub)
     }
     deinit {
         // print("\n🗑\(title)(\(id))", terminator: "")=
     }
 
+    private func buildSubPodsFromSubModels(_ subModels: [MuPodModel]) {
+        for model in subModels {
+            let notLeaf = (subModels.count > 1) || (model.subModels?.count ?? 0 > 0)
+            let pod = notLeaf ?
+                MuPod (.pod,  self, model, suprPod: suprPod) : MuLeaf(.rect, self, model, suprPod: suprPod)
+            subPods.append(pod)
+        }
+    }
     /**
      May be updated after init for root spoke inside updateHub
      */
@@ -105,19 +106,13 @@ class MuDock: Identifiable, ObservableObject {
     }
 
     func addPod(_ pod: MuPod) {
-
-        if podIds.contains(pod.id) { return }
-        podIds.insert(pod.id)
+        if subPods.contains(pod) { return }
         subPods.append(pod)
     }
     
     func removePod(_ pod: MuPod) {
-
-        if podIds.contains(pod.id) {
-            podIds.remove(pod.id)
-            let filtered = subPods.filter { $0.id != pod.id }
-            subPods = filtered
-        }
+        let filtered = subPods.filter { $0.id != pod.id }
+        subPods = filtered
     }
 
     func findHover(_ touchNow: CGPoint) -> MuPod? {
