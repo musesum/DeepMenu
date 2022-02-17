@@ -32,10 +32,10 @@ class MuHub: ObservableObject, Equatable {
         self.corner = corner
         pilot.setHub(self)
 
-        let testVert = MuPodModels.testBase(5, spoke: 5)
-        let testHori = MuPodModels.testSpoke()
-        let hDock  = MuDock(subModels: testVert, axis: .horizontal)
-        let vDock  = MuDock(subModels: testHori, axis: .vertical)
+        let numberedPods = MuPodModels.testNumberedPods(5, numLevels: 5)
+        let letteredPods = MuPodModels.testLetteredPods()
+        let hDock  = MuDock(subModels: numberedPods, axis: .horizontal)
+        let vDock  = MuDock(subModels: letteredPods, axis: .vertical)
         let hSpoke = MuSpoke(docks: [hDock], hub: self)
         let vSpoke = MuSpoke(docks: [vDock], hub: self)
 
