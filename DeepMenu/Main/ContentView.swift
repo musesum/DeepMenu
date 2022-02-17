@@ -13,19 +13,15 @@ struct ContentViews {
 
 struct ContentView: View {
 
-    let hub1 = MuHub([.lower, .right])
-//    let hub2 = MuHub([.lower, .left ])
-//    let hub3 = MuHub([.upper, .right])
-//    let hub4 = MuHub([.upper, .left ])
-
     var body: some View {
         ZStack(alignment: .bottomLeading) {
 
             MuSpaceView(space: MuSpace())
-            MuHubView().environmentObject(hub1)
-//            MuHubView().environmentObject(hub2)
-//            MuHubView().environmentObject(hub3)
-//            MuHubView().environmentObject(hub4)
+
+            MuHubView().environmentObject(MuHub([.lower, .right]))
+//            MuHubView().environmentObject(MuHub([.lower, .left ]))
+//            MuHubView().environmentObject(MuHub([.upper, .right]))
+//            MuHubView().environmentObject(MuHub([.upper, .left ]))
         }
         .coordinateSpace(name: "Space")
         .statusBar(hidden: true)
