@@ -7,7 +7,6 @@ struct Layout {
     static let spacing: CGFloat = 4
     static var spotArea: CGFloat { get {diameter + spacing * 2} }
     static var zone: CGFloat { get { diameter + spacing }}
-    static let flyDiameter: CGFloat = 46
     static let animate = CGFloat(0.33)
     static let hoverRing = "icon.ring.roygbiv"
     static let lagStep = TimeInterval(1.0/32.0) // sixteenth of a second
