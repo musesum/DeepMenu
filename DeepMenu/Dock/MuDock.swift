@@ -127,7 +127,7 @@ class MuDock: Identifiable, ObservableObject {
             //TODO: return nil has false positives
         }
 
-        //TODO: this is rather inefficient, is a workcout for
+        //TODO: this is rather inefficient, is a workaround for the above
         for pod in subPods {
 
             if pod.podXY.distance(touchNow) < border.diameter {
