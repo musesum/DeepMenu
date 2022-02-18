@@ -10,7 +10,7 @@ class MuSpace: ObservableObject {
 }
 
 /// placeholder dark red background
-struct MuSpaceView: View {
+struct AppBackgroundView: View {
 
     @ObservedObject var space: MuSpace
 
