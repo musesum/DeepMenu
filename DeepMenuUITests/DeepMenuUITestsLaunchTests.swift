@@ -12,7 +12,7 @@ class DeepMenuUITestsLaunchTests: XCTestCase {
         continueAfterFailure = false
     }
 
-    func testLaunch() throws {
+    func x_testLaunch() throws {
         let app = XCUIApplication()
         app.launch()
 
