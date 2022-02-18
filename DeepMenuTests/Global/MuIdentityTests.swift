@@ -35,10 +35,9 @@ class MuIdentityTests: XCTestCase {
             
             ids.sort()
             let firstId = ids[0]
-            XCTAssertEqual(firstId + 1, ids[1])
-            XCTAssertEqual(firstId + 2, ids[2])
-            XCTAssertEqual(firstId + 3, ids[3])
-            XCTAssertEqual(firstId + 4, ids[4])
+            for index in 1...(ids.count - 1) {
+                XCTAssertEqual(firstId + index, ids[index])
+            }
         }
         
         let _ = await parallelWork.result
