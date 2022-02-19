@@ -72,10 +72,13 @@ class MuDock: Identifiable, ObservableObject {
         buildSubPodsFromSubModels(subModels)
         updateSpoke(spoke, hub)
     }
+    
     deinit {
         // print("\n🗑\(title)(\(id))", terminator: "")=
     }
 
+    // TODO: This should probably be done at the app level, as the app should be deciding e.g. if the
+    //       leaf pod should be a xy rectangle control
     private func buildSubPodsFromSubModels(_ subModels: [MuPodModel]) {
         for model in subModels {
             let notLeaf = (subModels.count > 1) || (model.subModels?.count ?? 0 > 0)
