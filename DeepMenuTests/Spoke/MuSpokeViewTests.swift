@@ -14,10 +14,10 @@ import SwiftUI
 extension MuSpokeView: Inspectable { }
 
 class MuSpokeViewTests: XCTestCase {
-    let hubLowerRight = MuHub([.lower, .right])
-    let hubLowerLeft = MuHub([.lower, .left ])
-    let hubUpperRight = MuHub([.upper, .right])
-    let hubUpperLeft = MuHub([.upper, .left ])
+    let hubLowerRight = MuHub([.lower, .right], docks: nil)
+    let hubLowerLeft = MuHub([.lower, .left ], docks: nil)
+    let hubUpperRight = MuHub([.upper, .right], docks: nil)
+    let hubUpperLeft = MuHub([.upper, .left ], docks: nil)
 
     let horizontalDock = MuDock(axis: .horizontal)
     let verticalDock = MuDock(axis: .vertical)
