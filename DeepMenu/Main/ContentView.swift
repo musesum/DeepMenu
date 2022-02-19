@@ -18,13 +18,21 @@ struct ContentView: View {
 
             AppBackgroundView(space: MuSpace())
 
-            MuHubView().environmentObject(MuHub([.lower, .right]))
-//            MuHubView().environmentObject(MuHub([.lower, .left ]))
-//            MuHubView().environmentObject(MuHub([.upper, .right]))
-//            MuHubView().environmentObject(MuHub([.upper, .left ]))
+            MuHubView().environmentObject(MuHub([.lower, .right], docks: defaultSampleDocks()))
+//            MuHubView().environmentObject(MuHub([.lower, .left ], docks: defaultSampleDocks()))
+//            MuHubView().environmentObject(MuHub([.upper, .right], docks: defaultSampleDocks()))
+//            MuHubView().environmentObject(MuHub([.upper, .left ], docks: defaultSampleDocks()))
         }
         .coordinateSpace(name: "Space")
         .statusBar(hidden: true)
+    }
+    
+    private func defaultSampleDocks() -> [MuDock] {
+        let numberedPods = ExamplePodModels.numberedPods(5, numLevels: 5)
+        let letteredPods = ExamplePodModels.letteredPods()
+        let hDock  = MuDock(subModels: numberedPods, axis: .horizontal)
+        let vDock  = MuDock(subModels: letteredPods, axis: .vertical)
+        return [hDock, vDock]
     }
 }
 
