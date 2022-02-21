@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum MuPodModels {
+enum ExamplePodModels {
 
     
     /**
@@ -35,7 +35,7 @@ enum MuPodModels {
     /**
      Create a stochastic spoke of `MuPodModel`s
      */
-    static func testLetteredPods(suprModel: MuPodModel? = nil,_ level: Int = 0) -> [MuPodModel] {
+    static func letteredPods(suprModel: MuPodModel? = nil,_ level: Int = 0) -> [MuPodModel] {
         let AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let az = "abcdefghijklmnopqrstuvwxyz"
         let _09 = "0123456789"
@@ -54,7 +54,7 @@ enum MuPodModels {
         for i in 0 ..< max {
             let name = names[i]
             let podModel = MuPodModel(name, suprModel: suprModel)
-            let subModels = MuPodModels.testLetteredPods(suprModel: podModel, level + 1)
+            let subModels = ExamplePodModels.letteredPods(suprModel: podModel, level + 1)
             podModel.subModels = subModels
             pods.append(podModel)
         }
@@ -69,13 +69,13 @@ enum MuPodModels {
     ///   - numLevels: How many sub-pod levels, including the initial one.
     ///   - suprModel: The parent MuPodModel for this level .... TODO: not clear what suprModel means (supervisor? super? parent?)
     /// - Returns: An array of number-styled MuPodModels
-    static func testNumberedPods(_ count: Int, numLevels: Int = 0, suprModel: MuPodModel? = nil) -> [MuPodModel] {
+    static func numberedPods(_ count: Int, numLevels: Int = 0, suprModel: MuPodModel? = nil) -> [MuPodModel] {
         if numLevels == 0 { return [] }
         var pods = [MuPodModel]()
         for i in 1 ... count {
             let name = String(i)
             let podModel = MuPodModel(name, suprModel: suprModel)
-            let subModels = MuPodModels.testNumberedPods(count, numLevels: numLevels - 1, suprModel: podModel)
+            let subModels = ExamplePodModels.numberedPods(count, numLevels: numLevels - 1, suprModel: podModel)
             podModel.subModels = subModels
             pods.append(podModel)
         }

@@ -12,6 +12,7 @@
 		57A0A26327BED1E900B5598B /* MuSpokeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */; };
 		57A0A26527BF15AA00B5598B /* config.yml in Resources */ = {isa = PBXBuildFile; fileRef = 57A0A26427BF15AA00B5598B /* config.yml */; };
 		57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26727C015F600B5598B /* MuIdentityTests.swift */; };
+		57F3029527C142FC00203F63 /* ExamplePodModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029427C142FC00203F63 /* ExamplePodModels.swift */; };
 		800064A327646D67004B4C63 /* MuLeaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800064A227646D67004B4C63 /* MuLeaf.swift */; };
 		8006196B27933375005960FF /* MuTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8006196A27933375005960FF /* MuTouch.swift */; };
 		800D4AE5272A2A6800E71519 /* MuSpoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE4272A2A6800E71519 /* MuSpoke.swift */; };
@@ -34,7 +35,6 @@
 		8019DBFF271C8D5300420923 /* MuPodIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFE271C8D5200420923 /* MuPodIconView.swift */; };
 		8019DC03271C8DDE00420923 /* MuPod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC02271C8DDD00420923 /* MuPod.swift */; };
 		8019DC05271C901500420923 /* MuIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC04271C901500420923 /* MuIdentity.swift */; };
-		801B991627125DA100F56D22 /* MuPodModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801B991527125DA100F56D22 /* MuPodModels.swift */; };
 		802346FA2717D7EE0006645B /* MuHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802346F92717D7EE0006645B /* MuHub.swift */; };
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B0EDE2748216700004A85 /* Comparable+ext.swift */; };
@@ -76,6 +76,7 @@
 		57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuSpokeViewTests.swift; sourceTree = "<group>"; };
 		57A0A26427BF15AA00B5598B /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = config.yml; path = .circleci/config.yml; sourceTree = "<group>"; };
 		57A0A26727C015F600B5598B /* MuIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentityTests.swift; sourceTree = "<group>"; };
+		57F3029427C142FC00203F63 /* ExamplePodModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePodModels.swift; sourceTree = "<group>"; };
 		800064A227646D67004B4C63 /* MuLeaf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeaf.swift; sourceTree = "<group>"; };
 		800619692791D984005960FF /* scratch2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch2.h; sourceTree = "<group>"; };
 		8006196A27933375005960FF /* MuTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouch.swift; sourceTree = "<group>"; };
@@ -103,7 +104,6 @@
 		8019DBFE271C8D5200420923 /* MuPodIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodIconView.swift; sourceTree = "<group>"; };
 		8019DC02271C8DDD00420923 /* MuPod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPod.swift; sourceTree = "<group>"; };
 		8019DC04271C901500420923 /* MuIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentity.swift; sourceTree = "<group>"; };
-		801B991527125DA100F56D22 /* MuPodModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodModels.swift; sourceTree = "<group>"; };
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802346F92717D7EE0006645B /* MuHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuHub.swift; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -266,7 +266,6 @@
 				8019DC02271C8DDD00420923 /* MuPod.swift */,
 				80B251DF2707563300E63DA3 /* MuPodView.swift */,
 				8019DBFA271C8CEC00420923 /* MuPodModel.swift */,
-				801B991527125DA100F56D22 /* MuPodModels.swift */,
 				8019DBFE271C8D5200420923 /* MuPodIconView.swift */,
 				8019DBFC271C8D2400420923 /* MuPodTitleView.swift */,
 			);
@@ -347,6 +346,7 @@
 				80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */,
 				8014B7C92700DE3800691126 /* DeepMenuApp.swift */,
 				80135A0A272C728700BCDE27 /* AppBackgroundView.swift */,
+				57F3029427C142FC00203F63 /* ExamplePodModels.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -518,7 +518,6 @@
 				8019DC03271C8DDE00420923 /* MuPod.swift in Sources */,
 				8019DBFD271C8D2400420923 /* MuPodTitleView.swift in Sources */,
 				8019DBF9271BEEED00420923 /* String+ext.swift in Sources */,
-				801B991627125DA100F56D22 /* MuPodModels.swift in Sources */,
 				802346FA2717D7EE0006645B /* MuHub.swift in Sources */,
 				8019DC05271C901500420923 /* MuIdentity.swift in Sources */,
 				800D4AE5272A2A6800E71519 /* MuSpoke.swift in Sources */,
@@ -538,6 +537,7 @@
 				800064A327646D67004B4C63 /* MuLeaf.swift in Sources */,
 				80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */,
 				809D126B275B26CA0091D252 /* Delay.swift in Sources */,
+				57F3029527C142FC00203F63 /* ExamplePodModels.swift in Sources */,
 				80C9A7BF270F4C4B0013CA49 /* Scroll+ext.swift in Sources */,
 				80631E002772428E0071AF93 /* MuBorderType.swift in Sources */,
 				80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */,

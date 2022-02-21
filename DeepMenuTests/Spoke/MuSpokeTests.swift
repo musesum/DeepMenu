@@ -13,7 +13,7 @@ class MuSpokeTests: XCTestCase {
     var dock1: MuDock!
 
     override func setUpWithError() throws {
-        hub = MuHub([.lower, .right])
+        hub = MuHub([.lower, .right], docks: nil)
         dock1 = MuDock(axis: .horizontal)
     }
 
