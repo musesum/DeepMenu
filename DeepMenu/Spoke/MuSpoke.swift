@@ -7,7 +7,6 @@ class MuSpoke: Identifiable, ObservableObject {
     @Published var docks: [MuDock]
     var hub: MuHub? // control tower hub
     var axis: Axis  // vertical or horizontal
-    var reverse = false // sort order of docks
     var level = CGFloat(1) // starting level for docks
     var offset = CGSize(width: 0, height: 0)
     var depthShown = 0 // levels of docks shown
@@ -19,11 +18,6 @@ class MuSpoke: Identifiable, ObservableObject {
         self.docks = docks
         self.hub = hub
         self.axis = docks.first?.border.axis ?? .horizontal
-
-        // how to progress from edge to center
-        reverse = (axis == .horizontal
-                   ? hub.corner.contains(.lower) ? true : false
-                   : hub.corner.contains(.right) ? true : false)
         for dock in docks {
             dock.updateSpoke(self, hub)
         }

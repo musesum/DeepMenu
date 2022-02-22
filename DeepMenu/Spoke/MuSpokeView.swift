@@ -8,9 +8,10 @@ struct MuSpokeView: View {
     @ObservedObject var spoke: MuSpoke
     
     var body: some View {
+        
         if spoke.axis == .horizontal {
             VStack(alignment: hub.corner.contains(.left) ? .leading : .trailing) {
-                ForEach(spoke.reverse ? spoke.docks.reversed() : spoke.docks, id: \.id) {
+                ForEach(hub.corner.contains(.lower) ? spoke.docks.reversed() : spoke.docks, id: \.id) {
                     MuDockView(dock: $0)
                         .zIndex($0.level)
                 }
@@ -18,7 +19,7 @@ struct MuSpokeView: View {
             .offset(spoke.offset)
         } else {
             HStack(alignment: hub.corner.contains(.upper) ? .top : .bottom) {
-                ForEach(spoke.reverse ? spoke.docks.reversed() : spoke.docks, id: \.id) {
+                ForEach(hub.corner.contains(.right) ? spoke.docks.reversed() : spoke.docks, id: \.id) {
                     MuDockView(dock: $0)
                         .zIndex($0.level)
                 }
