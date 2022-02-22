@@ -86,12 +86,10 @@ class MuSpoke: Identifiable, ObservableObject {
         self.level = level
         spotPod.spotlight = true
         
-        if let subModels = spotPod.model.subModels,
-           subModels.count > 0 {
-            
+        if spotPod.model.subModels.count > 0 {
             let newDock = MuDock(prevDock: prevDock,
                                  suprPod: spotPod,
-                                 subModels: subModels,
+                                 subModels: spotPod.model.subModels,
                                  spoke: self,
                                  level: level + 1,
                                  show: false,

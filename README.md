@@ -3,9 +3,9 @@ Deep Menu
 
 Naming convention
 
-    Mu<name>View - Always a SwiftUI View
-    Mu<name>Model - A persistent model of pods, shared by Mu<name> views
-    Mu<name> - ObservableObject companion to a Mu<name>View
+    Mu<name>Model - A persistent model of pods, shared by Mu<name> views (MVVM "Model")
+    Mu<name> - ObservableObject companion to a Mu<name>View (MVVM "ViewModel")
+    Mu<name>View - Always a SwiftUI View (MVVM "View")
 
     The <name> views follows a hierarchy of
 

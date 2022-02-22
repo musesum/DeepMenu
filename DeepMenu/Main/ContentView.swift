@@ -19,7 +19,7 @@ struct ContentView: View {
             AppBackgroundView(background: AppBackground())
 
             MuHubView().environmentObject(MuHub([.lower, .right], docks: defaultSampleDocks()))
-//            MuHubView().environmentObject(MuHub([.lower, .left ], docks: defaultSampleDocks()))
+            MuHubView().environmentObject(MuHub([.lower, .left ], docks: appControlDocks()))
 //            MuHubView().environmentObject(MuHub([.upper, .right], docks: defaultSampleDocks()))
 //            MuHubView().environmentObject(MuHub([.upper, .left ], docks: defaultSampleDocks()))
         }
@@ -33,6 +33,23 @@ struct ContentView: View {
         let hDock  = MuDock(subModels: numberedPods, axis: .horizontal)
         let vDock  = MuDock(subModels: letteredPods, axis: .vertical)
         return [hDock, vDock]
+    }
+    
+    private func appControlDocks() -> [MuDock] {
+        let backgroundPodModel = MuPodModel("BG")
+        backgroundPodModel.addChild(MuPodModel("R--") { print("red bg selected") })
+        backgroundPodModel.addChild(MuPodModel("-G-") { print("green bg selected") })
+        backgroundPodModel.addChild(MuPodModel("--B") { print("blue bg selected") })
+//        backgroundPodModel.addChild(MuPodModel(.xyInput) { xy in print("bg xy position \(xy)") })
+
+        let borderPodModel = MuPodModel("BDR")
+        borderPodModel.addChild(MuPodModel("R--") { print("red border selected") })
+        borderPodModel.addChild(MuPodModel("-G-") { print("green border selected") })
+        borderPodModel.addChild(MuPodModel("--B") { print("blue border selected") })
+//        borderPodModel.addChild(MuPodModel(.xyInput) { xy in print("border xy position \(xy)") })
+
+        let vDock  = MuDock(subModels: [backgroundPodModel, borderPodModel], axis: .vertical)
+        return [vDock]
     }
 }
 

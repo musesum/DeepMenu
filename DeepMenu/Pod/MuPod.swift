@@ -39,11 +39,9 @@ class MuPod: Identifiable, Equatable, ObservableObject {
             dock.border.type = type
         }
 
-        if let subModels = model.subModels {
-            for subModel in subModels {
-                let subPod = MuPod(type, dock, subModel, suprPod: self)
-                self.subPods.append(subPod)
-            }
+        for subModel in model.subModels {
+            let subPod = MuPod(type, dock, subModel, suprPod: self)
+            self.subPods.append(subPod)
         }
     }
     
