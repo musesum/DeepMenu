@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
 
-            AppBackgroundView(space: MuSpace())
+            AppBackgroundView(background: AppBackground())
 
             MuHubView().environmentObject(MuHub([.lower, .right], docks: defaultSampleDocks()))
 //            MuHubView().environmentObject(MuHub([.lower, .left ], docks: defaultSampleDocks()))

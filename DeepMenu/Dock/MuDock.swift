@@ -9,8 +9,6 @@ class MuDock: Identifiable, ObservableObject {
     let title: String
     var isHub: Bool = false
     var border: MuBorder
-
-    var hub: MuHub?         // my hub; which often contains two spokes
     var spoke: MuSpoke?     // my spoke; which unfolds a hierarchy of docks
     var level: CGFloat      // zIndex within sub/super docks
 
@@ -44,14 +42,13 @@ class MuDock: Identifiable, ObservableObject {
         self.border = MuBorder(type: .dock, count: subPods.count, axis: axis)
 
         prevDock?.nextDock = self
-        updateSpoke(spoke, hub)
+        updateSpoke(spoke)
     }
 
     init(prevDock: MuDock? = nil,
          suprPod: MuPod? = nil,
          subModels: [MuPodModel],
          spoke: MuSpoke? = nil,
-         hub: MuHub? = nil,
          level: CGFloat = 0,
          show: Bool = true,
          axis: Axis) {
@@ -60,17 +57,16 @@ class MuDock: Identifiable, ObservableObject {
         self.suprPod = suprPod
         self.subPods = [MuPod]()
         self.spoke = spoke
-        self.hub = hub
         self.level = level
         self.title = "\(subModels.first?.title ?? "")…\(subModels.last?.title ?? "")"
         self.show = show
         
-        self.border = MuBorder(type: .dock, count: subModels.count, axis: axis) //??
+        self.border = MuBorder(type: .dock, count: subModels.count, axis: axis)
 
         prevDock?.nextDock = self
 
         buildSubPodsFromSubModels(subModels)
-        updateSpoke(spoke, hub)
+        updateSpoke(spoke)
     }
     
     deinit {
@@ -90,18 +86,11 @@ class MuDock: Identifiable, ObservableObject {
     /**
      May be updated after init for root spoke inside updateHub
      */
-    func updateSpoke(_ spoke: MuSpoke?,
-                     _ hub: MuHub?) {
+    func updateSpoke(_ spoke: MuSpoke?) {
 
-        self.hub = hub
         guard let spoke = spoke else { return }
         self.spoke = spoke
 
-        if let corner = hub?.corner {
-            reverse = (border.vert
-                       ? corner.contains(.lower) ? true : false
-                       : corner.contains(.left)  ? true : false )
-        }
         if let center = prevDock?.spotPod?.podXY {
             bounds = border.bounds(center)
         }
