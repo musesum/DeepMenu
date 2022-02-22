@@ -12,11 +12,11 @@ struct ContentViews {
 }
 
 struct ContentView: View {
+    let muSpace = MuSpace()
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-
-            AppBackgroundView(space: MuSpace())
+            AppBackgroundView(space: muSpace)
 
             MuHubView().environmentObject(MuHub([.lower, .right], docks: defaultSampleDocks()))
             MuHubView().environmentObject(MuHub([.lower, .left ], docks: appControlDocks()))
@@ -37,9 +37,9 @@ struct ContentView: View {
     
     private func appControlDocks() -> [MuDock] {
         let backgroundPodModel = MuPodModel("BG")
-        backgroundPodModel.addChild(MuPodModel("R--") { print("red bg selected") })
-        backgroundPodModel.addChild(MuPodModel("-G-") { print("green bg selected") })
-        backgroundPodModel.addChild(MuPodModel("--B") { print("blue bg selected") })
+        backgroundPodModel.addChild(MuPodModel("R--") { muSpace.color = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
+        backgroundPodModel.addChild(MuPodModel("-G-") { muSpace.color = Color(red: 0.0, green: 0.2, blue: 0.0, opacity: 1.00) })
+        backgroundPodModel.addChild(MuPodModel("--B") { muSpace.color = Color(red: 0.0, green: 0.0, blue: 0.2, opacity: 1.00) })
 //        backgroundPodModel.addChild(MuPodModel(.xyInput) { xy in print("bg xy position \(xy)") })
 
         let borderPodModel = MuPodModel("BDR")
