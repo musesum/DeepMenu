@@ -28,12 +28,12 @@ class MuPodModelTests: XCTestCase {
 
     func testInit_withSelectionCallback() throws {
         var callbackRan = false
-        let sut = MuPodModel("TEST") { callbackRan = true }
+        let sut = MuPodModel("TEST") { _ in callbackRan = true }
         XCTAssertEqual("TEST", sut.name)
         XCTAssertEqual(MuBorderType.pod, sut.type)
         XCTAssertEqual("TEST", sut.title)
         XCTAssert(callbackRan == false)
-        sut.callback()
+        sut.callback("Something")
         XCTAssert(callbackRan == true)
     }
 

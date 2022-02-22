@@ -37,15 +37,16 @@ struct ContentView: View {
     
     private func appControlDocks() -> [MuDock] {
         let backgroundPodModel = MuPodModel("BG")
-        backgroundPodModel.addChild(MuPodModel("R--") { appSpace.backgroundColor = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
-        backgroundPodModel.addChild(MuPodModel("-G-") { appSpace.backgroundColor = Color(red: 0.0, green: 0.2, blue: 0.0, opacity: 1.00) })
-        backgroundPodModel.addChild(MuPodModel("--B") { appSpace.backgroundColor = Color(red: 0.0, green: 0.0, blue: 0.2, opacity: 1.00) })
+        backgroundPodModel.addChild(MuPodModel("R--") { _ in appSpace.backgroundColor = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
+        backgroundPodModel.addChild(MuPodModel("-G-") { _ in appSpace.backgroundColor = Color(red: 0.0, green: 0.2, blue: 0.0, opacity: 1.00) })
+        backgroundPodModel.addChild(MuPodModel("--B") { _ in appSpace.backgroundColor = Color(red: 0.0, green: 0.0, blue: 0.2, opacity: 1.00) })
 //        backgroundPodModel.addChild(MuPodModel(.xyInput) { xy in print("bg xy position \(xy)") })
 
         let borderPodModel = MuPodModel("BDR")
-        borderPodModel.addChild(MuPodModel("R--") { appSpace.borderColor = Color.red })
-        borderPodModel.addChild(MuPodModel("-G-") { appSpace.borderColor = Color.green })
-        borderPodModel.addChild(MuPodModel("--B") { appSpace.borderColor = Color.blue })
+        borderPodModel.addChild(MuPodModel("R--") { _ in appSpace.borderColor = Color.red })
+        borderPodModel.addChild(MuPodModel("-G-") { _ in appSpace.borderColor = Color.green })
+        borderPodModel.addChild(MuPodModel("--B") { _ in appSpace.borderColor = Color.blue })
+        borderPodModel.addChild(MuPodModel("Width", type: .slider) { value in print("border width value \(value)") })
 //        borderPodModel.addChild(MuPodModel(.xyInput) { xy in print("border xy position \(xy)") })
 
         let vDock  = MuDock(subModels: [backgroundPodModel, borderPodModel], axis: .vertical)

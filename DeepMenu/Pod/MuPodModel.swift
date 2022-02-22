@@ -11,7 +11,7 @@ class MuPodModel: Identifiable, Equatable {
     let type: MuBorderType
     var subModels = [MuPodModel]()
     var subNow:  MuPodModel? // most recently selected, persist to storage
-    var callback: (() -> Void)
+    var callback: ((Any) -> Void)
 
     var parent: MuPodModel? = nil
     
@@ -20,12 +20,13 @@ class MuPodModel: Identifiable, Equatable {
     }
 
     init(_ name: String,
+         type: MuBorderType = .pod,
          suprModel: MuPodModel? = nil,
          subModels: [MuPodModel]? = nil,
-         callback: @escaping () -> Void = { return })  {
+         callback: @escaping (Any) -> Void = { _ in return })  {
 
         self.name = name
-        self.type = .pod
+        self.type = type
         self.title = (suprModel?.title ?? "") + name
         self.callback = callback
         
