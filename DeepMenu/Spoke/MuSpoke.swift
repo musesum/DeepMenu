@@ -19,7 +19,7 @@ class MuSpoke: Identifiable, ObservableObject {
         self.hub = hub
         self.axis = docks.first?.border.axis ?? .horizontal
         for dock in docks {
-            dock.updateSpoke(self, hub)
+            dock.updateSpoke(self)
         }
         showDocks(depth: 1)
     }
@@ -93,7 +93,6 @@ class MuSpoke: Identifiable, ObservableObject {
                                  suprPod: spotPod,
                                  subModels: subModels,
                                  spoke: self,
-                                 hub: hub,
                                  level: level + 1,
                                  show: false,
                                  axis: axis)

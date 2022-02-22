@@ -16,9 +16,13 @@ struct MuDockView: View, Identifiable {
         GeometryReader { geo in
             ZStack {
                 MuDockRectView(border: border)
-                
+
+                let reverse = (border.vert
+                               ? hub.corner.contains(.lower) ? true : false
+                               : hub.corner.contains(.left)  ? true : false )
+
                 HVScroll(border) {
-                    ForEach(dock.reverse ? dock.subPods.reversed() : dock.subPods, id: \.id) {
+                    ForEach(reverse ? dock.subPods.reversed() : dock.subPods, id: \.id) {
                         MuPodView(pod: $0)
                     }
                 }
