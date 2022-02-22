@@ -81,7 +81,7 @@ class MuDock: Identifiable, ObservableObject {
     //       leaf pod should be a xy rectangle control
     private func buildSubPodsFromSubModels(_ subModels: [MuPodModel]) {
         for model in subModels {
-            let notLeaf = (subModels.count > 1) || (model.subModels?.count ?? 0 > 0)
+            let notLeaf = subModels.count > 1 || model.subModels.count > 0
             let pod = notLeaf ?
                 MuPod (.pod,  self, model, suprPod: suprPod) : MuLeaf(.rect, self, model, suprPod: suprPod)
             subPods.append(pod)

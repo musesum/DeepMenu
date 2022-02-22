@@ -13,6 +13,7 @@
 		57A0A26527BF15AA00B5598B /* config.yml in Resources */ = {isa = PBXBuildFile; fileRef = 57A0A26427BF15AA00B5598B /* config.yml */; };
 		57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26727C015F600B5598B /* MuIdentityTests.swift */; };
 		57F3029527C142FC00203F63 /* ExamplePodModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029427C142FC00203F63 /* ExamplePodModels.swift */; };
+		57F3029827C4389B00203F63 /* MuPodModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029727C4389B00203F63 /* MuPodModelTests.swift */; };
 		800064A327646D67004B4C63 /* MuLeaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800064A227646D67004B4C63 /* MuLeaf.swift */; };
 		8006196B27933375005960FF /* MuTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8006196A27933375005960FF /* MuTouch.swift */; };
 		800D4AE5272A2A6800E71519 /* MuSpoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE4272A2A6800E71519 /* MuSpoke.swift */; };
@@ -77,6 +78,7 @@
 		57A0A26427BF15AA00B5598B /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = config.yml; path = .circleci/config.yml; sourceTree = "<group>"; };
 		57A0A26727C015F600B5598B /* MuIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentityTests.swift; sourceTree = "<group>"; };
 		57F3029427C142FC00203F63 /* ExamplePodModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePodModels.swift; sourceTree = "<group>"; };
+		57F3029727C4389B00203F63 /* MuPodModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodModelTests.swift; sourceTree = "<group>"; };
 		800064A227646D67004B4C63 /* MuLeaf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeaf.swift; sourceTree = "<group>"; };
 		800619692791D984005960FF /* scratch2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch2.h; sourceTree = "<group>"; };
 		8006196A27933375005960FF /* MuTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouch.swift; sourceTree = "<group>"; };
@@ -169,6 +171,14 @@
 			path = Global;
 			sourceTree = "<group>";
 		};
+		57F3029627C4387200203F63 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				57F3029727C4389B00203F63 /* MuPodModelTests.swift */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
 		800064A127646D44004B4C63 /* Leaf */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				57A0A26627C015D300B5598B /* Global */,
+				57F3029627C4387200203F63 /* Pod */,
 				57A0A23627BDAF8400B5598B /* Spoke */,
 				8014B7DA2700DE3A00691126 /* DeepMenuTests.swift */,
 			);
@@ -554,6 +565,7 @@
 				57A0A26327BED1E900B5598B /* MuSpokeViewTests.swift in Sources */,
 				57A0A23827BDAFAE00B5598B /* MuSpokeTests.swift in Sources */,
 				8014B7DB2700DE3A00691126 /* DeepMenuTests.swift in Sources */,
+				57F3029827C4389B00203F63 /* MuPodModelTests.swift in Sources */,
 				57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
