@@ -3,7 +3,8 @@
 
 import SwiftUI
 
-/** Even though this elimiated for iOS 15, still needed to remove to annoying taskbar from SceneDelegate.
+/**
+ Setup `SceneDelegate` to use `HostingController` to remove annoying taskbar.
 */
 class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -14,12 +15,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     }
 }
 
-/** even though this was elimiated for iOS 15, still needed to remove to annoying taskbar from SceneDelegate. Side effect is that the ContentView is referenced twice, so use a singleton `ContentView.shared`
+/**
+ Even though this was elimiated for iOS 15, a SceneDelegate is still needed to remove the annoying taskbar. Side effect is that the `ContentView` is referenced twice, so use a singleton `ContentView.shared`
  */
 class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
     var window: UIWindow?
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // setup prefersHomeIndicatorAutoHidden here:
+        /// setup `HostingController` here:
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let rootView = ContentViews.main
@@ -30,7 +32,9 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
         }
     }
 }
-
+/**
+  remove annoying taskbar via `prefersHomeIndicatorAutoHidden`
+ */
 class HostingController: UIHostingController<ContentView> {
     override var prefersHomeIndicatorAutoHidden: Bool {
         return true
