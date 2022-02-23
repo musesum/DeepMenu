@@ -8,7 +8,6 @@ struct HVScroll<Content: View>: View {
     let content: () -> Content
 
     init(_ border: MuBorder, @ViewBuilder content: @escaping () -> Content) {
-
         self.border = border
         self.content = content
     }

@@ -75,7 +75,7 @@ class MuPilot: ObservableObject {
             //log("fly", xy: flyPod?.podXY ?? .zero, terminator: " ")
             //log("Δ", xy: touchNow-(flyPod?.podXY ?? .zero), terminator: " ")
             log("hub", xy: hubPod.podXY, terminator: " ")
-            log("Δ", wh: touchOfs, terminator: " ")
+            //log("Δ", wh: touchOfs, terminator: " ")
         }
 
         func moved() {
@@ -119,6 +119,6 @@ class MuPilot: ObservableObject {
     func updateDelta(_ pointDelta: CGPoint) {
         deltaOfs = .zero + pointDelta
         deltaOfs.width += rightSideOffset(for: .spoke)
-        log("Δ\(hub?.status.description ?? "")", wh: deltaOfs, terminator: " ")
+        // log("Δ\(hub?.status.description ?? "")", wh: deltaOfs, terminator: " ")
     }
 }

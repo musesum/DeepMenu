@@ -38,14 +38,14 @@ enum ExamplePodModels {
     static func letteredPods(suprModel: MuPodModel? = nil,_ level: Int = 0) -> [MuPodModel] {
         let AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let az = "abcdefghijklmnopqrstuvwxyz"
-        let _09 = "0123456789"
-        let ranges: [ClosedRange<Int>] = [4...6, 5...8, 5...8, 1...1]
+        let hex = "0123456789ABCDEF"
+        let ranges: [ClosedRange<Int>] = [4...6, 5...12, 5...8, 1...1]
 
         if level >= ranges.count { return [] }
         // A1a1a1
         let names: String = (  level == 0 ? AZ
                              : level&1 == 0 ? az
-                             : _09)
+                             : hex)
         let range = ranges[level]
         let max: Int = Int.random(in: range)
 
