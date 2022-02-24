@@ -22,7 +22,7 @@ class MuPodModelTests: XCTestCase {
     func testInit_withOnlyName() throws {
         let sut = MuPodModel("TEST")
         XCTAssertEqual("TEST", sut.name)
-        XCTAssertEqual(.pod, sut.type)
+        XCTAssertEqual(.pod, sut.borderType)
         XCTAssertEqual("TEST", sut.title)
     }
 
@@ -30,7 +30,7 @@ class MuPodModelTests: XCTestCase {
         var callbackRan = false
         let sut = MuPodModel("TEST") { _ in callbackRan = true }
         XCTAssertEqual("TEST", sut.name)
-        XCTAssertEqual(MuBorderType.pod, sut.type)
+        XCTAssertEqual(MuBorderType.pod, sut.borderType)
         XCTAssertEqual("TEST", sut.title)
         XCTAssert(callbackRan == false)
         sut.callback("Something")

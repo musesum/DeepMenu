@@ -3,18 +3,22 @@
 import SwiftUI
 
 /// shared between 1 or more MuPod, stored
-class MuPodModel: Identifiable, Equatable {
+class MuPodModel: Identifiable, Equatable, CustomStringConvertible {
     let id = MuIdentity.getId() //TODO: use a persistent storage ID after debugging
     
     var name: String // pilot's name may be changed hubd on corner placement
     let title: String
-    let type: MuBorderType
+    let borderType: MuBorderType
     var subModels = [MuPodModel]()
     var subNow:  MuPodModel? // most recently selected, persist to storage
     var callback: ((Any) -> Void)
 
     var parent: MuPodModel? = nil
-    
+
+    var description : String {
+        return "\(type(of:self)): \"\(name)\" .\(borderType)"
+    }
+
     static func == (lhs: MuPodModel, rhs: MuPodModel) -> Bool {
         return lhs.id == rhs.id
     }
@@ -26,7 +30,7 @@ class MuPodModel: Identifiable, Equatable {
          callback: @escaping (Any) -> Void = { _ in return })  {
 
         self.name = name
-        self.type = type
+        self.borderType = type
         self.title = (suprModel?.title ?? "") + name
         self.callback = callback
         
@@ -36,7 +40,7 @@ class MuPodModel: Identifiable, Equatable {
             }
         }
     }
-    
+
     func setName(from corner: MuCorner) {
         switch corner {
             case [.lower, .right]: name = "◢"
@@ -57,4 +61,5 @@ class MuPodModel: Identifiable, Equatable {
         subModels.append(child)
         child.parent = self
     }
+    
 }

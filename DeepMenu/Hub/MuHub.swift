@@ -167,9 +167,9 @@ class MuHub: ObservableObject, Equatable {
         updateStatus(.hub, 2) // what is 2?
         
         if let podModel = self.spotPod?.model {
-            if podModel.type == .pod {
+            if podModel.borderType == .pod {
                 podModel.callback(podModel)
-            } else if podModel.type == .slider {
+            } else if podModel.borderType == .slider {
                 // TODO: this should somehow be passing updated values from a slider via podModel.callback(value)
             }
         }

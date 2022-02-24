@@ -46,8 +46,10 @@ struct ContentView: View {
         borderPodModel.addChild(MuPodModel("R--") { _ in appSpace.borderColor = Color.red })
         borderPodModel.addChild(MuPodModel("-G-") { _ in appSpace.borderColor = Color.green })
         borderPodModel.addChild(MuPodModel("--B") { _ in appSpace.borderColor = Color.blue })
-        borderPodModel.addChild(MuPodModel("Width", type: .slider) { value in print("border width value \(value)") })
-//        borderPodModel.addChild(MuPodModel(.xyInput) { xy in print("border xy position \(xy)") })
+        let widthPodModel = MuPodModel("Width")
+        borderPodModel.addChild(widthPodModel)
+        let widthInputPodModel = MuPodModel("Border Width", type: .rect) { value in print("border width value \(value)") }
+        widthPodModel.addChild(widthInputPodModel)
 
         let vDock  = MuDock(subModels: [backgroundPodModel, borderPodModel], axis: .vertical)
         return [vDock]
