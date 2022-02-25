@@ -17,14 +17,12 @@ class MuBorder {
 
     lazy var vert = (axis == .vertical)
     lazy var length = (diameter + 2 * spacing)
-    lazy var runway = length * count + margin * (count-1)
-    lazy var maxW = vert ? length : runway
-    lazy var maxH = vert ? runway : length
-    lazy var minW = maxW/8
-    lazy var minH = maxH/8
+    var runway: CGFloat { get { length * count + margin * 2 * (count-1) }}
+    var width: CGFloat { get { vert ? length : runway }}
+    var height: CGFloat { get { vert ? runway : length }}
 
     var margin = CGFloat(0) // overlap with a negative number
-
+    
     init(type: MuBorderType,
          count: Int = 1,
          axis: Axis = .vertical) {
@@ -41,6 +39,24 @@ class MuBorder {
         self.count    = from.count
         self.diameter = from.diameter
         self.spacing  = Layout.spacing
+    }
+
+    func updateBounds(_ bounds: CGRect) -> CGRect {
+        var result = bounds
+        if vert {
+            if bounds.minY < 0 {
+                margin = bounds.minY/max(count,1)
+                result.size.height += bounds.minY
+                result.origin.y = 0
+            }
+        } else {
+            if bounds.minX < 0 {
+                margin = bounds.minX/max(count,1)
+                result.size.width += bounds.minX
+                result.origin.x = 0
+            }
+        }
+        return result
     }
 
     func bounds(_ center: CGPoint) -> CGRect {

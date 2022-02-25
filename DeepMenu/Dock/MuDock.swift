@@ -8,7 +8,7 @@ class MuDock: Identifiable, ObservableObject {
 
     let title: String
     var isHub: Bool = false
-    var border: MuBorder
+
     var spoke: MuSpoke?     // my spoke; which unfolds a hierarchy of docks
     var level: CGFloat      // zIndex within sub/super docks
 
@@ -18,8 +18,9 @@ class MuDock: Identifiable, ObservableObject {
     var subPods: [MuPod]    // the pods on this dock, incl spotPod
     var spotPod: MuPod?     // current spotlight pod
 
+    var border: MuBorder
+    var bounds: CGRect = .zero
     @Published var dockShift: CGSize = .zero
-    @Published var bounds: CGRect = .zero
     @Published var show = true
 
     var reverse = false
@@ -137,8 +138,10 @@ class MuDock: Identifiable, ObservableObject {
         }
     }
 
-    func updateBounds(_ fr: CGRect) {
-        // if bounds != fr, let title = spotPod?.model.title { print("∿" + title, terminator: " ")}
-        bounds = fr
+    func updateBounds(_ from: CGRect) {
+        if bounds != from {
+            bounds = border.updateBounds(from)
+            log("∿" + title, from, bounds, terminator: " ")
+        }
     }
 }
