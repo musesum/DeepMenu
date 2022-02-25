@@ -17,8 +17,7 @@ enum ExamplePodModels {
     /**
      Create a stochastic spoke of `MuPodModel`s
      */
-    static func letteredPods(suprModel: MuPodModel? = nil,
-                             _ level: Int = 0) -> [MuPodModel] {
+    static func letteredPods(suprModel: MuPodModel? = nil, _ level: Int = 0) -> [MuPodModel] {
         var pods = [MuPodModel]()
         let AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let az = "abcdefghijklmnopqrstuvwxyz"
@@ -35,7 +34,8 @@ enum ExamplePodModels {
 
         for i in 0 ..< max {
             let name = names[i]
-            let podModel = MuPodModel(name, suprModel: suprModel)
+            let borderType: MuBorderType = level == ranges.count - 1 ? .rect : .pod
+            let podModel = MuPodModel(name, type: borderType, suprModel: suprModel)
             let subModels = ExamplePodModels.letteredPods(suprModel: podModel, level + 1)
             podModel.subModels = subModels
             pods.append(podModel)

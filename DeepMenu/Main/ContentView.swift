@@ -12,14 +12,14 @@ struct ContentViews {
 }
 
 struct ContentView: View {
+    let appSpace = AppSpace()
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-
-            AppBackgroundView(background: AppBackground())
+            AppBackgroundView(space: appSpace)
 
             MuHubView().environmentObject(MuHub([.lower, .right], docks: defaultSampleDocks()))
-//            MuHubView().environmentObject(MuHub([.lower, .left ], docks: defaultSampleDocks()))
+            MuHubView().environmentObject(MuHub([.lower, .left ], docks: appControlDocks()))
 //            MuHubView().environmentObject(MuHub([.upper, .right], docks: defaultSampleDocks()))
 //            MuHubView().environmentObject(MuHub([.upper, .left ], docks: defaultSampleDocks()))
         }
@@ -33,6 +33,26 @@ struct ContentView: View {
         let hDock  = MuDock(subModels: numberedPods, axis: .horizontal)
         let vDock  = MuDock(subModels: letteredPods, axis: .vertical)
         return [hDock, vDock]
+    }
+    
+    private func appControlDocks() -> [MuDock] {
+        let backgroundPodModel = MuPodModel("BG")
+        backgroundPodModel.addChild(MuPodModel("R--") { _ in appSpace.backgroundColor = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
+        backgroundPodModel.addChild(MuPodModel("-G-") { _ in appSpace.backgroundColor = Color(red: 0.0, green: 0.2, blue: 0.0, opacity: 1.00) })
+        backgroundPodModel.addChild(MuPodModel("--B") { _ in appSpace.backgroundColor = Color(red: 0.0, green: 0.0, blue: 0.2, opacity: 1.00) })
+//        backgroundPodModel.addChild(MuPodModel(.xyInput) { xy in print("bg xy position \(xy)") })
+
+        let borderPodModel = MuPodModel("BDR")
+        borderPodModel.addChild(MuPodModel("R--") { _ in appSpace.borderColor = Color.red })
+        borderPodModel.addChild(MuPodModel("-G-") { _ in appSpace.borderColor = Color.green })
+        borderPodModel.addChild(MuPodModel("--B") { _ in appSpace.borderColor = Color.blue })
+        let widthPodModel = MuPodModel("Width")
+        borderPodModel.addChild(widthPodModel)
+        let widthInputPodModel = MuPodModel("Border Width", type: .rect) { value in print("border width value \(value)") }
+        widthPodModel.addChild(widthInputPodModel)
+
+        let vDock  = MuDock(subModels: [backgroundPodModel, borderPodModel], axis: .vertical)
+        return [vDock]
     }
 }
 

@@ -164,7 +164,16 @@ class MuHub: ObservableObject, Equatable {
                 toggleDocks(lowestDepth: 0)
             }
         }
-        updateStatus(.hub, 2)
+        updateStatus(.hub, 2) // what is 2?
+        
+        if let podModel = self.spotPod?.model {
+            if podModel.borderType == .pod {
+                podModel.callback(podModel)
+            } else if podModel.borderType == .slider {
+                // TODO: this should somehow be passing updated values from a slider via podModel.callback(value)
+            }
+        }
+
         touchDock = nil
     }
 
@@ -295,7 +304,7 @@ class MuHub: ObservableObject, Equatable {
         if let spotSpoke = spotSpoke {
             if let nearestPod = spotSpoke.nearestPod(touchNow, touchDock) {
                 // still within same spotlight spoke
-                updateStatus(.spoke, 6)
+                updateStatus(.spoke, 6) // what is 6?
                 return nearestPod
             } else {
                 // no longer on spotSpoke

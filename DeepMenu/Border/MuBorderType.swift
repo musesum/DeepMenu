@@ -5,6 +5,7 @@ import SwiftUI
 enum MuBorderType {
 
     case pod    // either icon or text
+    case slider // dock with 1d slider
     case polar  // dock with 2d radians, value control
     case rect   // dock with 2d rectangular XY control
     case dock   // dock with pods
@@ -14,6 +15,7 @@ enum MuBorderType {
         get {
             switch self {
                 case .pod   : return "z⃝"
+                case .slider : return "-"
                 case .polar : return "⬈⃝"
                 case .rect  : return "⬈⃞"
                 case .dock  : return "⠇⃝"
