@@ -27,6 +27,7 @@ class MuTouch {
         pointDelta = .zero
         log("🟢")
     }
+    
     func moved(_ pointNow: CGPoint) {
         self.pointNow = pointNow
         pointDelta = pointNow - pointBegin
