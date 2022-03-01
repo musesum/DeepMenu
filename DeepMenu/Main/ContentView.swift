@@ -51,7 +51,9 @@ struct ContentView: View {
         let widthInputPodModel = MuPodModel("Border Width", type: .rect) { value in
             if let pointValue = value as? CGPoint {
                 let borderWidth = 20 * pointValue.x
-                appSpace.borderWidth = borderWidth
+                if borderWidth > 0 {
+                    appSpace.borderWidth = borderWidth
+                }
             } else {
                 print("border width value is not CGPoint \(value)")
             }
