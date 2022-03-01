@@ -28,7 +28,9 @@ struct MuPodXYRectView: View {
                         let xRange = geo.size.width
                         let yRange = geo.size.height
                         let value = CGPoint(x: xyIn.x / xRange, y: xyIn.y / yRange)
-                        pod.model.callback(value)
+                        if value != CGPoint.zero {
+                            pod.model.callback(value)
+                        }
                     }
             }
             VStack {
