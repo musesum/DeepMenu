@@ -5,15 +5,14 @@ import SwiftUI
 struct MuPodTitleView: View {
 
     @ObservedObject var pod: MuPod
-    var border: MuBorder
     var borderColor: Color   { pod.spotlight ? .white : .gray }
     var borderWidth: CGFloat { pod.spotlight ?    2.5 :   0.5 }
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: border.cornerRadius)
+            RoundedRectangle(cornerRadius: pod.border.cornerRadius)
                 .fill(Color.black)
-            RoundedRectangle(cornerRadius: border.cornerRadius)
+            RoundedRectangle(cornerRadius: pod.border.cornerRadius)
                 .stroke(borderColor, lineWidth: borderWidth)
                 .animation(.easeInOut(duration: 0.20), value: borderColor)
                 .animation(.easeInOut(duration: 0.20), value: borderWidth)
