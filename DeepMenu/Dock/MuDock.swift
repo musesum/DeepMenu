@@ -141,7 +141,7 @@ class MuDock: Identifiable, ObservableObject {
     func updateBounds(_ from: CGRect) {
         if bounds != from {
             bounds = border.updateBounds(from)
-            log("∿" + title, from, bounds, terminator: " ")
+            log("∿" + title, from, bounds)
         }
     }
 }
