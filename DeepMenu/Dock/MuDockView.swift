@@ -30,8 +30,7 @@ struct MuDockView: View, Identifiable {
             .onAppear { dock.updateBounds(geo.frame(in: .named("Space"))) }
             .onChange(of: geo.frame(in: .named("Space"))) { dock.updateBounds($0) }
         }
-        .frame(minWidth:  border.minW, idealWidth:  border.maxW, maxWidth:  border.maxW,
-               minHeight: border.minH, idealHeight: border.maxH, maxHeight: border.maxH)
+        .frame(width:  border.width, height: border.height)
 
         .opacity(opacity)
         .animation(.easeInOut(duration: Layout.animate/2), value: opacity)
