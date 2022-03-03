@@ -111,6 +111,7 @@
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802346F92717D7EE0006645B /* MuHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuHub.swift; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		80437B6727D0810400348513 /* DeepMuseMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepMuseMenu.h; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		805B0EDE2748216700004A85 /* Comparable+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ext.swift"; sourceTree = "<group>"; };
 		80631DFC277141780071AF93 /* MuBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBorder.swift; sourceTree = "<group>"; };
@@ -192,6 +193,7 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
+				80437B6727D0810400348513 /* DeepMuseMenu.h */,
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,
 				8014B7C82700DE3800691126 /* DeepMenu */,

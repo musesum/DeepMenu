@@ -79,3 +79,5 @@ Components - Mu<Name>
     Leaf - last sub-dock contains a special pod 
 
     Border - helper function for drawing bezel around docks 
+
+Use case - Replace MuseSky Tr3Thumb Panel -- see DeepMuseMenu.h
