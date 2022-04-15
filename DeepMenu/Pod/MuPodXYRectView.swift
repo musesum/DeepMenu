@@ -11,36 +11,30 @@ struct MuPodXYRectView: View {
     var borderWidth: CGFloat { pod.spotlight ?    2.5 :   0.5 }
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: pod.border.cornerRadius)
-                .fill(Color.black)
+        VStack {
+            Text(pod.model.title)
+                .scaledToFit()
+                .padding(1)
+                .minimumScaleFactor(0.01)
+                .foregroundColor(Color.white)
+                .animation(.easeInOut(duration: 0.20), value: borderColor)
+            Spacer()
             GeometryReader { geo in
                 RoundedRectangle(cornerRadius: pod.border.cornerRadius)
-                    .stroke(borderColor, lineWidth: borderWidth)
-                    .animation(.easeInOut(duration: 0.20), value: borderColor)
-                    .animation(.easeInOut(duration: 0.20), value: borderWidth)
-                    .background(Color.blue)
+                    .fill((Color( white: 0.01, opacity: 0.5)))
                     .gesture(
                         DragGesture(minimumDistance: 0)
-                            .updating($touchXY) { (value, touchXY, _) in touchXY = value.location }
+                            .updating($touchXY) { (value, touchXY, _) in
+                                touchXY = value.location
+                            }
                     )
-                    .onChange(of: touchXY) { xyIn in
-                        let xRange = geo.size.width
-                        let yRange = geo.size.height
-                        let value = CGPoint(x: xyIn.x / xRange, y: xyIn.y / yRange)
+                    .onChange(of: touchXY) { xy in
+                        let value = CGPoint(x: xy.x/geo.size.width,
+                                            y: xy.y/geo.size.height)
                         if value != CGPoint.zero {
                             pod.model.callback(value)
                         }
                     }
-            }
-            VStack {
-                Text(pod.model.title)
-                    .scaledToFit()
-                    .padding(1)
-                    .minimumScaleFactor(0.01)
-                    .foregroundColor(Color.white)
-                    .animation(.easeInOut(duration: 0.20), value: borderColor)
-                Spacer()
             }
         }
     }

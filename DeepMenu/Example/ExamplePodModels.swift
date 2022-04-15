@@ -34,7 +34,7 @@ enum ExamplePodModels {
 
         for i in 0 ..< max {
             let name = names[i]
-            let borderType: MuBorderType = level == ranges.count - 1 ? .rect : .pod
+            let borderType: MuBorderType = (level == ranges.count - 1 ? .rect : .pod)
             let podModel = MuPodModel(name, type: borderType, suprModel: suprModel)
             let subModels = ExamplePodModels.letteredPods(suprModel: podModel, level + 1)
             podModel.subModels = subModels

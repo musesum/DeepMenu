@@ -9,13 +9,13 @@ struct MuPodView: View {
 
     var body: some View {
         GeometryReader() { geo in
-            let isThumbInput = pod.border.type == .rect
             Group {
-                if isThumbInput {
-                    MuPodXYRectView(pod: pod)
-                } else {
-                    if pod.icon.isEmpty { MuPodTitleView(pod: pod) }
-                    else { Image(pod.icon).resizable() }
+                switch pod.border.type {
+                    case .rect:
+                        MuPodXYRectView(pod: pod)
+                    default:
+                        if pod.icon.isEmpty { MuPodTitleView(pod: pod) }
+                        else { Image(pod.icon).resizable() }
                 }
             }
             .onChange(of: geo.frame(in: .named("Space"))) { pod.updateCenter($0) }

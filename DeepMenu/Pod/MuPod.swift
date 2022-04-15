@@ -15,7 +15,7 @@ class MuPod: Identifiable, Equatable, ObservableObject {
     var model: MuPodModel
     var icon: String
     var dock: MuDock
-    var suprPod: MuPod?    // super pod
+    var suprPod: MuPod?   // super pod
     var subPods: [MuPod]  // sub pods
     var podXY = CGPoint.zero // current position
 

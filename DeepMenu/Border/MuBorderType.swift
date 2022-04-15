@@ -14,12 +14,12 @@ enum MuBorderType {
     public var description: String {
         get {
             switch self {
-                case .pod   : return "z⃝"
-                case .slider : return "-"
-                case .polar : return "⬈⃝"
-                case .rect  : return "⬈⃞"
-                case .dock  : return "⠇⃝"
-                case .hub   : return "⦿⃝"
+                case .pod    : return "z⃝"
+                case .slider : return "-⃝"
+                case .polar  : return "⬈⃝"
+                case .rect   : return "◆⃣"
+                case .dock   : return "⠇⃝"
+                case .hub    : return "●⃝"
             }
         }
     }

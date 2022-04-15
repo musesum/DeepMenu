@@ -17,7 +17,6 @@ struct MuPodTitleView: View {
                 .animation(.easeInOut(duration: 0.20), value: borderColor)
                 .animation(.easeInOut(duration: 0.20), value: borderWidth)
                 .background(Color.clear)
-
             Text(pod.model.title)
                 .scaledToFit()
                 .padding(1)

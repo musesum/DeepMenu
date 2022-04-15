@@ -42,6 +42,7 @@
 		805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B0EDE2748216700004A85 /* Comparable+ext.swift */; };
 		80631DFD277141780071AF93 /* MuBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFC277141780071AF93 /* MuBorder.swift */; };
 		80631E002772428E0071AF93 /* MuBorderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFF2772428E0071AF93 /* MuBorderType.swift */; };
+		8087FC87280771CF00572436 /* ExampleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* ExampleClient.swift */; };
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
 		80A9B63D272F3B9B00355445 /* MuPilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuPilot.swift */; };
 		80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63F272F7CAD00355445 /* MuLayout.swift */; };
@@ -116,6 +117,7 @@
 		805B0EDE2748216700004A85 /* Comparable+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ext.swift"; sourceTree = "<group>"; };
 		80631DFC277141780071AF93 /* MuBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBorder.swift; sourceTree = "<group>"; };
 		80631DFF2772428E0071AF93 /* MuBorderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBorderType.swift; sourceTree = "<group>"; };
+		8087FC86280771CF00572436 /* ExampleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleClient.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		809D126A275B26CA0091D252 /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
 		80A9B63C272F3B9B00355445 /* MuPilot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPilot.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				80A7B5A6271B1883005ECF59 /* Main */,
+				8087FC882808760800572436 /* Example */,
 				8076229E27988F07008CBBE3 /* Touch */,
 				80AA51D8272DB66B00406886 /* Pilot */,
 				8019DBF7271BDB6100420923 /* Hub */,
@@ -343,6 +346,15 @@
 			path = Touch;
 			sourceTree = "<group>";
 		};
+		8087FC882808760800572436 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				57F3029427C142FC00203F63 /* ExamplePodModels.swift */,
+				8087FC86280771CF00572436 /* ExampleClient.swift */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		80A7B5A5271B184B005ECF59 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,7 +374,6 @@
 				80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */,
 				8014B7C92700DE3800691126 /* DeepMenuApp.swift */,
 				80135A0A272C728700BCDE27 /* AppBackgroundView.swift */,
-				57F3029427C142FC00203F63 /* ExamplePodModels.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -543,6 +554,7 @@
 				8019DBFF271C8D5300420923 /* MuPodIconView.swift in Sources */,
 				8019DBF4271BD7A200420923 /* MuDock.swift in Sources */,
 				80B8EE872790A08500149AA3 /* Range+ext.swift in Sources */,
+				8087FC87280771CF00572436 /* ExampleClient.swift in Sources */,
 				80C43F4D274EE92E002B0B76 /* MuHubStatus.swift in Sources */,
 				8014B7CC2700DE3800691126 /* ContentView.swift in Sources */,
 				800D4AE9272B220700E71519 /* CG+ext.swift in Sources */,

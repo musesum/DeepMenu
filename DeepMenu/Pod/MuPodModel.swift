@@ -27,7 +27,8 @@ class MuPodModel: Identifiable, Equatable, CustomStringConvertible {
          type: MuBorderType = .pod,
          suprModel: MuPodModel? = nil,
          subModels: [MuPodModel]? = nil,
-         callback: @escaping (Any) -> Void = { _ in return })  {
+         callback: @escaping (Any) -> Void = { _ in return })
+    {
 
         self.name = name
         self.borderType = type

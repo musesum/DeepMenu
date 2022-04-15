@@ -9,18 +9,21 @@ import SwiftUI
  */
 struct ContentViews {
     static let main = ContentView()
+    static let client = ExampleClientView()
 }
 
 struct ContentView: View {
     let appSpace = AppSpace()
 
     var body: some View {
+        ContentViews.client
         ZStack(alignment: .bottomLeading) {
             AppBackgroundView(space: appSpace)
 
+
             MuHubView().environmentObject(MuHub([.lower, .right], docks: defaultSampleDocks()))
             MuHubView().environmentObject(MuHub([.lower, .left ], docks: appControlDocks()))
-//            MuHubView().environmentObject(MuHub([.upper, .right], docks: defaultSampleDocks()))
+             MuHubView().environmentObject(MuHub([.upper, .right], docks: defaultSampleDocks()))
 //            MuHubView().environmentObject(MuHub([.upper, .left ], docks: defaultSampleDocks()))
         }
         .coordinateSpace(name: "Space")
@@ -36,32 +39,30 @@ struct ContentView: View {
     }
     
     private func appControlDocks() -> [MuDock] {
-        let backgroundPodModel = MuPodModel("BG")
-        backgroundPodModel.addChild(MuPodModel("R--") { _ in appSpace.backgroundColor = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
-        backgroundPodModel.addChild(MuPodModel("-G-") { _ in appSpace.backgroundColor = Color(red: 0.0, green: 0.2, blue: 0.0, opacity: 1.00) })
-        backgroundPodModel.addChild(MuPodModel("--B") { _ in appSpace.backgroundColor = Color(red: 0.0, green: 0.0, blue: 0.2, opacity: 1.00) })
-//        backgroundPodModel.addChild(MuPodModel(.xyInput) { xy in print("bg xy position \(xy)") })
+        let colorModel = MuPodModel("Color")
+        colorModel.addChild(MuPodModel("Red") { _ in
+            appSpace.backgroundColor = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
+        colorModel.addChild(MuPodModel("Green") { _ in
+            appSpace.backgroundColor = Color(red: 0.0, green: 0.2, blue: 0.0, opacity: 1.00) })
+        colorModel.addChild(MuPodModel("Blue") { _ in
+            appSpace.backgroundColor = Color(red: 0.0, green: 0.0, blue: 0.2, opacity: 1.00) })
 
-        let borderPodModel = MuPodModel("BDR")
-        borderPodModel.addChild(MuPodModel("R--") { _ in appSpace.borderColor = Color.red })
-        borderPodModel.addChild(MuPodModel("-G-") { _ in appSpace.borderColor = Color.green })
-        borderPodModel.addChild(MuPodModel("--B") { _ in appSpace.borderColor = Color.blue })
-        let widthPodModel = MuPodModel("Width")
-        borderPodModel.addChild(widthPodModel)
-        let widthInputPodModel = MuPodModel("Border Width", type: .rect) { value in
-            guard let pointValue = value as? CGPoint else {
-                print("border width value is not CGPoint \(value)")
-                return
+        let clientModel = MuPodModel("Client")
+        clientModel.addChild(MuPodModel("One") { _ in ContentViews.client.model.path = "One" })
+        clientModel.addChild(MuPodModel("Two") { _ in ContentViews.client.model.path = "Two" })
+        clientModel.addChild(MuPodModel("Three") { _ in ContentViews.client.model.path = "Three" })
+
+        let clientXY = MuPodModel("Client XY")
+        clientXY.addChild(MuPodModel("Client XY", type: .rect) { xy in
+            if let xy = xy as? CGPoint {
+                ContentViews.client.model.path = "Client XY"
+                ContentViews.client.model.x = xy.x
+                ContentViews.client.model.y = xy.y
             }
+        })
+        clientModel.addChild(clientXY)
 
-            let borderWidth = 20 * pointValue.x
-            if borderWidth > 0 {
-                appSpace.borderWidth = borderWidth
-            }
-        }
-        widthPodModel.addChild(widthInputPodModel)
-
-        let vDock  = MuDock(subModels: [backgroundPodModel, borderPodModel], axis: .vertical)
+        let vDock  = MuDock(subModels: [colorModel, clientModel], axis: .vertical)
         return [vDock]
     }
 }
