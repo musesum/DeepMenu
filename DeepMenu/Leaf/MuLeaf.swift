@@ -5,7 +5,15 @@ import Accelerate
 
 class MuLeaf: MuPod {
 
-    var thumb: CGPoint = .zero
+    var xy: CGPoint = .zero
+    var editing: Bool = false
+    var status: String { get {
+        if editing {
+            return String(format: "x: %.2f, y: %.2f", xy.x, xy.y)
+        } else {
+            return model.title
+        }
+    }}
     
     init (_ type: MuBorderType,
           _ dock: MuDock,

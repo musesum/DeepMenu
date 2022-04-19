@@ -14,15 +14,36 @@ class MuBorder {
     lazy var cornerRadius: CGFloat = (type == .polar
                                       ? (diameter + spacing) / 2
                                       : Layout.diameter / 2)
-
+    lazy var thumbRadius = cornerRadius-1
+    lazy var thumbRange = thumbRadius ... diameter-thumbRadius
+    lazy var thumbRunway = diameter - thumbRadius*2
     lazy var vert = (axis == .vertical)
     lazy var length = (diameter + 2 * spacing)
     var runway: CGFloat { get { length * count + margin * 2 * (count-1) }}
     var width: CGFloat { get { vert ? length : runway }}
-    var height: CGFloat { get { vert ? runway : length }}
+
+    var height: CGFloat {
+        get {
+            // add room for title for rectxy leaf
+            type == .rect ? runway + Layout.titleHeight
+            : vert ? runway : length
+        }
+    }
 
     var margin = CGFloat(0) // overlap with a negative number
-    
+
+    func normalizeTouch(xy: CGPoint) -> CGPoint {
+        let xx = xy.x.clamped(to: thumbRange)
+        let yy = xy.y.clamped(to: thumbRange)
+        let xxx = (xx-thumbRadius) / thumbRunway
+        let yyy = (yy-thumbRadius) / thumbRunway
+        return CGPoint(x: xxx, y: yyy)
+    }
+    func expandNormalized(xy: CGPoint) -> CGSize {
+        return CGSize(width:  xy.x * thumbRunway,
+                      height: xy.y * thumbRunway)
+    }
+
     init(type: MuBorderType,
          count: Int = 1,
          axis: Axis = .vertical) {
@@ -60,10 +81,10 @@ class MuBorder {
     }
 
     func bounds(_ center: CGPoint) -> CGRect {
-        let bounds = CGRect(x: center.x - diameter/2,
-                            y: center.y - diameter/2,
-                            width: diameter,
-                            height: diameter)
-        return bounds
+
+        return CGRect(x: center.x - diameter/2,
+                      y: center.y - diameter/2,
+                      width: diameter,
+                      height: diameter)
     }
 }

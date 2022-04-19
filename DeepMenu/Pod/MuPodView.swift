@@ -10,9 +10,8 @@ struct MuPodView: View {
     var body: some View {
         GeometryReader() { geo in
             Group {
-                switch pod.border.type {
-                    case .rect:
-                        MuPodXYRectView(pod: pod)
+                switch pod {
+                    case let leaf as MuLeaf: MuLeafXYView(leaf: leaf)
                     default:
                         if pod.icon.isEmpty { MuPodTitleView(pod: pod) }
                         else { Image(pod.icon).resizable() }

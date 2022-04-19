@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5747E93C27C95B4E0014AB34 /* MuPodXYRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747E93B27C95B4E0014AB34 /* MuPodXYRectView.swift */; };
+		5747E93C27C95B4E0014AB34 /* MuLeafXYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747E93B27C95B4E0014AB34 /* MuLeafXYView.swift */; };
 		57A0A23827BDAFAE00B5598B /* MuSpokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A23727BDAFAE00B5598B /* MuSpokeTests.swift */; };
 		57A0A26127BED18A00B5598B /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 57A0A26027BED18A00B5598B /* ViewInspector */; };
 		57A0A26327BED1E900B5598B /* MuSpokeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */; };
@@ -75,7 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5747E93B27C95B4E0014AB34 /* MuPodXYRectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuPodXYRectView.swift; sourceTree = "<group>"; };
+		5747E93B27C95B4E0014AB34 /* MuLeafXYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafXYView.swift; sourceTree = "<group>"; };
 		57A0A23727BDAFAE00B5598B /* MuSpokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuSpokeTests.swift; sourceTree = "<group>"; };
 		57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuSpokeViewTests.swift; sourceTree = "<group>"; };
 		57A0A26427BF15AA00B5598B /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = config.yml; path = .circleci/config.yml; sourceTree = "<group>"; };
@@ -187,6 +187,7 @@
 		800064A127646D44004B4C63 /* Leaf */ = {
 			isa = PBXGroup;
 			children = (
+				5747E93B27C95B4E0014AB34 /* MuLeafXYView.swift */,
 				800064A227646D67004B4C63 /* MuLeaf.swift */,
 			);
 			path = Leaf;
@@ -286,7 +287,6 @@
 				8019DBFA271C8CEC00420923 /* MuPodModel.swift */,
 				8019DBFE271C8D5200420923 /* MuPodIconView.swift */,
 				8019DBFC271C8D2400420923 /* MuPodTitleView.swift */,
-				5747E93B27C95B4E0014AB34 /* MuPodXYRectView.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -566,7 +566,7 @@
 				80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */,
 				809D126B275B26CA0091D252 /* Delay.swift in Sources */,
 				57F3029527C142FC00203F63 /* ExamplePodModels.swift in Sources */,
-				5747E93C27C95B4E0014AB34 /* MuPodXYRectView.swift in Sources */,
+				5747E93C27C95B4E0014AB34 /* MuLeafXYView.swift in Sources */,
 				80C9A7BF270F4C4B0013CA49 /* Scroll+ext.swift in Sources */,
 				80631E002772428E0071AF93 /* MuBorderType.swift in Sources */,
 				80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */,

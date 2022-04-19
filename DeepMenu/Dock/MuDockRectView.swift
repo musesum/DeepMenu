@@ -13,6 +13,5 @@ struct MuDockRectView: View {
                 .frame(width: size.width, height: size.height)
                 .cornerRadius(border.cornerRadius)
         }
-
     }
 }

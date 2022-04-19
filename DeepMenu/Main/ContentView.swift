@@ -23,7 +23,7 @@ struct ContentView: View {
 
             MuHubView().environmentObject(MuHub([.lower, .right], docks: defaultSampleDocks()))
             MuHubView().environmentObject(MuHub([.lower, .left ], docks: appControlDocks()))
-             MuHubView().environmentObject(MuHub([.upper, .right], docks: defaultSampleDocks()))
+//             MuHubView().environmentObject(MuHub([.upper, .right], docks: defaultSampleDocks()))
 //            MuHubView().environmentObject(MuHub([.upper, .left ], docks: defaultSampleDocks()))
         }
         .coordinateSpace(name: "Space")
@@ -33,8 +33,8 @@ struct ContentView: View {
     private func defaultSampleDocks() -> [MuDock] {
         let numberedPods = ExamplePodModels.numberedPods(5, numLevels: 5)
         let letteredPods = ExamplePodModels.letteredPods()
-        let hDock  = MuDock(subModels: numberedPods, axis: .horizontal)
-        let vDock  = MuDock(subModels: letteredPods, axis: .vertical)
+        let hDock = MuDock(subModels: numberedPods, axis: .horizontal)
+        let vDock = MuDock(subModels: letteredPods, axis: .vertical)
         return [hDock, vDock]
     }
     

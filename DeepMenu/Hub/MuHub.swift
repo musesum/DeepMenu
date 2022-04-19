@@ -222,11 +222,11 @@ class MuHub: ObservableObject, Equatable {
 
             let begin = touch.pointDelta == .zero
             let title = touchDock.title
-            if begin { log(title, dockOffset, rangeW, rangeH) }
-            // else  { log(title, dockOffset, rangeW, rangeH) }
+            if begin { logRange(title, dockOffset, rangeW, rangeH) }
+            // else  { logRange(title, dockOffset, rangeW, rangeH) }
             updateDockShift(dockOffset)
         }
-        func log(_ title: String,
+        func logRange(_ title: String,
                  _ dockOffset: CGSize,
                  _ rangeWidth: ClosedRange<CGFloat>,
                  _ rangeHeight: ClosedRange<CGFloat>) {
@@ -348,7 +348,10 @@ class MuHub: ObservableObject, Equatable {
     /// either center flight icon on spotPod or track finger
     private func alignFlightWithSpotPod(_ touchNow: CGPoint) {
 
-        if let spotXY = spotPod?.podXY {
+        if spotPod?.model.borderType == .rect {
+            pilot.pointNow = .zero // no fly icon for leaf
+        }
+        else if let spotXY = spotPod?.podXY {
             let pointDelta = spotXY - touchNow
             pilot.updateDelta(pointDelta)
         } else {

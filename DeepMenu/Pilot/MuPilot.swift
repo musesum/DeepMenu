@@ -26,6 +26,7 @@ class MuPilot: ObservableObject {
             case .space: return touchOfs
         }}}
 
+    /// adjust offset for hub on right side of canvas
     func rightSideOffset(for hubStatus: MuHubStatus) -> CGFloat {
         if let hub = hub,
            hub.status == hubStatus,
@@ -71,11 +72,8 @@ class MuPilot: ObservableObject {
             touchOfs = CGSize(hubPod.podXY - touchNow)
             touchOfs.width += rightSideOffset(for: .hub)
 
-            log("touch", xy: touchNow, terminator: " ")
-            //log("fly", xy: flyPod?.podXY ?? .zero, terminator: " ")
-            //log("Δ", xy: touchNow-(flyPod?.podXY ?? .zero), terminator: " ")
-            log("hub", xy: hubPod.podXY, terminator: " ")
-            //log("Δ", wh: touchOfs, terminator: " ")
+            log("touch", [touchNow], terminator: " ")
+            log("hub", [hubPod.podXY], terminator: " ")
         }
 
         func moved() {
@@ -103,7 +101,7 @@ class MuPilot: ObservableObject {
         if let hub = hub {
             pointHome = hub.cornerXY(in: fr)
             pointNow = pointHome
-            // log("home: ", xy: pointNow)
+            // log("home: ", [pointNow])
         }
     }
 
@@ -119,6 +117,6 @@ class MuPilot: ObservableObject {
     func updateDelta(_ pointDelta: CGPoint) {
         deltaOfs = .zero + pointDelta
         deltaOfs.width += rightSideOffset(for: .spoke)
-        // log("Δ\(hub?.status.description ?? "")", wh: deltaOfs, terminator: " ")
+        // log("Δ\(hub?.status.description ?? "")", [deltaOfs], terminator: " ")
     }
 }
