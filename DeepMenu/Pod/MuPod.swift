@@ -63,7 +63,6 @@ class MuPod: Identifiable, Equatable, ObservableObject {
         spotlight = true
         spotTime = time
         suprPod?.superSpotlight(time)
-
     }
 
     /// select self, parent, grand, etc. in dock

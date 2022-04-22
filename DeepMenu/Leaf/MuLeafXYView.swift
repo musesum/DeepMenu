@@ -34,12 +34,11 @@ struct MuLeafXYView: View {
                             let value = border.normalizeTouch(xy: xy)
                             if value != CGPoint.zero {
                                 leaf.xy = value
-                                log("◘ ", [xy, leaf.xy, geo.size], format: "%.2f")
+                                // log("◘ ", [xy, leaf.xy, geo.size], format: "%.2f")
                                 leaf.editing = true
                                 leaf.model.callback(value)
                             } else {
                                 leaf.editing = false
-                                //?? leaf.spotlight = false //??
                             }
                         }
                     Image("icon.pearl.white")

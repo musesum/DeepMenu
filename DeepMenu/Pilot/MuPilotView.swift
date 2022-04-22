@@ -11,12 +11,12 @@ struct MuPilotView: View {
         Group {
             // hub icon
             GeometryReader() { geo in
+
                 MuPodView(pod: pilot.hubPod)
 
                     .frame(width: Layout.diameter, height: Layout.diameter)
                     .onAppear { pilot.updateHome(geo.frame(in: .named("Space"))) }
                     .onChange(of: geo.frame(in: .named("Space"))) { pilot.updateHome($0) }
-
                     .padding(Layout.spacing)
                     .opacity(pilot.alpha + 0.1)
                     .position(pilot.pointHome)
@@ -30,6 +30,7 @@ struct MuPilotView: View {
             // fly icon
             GeometryReader { geo in
                 if let flyPod = pilot.flyPod {
+                   
                     MuPodView(pod: flyPod)
                         .position(pilot.pointNow)
                         .animation(.easeInOut(duration: Layout.animate), value: pilot.pointNow)

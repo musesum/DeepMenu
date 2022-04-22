@@ -11,10 +11,19 @@ struct MuPodView: View {
         GeometryReader() { geo in
             Group {
                 switch pod {
-                    case let leaf as MuLeaf: MuLeafXYView(leaf: leaf)
+
+                    case let leaf as MuLeaf:
+
+                        MuLeafXYView(leaf: leaf)
+
                     default:
-                        if pod.icon.isEmpty { MuPodTitleView(pod: pod) }
-                        else { Image(pod.icon).resizable() }
+
+                        if pod.icon.isEmpty {
+                            MuPodTitleView(pod: pod)
+                        }
+                        else {
+                            Image(pod.icon).resizable()
+                        }
                 }
             }
             .onChange(of: geo.frame(in: .named("Space"))) { pod.updateCenter($0) }

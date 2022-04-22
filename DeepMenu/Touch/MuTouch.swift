@@ -5,15 +5,16 @@ import SwiftUI
 class MuTouch {
 
     static let tapInterval = TimeInterval(0.5) // tap time threshold
-    var timeBegin = TimeInterval(0) // starting time for tap candidate
-    var timeDelta = TimeInterval(0) // time elapsed since beginning
-    var timeEnded = TimeInterval(0) // ending time for tap candidate
-    var tapCount  = 0               // number of taps
+    private var timeBegin = TimeInterval(0) // starting time for tap candidate
+    private var timeDelta = TimeInterval(0) // time elapsed since beginning
+    private var timeEnded = TimeInterval(0) // ending time for tap candidate
 
-    var pointBegin = CGPoint.zero   // where touch started
+    private var moveThreshold = CGFloat(5)  // move distance to reset tapCount
+    private var pointBegin = CGPoint.zero   // where touch started
+
+    var tapCount  = 0  // number of taps
     var pointNow   = CGPoint.zero   // current position of touch
     var pointDelta = CGPoint.zero   // pointNow - pointBegin
-    var moveThreshold = CGFloat(5)  // move distance to reset tapCount
 
     func begin(_ pointNow: CGPoint) {
         self.pointNow = pointNow

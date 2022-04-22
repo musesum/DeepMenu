@@ -30,13 +30,16 @@ class MuSpoke: Identifiable, ObservableObject {
         var skipPreDocks = touchDock?.spoke?.id == id
 
         for dock in docks {
+            
             if dock.show == false { continue } 
             if skipPreDocks && (touchDock?.id != dock.id) { continue }
-            else { skipPreDocks = false }
+
+            skipPreDocks = false
 
             if let nextPod = dock.findHover(touchNow) {
                 if spotPod?.id != nextPod.id {
                     spotPod = nextPod
+                    spotPod?.superSelect() //?? 
                     refreshDocks(nextPod.dock, nextPod)
                 }
                 return spotPod
@@ -53,8 +56,7 @@ class MuSpoke: Identifiable, ObservableObject {
         if let nextDock = spotDock.nextDock,
             nextDock.show == true, // nextDock is also shown (spoke.depth > 1)
            let subId = nextDock.spotPod?.model.id,
-           let nowId = spotPod.model.subNow?.id,
-           subId == nowId {
+           let nowId = spotPod.model.subNow?.id, subId == nowId {
             // all subDocks are the same
             return
         }

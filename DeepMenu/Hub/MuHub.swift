@@ -11,10 +11,10 @@ class MuHub: ObservableObject, Equatable {
     }
 
     @Published var status = MuHubStatus.hub
-    func updateStatus(_ newValue: MuHubStatus, _ debug: Int) {
+    func updateStatus(_ newValue: MuHubStatus, debug: String) {
         if status != newValue {
             status = newValue
-            print(status.description+String(debug), terminator: " ")
+            print(status.description + debug, terminator: " ")
         }
     }
 
@@ -130,7 +130,7 @@ class MuHub: ObservableObject, Equatable {
 
         guard let dock = dock else {
             // touching hub 
-            updateStatus(.hub, 1)
+            updateStatus(.hub, debug: "1")
             toggleDocks(lowestDepth: 1) //TODO: -- fix by determining current state
             return
         }
@@ -164,7 +164,7 @@ class MuHub: ObservableObject, Equatable {
                 toggleDocks(lowestDepth: 0)
             }
         }
-        updateStatus(.hub, 2) // what is 2?
+        updateStatus(.hub, debug: "2")
         
         if let podModel = self.spotPod?.model {
             if podModel.borderType == .pod {
@@ -216,30 +216,26 @@ class MuHub: ObservableObject, Equatable {
     func anchorDock() {
 
         if let touchDock = touchDock {
+
             let deltaTouch = CGSize(touch.pointDelta)
             let (rangeW, rangeH) = getRanges(touchDock)
             let dockOffset = (deltaTouch + anchorShift).clamp(rangeW, rangeH)
 
             let begin = touch.pointDelta == .zero
-            let title = touchDock.title
-            if begin { logRange(title, dockOffset, rangeW, rangeH) }
-            // else  { logRange(title, dockOffset, rangeW, rangeH) }
+            if begin { logRange() }
             updateDockShift(dockOffset)
-        }
-        func logRange(_ title: String,
-                 _ dockOffset: CGSize,
-                 _ rangeWidth: ClosedRange<CGFloat>,
-                 _ rangeHeight: ClosedRange<CGFloat>) {
 
-            let touchDelta  = touch.pointDelta.string()
-            let anchorShift = anchorShift.string()
-            let dockOffset = dockOffset.string() // clamped
-            let clamp = "\(rangeWidth.string()) \(rangeHeight.string())"
+            func logRange() {
+                let touchDelta  = touch.pointDelta.string()
+                let anchorShift = anchorShift.string()
+                let dockOffset = dockOffset.string() // clamped
+                let clamp = "\(rangeW.string()) \(rangeH.string())"
 
-            let newLog = "\(title) \(touchDelta) \(anchorShift) \(dockOffset) \(clamp)"
-            if lastLog != newLog {
-                lastLog = newLog
-                print(newLog, terminator: " ")
+                let newLog = "\(touchDock.title) \(touchDelta) \(anchorShift) \(dockOffset) \(clamp)"
+                if lastLog != newLog {
+                    lastLog = newLog
+                    print(newLog, terminator: " ")
+                }
             }
         }
     }
@@ -295,7 +291,7 @@ class MuHub: ObservableObject, Equatable {
                 spotSpoke = spokeNext
                 spotSpoke?.showDocks(depth: 99) 
             }
-            updateStatus(.spoke, 3)
+            updateStatus(.spoke, debug: "3")
         }
 
         // begin -------------------------------------------
@@ -304,7 +300,7 @@ class MuHub: ObservableObject, Equatable {
         if let spotSpoke = spotSpoke {
             if let nearestPod = spotSpoke.nearestPod(touchNow, touchDock) {
                 // still within same spotlight spoke
-                updateStatus(.spoke, 6) // what is 6?
+                updateStatus(.spoke, debug: "6")
                 return nearestPod
             } else {
                 // no longer on spotSpoke
@@ -332,15 +328,15 @@ class MuHub: ObservableObject, Equatable {
         // hovering over hub
         if pilot.pointHome.distance(touchNow) < Layout.spotArea {
             if status != .hub {
-                updateStatus(.hub, 4)
+                updateStatus(.hub, debug: "4")
                 toggleDocks(lowestDepth: 1)
             } else {
-                updateStatus(.hub, -4)
+                updateStatus(.hub, debug: "-4")
             }
             pilot.hub?.alignFlightWithSpotPod(touchNow)
         }
         else {
-            updateStatus(.space, 5)
+            updateStatus(.space, debug: "5")
         }
         return nil
     }
@@ -349,7 +345,7 @@ class MuHub: ObservableObject, Equatable {
     private func alignFlightWithSpotPod(_ touchNow: CGPoint) {
 
         if spotPod?.model.borderType == .rect {
-            pilot.pointNow = .zero // no fly icon for leaf
+            pilot.pointNow = pilot.pointHome // no fly icon for leaf
         }
         else if let spotXY = spotPod?.podXY {
             let pointDelta = spotXY - touchNow
@@ -404,11 +400,11 @@ class MuHub: ObservableObject, Equatable {
             for spoke in spokes {
                 spoke.showDocks(depth: 0)
             }
-            updateStatus(.hub, 9)
+            updateStatus(.hub, debug: "9")
         }
         hubTimer = Timer.scheduledTimer(withTimeInterval: delay,
-                                          repeats: false,
-                                          block: resetting)
+                                        repeats: false,
+                                        block: resetting)
         #endif
     }
 }
