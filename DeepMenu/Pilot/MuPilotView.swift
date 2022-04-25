@@ -9,10 +9,10 @@ struct MuPilotView: View {
 
     var body: some View {
         Group {
-            // hub icon
+            // root icon
             GeometryReader() { geo in
 
-                MuPodView(pod: pilot.hubPod)
+                MuNodeView(node: pilot.hubNode)
 
                     .frame(width: Layout.diameter, height: Layout.diameter)
                     .onAppear { pilot.updateHome(geo.frame(in: .named("Space"))) }
@@ -29,9 +29,9 @@ struct MuPilotView: View {
 
             // fly icon
             GeometryReader { geo in
-                if let flyPod = pilot.flyPod {
+                if let flyNode = pilot.flyNode {
                    
-                    MuPodView(pod: flyPod)
+                    MuNodeView(node: flyNode)
                         .position(pilot.pointNow)
                         .animation(.easeInOut(duration: Layout.animate), value: pilot.pointNow)
                         .opacity(1-pilot.alpha)

@@ -1,19 +1,19 @@
 enum BorderType {
 
-    case pod    // either icon or text
-    case polar  // dock with 2d radians, value control
-    case rect   // dock with 2d rectangular XY control
-    case dock   // dock with pods
-    case hub    // dock as hub for pilot
+    case node    // either icon or text
+    case polar  // branch with 2d radians, value control
+    case rect   // branch with 2d rectangular XY control
+    case branch   // branch with nodes
+    case root    // branch as root for pilot
 
     public var description: String {
         get {
             switch self {
-                case .pod   : return "z⃝"
+                case .node   : return "z⃝"
                 case .polar : return "⬈⃝"
                 case .rect  : return "⬈⃞"
-                case .dock  : return "⠇⃝"
-                case .hub   : return "⦿⃝"
+                case .branch  : return "⠇⃝"
+                case .root   : return "⦿⃝"
             }
         }
     }
@@ -22,7 +22,7 @@ enum BorderType {
 enum FlightStatus {
 
     case hover   // staying put or moving inward
-    case explore // exlporing dock or subdocks
+    case explore // exlporing branch or subbranches
     case engage  // acting on a leaf
 
     public var description: String {
@@ -39,13 +39,13 @@ enum FlightStatus {
 enum MuFlightAbove: String  {
 
     case space // flightAbove neither hori or vert
-    case spoke  // flightAbove over a spoke's dock
+    case limb  // flightAbove over a limb's branch
 
     public var description: String {
         get {
             switch self {
                 case .space : return "▢⃞"
-                case .spoke : return "━"
+                case .limb : return "━"
             }
         }
     }

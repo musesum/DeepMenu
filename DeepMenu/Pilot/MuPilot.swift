@@ -3,7 +3,7 @@
 import SwiftUI
 
 /**
- Draggable clone of pod withing a dock, which clips at border
+ Draggable clone of node withing a branch, which clips at border
  - note: Instead, move clones on space
  */
 class MuPilot: ObservableObject {
@@ -12,77 +12,77 @@ class MuPilot: ObservableObject {
     var pointHome = CGPoint.zero  // starting position of touch
     var alpha: CGFloat { get { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }}
 
-    var hub: MuHub?
-    var hubPod: MuPod   // fixed corner pod space
-    var flyPod: MuPod?  // flying pod from hub
-    var hubDock: MuDock
+    var root: MuRoot?
+    var hubNode: MuNode   // fixed corner node space
+    var flyNode: MuNode?  // flying node from root
+    var hubBranch: MuBranch
 
     var touchOfs = CGSize.zero
     var deltaOfs = CGSize.zero // difference between touch point and center in coord
     var pilotOfs: CGSize { get {
-        switch hub?.status ?? .hub {
-            case .hub:   return touchOfs
-            case .spoke: return deltaOfs
+        switch root?.status ?? .root {
+            case .root:   return touchOfs
+            case .limb: return deltaOfs
             case .space: return touchOfs
         }}}
 
-    /// adjust offset for hub on right side of canvas
-    func rightSideOffset(for hubStatus: MuHubStatus) -> CGFloat {
-        if let hub = hub,
-           hub.status == hubStatus,
-           hub.corner.contains(.right) {
+    /// adjust offset for root on right side of canvas
+    func rightSideOffset(for hubStatus: MuRootStatus) -> CGFloat {
+        if let root = root,
+           root.status == hubStatus,
+           root.corner.contains(.right) {
             return -(2 * Layout.spacing)
         } else {
             return 0
         }
     }
 
-    var touchDock: MuDock? // dock which captured DragGesture
+    var touchBranch: MuBranch? // branch which captured DragGesture
     var pointDelta = CGPoint.zero // touch starting position
 
     init() {
-        let hubPodModel = MuPodModel("⚫︎") // name changed below
-        hubDock = MuDock(isHub: true, axis: .horizontal)
-        hubPod = MuPod(.hub, hubDock, hubPodModel, icon: Layout.hoverRing)
-        hubDock.addPod(hubPod)
+        let hubNodeModel = MuNodeModel("⚫︎") // name changed below
+        hubBranch = MuBranch(isRoot: true, axis: .horizontal)
+        hubNode = MuNode(.root, hubBranch, hubNodeModel, icon: Layout.hoverRing)
+        hubBranch.addNode(hubNode)
     }
     
-    func setHub(_ hub: MuHub) {
-        self.hub = hub
-        hubPod.model.setName(from: hub.corner)
+    func setRoot(_ root: MuRoot) {
+        self.root = root
+        hubNode.model.setName(from: root.corner)
     }
 
-    /**  via MuDockView::@GestureState touchNow .onChange,
+    /**  via MuBranchView::@GestureState touchNow .onChange,
      which also detects end when touchNow is reset to .zero
      */
     func touchUpdate(_ touchNow: CGPoint,
-                     _ touchDock: MuDock?) {
+                     _ touchBranch: MuBranch?) {
 
         if touchNow == .zero  { ended() }
-        else if flyPod == nil { begin() }
+        else if flyNode == nil { begin() }
         else                  { moved() }
 
         func begin() {
 
             pointNow = touchNow
-            flyPod = hubPod.copy()
+            flyNode = hubNode.copy()
             pointDelta = touchNow
-            hub?.begin(touchDock, touchNow)
+            root?.begin(touchBranch, touchNow)
 
-            touchOfs = CGSize(hubPod.podXY - touchNow)
-            touchOfs.width += rightSideOffset(for: .hub)
+            touchOfs = CGSize(hubNode.nodeXY - touchNow)
+            touchOfs.width += rightSideOffset(for: .root)
 
             log("touch", [touchNow], terminator: " ")
-            log("hub", [hubPod.podXY], terminator: " ")
+            log("root", [hubNode.nodeXY], terminator: " ")
         }
 
         func moved() {
             pointNow = touchNow
-            hub?.moved(touchNow)
+            root?.moved(touchNow)
         }
 
         func ended() {
-            hub?.ended(touchNow)
+            root?.ended(touchNow)
             pointNow = pointHome
             deltaOfs = .zero
             touchOfs = .zero
@@ -92,31 +92,31 @@ class MuPilot: ObservableObject {
             }
         }
         func touchDone() {
-            hub?.resetHubTimer(delay: 4)
-            flyPod = nil
+            root?.resetRootTimer(delay: 4)
+            flyNode = nil
         }
     }
 
     func updateHome(_ fr: CGRect) {
-        if let hub = hub {
-            pointHome = hub.cornerXY(in: fr)
+        if let root = root {
+            pointHome = root.cornerXY(in: fr)
             pointNow = pointHome
             // log("home: ", [pointNow])
         }
     }
 
-    /** center flyPod either on spotlight pod or on finger
+    /** center flyNode either on spotlight node or on finger
 
-     MuHub::alignFlightWithSpotPod(touchNow)
+     MuRoot::alignFlightWithSpotNode(touchNow)
      will set a pointDelta between touchNow and spotXY.
-     When there is no spotPod, then the the delta is .zero,
-     allowing the flyPod to center on finger, which is
-     handled by MuPilotView.flyPod.offset.
+     When there is no spotNode, then the the delta is .zero,
+     allowing the flyNode to center on finger, which is
+     handled by MuPilotView.flyNode.offset.
      */
 
     func updateDelta(_ pointDelta: CGPoint) {
         deltaOfs = .zero + pointDelta
-        deltaOfs.width += rightSideOffset(for: .spoke)
-        // log("Δ\(hub?.status.description ?? "")", [deltaOfs], terminator: " ")
+        deltaOfs.width += rightSideOffset(for: .limb)
+        // log("Δ\(root?.status.description ?? "")", [deltaOfs], terminator: " ")
     }
 }

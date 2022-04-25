@@ -4,22 +4,22 @@ import SwiftUI
 
 enum MuBorderType {
 
-    case pod    // either icon or text
-    case slider // dock with 1d slider
-    case polar  // dock with 2d radians, value control
-    case rect   // dock with 2d rectangular XY control
-    case dock   // dock with pods
-    case hub    // dock as hub for pilot
+    case node    // either icon or text
+    case slider // branch with 1d slider
+    case polar  // branch with 2d radians, value control
+    case rect   // branch with 2d rectangular XY control
+    case branch   // branch with nodes
+    case root    // branch as root for pilot
 
     public var description: String {
         get {
             switch self {
-                case .pod    : return "z⃝"
+                case .node    : return "z⃝"
                 case .slider : return "-⃝"
                 case .polar  : return "⬈⃝"
                 case .rect   : return "◆⃣"
-                case .dock   : return "⠇⃝"
-                case .hub    : return "●⃝"
+                case .branch   : return "⠇⃝"
+                case .root    : return "●⃝"
             }
         }
     }

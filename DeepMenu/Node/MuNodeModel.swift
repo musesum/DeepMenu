@@ -2,31 +2,31 @@
 
 import SwiftUI
 
-/// shared between 1 or more MuPod, stored
-class MuPodModel: Identifiable, Equatable, CustomStringConvertible {
+/// shared between 1 or more MuNode, stored
+class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
     let id = MuIdentity.getId() //TODO: use a persistent storage ID after debugging
     
     var name: String // pilot's name may be changed hubd on corner placement
     let title: String
     let borderType: MuBorderType
-    var subModels = [MuPodModel]()
-    var subNow:  MuPodModel? // most recently selected, persist to storage
+    var subModels = [MuNodeModel]()
+    var subNow:  MuNodeModel? // most recently selected, persist to storage
     var callback: ((Any) -> Void)
 
-    var parent: MuPodModel? = nil
+    var parent: MuNodeModel? = nil
 
     var description : String {
         return "\(type(of:self)): \"\(name)\" .\(borderType)"
     }
 
-    static func == (lhs: MuPodModel, rhs: MuPodModel) -> Bool {
+    static func == (lhs: MuNodeModel, rhs: MuNodeModel) -> Bool {
         return lhs.id == rhs.id
     }
 
     init(_ name: String,
-         type: MuBorderType = .pod,
-         suprModel: MuPodModel? = nil,
-         subModels: [MuPodModel]? = nil,
+         type: MuBorderType = .node,
+         suprModel: MuNodeModel? = nil,
+         subModels: [MuNodeModel]? = nil,
          callback: @escaping (Any) -> Void = { _ in return })
     {
 
@@ -58,7 +58,7 @@ class MuPodModel: Identifiable, Equatable, CustomStringConvertible {
         }
     }
 
-    func addChild(_ child: MuPodModel) {
+    func addChild(_ child: MuNodeModel) {
         subModels.append(child)
         child.parent = self
     }

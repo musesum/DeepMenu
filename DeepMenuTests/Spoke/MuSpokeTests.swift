@@ -1,5 +1,5 @@
 //
-//  MuSpokeTests.swift
+//  MuLimbTests.swift
 //  DeepMenuTests
 //
 //  Created by Dav Yaginuma on 2/16/22.
@@ -8,29 +8,29 @@
 import XCTest
 @testable import DeepMenu
 
-class MuSpokeTests: XCTestCase {
-    var hub: MuHub!
-    var dock1: MuDock!
+class MuLimbTests: XCTestCase {
+    var root: MuRoot!
+    var branch1: MuBranch!
 
     override func setUpWithError() throws {
-        hub = MuHub([.lower, .right], docks: nil)
-        dock1 = MuDock(axis: .horizontal)
+        root = MuRoot([.lower, .right], branches: nil)
+        branch1 = MuBranch(axis: .horizontal)
     }
 
     override func tearDownWithError() throws {
     }
 
     func testInit() throws {
-        let spoke = MuSpoke(docks: [dock1], hub: hub)
-        XCTAssertNotNil(spoke)
-        XCTAssertEqual(1, spoke.docks.count)
+        let limb = MuLimb(branches: [branch1], root: root)
+        XCTAssertNotNil(limb)
+        XCTAssertEqual(1, limb.branches.count)
     }
 
-    func testObservableAndDocksPublished() throws {
-        let spoke = MuSpoke(docks: [dock1], hub: hub)
+    func testObservableAndBranchesPublished() throws {
+        let limb = MuLimb(branches: [branch1], root: root)
         
         // This won't compile if not observable and published
-        let _ = spoke.$docks.sink(receiveValue: { print("ViewModel.docks updated, new value: \($0)") })
-        let _ = spoke.objectWillChange.sink(receiveValue: { print("ViewModel updated: \($0)")})
+        let _ = limb.$branches.sink(receiveValue: { print("ViewModel.branches updated, new value: \($0)") })
+        let _ = limb.objectWillChange.sink(receiveValue: { print("ViewModel updated: \($0)")})
     }
 }

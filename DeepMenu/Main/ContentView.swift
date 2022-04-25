@@ -21,39 +21,39 @@ struct ContentView: View {
             AppBackgroundView(space: appSpace)
 
 
-            MuHubView().environmentObject(MuHub([.lower, .right], docks: defaultSampleDocks()))
-            MuHubView().environmentObject(MuHub([.lower, .left ], docks: appControlDocks()))
-//             MuHubView().environmentObject(MuHub([.upper, .right], docks: defaultSampleDocks()))
-//            MuHubView().environmentObject(MuHub([.upper, .left ], docks: defaultSampleDocks()))
+            MuRootView().environmentObject(MuRoot([.lower, .right], branches: defaultSampleBranches()))
+            MuRootView().environmentObject(MuRoot([.lower, .left ], branches: appControlBranches()))
+//             MuRootView().environmentObject(MuRoot([.upper, .right], branches: defaultSampleBranches()))
+//            MuRootView().environmentObject(MuRoot([.upper, .left ], branches: defaultSampleBranches()))
         }
         .coordinateSpace(name: "Space")
         .statusBar(hidden: true)
     }
     
-    private func defaultSampleDocks() -> [MuDock] {
-        let numberedPods = ExamplePodModels.numberedPods(5, numLevels: 5)
-        let letteredPods = ExamplePodModels.letteredPods()
-        let hDock = MuDock(subModels: numberedPods, axis: .horizontal)
-        let vDock = MuDock(subModels: letteredPods, axis: .vertical)
-        return [hDock, vDock]
+    private func defaultSampleBranches() -> [MuBranch] {
+        let numberedNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
+        let letteredNodes = ExampleNodeModels.letteredNodes()
+        let hBranch = MuBranch(subModels: numberedNodes, axis: .horizontal)
+        let vBranch = MuBranch(subModels: letteredNodes, axis: .vertical)
+        return [hBranch, vBranch]
     }
     
-    private func appControlDocks() -> [MuDock] {
-        let colorModel = MuPodModel("Color")
-        colorModel.addChild(MuPodModel("Red") { _ in
+    private func appControlBranches() -> [MuBranch] {
+        let colorModel = MuNodeModel("Color")
+        colorModel.addChild(MuNodeModel("Red") { _ in
             appSpace.backgroundColor = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
-        colorModel.addChild(MuPodModel("Green") { _ in
+        colorModel.addChild(MuNodeModel("Green") { _ in
             appSpace.backgroundColor = Color(red: 0.0, green: 0.2, blue: 0.0, opacity: 1.00) })
-        colorModel.addChild(MuPodModel("Blue") { _ in
+        colorModel.addChild(MuNodeModel("Blue") { _ in
             appSpace.backgroundColor = Color(red: 0.0, green: 0.0, blue: 0.2, opacity: 1.00) })
 
-        let clientModel = MuPodModel("Client")
-        clientModel.addChild(MuPodModel("One") { _ in ContentViews.client.model.path = "One" })
-        clientModel.addChild(MuPodModel("Two") { _ in ContentViews.client.model.path = "Two" })
-        clientModel.addChild(MuPodModel("Three") { _ in ContentViews.client.model.path = "Three" })
+        let clientModel = MuNodeModel("Client")
+        clientModel.addChild(MuNodeModel("One") { _ in ContentViews.client.model.path = "One" })
+        clientModel.addChild(MuNodeModel("Two") { _ in ContentViews.client.model.path = "Two" })
+        clientModel.addChild(MuNodeModel("Three") { _ in ContentViews.client.model.path = "Three" })
 
-        let clientXY = MuPodModel("Client XY")
-        clientXY.addChild(MuPodModel("Client XY", type: .rect) { xy in
+        let clientXY = MuNodeModel("Client XY")
+        clientXY.addChild(MuNodeModel("Client XY", type: .rect) { xy in
             if let xy = xy as? CGPoint {
                 ContentViews.client.model.path = "Client XY"
                 ContentViews.client.model.x = xy.x
@@ -62,8 +62,8 @@ struct ContentView: View {
         })
         clientModel.addChild(clientXY)
 
-        let vDock  = MuDock(subModels: [colorModel, clientModel], axis: .vertical)
-        return [vDock]
+        let vBranch  = MuBranch(subModels: [colorModel, clientModel], axis: .vertical)
+        return [vBranch]
     }
 }
 

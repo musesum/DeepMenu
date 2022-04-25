@@ -2,13 +2,13 @@
 
 import SwiftUI
 
-struct MuPodIconView: View {
+struct MuNodeIconView: View {
 
-    @ObservedObject var pod: MuPod
+    @ObservedObject var node: MuNode
     let icon: String
 
-    var borderColor: Color { pod.spotlight ? .white : .gray }
-    var borderWidth: CGFloat { pod.spotlight ? 2 : 1 }
+    var borderColor: Color { node.spotlight ? .white : .gray }
+    var borderWidth: CGFloat { node.spotlight ? 2 : 1 }
 
     var body: some View {
         ZStack {

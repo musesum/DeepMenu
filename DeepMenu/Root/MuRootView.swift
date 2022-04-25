@@ -1,10 +1,10 @@
 import SwiftUI
 
 /// four posible corners
-struct MuHubView: View {
-    @EnvironmentObject var hub: MuHub
+struct MuRootView: View {
+    @EnvironmentObject var root: MuRoot
     var body: some View {
-        switch hub.corner {
+        switch root.corner {
             case [.lower, .right]: LowerRightView()
             case [.lower, .left ]: LowerLeftView()
             case [.upper, .right]: UpperRightView()
@@ -16,13 +16,13 @@ struct MuHubView: View {
 
 /// space with: vert, hori, and pilot views
 private struct SpaceView: View {
-    @EnvironmentObject var hub: MuHub
+    @EnvironmentObject var root: MuRoot
     var body: some View {
 
-        ForEach(hub.spokes, id: \.id) {
-            MuSpokeView(spoke: $0)
+        ForEach(root.limbs, id: \.id) {
+            MuLimbView(limb: $0)
         }
-        MuPilotView(pilot: hub.pilot)
+        MuPilotView(pilot: root.pilot)
     }
 }
 

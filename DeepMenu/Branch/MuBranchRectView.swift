@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct MuDockRectView: View {
+struct MuBranchRectView: View {
     var border: MuBorder
     var body: some View {
         GeometryReader { geo in

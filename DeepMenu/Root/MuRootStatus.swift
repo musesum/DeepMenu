@@ -2,18 +2,18 @@
 
 import Foundation
 
-enum MuHubStatus: String  {
+enum MuRootStatus: String  {
 
-    case hub    // unknown at beginning
-    case spoke  // over a spoke's dock
+    case root    // unknown at beginning
+    case limb  // over a limb's branch
     case space  // neither hori or vert
 
 
     public var description: String {
         get {
             switch self {
-                case .hub   : return "⦿"
-                case .spoke : return "⌖"
+                case .root   : return "⦿"
+                case .limb : return "⌖"
                 case .space : return "⬚"
             }
         }
