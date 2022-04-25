@@ -9,7 +9,7 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
     var name: String // pilot's name may be changed hubd on corner placement
     let title: String
     let borderType: MuBorderType
-    var subModels = [MuNodeModel]()
+    var children = [MuNodeModel]()
     var subNow:  MuNodeModel? // most recently selected, persist to storage
     var callback: ((Any) -> Void)
 
@@ -26,7 +26,7 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
     init(_ name: String,
          type: MuBorderType = .node,
          suprModel: MuNodeModel? = nil,
-         subModels: [MuNodeModel]? = nil,
+         children: [MuNodeModel]? = nil,
          callback: @escaping (Any) -> Void = { _ in return })
     {
 
@@ -35,7 +35,7 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
         self.title = (suprModel?.title ?? "") + name
         self.callback = callback
         
-        if let children = subModels {
+        if let children = children {
             for child in children {
                 self.addChild(child)
             }
@@ -59,7 +59,7 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
     }
 
     func addChild(_ child: MuNodeModel) {
-        subModels.append(child)
+        children.append(child)
         child.parent = self
     }
     

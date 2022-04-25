@@ -36,8 +36,8 @@ enum ExampleNodeModels {
             let name = names[i]
             let borderType: MuBorderType = (level == ranges.count - 1 ? .rect : .node)
             let nodeModel = MuNodeModel(name, type: borderType, suprModel: suprModel)
-            let subModels = ExampleNodeModels.letteredNodes(suprModel: nodeModel, level + 1)
-            nodeModel.subModels = subModels
+            let children = ExampleNodeModels.letteredNodes(suprModel: nodeModel, level + 1)
+            nodeModel.children = children
             nodes.append(nodeModel)
         }
         return nodes
@@ -61,8 +61,8 @@ enum ExampleNodeModels {
             for i in 1 ... count {
                 let name = String(i)
                 let nodeModel = MuNodeModel(name, suprModel: suprModel)
-                let subModels = ExampleNodeModels.numberedNodes(count, numLevels: numLevels - 1, suprModel: nodeModel)
-                nodeModel.subModels = subModels
+                let children = ExampleNodeModels.numberedNodes(count, numLevels: numLevels - 1, suprModel: nodeModel)
+                nodeModel.children = children
                 nodes.append(nodeModel)
             }
         }

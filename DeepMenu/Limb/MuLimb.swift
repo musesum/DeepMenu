@@ -88,10 +88,10 @@ class MuLimb: Identifiable, ObservableObject {
         self.level = level
         spotNode.spotlight = true
         
-        if spotNode.model.subModels.count > 0 {
+        if spotNode.model.children.count > 0 {
             let newBranch = MuBranch(prevBranch: prevBranch,
                                  suprNode: spotNode,
-                                 subModels: spotNode.model.subModels,
+                                 children: spotNode.model.children,
                                  limb: self,
                                  level: level + 1,
                                  show: false,

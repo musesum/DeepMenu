@@ -43,7 +43,7 @@ class MuNodeModelTests: XCTestCase {
         
         sut.addChild(child)
 
-        XCTAssertEqual([child], sut.subModels)
+        XCTAssertEqual([child], sut.children)
         XCTAssertEqual(sut, child.parent)
     }
 }

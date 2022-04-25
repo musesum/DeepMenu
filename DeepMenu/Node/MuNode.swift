@@ -39,7 +39,7 @@ class MuNode: Identifiable, Equatable, ObservableObject {
             branch.border.type = type
         }
 
-        for subModel in model.subModels {
+        for subModel in model.children {
             let subNode = MuNode(type, branch, subModel, suprNode: self)
             self.subNodes.append(subNode)
         }

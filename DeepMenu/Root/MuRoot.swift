@@ -274,7 +274,7 @@ class MuRoot: ObservableObject, Equatable {
                 spotNode = spotNext
                 // print(".", terminator: "")
             }
-            spotNode?.superSpotlight()
+            spotNode?.suprNode?.superSpotlight() //?? 
         }
         alignFlightWithSpotNode(touch.pointNow)
     }

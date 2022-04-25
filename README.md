@@ -17,16 +17,15 @@ Naming convention
             each limb is aligned horizonal or vertical
 
         Limb - a hierarchy of stacked Branches
-            vLimb instance - a static hierarchy of Branches for vert
-            hLimb instance - a dynamic history of vert
+            vLimb instance - a static hierarchy of vertical Branches
+            hLimb instance - a dynamic history of horizontal Branches
 
-        Branch - contains one or more Nodes
+        Branch - a viewable collection of Nodes
             stacked in levels of increasing detail
-            landing bay multiple branching nodes
-
-        Node - an individual item to select
+            
+        Node - an individual item
             spotNode - spotlight node highlighted in bar
-            nodes don't move -
+            same node can be on multiple branches
 
         Border - Border and bounds for branch
 
@@ -68,11 +67,11 @@ Components - Mu<Name>
 
     Pilot - move from node to node or into open space
 
-    Root - starting poinrt in the corners, contains 1 or 2 limbs
+    Root - starting point in the corners, contains 1 or 2 limbs
 
-    Limb - contains unfolding branches of either horizontal or vertical docs
+    Limb - unfolding horizontal or vertical branches
 
-    Branch - a series of sub-menue (sub-branches)
+    Branch - a series of sub-menu (sub-branches)
 
     Node - individual nodes aligned along branch
 

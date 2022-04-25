@@ -22,19 +22,22 @@ struct ContentView: View {
 
 
             MuRootView().environmentObject(MuRoot([.lower, .right], branches: defaultSampleBranches()))
-            MuRootView().environmentObject(MuRoot([.lower, .left ], branches: appControlBranches()))
-//             MuRootView().environmentObject(MuRoot([.upper, .right], branches: defaultSampleBranches()))
-//            MuRootView().environmentObject(MuRoot([.upper, .left ], branches: defaultSampleBranches()))
+            MuRootView().environmentObject(MuRoot([.lower, .left ], branches: skyBranches()))
         }
         .coordinateSpace(name: "Space")
         .statusBar(hidden: true)
     }
-    
+
+    private func skyBranches() -> [MuBranch] {
+        let skyNodes = ExampleTr3Sky.skyNodes()
+        let skyBranches = MuBranch(children: skyNodes, axis: .vertical)
+        return [skyBranches]
+    }
     private func defaultSampleBranches() -> [MuBranch] {
         let numberedNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
         let letteredNodes = ExampleNodeModels.letteredNodes()
-        let hBranch = MuBranch(subModels: numberedNodes, axis: .horizontal)
-        let vBranch = MuBranch(subModels: letteredNodes, axis: .vertical)
+        let hBranch = MuBranch(children: numberedNodes, axis: .horizontal)
+        let vBranch = MuBranch(children: letteredNodes, axis: .vertical)
         return [hBranch, vBranch]
     }
     
@@ -62,7 +65,7 @@ struct ContentView: View {
         })
         clientModel.addChild(clientXY)
 
-        let vBranch  = MuBranch(subModels: [colorModel, clientModel], axis: .vertical)
+        let vBranch  = MuBranch(children: [colorModel, clientModel], axis: .vertical)
         return [vBranch]
     }
 }

@@ -9,7 +9,7 @@ class MuBranch: Identifiable, ObservableObject {
     let title: String
     var isRoot: Bool = false
 
-    var limb: MuLimb?     // my limb; which unfolds a hierarchy of branches
+    var limb: MuLimb?       // my limb; which unfolds a hierarchy of branches
     var level: CGFloat      // zIndex within sub/super branches
 
     var prevBranch: MuBranch?   // super branch preceding this one
@@ -48,7 +48,7 @@ class MuBranch: Identifiable, ObservableObject {
 
     init(prevBranch: MuBranch? = nil,
          suprNode: MuNode? = nil,
-         subModels: [MuNodeModel],
+         children: [MuNodeModel],
          limb: MuLimb? = nil,
          level: CGFloat = 0,
          show: Bool = true,
@@ -59,14 +59,14 @@ class MuBranch: Identifiable, ObservableObject {
         self.subNodes = [MuNode]()
         self.limb = limb
         self.level = level
-        self.title = "\(subModels.first?.title ?? "")…\(subModels.last?.title ?? "")"
+        self.title = "\(children.first?.title ?? "")…\(children.last?.title ?? "")"
         self.show = show
         
-        self.border = MuBorder(type: .branch, count: subModels.count, axis: axis)
+        self.border = MuBorder(type: .branch, count: children.count, axis: axis)
 
         prevBranch?.nextBranch = self
 
-        buildSubNodesFromSubModels(subModels)
+        buildNodesFromChildren(children)
         updateLimb(limb)
     }
     
@@ -76,13 +76,13 @@ class MuBranch: Identifiable, ObservableObject {
 
     // TODO: This should probably be done at the app level, as the app should be deciding e.g. if the
     //       leaf node should be a xy rectangle control
-    private func buildSubNodesFromSubModels(_ subModels: [MuNodeModel]) {
-        for model in subModels {
+    private func buildNodesFromChildren(_ children: [MuNodeModel]) {
+        for child in children {
             var node: MuNode
-            if subModels.count > 1 || model.subModels.count > 0 {
-                node = MuNode(model.borderType, self, model, suprNode: suprNode)
+            if children.count > 1 || child.children.count > 0 {
+                node = MuNode(child.borderType, self, child, suprNode: suprNode)
             } else {
-                node = MuLeaf(model.borderType, self, model, suprNode: suprNode)
+                node = MuLeaf(child.borderType, self, child, suprNode: suprNode)
             }
             subNodes.append(node)
         }

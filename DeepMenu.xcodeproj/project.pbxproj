@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5747E93C27C95B4E0014AB34 /* MuLeafXYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747E93B27C95B4E0014AB34 /* MuLeafXYView.swift */; };
-		57A0A23827BDAFAE00B5598B /* MuSpokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A23727BDAFAE00B5598B /* MuSpokeTests.swift */; };
+		57A0A23827BDAFAE00B5598B /* MuLimbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A23727BDAFAE00B5598B /* MuLimbTests.swift */; };
 		57A0A26127BED18A00B5598B /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 57A0A26027BED18A00B5598B /* ViewInspector */; };
-		57A0A26327BED1E900B5598B /* MuSpokeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */; };
+		57A0A26327BED1E900B5598B /* MuLimbViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26227BED1E900B5598B /* MuLimbViewTests.swift */; };
 		57A0A26527BF15AA00B5598B /* config.yml in Resources */ = {isa = PBXBuildFile; fileRef = 57A0A26427BF15AA00B5598B /* config.yml */; };
 		57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26727C015F600B5598B /* MuIdentityTests.swift */; };
 		57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029427C142FC00203F63 /* ExampleNodeModels.swift */; };
@@ -42,6 +42,34 @@
 		805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B0EDE2748216700004A85 /* Comparable+ext.swift */; };
 		80631DFD277141780071AF93 /* MuBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFC277141780071AF93 /* MuBorder.swift */; };
 		80631E002772428E0071AF93 /* MuBorderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFF2772428E0071AF93 /* MuBorderType.swift */; };
+		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
+		80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB128170880005FCE1A /* ExampleTr3Sky.swift */; };
+		80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB528170D9A005FCE1A /* SkyTr3.swift */; };
+		80731CD1281715F3005FCE1A /* panel.cell.brush.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBE28171596005FCE1A /* panel.cell.brush.tr3.h */; };
+		80731CD2281715F3005FCE1A /* panel.cell.camera.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBD28171596005FCE1A /* panel.cell.camera.tr3.h */; };
+		80731CD3281715F3005FCE1A /* panel.cell.midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBC28171596005FCE1A /* panel.cell.midi.tr3.h */; };
+		80731CD4281715F3005FCE1A /* panel.cell.scroll.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CB828171595005FCE1A /* panel.cell.scroll.tr3.h */; };
+		80731CD5281715F3005FCE1A /* panel.cell.speed.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBB28171596005FCE1A /* panel.cell.speed.tr3.h */; };
+		80731CD6281715F3005FCE1A /* panel.record.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBA28171595005FCE1A /* panel.record.tr3.h */; };
+		80731CD7281715F3005FCE1A /* panel.camera.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CB728171595005FCE1A /* panel.camera.tr3.h */; };
+		80731CD8281715F3005FCE1A /* panel.cell.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CB928171595005FCE1A /* panel.cell.tr3.h */; };
+		80731CD9281715F3005FCE1A /* panel.shader.colorize.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC0281715A0005FCE1A /* panel.shader.colorize.tr3.h */; };
+		80731CDA281715F3005FCE1A /* panel.shader.tile.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBF281715A0005FCE1A /* panel.shader.tile.tr3.h */; };
+		80731CDB281715F3005FCE1A /* panel.shader.weave.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC1281715A0005FCE1A /* panel.shader.weave.tr3.h */; };
+		80731CDC281715F3005FCE1A /* sky.shader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC2281715A4005FCE1A /* sky.shader.tr3.h */; };
+		80731CDD281715F3005FCE1A /* panel.cell.average.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC4281715B5005FCE1A /* panel.cell.average.tr3.h */; };
+		80731CDE281715F3005FCE1A /* panel.cell.drift.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCB281715B6005FCE1A /* panel.cell.drift.tr3.h */; };
+		80731CDF281715F3005FCE1A /* panel.cell.fader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC9281715B6005FCE1A /* panel.cell.fader.tr3.h */; };
+		80731CE0281715F3005FCE1A /* panel.cell.fredkin.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC8281715B6005FCE1A /* panel.cell.fredkin.tr3.h */; };
+		80731CE1281715F3005FCE1A /* panel.cell.gas.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC6281715B6005FCE1A /* panel.cell.gas.tr3.h */; };
+		80731CE2281715F3005FCE1A /* panel.cell.melt.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC3281715B5005FCE1A /* panel.cell.melt.tr3.h */; };
+		80731CE3281715F3005FCE1A /* panel.cell.modulo.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC5281715B5005FCE1A /* panel.cell.modulo.tr3.h */; };
+		80731CE4281715F3005FCE1A /* panel.cell.slide.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCA281715B6005FCE1A /* panel.cell.slide.tr3.h */; };
+		80731CE5281715F3005FCE1A /* panel.cell.timeTunnel.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC7281715B6005FCE1A /* panel.cell.timeTunnel.tr3.h */; };
+		80731CE6281715F3005FCE1A /* panel.cell.zhabatinski.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCC281715B6005FCE1A /* panel.cell.zhabatinski.tr3.h */; };
+		80731CE7281715F3005FCE1A /* sky.main copy.tr3 in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCE281715C0005FCE1A /* sky.main copy.tr3 */; };
+		80731CE8281715F3005FCE1A /* sky.main.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCF281715C0005FCE1A /* sky.main.tr3.h */; };
+		80731CE9281715F3005FCE1A /* sky.midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCD281715C0005FCE1A /* sky.midi.tr3.h */; };
 		8087FC87280771CF00572436 /* ExampleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* ExampleClient.swift */; };
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
 		80A9B63D272F3B9B00355445 /* MuPilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuPilot.swift */; };
@@ -76,8 +104,8 @@
 
 /* Begin PBXFileReference section */
 		5747E93B27C95B4E0014AB34 /* MuLeafXYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafXYView.swift; sourceTree = "<group>"; };
-		57A0A23727BDAFAE00B5598B /* MuSpokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuSpokeTests.swift; sourceTree = "<group>"; };
-		57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuSpokeViewTests.swift; sourceTree = "<group>"; };
+		57A0A23727BDAFAE00B5598B /* MuLimbTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbTests.swift; sourceTree = "<group>"; };
+		57A0A26227BED1E900B5598B /* MuLimbViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbViewTests.swift; sourceTree = "<group>"; };
 		57A0A26427BF15AA00B5598B /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = config.yml; path = .circleci/config.yml; sourceTree = "<group>"; };
 		57A0A26727C015F600B5598B /* MuIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentityTests.swift; sourceTree = "<group>"; };
 		57F3029427C142FC00203F63 /* ExampleNodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNodeModels.swift; sourceTree = "<group>"; };
@@ -117,6 +145,33 @@
 		805B0EDE2748216700004A85 /* Comparable+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ext.swift"; sourceTree = "<group>"; };
 		80631DFC277141780071AF93 /* MuBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBorder.swift; sourceTree = "<group>"; };
 		80631DFF2772428E0071AF93 /* MuBorderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBorderType.swift; sourceTree = "<group>"; };
+		80731CB128170880005FCE1A /* ExampleTr3Sky.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTr3Sky.swift; sourceTree = "<group>"; };
+		80731CB528170D9A005FCE1A /* SkyTr3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyTr3.swift; sourceTree = "<group>"; };
+		80731CB728171595005FCE1A /* panel.camera.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.camera.tr3.h; sourceTree = "<group>"; };
+		80731CB828171595005FCE1A /* panel.cell.scroll.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.scroll.tr3.h; sourceTree = "<group>"; };
+		80731CB928171595005FCE1A /* panel.cell.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.tr3.h; sourceTree = "<group>"; };
+		80731CBA28171595005FCE1A /* panel.record.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.record.tr3.h; sourceTree = "<group>"; };
+		80731CBB28171596005FCE1A /* panel.cell.speed.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.speed.tr3.h; sourceTree = "<group>"; };
+		80731CBC28171596005FCE1A /* panel.cell.midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.midi.tr3.h; sourceTree = "<group>"; };
+		80731CBD28171596005FCE1A /* panel.cell.camera.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.camera.tr3.h; sourceTree = "<group>"; };
+		80731CBE28171596005FCE1A /* panel.cell.brush.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.brush.tr3.h; sourceTree = "<group>"; };
+		80731CBF281715A0005FCE1A /* panel.shader.tile.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.shader.tile.tr3.h; sourceTree = "<group>"; };
+		80731CC0281715A0005FCE1A /* panel.shader.colorize.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.shader.colorize.tr3.h; sourceTree = "<group>"; };
+		80731CC1281715A0005FCE1A /* panel.shader.weave.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.shader.weave.tr3.h; sourceTree = "<group>"; };
+		80731CC2281715A4005FCE1A /* sky.shader.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.shader.tr3.h; sourceTree = "<group>"; };
+		80731CC3281715B5005FCE1A /* panel.cell.melt.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.melt.tr3.h; sourceTree = "<group>"; };
+		80731CC4281715B5005FCE1A /* panel.cell.average.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.average.tr3.h; sourceTree = "<group>"; };
+		80731CC5281715B5005FCE1A /* panel.cell.modulo.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.modulo.tr3.h; sourceTree = "<group>"; };
+		80731CC6281715B6005FCE1A /* panel.cell.gas.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.gas.tr3.h; sourceTree = "<group>"; };
+		80731CC7281715B6005FCE1A /* panel.cell.timeTunnel.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.timeTunnel.tr3.h; sourceTree = "<group>"; };
+		80731CC8281715B6005FCE1A /* panel.cell.fredkin.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.fredkin.tr3.h; sourceTree = "<group>"; };
+		80731CC9281715B6005FCE1A /* panel.cell.fader.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.fader.tr3.h; sourceTree = "<group>"; };
+		80731CCA281715B6005FCE1A /* panel.cell.slide.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.slide.tr3.h; sourceTree = "<group>"; };
+		80731CCB281715B6005FCE1A /* panel.cell.drift.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.drift.tr3.h; sourceTree = "<group>"; };
+		80731CCC281715B6005FCE1A /* panel.cell.zhabatinski.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.zhabatinski.tr3.h; sourceTree = "<group>"; };
+		80731CCD281715C0005FCE1A /* sky.midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.midi.tr3.h; sourceTree = "<group>"; };
+		80731CCE281715C0005FCE1A /* sky.main copy.tr3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sky.main copy.tr3"; sourceTree = "<group>"; };
+		80731CCF281715C0005FCE1A /* sky.main.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.main.tr3.h; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* ExampleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleClient.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		809D126A275B26CA0091D252 /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
@@ -138,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80731CB0281706DD005FCE1A /* Tr3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,13 +215,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		57A0A23627BDAF8400B5598B /* Spoke */ = {
+		57A0A23627BDAF8400B5598B /* Limb */ = {
 			isa = PBXGroup;
 			children = (
-				57A0A23727BDAFAE00B5598B /* MuSpokeTests.swift */,
-				57A0A26227BED1E900B5598B /* MuSpokeViewTests.swift */,
+				57A0A23727BDAFAE00B5598B /* MuLimbTests.swift */,
+				57A0A26227BED1E900B5598B /* MuLimbViewTests.swift */,
 			);
-			path = Spoke;
+			path = Limb;
 			sourceTree = "<group>";
 		};
 		57A0A26627C015D300B5598B /* Global */ = {
@@ -254,7 +310,7 @@
 			children = (
 				57A0A26627C015D300B5598B /* Global */,
 				57F3029627C4387200203F63 /* Pod */,
-				57A0A23627BDAF8400B5598B /* Spoke */,
+				57A0A23627BDAF8400B5598B /* Limb */,
 				8014B7DA2700DE3A00691126 /* DeepMenuTests.swift */,
 			);
 			path = DeepMenuTests;
@@ -338,6 +394,38 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		80731CD0281715D9005FCE1A /* Tr3 */ = {
+			isa = PBXGroup;
+			children = (
+				80731CBE28171596005FCE1A /* panel.cell.brush.tr3.h */,
+				80731CBD28171596005FCE1A /* panel.cell.camera.tr3.h */,
+				80731CBC28171596005FCE1A /* panel.cell.midi.tr3.h */,
+				80731CB828171595005FCE1A /* panel.cell.scroll.tr3.h */,
+				80731CBB28171596005FCE1A /* panel.cell.speed.tr3.h */,
+				80731CBA28171595005FCE1A /* panel.record.tr3.h */,
+				80731CB728171595005FCE1A /* panel.camera.tr3.h */,
+				80731CB928171595005FCE1A /* panel.cell.tr3.h */,
+				80731CC0281715A0005FCE1A /* panel.shader.colorize.tr3.h */,
+				80731CBF281715A0005FCE1A /* panel.shader.tile.tr3.h */,
+				80731CC1281715A0005FCE1A /* panel.shader.weave.tr3.h */,
+				80731CC2281715A4005FCE1A /* sky.shader.tr3.h */,
+				80731CC4281715B5005FCE1A /* panel.cell.average.tr3.h */,
+				80731CCB281715B6005FCE1A /* panel.cell.drift.tr3.h */,
+				80731CC9281715B6005FCE1A /* panel.cell.fader.tr3.h */,
+				80731CC8281715B6005FCE1A /* panel.cell.fredkin.tr3.h */,
+				80731CC6281715B6005FCE1A /* panel.cell.gas.tr3.h */,
+				80731CC3281715B5005FCE1A /* panel.cell.melt.tr3.h */,
+				80731CC5281715B5005FCE1A /* panel.cell.modulo.tr3.h */,
+				80731CCA281715B6005FCE1A /* panel.cell.slide.tr3.h */,
+				80731CC7281715B6005FCE1A /* panel.cell.timeTunnel.tr3.h */,
+				80731CCC281715B6005FCE1A /* panel.cell.zhabatinski.tr3.h */,
+				80731CCE281715C0005FCE1A /* sky.main copy.tr3 */,
+				80731CCF281715C0005FCE1A /* sky.main.tr3.h */,
+				80731CCD281715C0005FCE1A /* sky.midi.tr3.h */,
+			);
+			path = Tr3;
+			sourceTree = "<group>";
+		};
 		8076229E27988F07008CBBE3 /* Touch */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,8 +437,11 @@
 		8087FC882808760800572436 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				80731CD0281715D9005FCE1A /* Tr3 */,
 				57F3029427C142FC00203F63 /* ExampleNodeModels.swift */,
 				8087FC86280771CF00572436 /* ExampleClient.swift */,
+				80731CB128170880005FCE1A /* ExampleTr3Sky.swift */,
+				80731CB528170D9A005FCE1A /* SkyTr3.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -414,6 +505,7 @@
 			);
 			name = DeepMenu;
 			packageProductDependencies = (
+				80731CAF281706DD005FCE1A /* Tr3 */,
 			);
 			productName = DeepMenu;
 			productReference = 8014B7C62700DE3800691126 /* DeepMenu.app */;
@@ -492,6 +584,7 @@
 			mainGroup = 8014B7BD2700DE3800691126;
 			packageReferences = (
 				57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */,
+				80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */,
 			);
 			productRefGroup = 8014B7C72700DE3800691126 /* Products */;
 			projectDirPath = "";
@@ -509,6 +602,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80731CD1281715F3005FCE1A /* panel.cell.brush.tr3.h in Resources */,
+				80731CD2281715F3005FCE1A /* panel.cell.camera.tr3.h in Resources */,
+				80731CD3281715F3005FCE1A /* panel.cell.midi.tr3.h in Resources */,
+				80731CD4281715F3005FCE1A /* panel.cell.scroll.tr3.h in Resources */,
+				80731CD5281715F3005FCE1A /* panel.cell.speed.tr3.h in Resources */,
+				80731CD6281715F3005FCE1A /* panel.record.tr3.h in Resources */,
+				80731CD7281715F3005FCE1A /* panel.camera.tr3.h in Resources */,
+				80731CD8281715F3005FCE1A /* panel.cell.tr3.h in Resources */,
+				80731CD9281715F3005FCE1A /* panel.shader.colorize.tr3.h in Resources */,
+				80731CDA281715F3005FCE1A /* panel.shader.tile.tr3.h in Resources */,
+				80731CDB281715F3005FCE1A /* panel.shader.weave.tr3.h in Resources */,
+				80731CDC281715F3005FCE1A /* sky.shader.tr3.h in Resources */,
+				80731CDD281715F3005FCE1A /* panel.cell.average.tr3.h in Resources */,
+				80731CDE281715F3005FCE1A /* panel.cell.drift.tr3.h in Resources */,
+				80731CDF281715F3005FCE1A /* panel.cell.fader.tr3.h in Resources */,
+				80731CE0281715F3005FCE1A /* panel.cell.fredkin.tr3.h in Resources */,
+				80731CE1281715F3005FCE1A /* panel.cell.gas.tr3.h in Resources */,
+				80731CE2281715F3005FCE1A /* panel.cell.melt.tr3.h in Resources */,
+				80731CE3281715F3005FCE1A /* panel.cell.modulo.tr3.h in Resources */,
+				80731CE4281715F3005FCE1A /* panel.cell.slide.tr3.h in Resources */,
+				80731CE5281715F3005FCE1A /* panel.cell.timeTunnel.tr3.h in Resources */,
+				80731CE6281715F3005FCE1A /* panel.cell.zhabatinski.tr3.h in Resources */,
+				80731CE7281715F3005FCE1A /* sky.main copy.tr3 in Resources */,
+				80731CE8281715F3005FCE1A /* sky.main.tr3.h in Resources */,
+				80731CE9281715F3005FCE1A /* sky.midi.tr3.h in Resources */,
 				57A0A26527BF15AA00B5598B /* config.yml in Resources */,
 				802AEDA527BD8486003325C9 /* README.md in Resources */,
 				8014B7D12700DE3A00691126 /* Preview Assets.xcassets in Resources */,
@@ -540,6 +658,7 @@
 				80135A07272C71EA00BCDE27 /* MuLimbView.swift in Sources */,
 				8019DBFB271C8CEC00420923 /* MuNodeModel.swift in Sources */,
 				80135A0B272C728700BCDE27 /* AppBackgroundView.swift in Sources */,
+				80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */,
 				80135A09272C724E00BCDE27 /* MuPilotView.swift in Sources */,
 				80FC93F327344C3400FC10E5 /* MuCorner.swift in Sources */,
 				8019DC03271C8DDE00420923 /* MuNode.swift in Sources */,
@@ -555,6 +674,7 @@
 				8019DBF4271BD7A200420923 /* MuBranch.swift in Sources */,
 				80B8EE872790A08500149AA3 /* Range+ext.swift in Sources */,
 				8087FC87280771CF00572436 /* ExampleClient.swift in Sources */,
+				80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */,
 				80C43F4D274EE92E002B0B76 /* MuRootStatus.swift in Sources */,
 				8014B7CC2700DE3800691126 /* ContentView.swift in Sources */,
 				800D4AE9272B220700E71519 /* CG+ext.swift in Sources */,
@@ -580,8 +700,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57A0A26327BED1E900B5598B /* MuSpokeViewTests.swift in Sources */,
-				57A0A23827BDAFAE00B5598B /* MuSpokeTests.swift in Sources */,
+				57A0A26327BED1E900B5598B /* MuLimbViewTests.swift in Sources */,
+				57A0A23827BDAFAE00B5598B /* MuLimbTests.swift in Sources */,
 				8014B7DB2700DE3A00691126 /* DeepMenuTests.swift in Sources */,
 				57F3029827C4389B00203F63 /* MuPodModelTests.swift in Sources */,
 				57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */,
@@ -947,6 +1067,14 @@
 				minimumVersion = 0.9.1;
 			};
 		};
+		80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/musesum/Tr3";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -954,6 +1082,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
+		};
+		80731CAF281706DD005FCE1A /* Tr3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */;
+			productName = Tr3;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
