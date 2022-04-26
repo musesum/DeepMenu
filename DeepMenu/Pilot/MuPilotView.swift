@@ -12,7 +12,7 @@ struct MuPilotView: View {
             // root icon
             GeometryReader() { geo in
 
-                MuNodeView(node: pilot.hubNode)
+                MuNodeView(node: pilot.rootNode)
 
                     .frame(width: Layout.diameter, height: Layout.diameter)
                     .onAppear { pilot.updateHome(geo.frame(in: .named("Space"))) }

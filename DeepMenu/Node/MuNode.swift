@@ -15,8 +15,8 @@ class MuNode: Identifiable, Equatable, ObservableObject {
     var model: MuNodeModel
     var icon: String
     var branch: MuBranch
-    var suprNode: MuNode?   // super node
-    var subNodes: [MuNode]  // sub nodes
+    var spotPrev: MuNode?   // super node
+    var childNodes: [MuNode]  // sub nodes
     var nodeXY = CGPoint.zero // current position
 
     var border: MuBorder
@@ -25,14 +25,14 @@ class MuNode: Identifiable, Equatable, ObservableObject {
           _ branch: MuBranch,
           _ model: MuNodeModel,
           icon: String = "",
-          suprNode: MuNode? = nil,
-          subNodes: [MuNode] = []) {
+          spotPrev: MuNode? = nil,
+          childNodes: [MuNode] = []) {
 
         self.branch = branch
         self.model = model
         self.icon = icon
-        self.suprNode = suprNode
-        self.subNodes = subNodes
+        self.spotPrev = spotPrev
+        self.childNodes = childNodes
         self.border = MuBorder(type: type)
 
         if [.polar, .rect].contains(type) {
@@ -40,8 +40,8 @@ class MuNode: Identifiable, Equatable, ObservableObject {
         }
 
         for subModel in model.children {
-            let subNode = MuNode(type, branch, subModel, suprNode: self)
-            self.subNodes.append(subNode)
+            let subNode = MuNode(type, branch, subModel, spotPrev: self)
+            self.childNodes.append(subNode)
         }
     }
     
@@ -50,28 +50,28 @@ class MuNode: Identifiable, Equatable, ObservableObject {
                         branch,
                         model,
                         icon: icon,
-                        suprNode: self,
-                        subNodes: subNodes)
+                        spotPrev: self,
+                        childNodes: childNodes)
         return node
     }
 
     /// spotlight self, parent, grand, etc. in branch
     func superSpotlight(_ time: TimeInterval = Date().timeIntervalSince1970) {
-        for node in branch.subNodes {
+        for node in branch.childNodes {
             node.spotlight = false
         }
         spotlight = true
         spotTime = time
-        suprNode?.superSpotlight(time)
+        spotPrev?.superSpotlight(time)
     }
 
     /// select self, parent, grand, etc. in branch
     func superSelect() {
 
-        if let suprNode = suprNode {
-            suprNode.spotlight = true
-            suprNode.model.subNow = model
-            suprNode.superSelect()
+        if let spotPrev = spotPrev {
+            spotPrev.spotlight = true
+            spotPrev.model.subNow = model
+            spotPrev.superSelect()
         }
     }
 

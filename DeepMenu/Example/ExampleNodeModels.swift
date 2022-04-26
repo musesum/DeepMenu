@@ -7,7 +7,7 @@ enum ExampleNodeModels {
     /**
      Create a mock calendar
      */
-    static func calendarNodes(suprModel: MuNodeModel? = nil,
+    static func calendarNodes(parentModel: MuNodeModel? = nil,
                              _ level: Int = 0) -> [MuNodeModel] {
         let nodes = [MuNodeModel]()
         //TODO: setup random points in timeline
@@ -17,7 +17,7 @@ enum ExampleNodeModels {
     /**
      Create a stochastic limb of `MuNodeModel`s
      */
-    static func letteredNodes(suprModel: MuNodeModel? = nil, _ level: Int = 0) -> [MuNodeModel] {
+    static func letteredNodes(parentModel: MuNodeModel? = nil, _ level: Int = 0) -> [MuNodeModel] {
         var nodes = [MuNodeModel]()
         let AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let az = "abcdefghijklmnopqrstuvwxyz"
@@ -35,8 +35,8 @@ enum ExampleNodeModels {
         for i in 0 ..< max {
             let name = names[i]
             let borderType: MuBorderType = (level == ranges.count - 1 ? .rect : .node)
-            let nodeModel = MuNodeModel(name, type: borderType, suprModel: suprModel)
-            let children = ExampleNodeModels.letteredNodes(suprModel: nodeModel, level + 1)
+            let nodeModel = MuNodeModel(name, type: borderType, parentModel: parentModel)
+            let children = ExampleNodeModels.letteredNodes(parentModel: nodeModel, level + 1)
             nodeModel.children = children
             nodes.append(nodeModel)
         }
@@ -50,18 +50,18 @@ enum ExampleNodeModels {
      - Parameters:
        - count: The number of nodes per level (the same for all levels).
        - numLevels: How many sub-node levels, including the initial one.
-       - suprModel: The parent MuNodeModel for this level .... TODO: not clear what suprModel means (supervisor? super? parent?)
+       - parentModel: The parent MuNodeModel for this level .... TODO: not clear what parentModel means (supervisor? super? parent?)
      - Returns: An array of number-styled MuNodeModels
      */
-    static func numberedNodes(_ count: Int, numLevels: Int = 0, suprModel: MuNodeModel? = nil) -> [MuNodeModel] {
+    static func numberedNodes(_ count: Int, numLevels: Int = 0, parentModel: MuNodeModel? = nil) -> [MuNodeModel] {
         var nodes = [MuNodeModel]()
 
         if numLevels > 0 {
 
             for i in 1 ... count {
                 let name = String(i)
-                let nodeModel = MuNodeModel(name, suprModel: suprModel)
-                let children = ExampleNodeModels.numberedNodes(count, numLevels: numLevels - 1, suprModel: nodeModel)
+                let nodeModel = MuNodeModel(name, parentModel: parentModel)
+                let children = ExampleNodeModels.numberedNodes(count, numLevels: numLevels - 1, parentModel: nodeModel)
                 nodeModel.children = children
                 nodes.append(nodeModel)
             }

@@ -9,14 +9,15 @@ class MuBranch: Identifiable, ObservableObject {
     let title: String
     var isRoot: Bool = false
 
-    var limb: MuLimb?       // my limb; which unfolds a hierarchy of branches
-    var level: CGFloat      // zIndex within sub/super branches
+    var limb: MuLimb?           // my limb; which unfolds a hierarchy of branches
+    var level: CGFloat          // zIndex within sub/super branches
 
-    var prevBranch: MuBranch?   // super branch preceding this one
-    var nextBranch: MuBranch?   // sub branch expanding from spotlight node
-    var suprNode: MuNode?     // super branch's spotlight node
-    var subNodes: [MuNode]    // the nodes on this branch, incl spotNode
-    var spotNode: MuNode?     // current spotlight node
+    var branchPrev: MuBranch?   // branch preceding this one
+    var branchNext: MuBranch?   // branch expanding from spotlight node
+    var childNodes: [MuNode]    // the nodes on this branch, incl spotNode
+
+    var spotNode: MuNode?       // current spotlight node
+    var spotPrev: MuNode?       // prevBranch's spotlight node
 
     var border: MuBorder
     var bounds: CGRect = .zero
@@ -25,38 +26,38 @@ class MuBranch: Identifiable, ObservableObject {
 
     var reverse = false
 
-    init(prevBranch: MuBranch? = nil,
-         subNodes: [MuNode] = [],
+    init(branchPrev: MuBranch? = nil,
+         childNodes: [MuNode] = [],
          limb: MuLimb? = nil,
          level: CGFloat = 0,
          isRoot: Bool = false,
          show: Bool = true,
          axis: Axis) {
 
-        self.prevBranch = prevBranch
-        self.subNodes = subNodes
+        self.branchPrev = branchPrev
+        self.childNodes = childNodes
         self.limb = limb
-        self.title = "\(subNodes.first?.model.title ?? "")…\(subNodes.last?.model.title ?? "")"
+        self.title = "\(childNodes.first?.model.title ?? "")…\(childNodes.last?.model.title ?? "")"
         self.level = level
         self.isRoot = isRoot
         self.show = show
-        self.border = MuBorder(type: .branch, count: subNodes.count, axis: axis)
+        self.border = MuBorder(type: .branch, count: childNodes.count, axis: axis)
 
-        prevBranch?.nextBranch = self
+        branchPrev?.branchNext = self
         updateLimb(limb)
     }
 
-    init(prevBranch: MuBranch? = nil,
-         suprNode: MuNode? = nil,
+    init(branchPrev: MuBranch? = nil,
+         spotPrev: MuNode? = nil,
          children: [MuNodeModel],
          limb: MuLimb? = nil,
          level: CGFloat = 0,
          show: Bool = true,
          axis: Axis) {
 
-        self.prevBranch = prevBranch
-        self.suprNode = suprNode
-        self.subNodes = [MuNode]()
+        self.branchPrev = branchPrev
+        self.spotPrev = spotPrev
+        self.childNodes = [MuNode]()
         self.limb = limb
         self.level = level
         self.title = "\(children.first?.title ?? "")…\(children.last?.title ?? "")"
@@ -64,7 +65,7 @@ class MuBranch: Identifiable, ObservableObject {
         
         self.border = MuBorder(type: .branch, count: children.count, axis: axis)
 
-        prevBranch?.nextBranch = self
+        branchPrev?.branchNext = self
 
         buildNodesFromChildren(children)
         updateLimb(limb)
@@ -80,11 +81,11 @@ class MuBranch: Identifiable, ObservableObject {
         for child in children {
             var node: MuNode
             if children.count > 1 || child.children.count > 0 {
-                node = MuNode(child.borderType, self, child, suprNode: suprNode)
+                node = MuNode(child.borderType, self, child, spotPrev: spotPrev)
             } else {
-                node = MuLeaf(child.borderType, self, child, suprNode: suprNode)
+                node = MuLeaf(child.borderType, self, child, spotPrev: spotPrev)
             }
-            subNodes.append(node)
+            childNodes.append(node)
         }
     }
     /**
@@ -95,20 +96,20 @@ class MuBranch: Identifiable, ObservableObject {
         guard let limb = limb else { return }
         self.limb = limb
 
-        if let center = prevBranch?.spotNode?.nodeXY {
+        if let center = branchPrev?.spotNode?.nodeXY {
             bounds = border.bounds(center)
         }
-        branchShift = prevBranch?.branchShift ?? .zero
+        branchShift = branchPrev?.branchShift ?? .zero
     }
 
     func addNode(_ node: MuNode) {
-        if subNodes.contains(node) { return }
-        subNodes.append(node)
+        if childNodes.contains(node) { return }
+        childNodes.append(node)
     }
     
     func removeNode(_ node: MuNode) {
-        let filtered = subNodes.filter { $0.id != node.id }
-        subNodes = filtered
+        let filtered = childNodes.filter { $0.id != node.id }
+        childNodes = filtered
     }
 
     func findHover(_ touchNow: CGPoint) -> MuNode? {
@@ -119,7 +120,7 @@ class MuBranch: Identifiable, ObservableObject {
         }
 
         //TODO: this is rather inefficient, is a workaround for the above
-        for node in subNodes {
+        for node in childNodes {
 
             if node.nodeXY.distance(touchNow) < border.diameter {
                 spotNode = node

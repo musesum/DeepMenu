@@ -100,7 +100,7 @@ extension CGRect {
 
     /// before and after are two finger pinch bounding rectangle.
     /// while pinching, rescale the current rect
-    /// while shifting center shift hubd on direction of pinch
+    /// while shifting center shift rootd on direction of pinch
     func reScale(before: CGRect, after: CGRect) -> CGRect {
 
         let scale = after.cornerDistance() / before.cornerDistance()

@@ -53,9 +53,9 @@ class MuLimb: Identifiable, ObservableObject {
                       _ spotNode: MuNode) {
 
         // tapped on spotlight
-        if let nextBranch = spotBranch.nextBranch,
-            nextBranch.show == true, // nextBranch is also shown (limb.depth > 1)
-           let subId = nextBranch.spotNode?.model.id,
+        if let branchNext = spotBranch.branchNext,
+            branchNext.show == true, // branchNext is also shown (limb.depth > 1)
+           let subId = branchNext.spotNode?.model.id,
            let nowId = spotNode.model.subNow?.id, subId == nowId {
             // all subBranches are the same
             return
@@ -80,7 +80,7 @@ class MuLimb: Identifiable, ObservableObject {
 
     /// add a branch to selected node and follow selected kid
     func expandBranches(_ spotNode: MuNode?,
-                     _ prevBranch: MuBranch?,
+                     _ branchPrev: MuBranch?,
                      _ newBranches: inout [MuBranch],
                      _ level: CGFloat) {
         
@@ -89,8 +89,8 @@ class MuLimb: Identifiable, ObservableObject {
         spotNode.spotlight = true
         
         if spotNode.model.children.count > 0 {
-            let newBranch = MuBranch(prevBranch: prevBranch,
-                                 suprNode: spotNode,
+            let newBranch = MuBranch(branchPrev: branchPrev,
+                                 spotPrev: spotNode,
                                  children: spotNode.model.children,
                                  limb: self,
                                  level: level + 1,
@@ -100,7 +100,7 @@ class MuLimb: Identifiable, ObservableObject {
             newBranches.append(newBranch)
             if let nextModel = spotNode.model.subNow {
                 // TODO: use ordered dictionary?
-                let filter = newBranch.subNodes.filter { $0.model.id == nextModel.id }
+                let filter = newBranch.childNodes.filter { $0.model.id == nextModel.id }
                 newBranch.spotNode = filter.first
                 expandBranches(newBranch.spotNode, newBranch, &newBranches, level + 1)
             }

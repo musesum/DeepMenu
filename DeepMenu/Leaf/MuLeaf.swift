@@ -19,8 +19,8 @@ class MuLeaf: MuNode {
           _ branch: MuBranch,
           _ model: MuNodeModel,
           icon: String = "",
-          suprNode: MuNode?) {
+          spotPrev: MuNode?) {
         
-         super.init(type, branch, model, icon: icon, suprNode: suprNode)
+         super.init(type, branch, model, icon: icon, spotPrev: spotPrev)
     }
 }

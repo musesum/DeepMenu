@@ -6,7 +6,7 @@ import SwiftUI
 class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
     let id = MuIdentity.getId() //TODO: use a persistent storage ID after debugging
     
-    var name: String // pilot's name may be changed hubd on corner placement
+    var name: String // pilot's name may be changed rootd on corner placement
     let title: String
     let borderType: MuBorderType
     var children = [MuNodeModel]()
@@ -25,14 +25,14 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
 
     init(_ name: String,
          type: MuBorderType = .node,
-         suprModel: MuNodeModel? = nil,
+         parentModel: MuNodeModel? = nil,
          children: [MuNodeModel]? = nil,
          callback: @escaping (Any) -> Void = { _ in return })
     {
 
         self.name = name
         self.borderType = type
-        self.title = (suprModel?.title ?? "") + name
+        self.title = (parentModel?.title ?? "") + name
         self.callback = callback
         
         if let children = children {
@@ -49,7 +49,7 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
             case [.upper, .right]: name = "◥"
             case [.upper, .left ]: name = "◤"
 
-                // reserved for later middling hubs
+                // reserved for later middling roots
             case [.upper]: name = "▲"
             case [.right]: name = "▶︎"
             case [.lower]: name = "▼"

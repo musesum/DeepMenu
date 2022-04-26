@@ -13,9 +13,9 @@ class MuPilot: ObservableObject {
     var alpha: CGFloat { get { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }}
 
     var root: MuRoot?
-    var hubNode: MuNode   // fixed corner node space
+    var rootNode: MuNode   // fixed corner node space
     var flyNode: MuNode?  // flying node from root
-    var hubBranch: MuBranch
+    var rootBranch: MuBranch
 
     var touchOfs = CGSize.zero
     var deltaOfs = CGSize.zero // difference between touch point and center in coord
@@ -27,9 +27,9 @@ class MuPilot: ObservableObject {
         }}}
 
     /// adjust offset for root on right side of canvas
-    func rightSideOffset(for hubStatus: MuRootStatus) -> CGFloat {
+    func rightSideOffset(for rootStatus: MuRootStatus) -> CGFloat {
         if let root = root,
-           root.status == hubStatus,
+           root.status == rootStatus,
            root.corner.contains(.right) {
             return -(2 * Layout.spacing)
         } else {
@@ -41,15 +41,15 @@ class MuPilot: ObservableObject {
     var pointDelta = CGPoint.zero // touch starting position
 
     init() {
-        let hubNodeModel = MuNodeModel("⚫︎") // name changed below
-        hubBranch = MuBranch(isRoot: true, axis: .horizontal)
-        hubNode = MuNode(.root, hubBranch, hubNodeModel, icon: Layout.hoverRing)
-        hubBranch.addNode(hubNode)
+        let rootNodeModel = MuNodeModel("⚫︎") // name changed below
+        rootBranch = MuBranch(isRoot: true, axis: .horizontal)
+        rootNode = MuNode(.root, rootBranch, rootNodeModel, icon: Layout.hoverRing)
+        rootBranch.addNode(rootNode)
     }
     
     func setRoot(_ root: MuRoot) {
         self.root = root
-        hubNode.model.setName(from: root.corner)
+        rootNode.model.setName(from: root.corner)
     }
 
     /**  via MuBranchView::@GestureState touchNow .onChange,
@@ -65,15 +65,15 @@ class MuPilot: ObservableObject {
         func begin() {
 
             pointNow = touchNow
-            flyNode = hubNode.copy()
+            flyNode = rootNode.copy()
             pointDelta = touchNow
             root?.begin(touchBranch, touchNow)
 
-            touchOfs = CGSize(hubNode.nodeXY - touchNow)
+            touchOfs = CGSize(rootNode.nodeXY - touchNow)
             touchOfs.width += rightSideOffset(for: .root)
 
             log("touch", [touchNow], terminator: " ")
-            log("root", [hubNode.nodeXY], terminator: " ")
+            log("root", [rootNode.nodeXY], terminator: " ")
         }
 
         func moved() {

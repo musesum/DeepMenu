@@ -11,16 +11,16 @@ import Tr3
 
 enum ExampleTr3Sky {
 
-    static func skyNodes(suprModel: MuNodeModel? = nil,
+    static func skyNodes(parentModel: MuNodeModel? = nil,
                          _ level: Int = 0) -> [MuNodeModel] {
 
 
-//        func makeTr3Node(_ tr3: Tr3, parentNode: MuNode?) -> MuNode {
+//        func makeTr3Node(_ tr3: Tr3, spotPrev: MuNode?) -> MuNode {
 //            return MuNode(.node,)
 //        }
-//        func parseTr3Nodes(_ tr3: Tr3, parentNode: MuNode) {
-//            let node = makeTr3Node(tr3, parentNode: parentNode)
-//            parentNode.subNodes.append(node)
+//        func parseTr3Nodes(_ tr3: Tr3, spotPrev: MuNode) {
+//            let node = makeTr3Node(tr3, spotPrev: spotPrev)
+//            spotPrev.childNodes.append(node)
 //
 //            for child in tr3.children {
 //

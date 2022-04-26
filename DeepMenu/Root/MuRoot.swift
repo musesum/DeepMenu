@@ -274,7 +274,7 @@ class MuRoot: ObservableObject, Equatable {
                 spotNode = spotNext
                 // print(".", terminator: "")
             }
-            spotNode?.suprNode?.superSpotlight() //?? 
+            spotNode?.spotPrev?.superSpotlight() //?? 
         }
         alignFlightWithSpotNode(touch.pointNow)
     }
@@ -387,12 +387,12 @@ class MuRoot: ObservableObject, Equatable {
     }
 
     /// timer for auto-folding branches back into limbs
-    var hubTimer: Timer?
+    var rootTimer: Timer?
 
     /// cancel timer that auto-tucks in branches
     func resetRootTimer(delay: TimeInterval = -1) {
         #if false
-        hubTimer?.invalidate()
+        rootTimer?.invalidate()
         
         if delay < 0 { return } // started dragging, so don't finish old one
 
@@ -402,7 +402,7 @@ class MuRoot: ObservableObject, Equatable {
             }
             updateStatus(.root, debug: "9")
         }
-        hubTimer = Timer.scheduledTimer(withTimeInterval: delay,
+        rootTimer = Timer.scheduledTimer(withTimeInterval: delay,
                                         repeats: false,
                                         block: resetting)
         #endif

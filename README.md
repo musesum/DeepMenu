@@ -46,7 +46,7 @@ Naming convention
     
         s* - spacing between nodes
         
-        supr - super `Node` or `Model` / parent in a hierarchy
+        parent - super `Node` or `Model` / parent in a hierarchy
          
 Programming convention
 
