@@ -4,7 +4,7 @@ import SwiftUI
 
 class MuTouch {
 
-    static let tapInterval = TimeInterval(0.5) // tap time threshold
+    static let tapThreshold = TimeInterval(0.5) // tap time threshold
     private var timeBegin = TimeInterval(0) // starting time for tap candidate
     private var timeDelta = TimeInterval(0) // time elapsed since beginning
     private var timeEnded = TimeInterval(0) // ending time for tap candidate
@@ -19,8 +19,8 @@ class MuTouch {
     func begin(_ pointNow: CGPoint) {
         self.pointNow = pointNow
         let timeNow = Date().timeIntervalSince1970
-        if (timeNow - timeEnded) > MuTouch.tapInterval {
-            tapCount = 0
+        if (timeNow - timeEnded) > MuTouch.tapThreshold {
+            tapCount = 0 // not a tap
         }
         timeBegin = timeNow
         timeDelta = 0
@@ -51,7 +51,7 @@ class MuTouch {
     }
 
     var tapped: Bool {
-        let tapping = timeDelta < MuTouch.tapInterval
+        let tapping = timeDelta < MuTouch.tapThreshold
         if tapping {
             log("🟣" + (tapCount < 3 ? "¹²³"[tapCount] : String(tapCount)))
         }

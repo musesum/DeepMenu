@@ -22,7 +22,7 @@ struct MuBranchView: View, Identifiable {
                                : root.corner.contains(.left)  ? true : false )
 
                 HVScroll(border) {
-                    ForEach(reverse ? branch.childNodes.reversed() : branch.childNodes, id: \.id) {
+                    ForEach(reverse ? branch.branchNodes.reversed() : branch.branchNodes, id: \.id) {
                         MuNodeView(node: $0)
                     }
                 }

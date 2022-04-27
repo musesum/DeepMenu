@@ -17,7 +17,7 @@ struct MuNodeTitleView: View {
                 .animation(.easeInOut(duration: 0.20), value: borderColor)
                 .animation(.easeInOut(duration: 0.20), value: borderWidth)
                 .background(Color.clear)
-            Text(node.model.title)
+            Text(node.model.name)
                 .scaledToFit()
                 .padding(1)
                 .minimumScaleFactor(0.01)

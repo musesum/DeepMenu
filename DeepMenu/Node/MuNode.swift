@@ -12,12 +12,12 @@ class MuNode: Identifiable, Equatable, ObservableObject {
     @Published var spotlight = false // true when selected or under cursor
     var spotTime = TimeInterval(0)
 
-    var model: MuNodeModel
-    var icon: String
-    var branch: MuBranch
-    var spotPrev: MuNode?   // super node
-    var childNodes: [MuNode]  // sub nodes
-    var nodeXY = CGPoint.zero // current position
+    var model: MuNodeModel      // each model MuNodeModel maybe on several MuNode(s)
+    var icon: String            // icon for this node (not implemented)
+    var branch: MuBranch        // branch that this node is on
+    var spotPrev: MuNode?       // parent branch's spotlight node
+    var subNodes: [MuNode]      // sub nodes (child nodes)
+    var nodeXY = CGPoint.zero   // current position
 
     var border: MuBorder
 
@@ -26,13 +26,13 @@ class MuNode: Identifiable, Equatable, ObservableObject {
           _ model: MuNodeModel,
           icon: String = "",
           spotPrev: MuNode? = nil,
-          childNodes: [MuNode] = []) {
+          subNodes: [MuNode] = []) {
 
         self.branch = branch
         self.model = model
         self.icon = icon
         self.spotPrev = spotPrev
-        self.childNodes = childNodes
+        self.subNodes = subNodes
         self.border = MuBorder(type: type)
 
         if [.polar, .rect].contains(type) {
@@ -41,23 +41,23 @@ class MuNode: Identifiable, Equatable, ObservableObject {
 
         for subModel in model.children {
             let subNode = MuNode(type, branch, subModel, spotPrev: self)
-            self.childNodes.append(subNode)
+            self.subNodes.append(subNode)
         }
     }
     
     func copy() -> MuNode {
         let node = MuNode(border.type,
-                        branch,
-                        model,
-                        icon: icon,
-                        spotPrev: self,
-                        childNodes: childNodes)
+                          branch,
+                          model,
+                          icon: icon,
+                          spotPrev: self,
+                          subNodes: subNodes)
         return node
     }
 
     /// spotlight self, parent, grand, etc. in branch
     func superSpotlight(_ time: TimeInterval = Date().timeIntervalSince1970) {
-        for node in branch.childNodes {
+        for node in branch.branchNodes {
             node.spotlight = false
         }
         spotlight = true

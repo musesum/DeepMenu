@@ -14,7 +14,7 @@ class MuBranch: Identifiable, ObservableObject {
 
     var branchPrev: MuBranch?   // branch preceding this one
     var branchNext: MuBranch?   // branch expanding from spotlight node
-    var childNodes: [MuNode]    // the nodes on this branch, incl spotNode
+    var branchNodes: [MuNode]    // the nodes on this branch, incl spotNode
 
     var spotNode: MuNode?       // current spotlight node
     var spotPrev: MuNode?       // prevBranch's spotlight node
@@ -27,7 +27,7 @@ class MuBranch: Identifiable, ObservableObject {
     var reverse = false
 
     init(branchPrev: MuBranch? = nil,
-         childNodes: [MuNode] = [],
+         branchNodes: [MuNode] = [],
          limb: MuLimb? = nil,
          level: CGFloat = 0,
          isRoot: Bool = false,
@@ -35,13 +35,13 @@ class MuBranch: Identifiable, ObservableObject {
          axis: Axis) {
 
         self.branchPrev = branchPrev
-        self.childNodes = childNodes
+        self.branchNodes = branchNodes
         self.limb = limb
-        self.title = "\(childNodes.first?.model.title ?? "")…\(childNodes.last?.model.title ?? "")"
+        self.title = "\(branchNodes.first?.model.title ?? "")…\(branchNodes.last?.model.title ?? "")"
         self.level = level
         self.isRoot = isRoot
         self.show = show
-        self.border = MuBorder(type: .branch, count: childNodes.count, axis: axis)
+        self.border = MuBorder(type: .branch, count: branchNodes.count, axis: axis)
 
         branchPrev?.branchNext = self
         updateLimb(limb)
@@ -57,7 +57,7 @@ class MuBranch: Identifiable, ObservableObject {
 
         self.branchPrev = branchPrev
         self.spotPrev = spotPrev
-        self.childNodes = [MuNode]()
+        self.branchNodes = [MuNode]()
         self.limb = limb
         self.level = level
         self.title = "\(children.first?.title ?? "")…\(children.last?.title ?? "")"
@@ -85,7 +85,7 @@ class MuBranch: Identifiable, ObservableObject {
             } else {
                 node = MuLeaf(child.borderType, self, child, spotPrev: spotPrev)
             }
-            childNodes.append(node)
+            branchNodes.append(node)
         }
     }
     /**
@@ -103,13 +103,13 @@ class MuBranch: Identifiable, ObservableObject {
     }
 
     func addNode(_ node: MuNode) {
-        if childNodes.contains(node) { return }
-        childNodes.append(node)
+        if branchNodes.contains(node) { return }
+        branchNodes.append(node)
     }
     
     func removeNode(_ node: MuNode) {
-        let filtered = childNodes.filter { $0.id != node.id }
-        childNodes = filtered
+        let filtered = branchNodes.filter { $0.id != node.id }
+        branchNodes = filtered
     }
 
     func findHover(_ touchNow: CGPoint) -> MuNode? {
@@ -120,7 +120,7 @@ class MuBranch: Identifiable, ObservableObject {
         }
 
         //TODO: this is rather inefficient, is a workaround for the above
-        for node in childNodes {
+        for node in branchNodes {
 
             if node.nodeXY.distance(touchNow) < border.diameter {
                 spotNode = node

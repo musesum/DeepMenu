@@ -15,7 +15,7 @@ class MuBorder {
                                       ? (diameter + spacing) / 2
                                       : Layout.diameter / 2)
     lazy var thumbRadius = cornerRadius-1
-    lazy var thumbRange = thumbRadius ... diameter-thumbRadius
+    lazy var thumbvalue = thumbRadius ... diameter-thumbRadius
     lazy var thumbRunway = diameter - thumbRadius*2
     lazy var vert = (axis == .vertical)
     lazy var length = (diameter + 2 * spacing)
@@ -33,8 +33,8 @@ class MuBorder {
     var margin = CGFloat(0) // overlap with a negative number
 
     func normalizeTouch(xy: CGPoint) -> CGPoint {
-        let xx = xy.x.clamped(to: thumbRange)
-        let yy = xy.y.clamped(to: thumbRange)
+        let xx = xy.x.clamped(to: thumbvalue)
+        let yy = xy.y.clamped(to: thumbvalue)
         let xxx = (xx-thumbRadius) / thumbRunway
         let yyy = (yy-thumbRadius) / thumbRunway
         return CGPoint(x: xxx, y: yyy)

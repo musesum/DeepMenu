@@ -21,7 +21,7 @@ panel.cell.scroll {
             title "hide"
             frame (x 0, y 0, w 40, h 40)
             icon "icon.thumb.X.png"
-            value (0..1)
+            value 0..1
         }
         scrollBox {
             type "box"
@@ -43,14 +43,14 @@ panel.cell.scroll {
             title "Brush Tilt"
             frame (x 144, y 62, w 40, h 32)
             icon "icon.pen.tilt.png"
-            value (0..1) <> sky.input.tilt >> accelTilt.value(0)
+            value 0..1 <> sky.input.tilt >> accelTilt.value(0)
         }
         fillZero {
             type "trigger"
             title "Fill Zero"
             frame (x 148, y 116, w 32, h 32)
             icon "icon.drop.clear.png"
-            value (0..1) >> sky.draw.screen.fillZero
+            value 0..1 >> sky.draw.screen.fillZero
         }
     }
 }

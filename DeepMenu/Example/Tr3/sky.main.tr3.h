@@ -4,19 +4,15 @@ sky { // visual music program
         fps (1..60 = 60) // frames per second
         run (1)          // currently running
     }
-    pipeline { // default metal pipeline at atartup
-        drawScroll "draw"     // drawing layer
-        cellAverage "compute" // compute layer
-        colorize "colorize"   // colorizing layer
-        render "render"       // render layer al
+    pipe {              // default metal pipeline at atartup
+        draw "draw"         // drawing layer
+        ave "compute"       // compute layer
+        color "colorize"   // colorizing layer
+        render "render"    // render layer al
     }
-    dock { // list of panel items to put in dock
-        camera fader average(1) melt timetunnel
-        zhabatinski slide fredkin brush
-        colorize scroll tile speed record
-    }
-    colorize { // false color mapping palette
-        pal0 "roygbik"     // palette 0: (r)ed (o)range (y)ellow ...
+
+    color { // false color mapping palette
+        pal0 "roygbik"     // palette 0: (r)ed (o)value (y)ellow ...
         pal1 "wKZ"         // palette 1: (w)hite blac(K) fractali(Z)e
         xfade (0..1 = 0.5) // cross fade between pal0 and pal1
     }
@@ -40,9 +36,9 @@ sky { // visual music program
             fillZero(0) // all zeros 0x00000000
             fillOne(-1) // all ones 0xFFFFFFFF
         }
-        brush { // type of brush and range
+        brush { // type of brush and value
             type "dot"           // draw a circle
-            size (1..64 = 10)    // range of radius
+            size (1..64 = 10)    // value of radius
             press (0..1 = 1)     // pressure changes size
             index (1..255 = 127) // index in 256 color palette
                                  // <<(osc.tuio.z osc.manos˚z) // redirect from OSC

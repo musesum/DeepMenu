@@ -11,14 +11,14 @@ panel._camera {
             title "hide"
             frame (x 0, y 0, w 40, h 40)
             icon "icon.thumb.X.png"
-            value (0..1)
+            value 0..1
         }
         cameraOne {
             type "panelon"
             title "Camera Cell"
             frame (x 202, y 4, w 40, h 32)
             icon "icon.camera.png"
-            value (0..1)
+            value 0..1
             lag (0)
         }
         version {
@@ -33,7 +33,7 @@ panel._camera {
             title "Camera Mix"
             frame (x 202, y 44, w 40, h 32)
             icon "icon.camera.flip.png"
-            value (0..1)
+            value 0..1
             lag (0)
         }
         bitplane {
@@ -41,14 +41,14 @@ panel._camera {
             title "Bit Plane"
             frame (x 10, y 84, w 184, h 32)
             icon "icon.pearl.white.png"
-            value (0..1)
+            value 0..1
         }
         facing {
             type "switch"
             title "Lock"
             frame (x 202, y 84, w 40, h 32)
             icon "icon.camera.flip.png"
-            value (0..1) >> sky.shader.cellCamera.flip
+            value 0..1 >> sky.shader.cellCamera.flip
             lag (0)
         }
     }

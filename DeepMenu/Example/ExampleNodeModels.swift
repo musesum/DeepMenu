@@ -22,19 +22,19 @@ enum ExampleNodeModels {
         let AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let az = "abcdefghijklmnopqrstuvwxyz"
         let hex = "0123456789ABCDEF"
-        let ranges: [ClosedRange<Int>] = [4...6, 5...12, 5...8, 1...1]
+        let values: [ClosedRange<Int>] = [4...6, 5...12, 5...8, 1...1]
 
-        if level >= ranges.count { return [] }
+        if level >= values.count { return [] }
         // A1a1a1
         let names: String = (  level == 0 ? AZ
                                : level&1 == 0 ? az
                                : hex)
-        let range = ranges[level]
-        let max: Int = Int.random(in: range)
+        let value = values[level]
+        let max: Int = Int.random(in: value)
 
         for i in 0 ..< max {
             let name = names[i]
-            let borderType: MuBorderType = (level == ranges.count - 1 ? .rect : .node)
+            let borderType: MuBorderType = (level == values.count - 1 ? .rect : .node)
             let nodeModel = MuNodeModel(name, type: borderType, parentModel: parentModel)
             let children = ExampleNodeModels.letteredNodes(parentModel: nodeModel, level + 1)
             nodeModel.children = children

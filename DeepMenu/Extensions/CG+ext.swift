@@ -232,16 +232,16 @@ extension CGSize {
         return String(format: format, width, height) // touch delta
     }
 
-    public func clamp(_ widthRange: ClosedRange<CGFloat>,
-                      _ heightRange: ClosedRange<CGFloat>) -> CGSize {
-        return CGSize(width:  width.clamped(to: widthRange),
-                      height: height.clamped(to: heightRange) )
+    public func clamp(_ widthvalue: ClosedRange<CGFloat>,
+                      _ heightvalue: ClosedRange<CGFloat>) -> CGSize {
+        return CGSize(width:  width.clamped(to: widthvalue),
+                      height: height.clamped(to: heightvalue) )
     }
 }
 
 extension CGFloat {
 
-    public func range(_ min: CGFloat, _ max: CGFloat) -> CGFloat {
+    public func value(_ min: CGFloat, _ max: CGFloat) -> CGFloat {
         if      self < min { return min }
         else if self > max { return max }
         else                { return self }

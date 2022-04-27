@@ -100,7 +100,7 @@ class MuLimb: Identifiable, ObservableObject {
             newBranches.append(newBranch)
             if let nextModel = spotNode.model.subNow {
                 // TODO: use ordered dictionary?
-                let filter = newBranch.childNodes.filter { $0.model.id == nextModel.id }
+                let filter = newBranch.branchNodes.filter { $0.model.id == nextModel.id }
                 newBranch.spotNode = filter.first
                 expandBranches(newBranch.spotNode, newBranch, &newBranches, level + 1)
             }

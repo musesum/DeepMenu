@@ -11,14 +11,14 @@ panel.shader.tile {
             title "hide"
             frame (x 0, y 0, w 40, h 40)
             icon "icon.thumb.X.png"
-            value (0..1)
+            value 0..1
         }
         tileOn {
             type "panelon"
             title "Active"
             frame (x 174, y 6, w 40, h 32)
             icon "icon.shader.tile.png"
-            value (0..1)
+            value 0..1
             user >> repeatBox.value(x 0, y 0)
             lag (0)
         }

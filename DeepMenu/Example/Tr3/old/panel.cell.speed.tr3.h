@@ -1,17 +1,19 @@
-panel.cell.midi {
+panel.cell.speed {
+    restart >> (speedOn(1),
+                controls.speed.value(60))
     base {
         type "cell"
-        title "Midi" // name
+        title "Speed" // name
         frame (x 0, y 0, w 212, h 104)
-        icon "icon.midi.png"
+        icon "icon.speed.png"
     }
     controls {
         speedOn {
             type "panelon"
             title "Active"
             frame (x 154, y 6, w 48, h 32)
-            icon "icon.midi.png"
-            value (0..1) >> sky.main.run
+            icon "icon.speed.png"
+            value 0..1 >> sky.main.run
             user >> scrollBox.value(x 0.5, y 0.5)
             lag (0)
         }
@@ -20,7 +22,7 @@ panel.cell.midi {
             title "hide"
             frame (x 0, y 0, w 40, h 40)
             icon "icon.thumb.X.png"
-            value (0..1)
+            value 0..1
         }
         speed {
             type "slider"

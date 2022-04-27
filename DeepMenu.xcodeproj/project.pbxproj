@@ -45,31 +45,10 @@
 		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
 		80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB128170880005FCE1A /* ExampleTr3Sky.swift */; };
 		80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB528170D9A005FCE1A /* SkyTr3.swift */; };
-		80731CD1281715F3005FCE1A /* panel.cell.brush.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBE28171596005FCE1A /* panel.cell.brush.tr3.h */; };
-		80731CD2281715F3005FCE1A /* panel.cell.camera.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBD28171596005FCE1A /* panel.cell.camera.tr3.h */; };
-		80731CD3281715F3005FCE1A /* panel.cell.midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBC28171596005FCE1A /* panel.cell.midi.tr3.h */; };
-		80731CD4281715F3005FCE1A /* panel.cell.scroll.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CB828171595005FCE1A /* panel.cell.scroll.tr3.h */; };
-		80731CD5281715F3005FCE1A /* panel.cell.speed.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBB28171596005FCE1A /* panel.cell.speed.tr3.h */; };
-		80731CD6281715F3005FCE1A /* panel.record.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBA28171595005FCE1A /* panel.record.tr3.h */; };
-		80731CD7281715F3005FCE1A /* panel.camera.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CB728171595005FCE1A /* panel.camera.tr3.h */; };
-		80731CD8281715F3005FCE1A /* panel.cell.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CB928171595005FCE1A /* panel.cell.tr3.h */; };
-		80731CD9281715F3005FCE1A /* panel.shader.colorize.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC0281715A0005FCE1A /* panel.shader.colorize.tr3.h */; };
-		80731CDA281715F3005FCE1A /* panel.shader.tile.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CBF281715A0005FCE1A /* panel.shader.tile.tr3.h */; };
-		80731CDB281715F3005FCE1A /* panel.shader.weave.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC1281715A0005FCE1A /* panel.shader.weave.tr3.h */; };
-		80731CDC281715F3005FCE1A /* sky.shader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC2281715A4005FCE1A /* sky.shader.tr3.h */; };
-		80731CDD281715F3005FCE1A /* panel.cell.average.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC4281715B5005FCE1A /* panel.cell.average.tr3.h */; };
-		80731CDE281715F3005FCE1A /* panel.cell.drift.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCB281715B6005FCE1A /* panel.cell.drift.tr3.h */; };
-		80731CDF281715F3005FCE1A /* panel.cell.fader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC9281715B6005FCE1A /* panel.cell.fader.tr3.h */; };
-		80731CE0281715F3005FCE1A /* panel.cell.fredkin.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC8281715B6005FCE1A /* panel.cell.fredkin.tr3.h */; };
-		80731CE1281715F3005FCE1A /* panel.cell.gas.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC6281715B6005FCE1A /* panel.cell.gas.tr3.h */; };
-		80731CE2281715F3005FCE1A /* panel.cell.melt.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC3281715B5005FCE1A /* panel.cell.melt.tr3.h */; };
-		80731CE3281715F3005FCE1A /* panel.cell.modulo.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC5281715B5005FCE1A /* panel.cell.modulo.tr3.h */; };
-		80731CE4281715F3005FCE1A /* panel.cell.slide.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCA281715B6005FCE1A /* panel.cell.slide.tr3.h */; };
-		80731CE5281715F3005FCE1A /* panel.cell.timeTunnel.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC7281715B6005FCE1A /* panel.cell.timeTunnel.tr3.h */; };
-		80731CE6281715F3005FCE1A /* panel.cell.zhabatinski.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCC281715B6005FCE1A /* panel.cell.zhabatinski.tr3.h */; };
-		80731CE7281715F3005FCE1A /* sky.main copy.tr3 in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCE281715C0005FCE1A /* sky.main copy.tr3 */; };
 		80731CE8281715F3005FCE1A /* sky.main.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCF281715C0005FCE1A /* sky.main.tr3.h */; };
-		80731CE9281715F3005FCE1A /* sky.midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCD281715C0005FCE1A /* sky.midi.tr3.h */; };
+		80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCD281715C0005FCE1A /* midi.tr3.h */; };
+		80731CEB2819BBF1005FCE1A /* sky.menu.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CEA28187A45005FCE1A /* sky.menu.tr3.h */; };
+		80731CEC2819BDD9005FCE1A /* sky.shader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC2281715A4005FCE1A /* sky.shader.tr3.h */; };
 		8087FC87280771CF00572436 /* ExampleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* ExampleClient.swift */; };
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
 		80A9B63D272F3B9B00355445 /* MuPilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuPilot.swift */; };
@@ -140,7 +119,6 @@
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802346F92717D7EE0006645B /* MuRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuRoot.swift; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		80437B6727D0810400348513 /* DeepMuseMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepMuseMenu.h; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		805B0EDE2748216700004A85 /* Comparable+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ext.swift"; sourceTree = "<group>"; };
 		80631DFC277141780071AF93 /* MuBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBorder.swift; sourceTree = "<group>"; };
@@ -169,9 +147,9 @@
 		80731CCA281715B6005FCE1A /* panel.cell.slide.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.slide.tr3.h; sourceTree = "<group>"; };
 		80731CCB281715B6005FCE1A /* panel.cell.drift.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.drift.tr3.h; sourceTree = "<group>"; };
 		80731CCC281715B6005FCE1A /* panel.cell.zhabatinski.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.zhabatinski.tr3.h; sourceTree = "<group>"; };
-		80731CCD281715C0005FCE1A /* sky.midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.midi.tr3.h; sourceTree = "<group>"; };
-		80731CCE281715C0005FCE1A /* sky.main copy.tr3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sky.main copy.tr3"; sourceTree = "<group>"; };
+		80731CCD281715C0005FCE1A /* midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = midi.tr3.h; sourceTree = "<group>"; };
 		80731CCF281715C0005FCE1A /* sky.main.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.main.tr3.h; sourceTree = "<group>"; };
+		80731CEA28187A45005FCE1A /* sky.menu.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.menu.tr3.h; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* ExampleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleClient.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		809D126A275B26CA0091D252 /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
@@ -252,7 +230,6 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
-				80437B6727D0810400348513 /* DeepMuseMenu.h */,
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,
 				8014B7C82700DE3800691126 /* DeepMenu */,
@@ -397,6 +374,17 @@
 		80731CD0281715D9005FCE1A /* Tr3 */ = {
 			isa = PBXGroup;
 			children = (
+				80731CEA28187A45005FCE1A /* sky.menu.tr3.h */,
+				80731CCF281715C0005FCE1A /* sky.main.tr3.h */,
+				80731CCD281715C0005FCE1A /* midi.tr3.h */,
+				80731CED2819C0C2005FCE1A /* old */,
+			);
+			path = Tr3;
+			sourceTree = "<group>";
+		};
+		80731CED2819C0C2005FCE1A /* old */ = {
+			isa = PBXGroup;
+			children = (
 				80731CBE28171596005FCE1A /* panel.cell.brush.tr3.h */,
 				80731CBD28171596005FCE1A /* panel.cell.camera.tr3.h */,
 				80731CBC28171596005FCE1A /* panel.cell.midi.tr3.h */,
@@ -419,11 +407,8 @@
 				80731CCA281715B6005FCE1A /* panel.cell.slide.tr3.h */,
 				80731CC7281715B6005FCE1A /* panel.cell.timeTunnel.tr3.h */,
 				80731CCC281715B6005FCE1A /* panel.cell.zhabatinski.tr3.h */,
-				80731CCE281715C0005FCE1A /* sky.main copy.tr3 */,
-				80731CCF281715C0005FCE1A /* sky.main.tr3.h */,
-				80731CCD281715C0005FCE1A /* sky.midi.tr3.h */,
 			);
-			path = Tr3;
+			path = old;
 			sourceTree = "<group>";
 		};
 		8076229E27988F07008CBBE3 /* Touch */ = {
@@ -437,11 +422,11 @@
 		8087FC882808760800572436 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				80731CB528170D9A005FCE1A /* SkyTr3.swift */,
 				80731CD0281715D9005FCE1A /* Tr3 */,
 				57F3029427C142FC00203F63 /* ExampleNodeModels.swift */,
 				8087FC86280771CF00572436 /* ExampleClient.swift */,
 				80731CB128170880005FCE1A /* ExampleTr3Sky.swift */,
-				80731CB528170D9A005FCE1A /* SkyTr3.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -602,31 +587,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80731CD1281715F3005FCE1A /* panel.cell.brush.tr3.h in Resources */,
-				80731CD2281715F3005FCE1A /* panel.cell.camera.tr3.h in Resources */,
-				80731CD3281715F3005FCE1A /* panel.cell.midi.tr3.h in Resources */,
-				80731CD4281715F3005FCE1A /* panel.cell.scroll.tr3.h in Resources */,
-				80731CD5281715F3005FCE1A /* panel.cell.speed.tr3.h in Resources */,
-				80731CD6281715F3005FCE1A /* panel.record.tr3.h in Resources */,
-				80731CD7281715F3005FCE1A /* panel.camera.tr3.h in Resources */,
-				80731CD8281715F3005FCE1A /* panel.cell.tr3.h in Resources */,
-				80731CD9281715F3005FCE1A /* panel.shader.colorize.tr3.h in Resources */,
-				80731CDA281715F3005FCE1A /* panel.shader.tile.tr3.h in Resources */,
-				80731CDB281715F3005FCE1A /* panel.shader.weave.tr3.h in Resources */,
-				80731CDC281715F3005FCE1A /* sky.shader.tr3.h in Resources */,
-				80731CDD281715F3005FCE1A /* panel.cell.average.tr3.h in Resources */,
-				80731CDE281715F3005FCE1A /* panel.cell.drift.tr3.h in Resources */,
-				80731CDF281715F3005FCE1A /* panel.cell.fader.tr3.h in Resources */,
-				80731CE0281715F3005FCE1A /* panel.cell.fredkin.tr3.h in Resources */,
-				80731CE1281715F3005FCE1A /* panel.cell.gas.tr3.h in Resources */,
-				80731CE2281715F3005FCE1A /* panel.cell.melt.tr3.h in Resources */,
-				80731CE3281715F3005FCE1A /* panel.cell.modulo.tr3.h in Resources */,
-				80731CE4281715F3005FCE1A /* panel.cell.slide.tr3.h in Resources */,
-				80731CE5281715F3005FCE1A /* panel.cell.timeTunnel.tr3.h in Resources */,
-				80731CE6281715F3005FCE1A /* panel.cell.zhabatinski.tr3.h in Resources */,
-				80731CE7281715F3005FCE1A /* sky.main copy.tr3 in Resources */,
+				80731CEC2819BDD9005FCE1A /* sky.shader.tr3.h in Resources */,
+				80731CEB2819BBF1005FCE1A /* sky.menu.tr3.h in Resources */,
 				80731CE8281715F3005FCE1A /* sky.main.tr3.h in Resources */,
-				80731CE9281715F3005FCE1A /* sky.midi.tr3.h in Resources */,
+				80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */,
 				57A0A26527BF15AA00B5598B /* config.yml in Resources */,
 				802AEDA527BD8486003325C9 /* README.md in Resources */,
 				8014B7D12700DE3A00691126 /* Preview Assets.xcassets in Resources */,

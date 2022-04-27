@@ -189,9 +189,9 @@ class MuRoot: ObservableObject, Equatable {
         }
     }
 
-    func getRanges(_ branch: MuBranch) -> (ClosedRange<CGFloat>,
+    func getvalues(_ branch: MuBranch) -> (ClosedRange<CGFloat>,
                                        ClosedRange<CGFloat>) {
-        // calc ranges
+        // calc values
         let oneSpace = Layout.diameter + Layout.spacing * 3 // distance between branches
         let maxSpace = touchBranchDepth * oneSpace // maximum distance up to branch
         let vert = branch.border.axis == .vertical
@@ -218,18 +218,18 @@ class MuRoot: ObservableObject, Equatable {
         if let touchBranch = touchBranch {
 
             let deltaTouch = CGSize(touch.pointDelta)
-            let (rangeW, rangeH) = getRanges(touchBranch)
+            let (rangeW, rangeH) = getvalues(touchBranch)
             let branchOffset = (deltaTouch + anchorShift).clamp(rangeW, rangeH)
 
             let begin = touch.pointDelta == .zero
-            if begin { logRange() }
+            if begin { logvalue() }
             updateBranchShift(branchOffset)
 
-            func logRange() {
+            func logvalue() {
                 let touchDelta  = touch.pointDelta.string()
                 let anchorShift = anchorShift.string()
                 let branchOffset = branchOffset.string() // clamped
-                let clamp = "\(rangeW.string()) \(rangeH.string())"
+                 let clamp = "\(rangeW.string()) \(rangeH.string())"
 
                 let newLog = "\(touchBranch.title) \(touchDelta) \(anchorShift) \(branchOffset) \(clamp)"
                 if lastLog != newLog {
@@ -252,7 +252,7 @@ class MuRoot: ObservableObject, Equatable {
         else if lowestDepth == 0 {
             let deltaTime = Date().timeIntervalSince1970 - toggleDepth01Time
             // already expanded from 0 to 1 at beginning of tap
-            if deltaTime < MuTouch.tapInterval {
+            if deltaTime < MuTouch.tapThreshold {
                 return
             }
         }

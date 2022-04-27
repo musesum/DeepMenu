@@ -17,12 +17,12 @@ class MuPilot: ObservableObject {
     var flyNode: MuNode?  // flying node from root
     var rootBranch: MuBranch
 
-    var touchOfs = CGSize.zero
-    var deltaOfs = CGSize.zero // difference between touch point and center in coord
+    var touchOfs = CGSize.zero // offset between rootNode and touchNow
+    var deltaOfs = CGSize.zero // offset between touch point and center in coord
     var pilotOfs: CGSize { get {
         switch root?.status ?? .root {
-            case .root:   return touchOfs
-            case .limb: return deltaOfs
+            case .root:  return touchOfs
+            case .limb:  return deltaOfs
             case .space: return touchOfs
         }}}
 
@@ -113,7 +113,6 @@ class MuPilot: ObservableObject {
      allowing the flyNode to center on finger, which is
      handled by MuPilotView.flyNode.offset.
      */
-
     func updateDelta(_ pointDelta: CGPoint) {
         deltaOfs = .zero + pointDelta
         deltaOfs.width += rightSideOffset(for: .limb)

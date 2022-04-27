@@ -11,7 +11,7 @@ panel.shader.weave {
             title "Active"
             frame (x 246, y 6, w 48, h 32)
             icon "icon.shader.weave.png"
-            value (0..1)⌘
+            value 0..1⌘
         }
        spreadBox {
             type "box"
