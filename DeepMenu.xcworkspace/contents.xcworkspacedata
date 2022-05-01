@@ -4,4 +4,7 @@
    <FileRef
       location = "container:DeepMenu.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:../Tr3">
+   </FileRef>
 </Workspace>

@@ -6,9 +6,7 @@ import SwiftUI
 class MuBranch: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
 
-    let title: String
     var isRoot: Bool = false
-
     var limb: MuLimb?           // my limb; which unfolds a hierarchy of branches
     var level: CGFloat          // zIndex within sub/super branches
 
@@ -37,11 +35,10 @@ class MuBranch: Identifiable, ObservableObject {
         self.branchPrev = branchPrev
         self.branchNodes = branchNodes
         self.limb = limb
-        self.title = "\(branchNodes.first?.model.title ?? "")…\(branchNodes.last?.model.title ?? "")"
         self.level = level
         self.isRoot = isRoot
         self.show = show
-        self.border = MuBorder(type: .branch, count: branchNodes.count, axis: axis)
+        self.border = MuBorder(type: .node, count: branchNodes.count, axis: axis)
 
         branchPrev?.branchNext = self
         updateLimb(limb)
@@ -60,10 +57,9 @@ class MuBranch: Identifiable, ObservableObject {
         self.branchNodes = [MuNode]()
         self.limb = limb
         self.level = level
-        self.title = "\(children.first?.title ?? "")…\(children.last?.title ?? "")"
         self.show = show
         
-        self.border = MuBorder(type: .branch, count: children.count, axis: axis)
+        self.border = MuBorder(type: .node, count: children.count, axis: axis)
 
         branchPrev?.branchNext = self
 
@@ -75,15 +71,15 @@ class MuBranch: Identifiable, ObservableObject {
         // print("\n🗑\(title)(\(id))", terminator: "")=
     }
 
-    // TODO: This should probably be done at the app level, as the app should be deciding e.g. if the
-    //       leaf node should be a xy rectangle control
+    /// leaf node should be a xy rectangle control
     private func buildNodesFromChildren(_ children: [MuNodeModel]) {
         for child in children {
             var node: MuNode
-            if children.count > 1 || child.children.count > 0 {
-                node = MuNode(child.borderType, self, child, spotPrev: spotPrev)
-            } else {
-                node = MuLeaf(child.borderType, self, child, spotPrev: spotPrev)
+            switch child.nodeType {
+                case .node, .none:
+                    node = MuNode(child.nodeType, self, child, spotPrev: spotPrev)
+                default:
+                    node = MuLeaf(child.nodeType, self, child, spotPrev: spotPrev)
             }
             branchNodes.append(node)
         }
@@ -142,7 +138,7 @@ class MuBranch: Identifiable, ObservableObject {
     func updateBounds(_ from: CGRect) {
         if bounds != from {
             bounds = border.updateBounds(from)
-            //?? log("∿" + title, from, bounds)
+            // log("∿" + title, from, bounds)
         }
     }
 }

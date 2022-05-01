@@ -30,7 +30,7 @@ struct MuNodeView: View {
             .onAppear { node.updateCenter(geo.frame(in: .named("Space"))) }
         }
         .frame(width: border.diameter, height: border.diameter)
-        .padding(border.spacing)
+        .padding(Layout.spacing)
         .allowsHitTesting(true)
         .animation(.easeInOut(duration: Layout.animate), value: node.nodeXY)
     }

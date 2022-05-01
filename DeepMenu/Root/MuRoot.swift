@@ -167,9 +167,9 @@ class MuRoot: ObservableObject, Equatable {
         updateStatus(.root, debug: "2")
         
         if let nodeModel = self.spotNode?.model {
-            if nodeModel.borderType == .node {
+            if nodeModel.nodeType == .node {
                 nodeModel.callback(nodeModel)
-            } else if nodeModel.borderType == .slider {
+            } else if nodeModel.nodeType == .slide {
                 // TODO: this should somehow be passing updated values from a slider via nodeModel.callback(value)
             }
         }
@@ -229,9 +229,9 @@ class MuRoot: ObservableObject, Equatable {
                 let touchDelta  = touch.pointDelta.string()
                 let anchorShift = anchorShift.string()
                 let branchOffset = branchOffset.string() // clamped
-                 let clamp = "\(rangeW.string()) \(rangeH.string())"
-
-                let newLog = "\(touchBranch.title) \(touchDelta) \(anchorShift) \(branchOffset) \(clamp)"
+                let clamp = "\(rangeW.string()) \(rangeH.string())"
+                let title = "\(touchBranch.branchNodes.first?.model.name ?? "")…\(touchBranch.branchNodes.last?.model.name ?? "")"
+                let newLog = "\(title) \(touchDelta) \(anchorShift) \(branchOffset) \(clamp)"
                 if lastLog != newLog {
                     lastLog = newLog
                     print(newLog, terminator: " ")
@@ -274,7 +274,7 @@ class MuRoot: ObservableObject, Equatable {
                 spotNode = spotNext
                 // print(".", terminator: "")
             }
-            spotNode?.spotPrev?.superSpotlight() //?? 
+            spotNode?.spotPrev?.superSpotlight() 
         }
         alignFlightWithSpotNode(touch.pointNow)
     }
@@ -344,7 +344,7 @@ class MuRoot: ObservableObject, Equatable {
     /// either center flight icon on spotNode or track finger
     private func alignFlightWithSpotNode(_ touchNow: CGPoint) {
 
-        if spotNode?.model.borderType == .rect {
+        if spotNode?.model.nodeType == .boxy {
             pilot.pointNow = pilot.pointHome // no fly icon for leaf
         }
         else if let spotXY = spotNode?.nodeXY {

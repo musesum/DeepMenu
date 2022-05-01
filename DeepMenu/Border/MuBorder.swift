@@ -3,38 +3,33 @@
 import SwiftUI
 
 class MuBorder {
-    var type: MuBorderType
+    var type: MuNodeType
     var axis: Axis
     var count: CGFloat
 
     // changed by type
-    lazy var diaFactor: CGFloat = [.polar,.rect].contains(type) ? 4 : 1
-    lazy var diameter = Layout.diameter * diaFactor
-    lazy var spacing: CGFloat = Layout.spacing
-    lazy var cornerRadius: CGFloat = (type == .polar
-                                      ? (diameter + spacing) / 2
-                                      : Layout.diameter / 2)
-    lazy var thumbRadius = cornerRadius-1
-    lazy var thumbvalue = thumbRadius ... diameter-thumbRadius
-    lazy var thumbRunway = diameter - thumbRadius*2
-    lazy var vert = (axis == .vertical)
-    lazy var length = (diameter + 2 * spacing)
-    var runway: CGFloat { get { length * count + margin * 2 * (count-1) }}
-    var width: CGFloat { get { vert ? length : runway }}
+    var diameter: CGFloat { get { Layout.diameter * (type.isLeaf ? 4 : 1) } }
+    var cornerRadius: CGFloat { get { type.isLeaf ? (Layout.diameter + Layout.spacing) / 2 : (Layout.diameter / 2) }}
 
-    var height: CGFloat {
+    var thumbRadius: CGFloat { get { Layout.diameter/2 - 1 } }
+    var thumbValue : ClosedRange<CGFloat> { get { thumbRadius ... diameter-thumbRadius }}
+    var thumbRunway: CGFloat { get { diameter - thumbRadius*2 }}
+
+     var size: CGSize {
         get {
-            // add room for title for rectxy leaf
-            type == .rect ? runway + Layout.titleHeight
-            : vert ? runway : length
+            let length = diameter + 2 * Layout.spacing
+            let runway = length * count + margin * 2 * (count-1)
+            let width = (axis == .vertical) ? length : runway
+            let height = type.isLeaf ? runway + Layout.titleHeight : (axis == .vertical) ? runway : length
+            return CGSize(width: width, height: height)
         }
     }
 
     var margin = CGFloat(0) // overlap with a negative number
 
     func normalizeTouch(xy: CGPoint) -> CGPoint {
-        let xx = xy.x.clamped(to: thumbvalue)
-        let yy = xy.y.clamped(to: thumbvalue)
+        let xx = xy.x.clamped(to: thumbValue)
+        let yy = xy.y.clamped(to: thumbValue)
         let xxx = (xx-thumbRadius) / thumbRunway
         let yyy = (yy-thumbRadius) / thumbRunway
         return CGPoint(x: xxx, y: yyy)
@@ -44,7 +39,7 @@ class MuBorder {
                       height: xy.y * thumbRunway)
     }
 
-    init(type: MuBorderType,
+    init(type: MuNodeType,
          count: Int = 1,
          axis: Axis = .vertical) {
         
@@ -58,13 +53,11 @@ class MuBorder {
         self.margin   = from.margin
         self.axis     = from.axis
         self.count    = from.count
-        self.diameter = from.diameter
-        self.spacing  = Layout.spacing
     }
 
     func updateBounds(_ bounds: CGRect) -> CGRect {
         var result = bounds
-        if vert {
+        if (axis == .vertical) {
             if bounds.minY < 0 {
                 margin = bounds.minY/max(count,1)
                 result.size.height += bounds.minY

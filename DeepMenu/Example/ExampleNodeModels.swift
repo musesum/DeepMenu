@@ -34,8 +34,8 @@ enum ExampleNodeModels {
 
         for i in 0 ..< max {
             let name = names[i]
-            let borderType: MuBorderType = (level == values.count - 1 ? .rect : .node)
-            let nodeModel = MuNodeModel(name, type: borderType, parentModel: parentModel)
+            let nodeType: MuNodeType = (level == values.count - 1 ? .boxy : .node)
+            let nodeModel = MuNodeModel(name, type: nodeType, parentModel: parentModel)
             let children = ExampleNodeModels.letteredNodes(parentModel: nodeModel, level + 1)
             nodeModel.children = children
             nodes.append(nodeModel)

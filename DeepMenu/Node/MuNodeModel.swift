@@ -7,8 +7,7 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
     let id = MuIdentity.getId() //TODO: use a persistent storage ID after debugging
     
     var name: String // pilot's name may be changed rootd on corner placement
-    let title: String
-    let borderType: MuBorderType
+    let nodeType: MuNodeType
     var children = [MuNodeModel]()
     var subNow:  MuNodeModel? // most recently selected, persist to storage
     var callback: ((Any) -> Void)
@@ -16,7 +15,7 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
     var parent: MuNodeModel? = nil
 
     var description : String {
-        return "\(type(of:self)): \"\(name)\" .\(borderType)"
+        return "\(type(of:self)): \"\(name)\" .\(nodeType)"
     }
 
     static func == (lhs: MuNodeModel, rhs: MuNodeModel) -> Bool {
@@ -24,15 +23,14 @@ class MuNodeModel: Identifiable, Equatable, CustomStringConvertible {
     }
 
     init(_ name: String,
-         type: MuBorderType = .node,
+         type: MuNodeType = .node,
          parentModel: MuNodeModel? = nil,
          children: [MuNodeModel]? = nil,
          callback: @escaping (Any) -> Void = { _ in return })
     {
 
         self.name = name
-        self.borderType = type
-        self.title = (parentModel?.title ?? "") + name
+        self.nodeType = type
         self.callback = callback
         
         if let children = children {

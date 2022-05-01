@@ -19,8 +19,6 @@ struct ContentView: View {
         ContentViews.client
         ZStack(alignment: .bottomLeading) {
             AppBackgroundView(space: appSpace)
-
-
             MuRootView().environmentObject(MuRoot([.lower, .right], branches: defaultSampleBranches()))
             MuRootView().environmentObject(MuRoot([.lower, .left ], branches: skyBranches()))
         }
@@ -56,7 +54,7 @@ struct ContentView: View {
         clientModel.addChild(MuNodeModel("Three") { _ in ContentViews.client.model.path = "Three" })
 
         let clientXY = MuNodeModel("Client XY")
-        clientXY.addChild(MuNodeModel("Client XY", type: .rect) { xy in
+        clientXY.addChild(MuNodeModel("Client XY", type: .boxy) { xy in
             if let xy = xy as? CGPoint {
                 ContentViews.client.model.path = "Client XY"
                 ContentViews.client.model.x = xy.x

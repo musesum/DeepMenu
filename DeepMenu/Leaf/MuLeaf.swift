@@ -11,11 +11,11 @@ class MuLeaf: MuNode {
         if editing {
             return String(format: "x: %.2f, y: %.2f", xy.x, xy.y)
         } else {
-            return model.title
+            return model.name
         }
     }}
     
-    init (_ type: MuBorderType,
+    init (_ type: MuNodeType,
           _ branch: MuBranch,
           _ model: MuNodeModel,
           icon: String = "",

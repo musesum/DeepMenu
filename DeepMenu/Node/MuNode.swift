@@ -21,7 +21,7 @@ class MuNode: Identifiable, Equatable, ObservableObject {
 
     var border: MuBorder
 
-    init (_ type: MuBorderType,
+    init (_ type: MuNodeType,
           _ branch: MuBranch,
           _ model: MuNodeModel,
           icon: String = "",
@@ -35,7 +35,7 @@ class MuNode: Identifiable, Equatable, ObservableObject {
         self.subNodes = subNodes
         self.border = MuBorder(type: type)
 
-        if [.polar, .rect].contains(type) {
+        if [.knob, .boxy].contains(type) {
             branch.border.type = type
         }
 

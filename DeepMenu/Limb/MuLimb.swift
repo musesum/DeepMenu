@@ -39,7 +39,7 @@ class MuLimb: Identifiable, ObservableObject {
             if let nextNode = branch.findHover(touchNow) {
                 if spotNode?.id != nextNode.id {
                     spotNode = nextNode
-                    spotNode?.superSelect() //?? 
+                    spotNode?.superSelect()
                     refreshBranches(nextNode.branch, nextNode)
                 }
                 return spotNode
@@ -50,11 +50,11 @@ class MuLimb: Identifiable, ObservableObject {
 
     /// evenly space docs leading up to spotBranch's position
     func refreshBranches(_ spotBranch: MuBranch,
-                      _ spotNode: MuNode) {
+                         _ spotNode: MuNode) {
 
         // tapped on spotlight
         if let branchNext = spotBranch.branchNext,
-            branchNext.show == true, // branchNext is also shown (limb.depth > 1)
+           branchNext.show == true, // branchNext is also shown (limb.depth > 1)
            let subId = branchNext.spotNode?.model.id,
            let nowId = spotNode.model.subNow?.id, subId == nowId {
             // all subBranches are the same
@@ -80,9 +80,9 @@ class MuLimb: Identifiable, ObservableObject {
 
     /// add a branch to selected node and follow selected kid
     func expandBranches(_ spotNode: MuNode?,
-                     _ branchPrev: MuBranch?,
-                     _ newBranches: inout [MuBranch],
-                     _ level: CGFloat) {
+                        _ branchPrev: MuBranch?,
+                        _ newBranches: inout [MuBranch],
+                        _ level: CGFloat) {
         
         guard let spotNode = spotNode else { return }
         self.level = level
@@ -90,19 +90,26 @@ class MuLimb: Identifiable, ObservableObject {
         
         if spotNode.model.children.count > 0 {
             let newBranch = MuBranch(branchPrev: branchPrev,
-                                 spotPrev: spotNode,
-                                 children: spotNode.model.children,
-                                 limb: self,
-                                 level: level + 1,
-                                 show: false,
-                                 axis: axis)
-
+                                     spotPrev: spotNode,
+                                     children: spotNode.model.children,
+                                     limb: self,
+                                     level: level + 1,
+                                     show: false,
+                                     axis: axis)
+            
             newBranches.append(newBranch)
-            if let nextModel = spotNode.model.subNow {
+            if let leafModel = spotNode.model.subNow {
+                leafBranch(leafModel)
+            } else if spotNode.model.children.count == 1,
+                      let spotChild = spotNode.model.children.first {
+                leafBranch(spotChild)
+            }
+            func leafBranch(_ leafModel: MuNodeModel) {
                 // TODO: use ordered dictionary?
-                let filter = newBranch.branchNodes.filter { $0.model.id == nextModel.id }
+                let filter = newBranch.branchNodes.filter { $0.model.id == leafModel.id }
                 newBranch.spotNode = filter.first
                 expandBranches(newBranch.spotNode, newBranch, &newBranches, level + 1)
+                newBranch.border.type = newBranch.spotNode?.border.type ?? .node
             }
         }
     }

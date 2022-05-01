@@ -19,6 +19,7 @@
 		8006196B27933375005960FF /* MuTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8006196A27933375005960FF /* MuTouch.swift */; };
 		800D4AE5272A2A6800E71519 /* MuLimb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE4272A2A6800E71519 /* MuLimb.swift */; };
 		800D4AE9272B220700E71519 /* CG+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE8272B220700E71519 /* CG+ext.swift */; };
+		800E2A99281DB8AA006AE6A1 /* sky.shader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80CBDA14281D90BF008CB97A /* sky.shader.tr3.h */; };
 		80135A07272C71EA00BCDE27 /* MuLimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A06272C71EA00BCDE27 /* MuLimbView.swift */; };
 		80135A09272C724E00BCDE27 /* MuPilotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A08272C724E00BCDE27 /* MuPilotView.swift */; };
 		80135A0B272C728700BCDE27 /* AppBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A0A272C728700BCDE27 /* AppBackgroundView.swift */; };
@@ -41,14 +42,13 @@
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B0EDE2748216700004A85 /* Comparable+ext.swift */; };
 		80631DFD277141780071AF93 /* MuBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFC277141780071AF93 /* MuBorder.swift */; };
-		80631E002772428E0071AF93 /* MuBorderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFF2772428E0071AF93 /* MuBorderType.swift */; };
+		80631E002772428E0071AF93 /* MuNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFF2772428E0071AF93 /* MuNodeType.swift */; };
 		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
 		80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB128170880005FCE1A /* ExampleTr3Sky.swift */; };
 		80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB528170D9A005FCE1A /* SkyTr3.swift */; };
 		80731CE8281715F3005FCE1A /* sky.main.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCF281715C0005FCE1A /* sky.main.tr3.h */; };
 		80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCD281715C0005FCE1A /* midi.tr3.h */; };
 		80731CEB2819BBF1005FCE1A /* sky.menu.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CEA28187A45005FCE1A /* sky.menu.tr3.h */; };
-		80731CEC2819BDD9005FCE1A /* sky.shader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CC2281715A4005FCE1A /* sky.shader.tr3.h */; };
 		8087FC87280771CF00572436 /* ExampleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* ExampleClient.swift */; };
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
 		80A9B63D272F3B9B00355445 /* MuPilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuPilot.swift */; };
@@ -60,6 +60,7 @@
 		80C5E880270CCA1B0000832C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C5E87F270CCA1B0000832C /* Log.swift */; };
 		80C9A7BF270F4C4B0013CA49 /* Scroll+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C9A7BE270F4C4B0013CA49 /* Scroll+ext.swift */; };
 		80C9A7C7270F5A820013CA49 /* MuBranchRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C9A7C6270F5A820013CA49 /* MuBranchRectView.swift */; };
+		80CBDA11281CABF3008CB97A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80CBDA10281CABF3008CB97A /* Tr3 */; };
 		80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */; };
 		80FC93F327344C3400FC10E5 /* MuCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FC93F227344C3400FC10E5 /* MuCorner.swift */; };
 /* End PBXBuildFile section */
@@ -122,7 +123,7 @@
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		805B0EDE2748216700004A85 /* Comparable+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ext.swift"; sourceTree = "<group>"; };
 		80631DFC277141780071AF93 /* MuBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBorder.swift; sourceTree = "<group>"; };
-		80631DFF2772428E0071AF93 /* MuBorderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBorderType.swift; sourceTree = "<group>"; };
+		80631DFF2772428E0071AF93 /* MuNodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeType.swift; sourceTree = "<group>"; };
 		80731CB128170880005FCE1A /* ExampleTr3Sky.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTr3Sky.swift; sourceTree = "<group>"; };
 		80731CB528170D9A005FCE1A /* SkyTr3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyTr3.swift; sourceTree = "<group>"; };
 		80731CB728171595005FCE1A /* panel.camera.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.camera.tr3.h; sourceTree = "<group>"; };
@@ -136,7 +137,6 @@
 		80731CBF281715A0005FCE1A /* panel.shader.tile.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.shader.tile.tr3.h; sourceTree = "<group>"; };
 		80731CC0281715A0005FCE1A /* panel.shader.colorize.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.shader.colorize.tr3.h; sourceTree = "<group>"; };
 		80731CC1281715A0005FCE1A /* panel.shader.weave.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.shader.weave.tr3.h; sourceTree = "<group>"; };
-		80731CC2281715A4005FCE1A /* sky.shader.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.shader.tr3.h; sourceTree = "<group>"; };
 		80731CC3281715B5005FCE1A /* panel.cell.melt.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.melt.tr3.h; sourceTree = "<group>"; };
 		80731CC4281715B5005FCE1A /* panel.cell.average.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.average.tr3.h; sourceTree = "<group>"; };
 		80731CC5281715B5005FCE1A /* panel.cell.modulo.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.cell.modulo.tr3.h; sourceTree = "<group>"; };
@@ -162,6 +162,7 @@
 		80C5E87F270CCA1B0000832C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		80C9A7BE270F4C4B0013CA49 /* Scroll+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scroll+ext.swift"; sourceTree = "<group>"; };
 		80C9A7C6270F5A820013CA49 /* MuBranchRectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBranchRectView.swift; sourceTree = "<group>"; };
+		80CBDA14281D90BF008CB97A /* sky.shader.tr3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sky.shader.tr3.h; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
 		80FC93F227344C3400FC10E5 /* MuCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuCorner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80CBDA11281CABF3008CB97A /* Tr3 in Frameworks */,
 				80731CB0281706DD005FCE1A /* Tr3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,7 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				80631DFC277141780071AF93 /* MuBorder.swift */,
-				80631DFF2772428E0071AF93 /* MuBorderType.swift */,
+				80631DFF2772428E0071AF93 /* MuNodeType.swift */,
 			);
 			path = Border;
 			sourceTree = "<group>";
@@ -376,6 +378,7 @@
 			children = (
 				80731CEA28187A45005FCE1A /* sky.menu.tr3.h */,
 				80731CCF281715C0005FCE1A /* sky.main.tr3.h */,
+				80CBDA14281D90BF008CB97A /* sky.shader.tr3.h */,
 				80731CCD281715C0005FCE1A /* midi.tr3.h */,
 				80731CED2819C0C2005FCE1A /* old */,
 			);
@@ -396,7 +399,6 @@
 				80731CC0281715A0005FCE1A /* panel.shader.colorize.tr3.h */,
 				80731CBF281715A0005FCE1A /* panel.shader.tile.tr3.h */,
 				80731CC1281715A0005FCE1A /* panel.shader.weave.tr3.h */,
-				80731CC2281715A4005FCE1A /* sky.shader.tr3.h */,
 				80731CC4281715B5005FCE1A /* panel.cell.average.tr3.h */,
 				80731CCB281715B6005FCE1A /* panel.cell.drift.tr3.h */,
 				80731CC9281715B6005FCE1A /* panel.cell.fader.tr3.h */,
@@ -491,6 +493,7 @@
 			name = DeepMenu;
 			packageProductDependencies = (
 				80731CAF281706DD005FCE1A /* Tr3 */,
+				80CBDA10281CABF3008CB97A /* Tr3 */,
 			);
 			productName = DeepMenu;
 			productReference = 8014B7C62700DE3800691126 /* DeepMenu.app */;
@@ -570,6 +573,7 @@
 			packageReferences = (
 				57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */,
 				80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */,
+				80CBDA0F281CABF3008CB97A /* XCRemoteSwiftPackageReference "Tr3" */,
 			);
 			productRefGroup = 8014B7C72700DE3800691126 /* Products */;
 			projectDirPath = "";
@@ -587,7 +591,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80731CEC2819BDD9005FCE1A /* sky.shader.tr3.h in Resources */,
+				800E2A99281DB8AA006AE6A1 /* sky.shader.tr3.h in Resources */,
 				80731CEB2819BBF1005FCE1A /* sky.menu.tr3.h in Resources */,
 				80731CE8281715F3005FCE1A /* sky.main.tr3.h in Resources */,
 				80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */,
@@ -652,7 +656,7 @@
 				57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */,
 				5747E93C27C95B4E0014AB34 /* MuLeafXYView.swift in Sources */,
 				80C9A7BF270F4C4B0013CA49 /* Scroll+ext.swift in Sources */,
-				80631E002772428E0071AF93 /* MuBorderType.swift in Sources */,
+				80631E002772428E0071AF93 /* MuNodeType.swift in Sources */,
 				80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */,
 				8006196B27933375005960FF /* MuTouch.swift in Sources */,
 				8014B7F42700DED400691126 /* MuRootView.swift in Sources */,
@@ -1039,6 +1043,14 @@
 				minimumVersion = 0.2.9;
 			};
 		};
+		80CBDA0F281CABF3008CB97A /* XCRemoteSwiftPackageReference "Tr3" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/musesum/Tr3";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1048,6 +1060,11 @@
 			productName = ViewInspector;
 		};
 		80731CAF281706DD005FCE1A /* Tr3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */;
+			productName = Tr3;
+		};
+		80CBDA10281CABF3008CB97A /* Tr3 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */;
 			productName = Tr3;

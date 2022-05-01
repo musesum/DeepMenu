@@ -43,7 +43,7 @@ class MuPilot: ObservableObject {
     init() {
         let rootNodeModel = MuNodeModel("⚫︎") // name changed below
         rootBranch = MuBranch(isRoot: true, axis: .horizontal)
-        rootNode = MuNode(.root, rootBranch, rootNodeModel, icon: Layout.hoverRing)
+        rootNode = MuNode(.node, rootBranch, rootNodeModel, icon: Layout.hoverRing)
         rootBranch.addNode(rootNode)
     }
     

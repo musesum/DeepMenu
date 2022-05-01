@@ -17,7 +17,7 @@ struct MuBranchView: View, Identifiable {
             ZStack {
                 MuBranchRectView(border: border)
 
-                let reverse = (border.vert
+                let reverse = (border.axis == .vertical
                                ? root.corner.contains(.lower) ? true : false
                                : root.corner.contains(.left)  ? true : false )
 
@@ -30,7 +30,7 @@ struct MuBranchView: View, Identifiable {
             .onAppear { branch.updateBounds(geo.frame(in: .named("Space"))) }
             .onChange(of: geo.frame(in: .named("Space"))) { branch.updateBounds($0) }
         }
-        .frame(width:  border.width, height: border.height)
+        .frame(width:  border.size.width, height: border.size.height)
 
         .opacity(opacity)
         .animation(.easeInOut(duration: Layout.animate/2), value: opacity)
