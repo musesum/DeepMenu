@@ -1,11 +1,11 @@
 // Created by warren 10/29/21.
 import SwiftUI
 
-/// hierarchical menu of horizontal or vertical  branches
+/// hierarchical menu of horizontal or vertical branches
 struct MuLimbView: View {
 
-    @EnvironmentObject var root: MuRoot
-    @ObservedObject var limb: MuLimb
+    @EnvironmentObject var root: MuRootVm
+    @ObservedObject var limb: MuLimbVm
     
     var body: some View {
         

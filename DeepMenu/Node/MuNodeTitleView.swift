@@ -4,7 +4,7 @@ import SwiftUI
 
 struct MuNodeTitleView: View {
 
-    @ObservedObject var node: MuNode
+    @ObservedObject var node: MuNodeVm
     var borderColor: Color   { node.spotlight ? .white : .gray }
     var borderWidth: CGFloat { node.spotlight ?    2.5 :   0.5 }
 

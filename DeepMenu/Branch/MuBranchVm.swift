@@ -3,19 +3,19 @@
 import SwiftUI
 
 
-class MuBranch: Identifiable, ObservableObject {
+class MuBranchVm: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
 
     var isRoot: Bool = false
-    var limb: MuLimb?           // my limb; which unfolds a hierarchy of branches
+    var limb: MuLimbVm?           // my limb; which unfolds a hierarchy of branches
     var level: CGFloat          // zIndex within sub/super branches
 
-    var branchPrev: MuBranch?   // branch preceding this one
-    var branchNext: MuBranch?   // branch expanding from spotlight node
-    var branchNodes: [MuNode]    // the nodes on this branch, incl spotNode
+    var branchPrev: MuBranchVm?   // branch preceding this one
+    var branchNext: MuBranchVm?   // branch expanding from spotlight node
+    var branchNodes: [MuNodeVm]    // the nodes on this branch, incl spotNode
 
-    var spotNode: MuNode?       // current spotlight node
-    var spotPrev: MuNode?       // prevBranch's spotlight node
+    var spotNode: MuNodeVm?       // current spotlight node
+    var spotPrev: MuNodeVm?       // prevBranch's spotlight node
 
     var border: MuBorder
     var bounds: CGRect = .zero
@@ -24,9 +24,9 @@ class MuBranch: Identifiable, ObservableObject {
 
     var reverse = false
 
-    init(branchPrev: MuBranch? = nil,
-         branchNodes: [MuNode] = [],
-         limb: MuLimb? = nil,
+    init(branchPrev: MuBranchVm? = nil,
+         branchNodes: [MuNodeVm] = [],
+         limb: MuLimbVm? = nil,
          level: CGFloat = 0,
          isRoot: Bool = false,
          show: Bool = true,
@@ -44,17 +44,17 @@ class MuBranch: Identifiable, ObservableObject {
         updateLimb(limb)
     }
 
-    init(branchPrev: MuBranch? = nil,
-         spotPrev: MuNode? = nil,
+    init(branchPrev: MuBranchVm? = nil,
+         spotPrev: MuNodeVm? = nil,
          children: [MuNodeModel],
-         limb: MuLimb? = nil,
+         limb: MuLimbVm? = nil,
          level: CGFloat = 0,
          show: Bool = true,
          axis: Axis) {
 
         self.branchPrev = branchPrev
         self.spotPrev = spotPrev
-        self.branchNodes = [MuNode]()
+        self.branchNodes = [MuNodeVm]()
         self.limb = limb
         self.level = level
         self.show = show
@@ -74,12 +74,12 @@ class MuBranch: Identifiable, ObservableObject {
     /// leaf node should be a xy rectangle control
     private func buildNodesFromChildren(_ children: [MuNodeModel]) {
         for child in children {
-            var node: MuNode
+            var node: MuNodeVm
             switch child.nodeType {
                 case .node, .none:
-                    node = MuNode(child.nodeType, self, child, spotPrev: spotPrev)
+                    node = MuNodeVm(child.nodeType, self, child, spotPrev: spotPrev)
                 default:
-                    node = MuLeaf(child.nodeType, self, child, spotPrev: spotPrev)
+                    node = MuLeafVm(child.nodeType, self, child, spotPrev: spotPrev)
             }
             branchNodes.append(node)
         }
@@ -87,7 +87,7 @@ class MuBranch: Identifiable, ObservableObject {
     /**
      May be updated after init for root limb inside updateRoot
      */
-    func updateLimb(_ limb: MuLimb?) {
+    func updateLimb(_ limb: MuLimbVm?) {
 
         guard let limb = limb else { return }
         self.limb = limb
@@ -98,17 +98,17 @@ class MuBranch: Identifiable, ObservableObject {
         branchShift = branchPrev?.branchShift ?? .zero
     }
 
-    func addNode(_ node: MuNode) {
+    func addNode(_ node: MuNodeVm) {
         if branchNodes.contains(node) { return }
         branchNodes.append(node)
     }
     
-    func removeNode(_ node: MuNode) {
+    func removeNode(_ node: MuNodeVm) {
         let filtered = branchNodes.filter { $0.id != node.id }
         branchNodes = filtered
     }
 
-    func findHover(_ touchNow: CGPoint) -> MuNode? {
+    func findHover(_ touchNow: CGPoint) -> MuNodeVm? {
 
         // not hovering over branch? 
         if !bounds.contains(touchNow) {

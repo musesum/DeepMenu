@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class ExampleClientModel: ObservableObject {
+class ExampleClientVm: ObservableObject {
 
     @Published var path: String = "."
     @Published var x: CGFloat = 0
@@ -15,7 +15,7 @@ class ExampleClientModel: ObservableObject {
 }
 
 struct ExampleClientView: View {
-    @ObservedObject var model = ExampleClientModel()
+    @ObservedObject var model = ExampleClientVm()
     var body: some View {
         VStack(alignment: .leading) {
             Text("path: \(model.path)")

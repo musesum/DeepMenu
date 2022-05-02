@@ -2,10 +2,10 @@
 
 import SwiftUI
 
-class MuNode: Identifiable, Equatable, ObservableObject {
+class MuNodeVm: Identifiable, Equatable, ObservableObject {
     let id = MuIdentity.getId()
 
-    static func == (lhs: MuNode, rhs: MuNode) -> Bool {
+    static func == (lhs: MuNodeVm, rhs: MuNodeVm) -> Bool {
         return lhs.id == rhs.id
     }
 
@@ -14,19 +14,19 @@ class MuNode: Identifiable, Equatable, ObservableObject {
 
     var model: MuNodeModel      // each model MuNodeModel maybe on several MuNode(s)
     var icon: String            // icon for this node (not implemented)
-    var branch: MuBranch        // branch that this node is on
-    var spotPrev: MuNode?       // parent branch's spotlight node
-    var subNodes: [MuNode]      // sub nodes (child nodes)
+    var branch: MuBranchVm        // branch that this node is on
+    var spotPrev: MuNodeVm?       // parent branch's spotlight node
+    var subNodes: [MuNodeVm]      // sub nodes (child nodes)
     var nodeXY = CGPoint.zero   // current position
 
     var border: MuBorder
 
     init (_ type: MuNodeType,
-          _ branch: MuBranch,
+          _ branch: MuBranchVm,
           _ model: MuNodeModel,
           icon: String = "",
-          spotPrev: MuNode? = nil,
-          subNodes: [MuNode] = []) {
+          spotPrev: MuNodeVm? = nil,
+          subNodes: [MuNodeVm] = []) {
 
         self.branch = branch
         self.model = model
@@ -40,13 +40,13 @@ class MuNode: Identifiable, Equatable, ObservableObject {
         }
 
         for subModel in model.children {
-            let subNode = MuNode(type, branch, subModel, spotPrev: self)
+            let subNode = MuNodeVm(type, branch, subModel, spotPrev: self)
             self.subNodes.append(subNode)
         }
     }
     
-    func copy() -> MuNode {
-        let node = MuNode(border.type,
+    func copy() -> MuNodeVm {
+        let node = MuNodeVm(border.type,
                           branch,
                           model,
                           icon: icon,

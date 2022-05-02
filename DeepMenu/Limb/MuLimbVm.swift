@@ -1,19 +1,19 @@
 // Created by warren 10/27/21.
 import SwiftUI
 
-class MuLimb: Identifiable, ObservableObject {
+class MuLimbVm: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
 
-    @Published var branches: [MuBranch]
-    var root: MuRoot? // control tower root
+    @Published var branches: [MuBranchVm]
+    var root: MuRootVm? // control tower root
     var axis: Axis  // vertical or horizontal
     var level = CGFloat(1) // starting level for branches
     var offset = CGSize(width: 0, height: 0)
     var depthShown = 0 // levels of branches shown
-    var spotNode: MuNode? // current node under pilot's flyNode
+    var spotNode: MuNodeVm? // current node under pilot's flyNode
 
-    init(branches: [MuBranch],
-         root: MuRoot) {
+    init(branches: [MuBranchVm],
+         root: MuRootVm) {
 
         self.branches = branches
         self.root = root
@@ -26,7 +26,7 @@ class MuLimb: Identifiable, ObservableObject {
 
     /// find nearest node to touch point
     func nearestNode(_ touchNow: CGPoint,
-                    _ touchBranch: MuBranch?) -> MuNode? {
+                    _ touchBranch: MuBranchVm?) -> MuNodeVm? {
         var skipPreBranches = touchBranch?.limb?.id == id
 
         for branch in branches {
@@ -49,8 +49,8 @@ class MuLimb: Identifiable, ObservableObject {
     }
 
     /// evenly space docs leading up to spotBranch's position
-    func refreshBranches(_ spotBranch: MuBranch,
-                         _ spotNode: MuNode) {
+    func refreshBranches(_ spotBranch: MuBranchVm,
+                         _ spotNode: MuNodeVm) {
 
         // tapped on spotlight
         if let branchNext = spotBranch.branchNext,
@@ -65,7 +65,7 @@ class MuLimb: Identifiable, ObservableObject {
         while branches.last?.id != spotBranch.id {
             branches.removeLast()
         }
-        var newBranches = [MuBranch]()
+        var newBranches = [MuBranchVm]()
         expandBranches(spotNode, branches.last,  &newBranches, level + 1)
         if newBranches.count > 0 {
             branches.append(contentsOf: newBranches)
@@ -79,9 +79,9 @@ class MuLimb: Identifiable, ObservableObject {
     }
 
     /// add a branch to selected node and follow selected kid
-    func expandBranches(_ spotNode: MuNode?,
-                        _ branchPrev: MuBranch?,
-                        _ newBranches: inout [MuBranch],
+    func expandBranches(_ spotNode: MuNodeVm?,
+                        _ branchPrev: MuBranchVm?,
+                        _ newBranches: inout [MuBranchVm],
                         _ level: CGFloat) {
         
         guard let spotNode = spotNode else { return }
@@ -89,7 +89,7 @@ class MuLimb: Identifiable, ObservableObject {
         spotNode.spotlight = true
         
         if spotNode.model.children.count > 0 {
-            let newBranch = MuBranch(branchPrev: branchPrev,
+            let newBranch = MuBranchVm(branchPrev: branchPrev,
                                      spotPrev: spotNode,
                                      children: spotNode.model.children,
                                      limb: self,
@@ -117,7 +117,7 @@ class MuLimb: Identifiable, ObservableObject {
     func showBranches(depth depthNext: Int) {
 
         var lag = TimeInterval(0)
-        var newBranches = [MuBranch]()
+        var newBranches = [MuBranchVm]()
 
         // logStart()
         if      depthShown < depthNext { expandBranches() }

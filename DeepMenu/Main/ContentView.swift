@@ -19,27 +19,27 @@ struct ContentView: View {
         ContentViews.client
         ZStack(alignment: .bottomLeading) {
             AppBackgroundView(space: appSpace)
-            MuRootView().environmentObject(MuRoot([.lower, .right], branches: defaultSampleBranches()))
-            MuRootView().environmentObject(MuRoot([.lower, .left ], branches: skyBranches()))
+            MuRootView().environmentObject(MuRootVm([.lower, .right], branches: testBranches()))
+            MuRootView().environmentObject(MuRootVm([.lower, .left ], branches: skyBranches()))
         }
         .coordinateSpace(name: "Space")
         .statusBar(hidden: true)
     }
 
-    private func skyBranches() -> [MuBranch] {
+    private func skyBranches() -> [MuBranchVm] {
         let skyNodes = ExampleTr3Sky.skyNodes()
-        let skyBranches = MuBranch(children: skyNodes, axis: .vertical)
+        let skyBranches = MuBranchVm(children: skyNodes, axis: .vertical)
         return [skyBranches]
     }
-    private func defaultSampleBranches() -> [MuBranch] {
+    private func testBranches() -> [MuBranchVm] {
         let numberedNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
         let letteredNodes = ExampleNodeModels.letteredNodes()
-        let hBranch = MuBranch(children: numberedNodes, axis: .horizontal)
-        let vBranch = MuBranch(children: letteredNodes, axis: .vertical)
+        let hBranch = MuBranchVm(children: numberedNodes, axis: .horizontal)
+        let vBranch = MuBranchVm(children: letteredNodes, axis: .vertical)
         return [hBranch, vBranch]
     }
     
-    private func appControlBranches() -> [MuBranch] {
+    private func appControlBranches() -> [MuBranchVm] {
         let colorModel = MuNodeModel("Color")
         colorModel.addChild(MuNodeModel("Red") { _ in
             appSpace.backgroundColor = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
@@ -63,7 +63,7 @@ struct ContentView: View {
         })
         clientModel.addChild(clientXY)
 
-        let vBranch  = MuBranch(children: [colorModel, clientModel], axis: .vertical)
+        let vBranch  = MuBranchVm(children: [colorModel, clientModel], axis: .vertical)
         return [vBranch]
     }
 }

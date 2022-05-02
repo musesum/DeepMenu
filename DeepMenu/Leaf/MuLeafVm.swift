@@ -3,7 +3,7 @@
 import SwiftUI
 import Accelerate
 
-class MuLeaf: MuNode {
+class MuLeafVm: MuNodeVm {
 
     var xy: CGPoint = .zero
     var editing: Bool = false
@@ -16,10 +16,10 @@ class MuLeaf: MuNode {
     }}
     
     init (_ type: MuNodeType,
-          _ branch: MuBranch,
+          _ branch: MuBranchVm,
           _ model: MuNodeModel,
           icon: String = "",
-          spotPrev: MuNode?) {
+          spotPrev: MuNodeVm?) {
         
          super.init(type, branch, model, icon: icon, spotPrev: spotPrev)
     }

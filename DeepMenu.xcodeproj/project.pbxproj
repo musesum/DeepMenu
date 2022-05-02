@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5747E93C27C95B4E0014AB34 /* MuLeafXYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747E93B27C95B4E0014AB34 /* MuLeafXYView.swift */; };
+		5747E93C27C95B4E0014AB34 /* MuLeafView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747E93B27C95B4E0014AB34 /* MuLeafView.swift */; };
 		57A0A23827BDAFAE00B5598B /* MuLimbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A23727BDAFAE00B5598B /* MuLimbTests.swift */; };
 		57A0A26127BED18A00B5598B /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 57A0A26027BED18A00B5598B /* ViewInspector */; };
 		57A0A26327BED1E900B5598B /* MuLimbViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26227BED1E900B5598B /* MuLimbViewTests.swift */; };
@@ -15,9 +15,9 @@
 		57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26727C015F600B5598B /* MuIdentityTests.swift */; };
 		57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029427C142FC00203F63 /* ExampleNodeModels.swift */; };
 		57F3029827C4389B00203F63 /* MuPodModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029727C4389B00203F63 /* MuPodModelTests.swift */; };
-		800064A327646D67004B4C63 /* MuLeaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800064A227646D67004B4C63 /* MuLeaf.swift */; };
+		800064A327646D67004B4C63 /* MuLeafVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800064A227646D67004B4C63 /* MuLeafVm.swift */; };
 		8006196B27933375005960FF /* MuTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8006196A27933375005960FF /* MuTouch.swift */; };
-		800D4AE5272A2A6800E71519 /* MuLimb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE4272A2A6800E71519 /* MuLimb.swift */; };
+		800D4AE5272A2A6800E71519 /* MuLimbVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE4272A2A6800E71519 /* MuLimbVm.swift */; };
 		800D4AE9272B220700E71519 /* CG+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE8272B220700E71519 /* CG+ext.swift */; };
 		800E2A99281DB8AA006AE6A1 /* sky.shader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80CBDA14281D90BF008CB97A /* sky.shader.tr3.h */; };
 		80135A07272C71EA00BCDE27 /* MuLimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A06272C71EA00BCDE27 /* MuLimbView.swift */; };
@@ -31,14 +31,14 @@
 		8014B7E52700DE3A00691126 /* DeepMenuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7E42700DE3A00691126 /* DeepMenuUITests.swift */; };
 		8014B7E72700DE3A00691126 /* DeepMenuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7E62700DE3A00691126 /* DeepMenuUITestsLaunchTests.swift */; };
 		8014B7F42700DED400691126 /* MuRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7F32700DED400691126 /* MuRootView.swift */; };
-		8019DBF4271BD7A200420923 /* MuBranch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBF3271BD7A200420923 /* MuBranch.swift */; };
+		8019DBF4271BD7A200420923 /* MuBranchVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBF3271BD7A200420923 /* MuBranchVm.swift */; };
 		8019DBF9271BEEED00420923 /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBF8271BEEED00420923 /* String+ext.swift */; };
 		8019DBFB271C8CEC00420923 /* MuNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFA271C8CEC00420923 /* MuNodeModel.swift */; };
 		8019DBFD271C8D2400420923 /* MuNodeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFC271C8D2400420923 /* MuNodeTitleView.swift */; };
 		8019DBFF271C8D5300420923 /* MuNodeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFE271C8D5200420923 /* MuNodeIconView.swift */; };
-		8019DC03271C8DDE00420923 /* MuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC02271C8DDD00420923 /* MuNode.swift */; };
+		8019DC03271C8DDE00420923 /* MuNodeVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC02271C8DDD00420923 /* MuNodeVm.swift */; };
 		8019DC05271C901500420923 /* MuIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC04271C901500420923 /* MuIdentity.swift */; };
-		802346FA2717D7EE0006645B /* MuRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802346F92717D7EE0006645B /* MuRoot.swift */; };
+		802346FA2717D7EE0006645B /* MuRootVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802346F92717D7EE0006645B /* MuRootVm.swift */; };
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B0EDE2748216700004A85 /* Comparable+ext.swift */; };
 		80631DFD277141780071AF93 /* MuBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFC277141780071AF93 /* MuBorder.swift */; };
@@ -49,9 +49,9 @@
 		80731CE8281715F3005FCE1A /* sky.main.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCF281715C0005FCE1A /* sky.main.tr3.h */; };
 		80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCD281715C0005FCE1A /* midi.tr3.h */; };
 		80731CEB2819BBF1005FCE1A /* sky.menu.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CEA28187A45005FCE1A /* sky.menu.tr3.h */; };
-		8087FC87280771CF00572436 /* ExampleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* ExampleClient.swift */; };
+		8087FC87280771CF00572436 /* ExampleClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* ExampleClientView.swift */; };
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
-		80A9B63D272F3B9B00355445 /* MuPilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuPilot.swift */; };
+		80A9B63D272F3B9B00355445 /* MuPilotVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuPilotVm.swift */; };
 		80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63F272F7CAD00355445 /* MuLayout.swift */; };
 		80B251DE2706BDBF00E63DA3 /* MuBranchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B251DD2706BDBF00E63DA3 /* MuBranchView.swift */; };
 		80B251E02707563300E63DA3 /* MuNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B251DF2707563300E63DA3 /* MuNodeView.swift */; };
@@ -83,17 +83,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5747E93B27C95B4E0014AB34 /* MuLeafXYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafXYView.swift; sourceTree = "<group>"; };
+		5747E93B27C95B4E0014AB34 /* MuLeafView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafView.swift; sourceTree = "<group>"; };
 		57A0A23727BDAFAE00B5598B /* MuLimbTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbTests.swift; sourceTree = "<group>"; };
 		57A0A26227BED1E900B5598B /* MuLimbViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbViewTests.swift; sourceTree = "<group>"; };
 		57A0A26427BF15AA00B5598B /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = config.yml; path = .circleci/config.yml; sourceTree = "<group>"; };
 		57A0A26727C015F600B5598B /* MuIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentityTests.swift; sourceTree = "<group>"; };
 		57F3029427C142FC00203F63 /* ExampleNodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNodeModels.swift; sourceTree = "<group>"; };
 		57F3029727C4389B00203F63 /* MuPodModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodModelTests.swift; sourceTree = "<group>"; };
-		800064A227646D67004B4C63 /* MuLeaf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeaf.swift; sourceTree = "<group>"; };
+		800064A227646D67004B4C63 /* MuLeafVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeafVm.swift; sourceTree = "<group>"; };
 		800619692791D984005960FF /* scratch2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch2.h; sourceTree = "<group>"; };
 		8006196A27933375005960FF /* MuTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouch.swift; sourceTree = "<group>"; };
-		800D4AE4272A2A6800E71519 /* MuLimb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimb.swift; sourceTree = "<group>"; };
+		800D4AE4272A2A6800E71519 /* MuLimbVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbVm.swift; sourceTree = "<group>"; };
 		800D4AE8272B220700E71519 /* CG+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CG+ext.swift"; sourceTree = "<group>"; };
 		80135A06272C71EA00BCDE27 /* MuLimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbView.swift; sourceTree = "<group>"; };
 		80135A08272C724E00BCDE27 /* MuPilotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPilotView.swift; sourceTree = "<group>"; };
@@ -110,15 +110,15 @@
 		8014B7E62700DE3A00691126 /* DeepMenuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepMenuUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8014B7F32700DED400691126 /* MuRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuRootView.swift; sourceTree = "<group>"; };
 		8014B7F52700E7C400691126 /* DeepMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeepMenu.entitlements; sourceTree = "<group>"; };
-		8019DBF3271BD7A200420923 /* MuBranch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBranch.swift; sourceTree = "<group>"; };
+		8019DBF3271BD7A200420923 /* MuBranchVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBranchVm.swift; sourceTree = "<group>"; };
 		8019DBF8271BEEED00420923 /* String+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ext.swift"; sourceTree = "<group>"; };
 		8019DBFA271C8CEC00420923 /* MuNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeModel.swift; sourceTree = "<group>"; };
 		8019DBFC271C8D2400420923 /* MuNodeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeTitleView.swift; sourceTree = "<group>"; };
 		8019DBFE271C8D5200420923 /* MuNodeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeIconView.swift; sourceTree = "<group>"; };
-		8019DC02271C8DDD00420923 /* MuNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNode.swift; sourceTree = "<group>"; };
+		8019DC02271C8DDD00420923 /* MuNodeVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeVm.swift; sourceTree = "<group>"; };
 		8019DC04271C901500420923 /* MuIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentity.swift; sourceTree = "<group>"; };
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
-		802346F92717D7EE0006645B /* MuRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuRoot.swift; sourceTree = "<group>"; };
+		802346F92717D7EE0006645B /* MuRootVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuRootVm.swift; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		805B0EDE2748216700004A85 /* Comparable+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ext.swift"; sourceTree = "<group>"; };
@@ -150,10 +150,10 @@
 		80731CCD281715C0005FCE1A /* midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = midi.tr3.h; sourceTree = "<group>"; };
 		80731CCF281715C0005FCE1A /* sky.main.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.main.tr3.h; sourceTree = "<group>"; };
 		80731CEA28187A45005FCE1A /* sky.menu.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.menu.tr3.h; sourceTree = "<group>"; };
-		8087FC86280771CF00572436 /* ExampleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleClient.swift; sourceTree = "<group>"; };
+		8087FC86280771CF00572436 /* ExampleClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleClientView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		809D126A275B26CA0091D252 /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
-		80A9B63C272F3B9B00355445 /* MuPilot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPilot.swift; sourceTree = "<group>"; };
+		80A9B63C272F3B9B00355445 /* MuPilotVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPilotVm.swift; sourceTree = "<group>"; };
 		80A9B63F272F7CAD00355445 /* MuLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLayout.swift; sourceTree = "<group>"; };
 		80B251DD2706BDBF00E63DA3 /* MuBranchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBranchView.swift; sourceTree = "<group>"; };
 		80B251DF2707563300E63DA3 /* MuNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeView.swift; sourceTree = "<group>"; };
@@ -223,8 +223,8 @@
 		800064A127646D44004B4C63 /* Leaf */ = {
 			isa = PBXGroup;
 			children = (
-				5747E93B27C95B4E0014AB34 /* MuLeafXYView.swift */,
-				800064A227646D67004B4C63 /* MuLeaf.swift */,
+				5747E93B27C95B4E0014AB34 /* MuLeafView.swift */,
+				800064A227646D67004B4C63 /* MuLeafVm.swift */,
 			);
 			path = Leaf;
 			sourceTree = "<group>";
@@ -307,7 +307,7 @@
 		8019DBF5271BDB2E00420923 /* Branch */ = {
 			isa = PBXGroup;
 			children = (
-				8019DBF3271BD7A200420923 /* MuBranch.swift */,
+				8019DBF3271BD7A200420923 /* MuBranchVm.swift */,
 				80B251DD2706BDBF00E63DA3 /* MuBranchView.swift */,
 				80C9A7C6270F5A820013CA49 /* MuBranchRectView.swift */,
 			);
@@ -317,7 +317,7 @@
 		8019DBF6271BDB4A00420923 /* Node */ = {
 			isa = PBXGroup;
 			children = (
-				8019DC02271C8DDD00420923 /* MuNode.swift */,
+				8019DC02271C8DDD00420923 /* MuNodeVm.swift */,
 				80B251DF2707563300E63DA3 /* MuNodeView.swift */,
 				8019DBFA271C8CEC00420923 /* MuNodeModel.swift */,
 				8019DBFE271C8D5200420923 /* MuNodeIconView.swift */,
@@ -329,7 +329,7 @@
 		8019DBF7271BDB6100420923 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				802346F92717D7EE0006645B /* MuRoot.swift */,
+				802346F92717D7EE0006645B /* MuRootVm.swift */,
 				8014B7F32700DED400691126 /* MuRootView.swift */,
 				80C43F4C274EE5E4002B0B76 /* MuRootStatus.swift */,
 			);
@@ -339,7 +339,7 @@
 		8060721827359440001945CD /* Limb */ = {
 			isa = PBXGroup;
 			children = (
-				800D4AE4272A2A6800E71519 /* MuLimb.swift */,
+				800D4AE4272A2A6800E71519 /* MuLimbVm.swift */,
 				80135A06272C71EA00BCDE27 /* MuLimbView.swift */,
 			);
 			path = Limb;
@@ -427,7 +427,7 @@
 				80731CB528170D9A005FCE1A /* SkyTr3.swift */,
 				80731CD0281715D9005FCE1A /* Tr3 */,
 				57F3029427C142FC00203F63 /* ExampleNodeModels.swift */,
-				8087FC86280771CF00572436 /* ExampleClient.swift */,
+				8087FC86280771CF00572436 /* ExampleClientView.swift */,
 				80731CB128170880005FCE1A /* ExampleTr3Sky.swift */,
 			);
 			path = Example;
@@ -469,7 +469,7 @@
 		80AA51D8272DB66B00406886 /* Pilot */ = {
 			isa = PBXGroup;
 			children = (
-				80A9B63C272F3B9B00355445 /* MuPilot.swift */,
+				80A9B63C272F3B9B00355445 /* MuPilotVm.swift */,
 				80135A08272C724E00BCDE27 /* MuPilotView.swift */,
 			);
 			path = Pilot;
@@ -629,19 +629,19 @@
 				80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */,
 				80135A09272C724E00BCDE27 /* MuPilotView.swift in Sources */,
 				80FC93F327344C3400FC10E5 /* MuCorner.swift in Sources */,
-				8019DC03271C8DDE00420923 /* MuNode.swift in Sources */,
+				8019DC03271C8DDE00420923 /* MuNodeVm.swift in Sources */,
 				8019DBFD271C8D2400420923 /* MuNodeTitleView.swift in Sources */,
 				8019DBF9271BEEED00420923 /* String+ext.swift in Sources */,
-				802346FA2717D7EE0006645B /* MuRoot.swift in Sources */,
+				802346FA2717D7EE0006645B /* MuRootVm.swift in Sources */,
 				8019DC05271C901500420923 /* MuIdentity.swift in Sources */,
-				800D4AE5272A2A6800E71519 /* MuLimb.swift in Sources */,
-				80A9B63D272F3B9B00355445 /* MuPilot.swift in Sources */,
+				800D4AE5272A2A6800E71519 /* MuLimbVm.swift in Sources */,
+				80A9B63D272F3B9B00355445 /* MuPilotVm.swift in Sources */,
 				80631DFD277141780071AF93 /* MuBorder.swift in Sources */,
 				80C9A7C7270F5A820013CA49 /* MuBranchRectView.swift in Sources */,
 				8019DBFF271C8D5300420923 /* MuNodeIconView.swift in Sources */,
-				8019DBF4271BD7A200420923 /* MuBranch.swift in Sources */,
+				8019DBF4271BD7A200420923 /* MuBranchVm.swift in Sources */,
 				80B8EE872790A08500149AA3 /* Range+ext.swift in Sources */,
-				8087FC87280771CF00572436 /* ExampleClient.swift in Sources */,
+				8087FC87280771CF00572436 /* ExampleClientView.swift in Sources */,
 				80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */,
 				80C43F4D274EE92E002B0B76 /* MuRootStatus.swift in Sources */,
 				8014B7CC2700DE3800691126 /* ContentView.swift in Sources */,
@@ -650,11 +650,11 @@
 				80C5E880270CCA1B0000832C /* Log.swift in Sources */,
 				8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */,
 				80B251E02707563300E63DA3 /* MuNodeView.swift in Sources */,
-				800064A327646D67004B4C63 /* MuLeaf.swift in Sources */,
+				800064A327646D67004B4C63 /* MuLeafVm.swift in Sources */,
 				80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */,
 				809D126B275B26CA0091D252 /* Delay.swift in Sources */,
 				57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */,
-				5747E93C27C95B4E0014AB34 /* MuLeafXYView.swift in Sources */,
+				5747E93C27C95B4E0014AB34 /* MuLeafView.swift in Sources */,
 				80C9A7BF270F4C4B0013CA49 /* Scroll+ext.swift in Sources */,
 				80631E002772428E0071AF93 /* MuNodeType.swift in Sources */,
 				80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */,

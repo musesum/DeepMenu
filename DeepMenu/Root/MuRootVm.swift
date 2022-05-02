@@ -4,9 +4,9 @@
 // Created by warren 10/13/21.
 import SwiftUI
 
-class MuRoot: ObservableObject, Equatable {
+class MuRootVm: ObservableObject, Equatable {
     let id = MuIdentity.getId()
-    static func == (lhs: MuRoot, rhs: MuRoot) -> Bool {
+    static func == (lhs: MuRootVm, rhs: MuRootVm) -> Bool {
         return lhs.id == rhs.id
     }
 
@@ -19,22 +19,22 @@ class MuRoot: ObservableObject, Equatable {
     }
 
     var corner: MuCorner
-    var limbs = [MuLimb]() // usually a vertical and horizon limb
-    var spotLimb: MuLimb?  // most recently used limb
+    var limbs = [MuLimbVm]() // usually a vertical and horizon limb
+    var spotLimb: MuLimbVm?  // most recently used limb
 
-    let pilot = MuPilot()   // captures touch events to dispatch to this root
-    var spotNode: MuNode?     // current spotlight node
-    var touchBranch: MuBranch?  // branch that is capturing touch events
+    let pilot = MuPilotVm()   // captures touch events to dispatch to this root
+    var spotNode: MuNodeVm?     // current spotlight node
+    var touchBranch: MuBranchVm?  // branch that is capturing touch events
     var touch: MuTouch = MuTouch()
 
-    init(_ corner: MuCorner, branches: [MuBranch]?) {
+    init(_ corner: MuCorner, branches: [MuBranchVm]?) {
 
         self.corner = corner
         pilot.setRoot(self)
 
         if let branches = branches {
             limbs = branches.map({ branch in
-                MuLimb(branches: [branch], root: self)
+                MuLimbVm(branches: [branch], root: self)
             })
         }
         
@@ -123,7 +123,7 @@ class MuRoot: ObservableObject, Equatable {
         return touchBranchDepth
     }}
     // touch began at first encountered branch
-    func begin(_ branch: MuBranch?,
+    func begin(_ branch: MuBranchVm?,
                _ touchNow: CGPoint) {
 
         touch.begin(touchNow)
@@ -189,7 +189,7 @@ class MuRoot: ObservableObject, Equatable {
         }
     }
 
-    func getvalues(_ branch: MuBranch) -> (ClosedRange<CGFloat>,
+    func getvalues(_ branch: MuBranchVm) -> (ClosedRange<CGFloat>,
                                        ClosedRange<CGFloat>) {
         // calc values
         let oneSpace = Layout.diameter + Layout.spacing * 3 // distance between branches
@@ -280,9 +280,9 @@ class MuRoot: ObservableObject, Equatable {
     }
 
 
-    func followTouch(_ touchNow: CGPoint) -> MuNode? {
+    func followTouch(_ touchNow: CGPoint) -> MuNodeVm? {
 
-        func setSpotLimb(_ limbNext: MuLimb) {
+        func setSpotLimb(_ limbNext: MuLimbVm) {
             
             for hideLimb in limbs {
                 if hideLimb.id != limbNext.id {

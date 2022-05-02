@@ -6,16 +6,16 @@ import SwiftUI
  Draggable clone of node withing a branch, which clips at border
  - note: Instead, move clones on space
  */
-class MuPilot: ObservableObject {
+class MuPilotVm: ObservableObject {
 
     @Published var pointNow = CGPoint.zero    // current position
     var pointHome = CGPoint.zero  // starting position of touch
     var alpha: CGFloat { get { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }}
 
-    var root: MuRoot?
-    var rootNode: MuNode   // fixed corner node space
-    var flyNode: MuNode?  // flying node from root
-    var rootBranch: MuBranch
+    var root: MuRootVm?
+    var rootNode: MuNodeVm   // fixed corner node space
+    var flyNode: MuNodeVm?  // flying node from root
+    var rootBranch: MuBranchVm
 
     var touchOfs = CGSize.zero // offset between rootNode and touchNow
     var deltaOfs = CGSize.zero // offset between touch point and center in coord
@@ -37,17 +37,17 @@ class MuPilot: ObservableObject {
         }
     }
 
-    var touchBranch: MuBranch? // branch which captured DragGesture
+    var touchBranch: MuBranchVm? // branch which captured DragGesture
     var pointDelta = CGPoint.zero // touch starting position
 
     init() {
         let rootNodeModel = MuNodeModel("⚫︎") // name changed below
-        rootBranch = MuBranch(isRoot: true, axis: .horizontal)
-        rootNode = MuNode(.node, rootBranch, rootNodeModel, icon: Layout.hoverRing)
+        rootBranch = MuBranchVm(isRoot: true, axis: .horizontal)
+        rootNode = MuNodeVm(.node, rootBranch, rootNodeModel, icon: Layout.hoverRing)
         rootBranch.addNode(rootNode)
     }
     
-    func setRoot(_ root: MuRoot) {
+    func setRoot(_ root: MuRootVm) {
         self.root = root
         rootNode.model.setName(from: root.corner)
     }
@@ -56,7 +56,7 @@ class MuPilot: ObservableObject {
      which also detects end when touchNow is reset to .zero
      */
     func touchUpdate(_ touchNow: CGPoint,
-                     _ touchBranch: MuBranch?) {
+                     _ touchBranch: MuBranchVm?) {
 
         if touchNow == .zero  { ended() }
         else if flyNode == nil { begin() }

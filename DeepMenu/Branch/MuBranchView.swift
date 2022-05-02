@@ -5,8 +5,8 @@ import SwiftUI
 struct MuBranchView: View, Identifiable {
     var id = MuIdentity.getId()
 
-    @EnvironmentObject var root: MuRoot
-    @ObservedObject var branch: MuBranch
+    @EnvironmentObject var root: MuRootVm
+    @ObservedObject var branch: MuBranchVm
 
     var opacity: CGFloat { get { branch.show ? 1 : 0.0 }}
     var border: MuBorder { get { branch.border } }

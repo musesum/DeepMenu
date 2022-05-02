@@ -3,9 +3,9 @@
 import SwiftUI
 import Accelerate
 
-struct MuLeafXYView: View {
+struct MuLeafView: View {
 
-    @ObservedObject var leaf: MuLeaf
+    @ObservedObject var leaf: MuLeafVm
     @GestureState private var touchXY: CGPoint = .zero
     var border: MuBorder { get { leaf.border } }
     var borderColor: Color   { leaf.spotlight ? .white : .gray }
@@ -17,19 +17,14 @@ struct MuLeafXYView: View {
                 .scaledToFit()
                 .foregroundColor(Color.white)
                 .animation(.easeInOut(duration: 0.20), value: borderColor)
-            Spacer()
+             
             ZStack {
                 GeometryReader { geo in
                     RoundedRectangle(cornerRadius: leaf.border.cornerRadius)
-
                         .fill((Color( white: 0.01, opacity: 0.5)))
                         .frame(width: border.diameter, height: border.diameter)
-                        .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .updating($touchXY) { (value, touchXY, _) in
-                                    touchXY = value.location
-                                }
-                        )
+                        .gesture(DragGesture(minimumDistance: 0)
+                            .updating($touchXY) { (input, result, _) in result = input.location })
                         .onChange(of: touchXY) { xy in
                             let value = border.normalizeTouch(xy: xy)
                             if value != CGPoint.zero {
@@ -47,7 +42,6 @@ struct MuLeafXYView: View {
                         .offset(border.expandNormalized(xy: leaf.xy))
                         .allowsHitTesting(false)
                 }
-
             }
         }
     }

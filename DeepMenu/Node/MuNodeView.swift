@@ -4,7 +4,7 @@ import SwiftUI
 
 struct MuNodeView: View {
 
-    @ObservedObject var node: MuNode
+    @ObservedObject var node: MuNodeVm
     var border: MuBorder { get { node.border } }
 
     var body: some View {
@@ -12,9 +12,9 @@ struct MuNodeView: View {
             Group {
                 switch node {
 
-                    case let leaf as MuLeaf:
+                    case let leaf as MuLeafVm:
 
-                        MuLeafXYView(leaf: leaf)
+                        MuLeafView(leaf: leaf)
 
                     default:
 

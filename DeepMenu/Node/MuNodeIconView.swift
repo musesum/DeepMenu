@@ -4,7 +4,7 @@ import SwiftUI
 
 struct MuNodeIconView: View {
 
-    @ObservedObject var node: MuNode
+    @ObservedObject var node: MuNodeVm
     let icon: String
 
     var borderColor: Color { node.spotlight ? .white : .gray }

@@ -4,7 +4,7 @@ import SwiftUI
 
 struct MuPilotView: View {
 
-    @ObservedObject var pilot: MuPilot
+    @ObservedObject var pilot: MuPilotVm
     @GestureState private var touchXY: CGPoint = .zero
 
     var body: some View {
