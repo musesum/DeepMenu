@@ -40,6 +40,6 @@ struct MuBranchView: View, Identifiable {
         .gesture(
             DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
                 .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
-        .onChange(of: touchXY) { root.pilot.touchUpdate($0, branch) }
+        .onChange(of: touchXY) { root.pilotVm.touchUpdate($0, branch) }
     }
 }

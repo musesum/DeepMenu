@@ -46,7 +46,7 @@ class MuBranchVm: Identifiable, ObservableObject {
 
     init(branchPrev: MuBranchVm? = nil,
          spotPrev: MuNodeVm? = nil,
-         children: [MuNodeModel],
+         children: [MuNode],
          limb: MuLimbVm? = nil,
          level: CGFloat = 0,
          show: Bool = true,
@@ -72,7 +72,7 @@ class MuBranchVm: Identifiable, ObservableObject {
     }
 
     /// leaf node should be a xy rectangle control
-    private func buildNodesFromChildren(_ children: [MuNodeModel]) {
+    private func buildNodesFromChildren(_ children: [MuNode]) {
         for child in children {
             var node: MuNodeVm
             switch child.nodeType {

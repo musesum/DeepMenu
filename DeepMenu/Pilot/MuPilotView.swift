@@ -12,7 +12,7 @@ struct MuPilotView: View {
             // root icon
             GeometryReader() { geo in
 
-                MuNodeView(node: pilot.rootNode)
+                MuNodeView(node: pilot.baseNodeVm)
 
                     .frame(width: Layout.diameter, height: Layout.diameter)
                     .onAppear { pilot.updateHome(geo.frame(in: .named("Space"))) }
@@ -29,7 +29,7 @@ struct MuPilotView: View {
 
             // fly icon
             GeometryReader { geo in
-                if let flyNode = pilot.flyNode {
+                if let flyNode = pilot.hoverNodeVm {
                    
                     MuNodeView(node: flyNode)
                         .position(pilot.pointNow)

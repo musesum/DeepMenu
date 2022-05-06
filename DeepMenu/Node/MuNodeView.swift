@@ -14,7 +14,7 @@ struct MuNodeView: View {
 
                     case let leaf as MuLeafVm:
 
-                        MuLeafView(leaf: leaf)
+                        MuLeafView(leafVm: leaf)
 
                     default:
 

@@ -55,8 +55,8 @@ class MuLimbVm: Identifiable, ObservableObject {
         // tapped on spotlight
         if let branchNext = spotBranch.branchNext,
            branchNext.show == true, // branchNext is also shown (limb.depth > 1)
-           let subId = branchNext.spotNode?.model.id,
-           let nowId = spotNode.model.subNow?.id, subId == nowId {
+           let subId = branchNext.spotNode?.node.id,
+           let nowId = spotNode.node.childNow?.id, subId == nowId {
             // all subBranches are the same
             return
         }
@@ -88,25 +88,25 @@ class MuLimbVm: Identifiable, ObservableObject {
         self.level = level
         spotNode.spotlight = true
         
-        if spotNode.model.children.count > 0 {
+        if spotNode.node.children.count > 0 {
             let newBranch = MuBranchVm(branchPrev: branchPrev,
                                      spotPrev: spotNode,
-                                     children: spotNode.model.children,
+                                     children: spotNode.node.children,
                                      limb: self,
                                      level: level + 1,
                                      show: false,
                                      axis: axis)
             
             newBranches.append(newBranch)
-            if let leafModel = spotNode.model.subNow {
+            if let leafModel = spotNode.node.childNow {
                 leafBranch(leafModel)
-            } else if spotNode.model.children.count == 1,
-                      let spotChild = spotNode.model.children.first {
+            } else if spotNode.node.children.count == 1,
+                      let spotChild = spotNode.node.children.first {
                 leafBranch(spotChild)
             }
-            func leafBranch(_ leafModel: MuNodeModel) {
+            func leafBranch(_ leafModel: MuNode) {
                 // TODO: use ordered dictionary?
-                let filter = newBranch.branchNodes.filter { $0.model.id == leafModel.id }
+                let filter = newBranch.branchNodes.filter { $0.node.id == leafModel.id }
                 newBranch.spotNode = filter.first
                 expandBranches(newBranch.spotNode, newBranch, &newBranches, level + 1)
                 newBranch.border.type = newBranch.spotNode?.border.type ?? .node

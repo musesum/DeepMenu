@@ -20,6 +20,8 @@
 		800D4AE5272A2A6800E71519 /* MuLimbVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE4272A2A6800E71519 /* MuLimbVm.swift */; };
 		800D4AE9272B220700E71519 /* CG+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE8272B220700E71519 /* CG+ext.swift */; };
 		800E2A99281DB8AA006AE6A1 /* sky.shader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80CBDA14281D90BF008CB97A /* sky.shader.tr3.h */; };
+		800E2A9B2824DCA7006AE6A1 /* MuNodeModelTr3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800E2A9A2824DCA7006AE6A1 /* MuNodeModelTr3.swift */; };
+		800E2A9D282568A1006AE6A1 /* MuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800E2A9C282568A1006AE6A1 /* MuNode.swift */; };
 		80135A07272C71EA00BCDE27 /* MuLimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A06272C71EA00BCDE27 /* MuLimbView.swift */; };
 		80135A09272C724E00BCDE27 /* MuPilotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A08272C724E00BCDE27 /* MuPilotView.swift */; };
 		80135A0B272C728700BCDE27 /* AppBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A0A272C728700BCDE27 /* AppBackgroundView.swift */; };
@@ -33,7 +35,7 @@
 		8014B7F42700DED400691126 /* MuRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7F32700DED400691126 /* MuRootView.swift */; };
 		8019DBF4271BD7A200420923 /* MuBranchVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBF3271BD7A200420923 /* MuBranchVm.swift */; };
 		8019DBF9271BEEED00420923 /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBF8271BEEED00420923 /* String+ext.swift */; };
-		8019DBFB271C8CEC00420923 /* MuNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFA271C8CEC00420923 /* MuNodeModel.swift */; };
+		8019DBFB271C8CEC00420923 /* MuNodeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFA271C8CEC00420923 /* MuNodeTest.swift */; };
 		8019DBFD271C8D2400420923 /* MuNodeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFC271C8D2400420923 /* MuNodeTitleView.swift */; };
 		8019DBFF271C8D5300420923 /* MuNodeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFE271C8D5200420923 /* MuNodeIconView.swift */; };
 		8019DC03271C8DDE00420923 /* MuNodeVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC02271C8DDD00420923 /* MuNodeVm.swift */; };
@@ -95,6 +97,8 @@
 		8006196A27933375005960FF /* MuTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouch.swift; sourceTree = "<group>"; };
 		800D4AE4272A2A6800E71519 /* MuLimbVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbVm.swift; sourceTree = "<group>"; };
 		800D4AE8272B220700E71519 /* CG+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CG+ext.swift"; sourceTree = "<group>"; };
+		800E2A9A2824DCA7006AE6A1 /* MuNodeModelTr3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeModelTr3.swift; sourceTree = "<group>"; };
+		800E2A9C282568A1006AE6A1 /* MuNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNode.swift; sourceTree = "<group>"; };
 		80135A06272C71EA00BCDE27 /* MuLimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbView.swift; sourceTree = "<group>"; };
 		80135A08272C724E00BCDE27 /* MuPilotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPilotView.swift; sourceTree = "<group>"; };
 		80135A0A272C728700BCDE27 /* AppBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBackgroundView.swift; sourceTree = "<group>"; };
@@ -112,7 +116,7 @@
 		8014B7F52700E7C400691126 /* DeepMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeepMenu.entitlements; sourceTree = "<group>"; };
 		8019DBF3271BD7A200420923 /* MuBranchVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBranchVm.swift; sourceTree = "<group>"; };
 		8019DBF8271BEEED00420923 /* String+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ext.swift"; sourceTree = "<group>"; };
-		8019DBFA271C8CEC00420923 /* MuNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeModel.swift; sourceTree = "<group>"; };
+		8019DBFA271C8CEC00420923 /* MuNodeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeTest.swift; sourceTree = "<group>"; };
 		8019DBFC271C8D2400420923 /* MuNodeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeTitleView.swift; sourceTree = "<group>"; };
 		8019DBFE271C8D5200420923 /* MuNodeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeIconView.swift; sourceTree = "<group>"; };
 		8019DC02271C8DDD00420923 /* MuNodeVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeVm.swift; sourceTree = "<group>"; };
@@ -317,9 +321,11 @@
 		8019DBF6271BDB4A00420923 /* Node */ = {
 			isa = PBXGroup;
 			children = (
+				800E2A9C282568A1006AE6A1 /* MuNode.swift */,
+				8019DBFA271C8CEC00420923 /* MuNodeTest.swift */,
 				8019DC02271C8DDD00420923 /* MuNodeVm.swift */,
 				80B251DF2707563300E63DA3 /* MuNodeView.swift */,
-				8019DBFA271C8CEC00420923 /* MuNodeModel.swift */,
+				800E2A9A2824DCA7006AE6A1 /* MuNodeModelTr3.swift */,
 				8019DBFE271C8D5200420923 /* MuNodeIconView.swift */,
 				8019DBFC271C8D2400420923 /* MuNodeTitleView.swift */,
 			);
@@ -624,7 +630,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80135A07272C71EA00BCDE27 /* MuLimbView.swift in Sources */,
-				8019DBFB271C8CEC00420923 /* MuNodeModel.swift in Sources */,
+				8019DBFB271C8CEC00420923 /* MuNodeTest.swift in Sources */,
 				80135A0B272C728700BCDE27 /* AppBackgroundView.swift in Sources */,
 				80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */,
 				80135A09272C724E00BCDE27 /* MuPilotView.swift in Sources */,
@@ -652,7 +658,9 @@
 				80B251E02707563300E63DA3 /* MuNodeView.swift in Sources */,
 				800064A327646D67004B4C63 /* MuLeafVm.swift in Sources */,
 				80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */,
+				800E2A9B2824DCA7006AE6A1 /* MuNodeModelTr3.swift in Sources */,
 				809D126B275B26CA0091D252 /* Delay.swift in Sources */,
+				800E2A9D282568A1006AE6A1 /* MuNode.swift in Sources */,
 				57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */,
 				5747E93C27C95B4E0014AB34 /* MuLeafView.swift in Sources */,
 				80C9A7BF270F4C4B0013CA49 /* Scroll+ext.swift in Sources */,

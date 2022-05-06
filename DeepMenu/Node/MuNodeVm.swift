@@ -12,24 +12,24 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     @Published var spotlight = false // true when selected or under cursor
     var spotTime = TimeInterval(0)
 
-    var model: MuNodeModel      // each model MuNodeModel maybe on several MuNode(s)
+    var node: MuNode           // each model MuNode maybe on several MuNodeVm(s)
     var icon: String            // icon for this node (not implemented)
-    var branch: MuBranchVm        // branch that this node is on
-    var spotPrev: MuNodeVm?       // parent branch's spotlight node
-    var subNodes: [MuNodeVm]      // sub nodes (child nodes)
+    var branch: MuBranchVm      // branch that this node is on
+    var spotPrev: MuNodeVm?     // parent branch's spotlight node
+    var subNodes: [MuNodeVm]    // sub nodes (child nodes)
     var nodeXY = CGPoint.zero   // current position
 
     var border: MuBorder
 
     init (_ type: MuNodeType,
           _ branch: MuBranchVm,
-          _ model: MuNodeModel,
+          _ model: MuNode,
           icon: String = "",
           spotPrev: MuNodeVm? = nil,
           subNodes: [MuNodeVm] = []) {
 
         self.branch = branch
-        self.model = model
+        self.node = model
         self.icon = icon
         self.spotPrev = spotPrev
         self.subNodes = subNodes
@@ -38,17 +38,18 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         if [.knob, .boxy].contains(type) {
             branch.border.type = type
         }
-
-        for subModel in model.children {
-            let subNode = MuNodeVm(type, branch, subModel, spotPrev: self)
-            self.subNodes.append(subNode)
+        if let model = model as? MuNodeTest { //???
+            for child in model.children {
+                let subNode = MuNodeVm(type, branch, child, spotPrev: self)
+                self.subNodes.append(subNode)
+            }
         }
     }
     
     func copy() -> MuNodeVm {
         let node = MuNodeVm(border.type,
                           branch,
-                          model,
+                          node,
                           icon: icon,
                           spotPrev: self,
                           subNodes: subNodes)
@@ -70,7 +71,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
         if let spotPrev = spotPrev {
             spotPrev.spotlight = true
-            spotPrev.model.subNow = model
+            spotPrev.node.childNow = node
             spotPrev.superSelect()
         }
     }

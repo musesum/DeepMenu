@@ -12,15 +12,15 @@ class MuPilotVm: ObservableObject {
     var pointHome = CGPoint.zero  // starting position of touch
     var alpha: CGFloat { get { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }}
 
-    var root: MuRootVm?
-    var rootNode: MuNodeVm   // fixed corner node space
-    var flyNode: MuNodeVm?  // flying node from root
+    var rootVm: MuRootVm?
+    var baseNodeVm: MuNodeVm    // fixed node to start touch from
+    var hoverNodeVm: MuNodeVm?  // selected hover node while dragging
     var rootBranch: MuBranchVm
 
     var touchOfs = CGSize.zero // offset between rootNode and touchNow
     var deltaOfs = CGSize.zero // offset between touch point and center in coord
     var pilotOfs: CGSize { get {
-        switch root?.status ?? .root {
+        switch rootVm?.status ?? .root {
             case .root:  return touchOfs
             case .limb:  return deltaOfs
             case .space: return touchOfs
@@ -28,7 +28,7 @@ class MuPilotVm: ObservableObject {
 
     /// adjust offset for root on right side of canvas
     func rightSideOffset(for rootStatus: MuRootStatus) -> CGFloat {
-        if let root = root,
+        if let root = rootVm,
            root.status == rootStatus,
            root.corner.contains(.right) {
             return -(2 * Layout.spacing)
@@ -41,15 +41,29 @@ class MuPilotVm: ObservableObject {
     var pointDelta = CGPoint.zero // touch starting position
 
     init() {
-        let rootNodeModel = MuNodeModel("⚫︎") // name changed below
+        let node = MuNodeTest("⚫︎") //??? name changed below
         rootBranch = MuBranchVm(isRoot: true, axis: .horizontal)
-        rootNode = MuNodeVm(.node, rootBranch, rootNodeModel, icon: Layout.hoverRing)
-        rootBranch.addNode(rootNode)
+        baseNodeVm = MuNodeVm(.node, rootBranch, node, icon: Layout.hoverRing)
+        rootBranch.addNode(baseNodeVm)
     }
     
     func setRoot(_ root: MuRootVm) {
-        self.root = root
-        rootNode.model.setName(from: root.corner)
+        self.rootVm = root
+        var name: String
+        switch root.corner {
+            case [.lower, .right]: name = "◢"
+            case [.lower, .left ]: name = "◣"
+            case [.upper, .right]: name = "◥"
+            case [.upper, .left ]: name = "◤"
+
+                // reserved for later middling roots
+            case [.upper]: name = "▲"
+            case [.right]: name = "▶︎"
+            case [.lower]: name = "▼"
+            case [.left ]: name = "◀︎"
+            default:       name = "??"
+        }
+        baseNodeVm.node.name = name
     }
 
     /**  via MuBranchView::@GestureState touchNow .onChange,
@@ -59,30 +73,30 @@ class MuPilotVm: ObservableObject {
                      _ touchBranch: MuBranchVm?) {
 
         if touchNow == .zero  { ended() }
-        else if flyNode == nil { begin() }
+        else if hoverNodeVm == nil { begin() }
         else                  { moved() }
 
         func begin() {
 
             pointNow = touchNow
-            flyNode = rootNode.copy()
+            hoverNodeVm = baseNodeVm.copy()
             pointDelta = touchNow
-            root?.begin(touchBranch, touchNow)
+            rootVm?.begin(touchBranch, touchNow)
 
-            touchOfs = CGSize(rootNode.nodeXY - touchNow)
+            touchOfs = CGSize(baseNodeVm.nodeXY - touchNow)
             touchOfs.width += rightSideOffset(for: .root)
 
             log("touch", [touchNow], terminator: " ")
-            log("root", [rootNode.nodeXY], terminator: " ")
+            log("root", [baseNodeVm.nodeXY], terminator: " ")
         }
 
         func moved() {
             pointNow = touchNow
-            root?.moved(touchNow)
+            rootVm?.moved(touchNow)
         }
 
         func ended() {
-            root?.ended(touchNow)
+            rootVm?.ended(touchNow)
             pointNow = pointHome
             deltaOfs = .zero
             touchOfs = .zero
@@ -92,13 +106,13 @@ class MuPilotVm: ObservableObject {
             }
         }
         func touchDone() {
-            root?.resetRootTimer(delay: 4)
-            flyNode = nil
+            rootVm?.resetRootTimer(delay: 4)
+            hoverNodeVm = nil
         }
     }
 
     func updateHome(_ fr: CGRect) {
-        if let root = root {
+        if let root = rootVm {
             pointHome = root.cornerXY(in: fr)
             pointNow = pointHome
             // log("home: ", [pointNow])

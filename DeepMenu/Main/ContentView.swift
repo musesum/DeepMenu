@@ -40,21 +40,21 @@ struct ContentView: View {
     }
     
     private func appControlBranches() -> [MuBranchVm] {
-        let colorModel = MuNodeModel("Color")
-        colorModel.addChild(MuNodeModel("Red") { _ in
+        let colorModel = MuNodeTest("Color")
+        colorModel.addChild(MuNodeTest("Red") { _ in
             appSpace.backgroundColor = Color(red: 0.2, green: 0.0, blue: 0.0, opacity: 1.00) })
-        colorModel.addChild(MuNodeModel("Green") { _ in
+        colorModel.addChild(MuNodeTest("Green") { _ in
             appSpace.backgroundColor = Color(red: 0.0, green: 0.2, blue: 0.0, opacity: 1.00) })
-        colorModel.addChild(MuNodeModel("Blue") { _ in
+        colorModel.addChild(MuNodeTest("Blue") { _ in
             appSpace.backgroundColor = Color(red: 0.0, green: 0.0, blue: 0.2, opacity: 1.00) })
 
-        let clientModel = MuNodeModel("Client")
-        clientModel.addChild(MuNodeModel("One") { _ in ContentViews.client.model.path = "One" })
-        clientModel.addChild(MuNodeModel("Two") { _ in ContentViews.client.model.path = "Two" })
-        clientModel.addChild(MuNodeModel("Three") { _ in ContentViews.client.model.path = "Three" })
+        let clientModel = MuNodeTest("Client")
+        clientModel.addChild(MuNodeTest("One") { _ in ContentViews.client.model.path = "One" })
+        clientModel.addChild(MuNodeTest("Two") { _ in ContentViews.client.model.path = "Two" })
+        clientModel.addChild(MuNodeTest("Three") { _ in ContentViews.client.model.path = "Three" })
 
-        let clientXY = MuNodeModel("Client XY")
-        clientXY.addChild(MuNodeModel("Client XY", type: .boxy) { xy in
+        let clientXY = MuNodeTest("Client XY")
+        clientXY.addChild(MuNodeTest("Client XY", type: .boxy) { xy in
             if let xy = xy as? CGPoint {
                 ContentViews.client.model.path = "Client XY"
                 ContentViews.client.model.x = xy.x

@@ -7,17 +7,20 @@ class MuLeafVm: MuNodeVm {
 
     var xy: CGPoint = .zero
     var editing: Bool = false
-    var status: String { get {
-        if editing {
-            return String(format: "x: %.2f, y: %.2f", xy.x, xy.y)
-        } else {
-            return model.name
+    
+    var status: String {
+        get {
+            if editing {
+                return String(format: "x: %.2f, y: %.2f", xy.x, xy.y)
+            } else {
+                return node.name
+            }
         }
-    }}
+    }
     
     init (_ type: MuNodeType,
           _ branch: MuBranchVm,
-          _ model: MuNodeModel,
+          _ model: MuNode,
           icon: String = "",
           spotPrev: MuNodeVm?) {
         

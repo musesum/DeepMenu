@@ -15,6 +15,7 @@ class MuTouch {
     var tapCount  = 0  // number of taps
     var pointNow   = CGPoint.zero   // current position of touch
     var pointDelta = CGPoint.zero   // pointNow - pointBegin
+    var touching: Bool { get { return timeEnded > timeBegin }}
 
     func begin(_ pointNow: CGPoint) {
         self.pointNow = pointNow

@@ -8,12 +8,11 @@
 import Foundation
 import Tr3
 
-
 enum ExampleTr3Sky {
 
-    static func skyNodes(parentModel: MuNodeModel? = nil, _ level: Int = 0) -> [MuNodeModel] {
+    static func skyNodes(parent: MuNode? = nil, _ level: Int = 0) -> [MuNode] {
 
-        func parseTr3(_ tr3: Tr3, parentModel: MuNodeModel) {
+        func parseTr3(_ tr3: Tr3,_  parent: MuNode) {
 
             var icon = ""
             var leafType = MuNodeType.none
@@ -32,26 +31,26 @@ enum ExampleTr3Sky {
                     }
                 }
             }
-            let nodeModel = MuNodeModel(tr3.name, type: .node, parentModel: parentModel)
-            parentModel.children.append(nodeModel)
+            let nodeModel = MuNodeTest(tr3.name, type: .node, parent: parent) //???
+            parent.children.append(nodeModel)
 
             if leafType == .none {
                 for tr3Child in tr3.children {
                     if tr3Child.name.first != "_" {
-                        parseTr3(tr3Child, parentModel: nodeModel)
+                        parseTr3(tr3Child, nodeModel)
                     }
                 }
             } else {
-                let leafModel = MuNodeModel(tr3.name, type: leafType, parentModel: nodeModel)
+                let leafModel = MuNodeTest(tr3.name, type: leafType, parent: nodeModel) //???
                 nodeModel.children.append(leafModel)
             }
         }
 
         let root = SkyTr3.shared.root
-        let rootModel = MuNodeModel("root")
+        let rootModel = MuNodeTest("root") //??? 
 
         for child in root.children {
-            parseTr3(child, parentModel: rootModel)
+            parseTr3(child, rootModel)
         }
 
         return rootModel.children

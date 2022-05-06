@@ -22,7 +22,7 @@ private struct SpaceView: View {
         ForEach(root.limbs, id: \.id) {
             MuLimbView(limb: $0)
         }
-        MuPilotView(pilot: root.pilot)
+        MuPilotView(pilot: root.pilotVm)
     }
 }
 
