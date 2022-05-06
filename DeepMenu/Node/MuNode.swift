@@ -29,6 +29,7 @@ class MuNode: Identifiable, Equatable, CustomStringConvertible {
 
     init(name: String = "pending",
          type: MuNodeType = .node,
+         parent: MuNode? = nil,
          callback: @escaping CallAny) {
         self.name = name
         self.nodeType = type

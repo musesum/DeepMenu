@@ -15,34 +15,25 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     var node: MuNode           // each model MuNode maybe on several MuNodeVm(s)
     var icon: String            // icon for this node (not implemented)
     var branch: MuBranchVm      // branch that this node is on
-    var spotPrev: MuNodeVm?     // parent branch's spotlight node
-    var subNodes: [MuNodeVm]    // sub nodes (child nodes)
+    //?? var spotPrev: MuNodeVm?     // parent branch's spotlight node
     var nodeXY = CGPoint.zero   // current position
 
     var border: MuBorder
 
     init (_ type: MuNodeType,
           _ branch: MuBranchVm,
-          _ model: MuNode,
+          _ node: MuNode,
           icon: String = "",
-          spotPrev: MuNodeVm? = nil,
-          subNodes: [MuNodeVm] = []) {
+          spotPrev: MuNodeVm? = nil) {
 
         self.branch = branch
-        self.node = model
+        self.node = node
         self.icon = icon
         self.spotPrev = spotPrev
-        self.subNodes = subNodes
         self.border = MuBorder(type: type)
 
         if [.knob, .boxy].contains(type) {
             branch.border.type = type
-        }
-        if let model = model as? MuNodeTest { //???
-            for child in model.children {
-                let subNode = MuNodeVm(type, branch, child, spotPrev: self)
-                self.subNodes.append(subNode)
-            }
         }
     }
     
@@ -51,8 +42,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
                           branch,
                           node,
                           icon: icon,
-                          spotPrev: self,
-                          subNodes: subNodes)
+                          spotPrev: self)
         return node
     }
 

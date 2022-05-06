@@ -31,7 +31,7 @@ enum ExampleTr3Sky {
                     }
                 }
             }
-            let nodeModel = MuNodeTest(tr3.name, type: .node, parent: parent) //???
+            let nodeModel = MuNodeTr3(tr3, type: .node, parent: parent)
             parent.children.append(nodeModel)
 
             if leafType == .none {
@@ -41,13 +41,15 @@ enum ExampleTr3Sky {
                     }
                 }
             } else {
-                let leafModel = MuNodeTest(tr3.name, type: leafType, parent: nodeModel) //???
+                let leafModel = MuNodeTr3(tr3, type: leafType, parent: nodeModel)
                 nodeModel.children.append(leafModel)
             }
         }
 
+        // begin ------------------------------------------------------------------
+
         let root = SkyTr3.shared.root
-        let rootModel = MuNodeTest("root") //??? 
+        let rootModel = MuNodeTr3(root, type: .node) //??? 
 
         for child in root.children {
             parseTr3(child, rootModel)

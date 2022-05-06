@@ -18,12 +18,12 @@ class MuLeafVm: MuNodeVm {
         }
     }
     
-    init (_ type: MuNodeType,
+    override init (_ type: MuNodeType,
           _ branch: MuBranchVm,
-          _ model: MuNode,
+          _ node: MuNode,
           icon: String = "",
           spotPrev: MuNodeVm?) {
         
-         super.init(type, branch, model, icon: icon, spotPrev: spotPrev)
+         super.init(type, branch, node, icon: icon, spotPrev: spotPrev)
     }
 }

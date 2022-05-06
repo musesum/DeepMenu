@@ -28,7 +28,7 @@ struct MuLeafView: View {
                             .updating($touchXY) { (input, result, _) in result = input.location })
                         .onChange(of: touchXY) { xy in
                             let value = border.normalizeTouch(xy: xy)
-                            if root.touch.touching { //??
+                            if root.touch.touching {
                                 leafVm.xy = value
                                 // log("◘ ", [xy, leaf.xy, geo.size], format: "%.2f")
                                 leafVm.editing = true
