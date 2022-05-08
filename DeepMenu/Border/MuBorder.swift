@@ -34,11 +34,7 @@ class MuBorder {
         let yyy = (yy-thumbRadius) / thumbRunway
         return CGPoint(x: xxx, y: yyy)
     }
-    func expandNormalized(xy: CGPoint) -> CGSize {
-        return CGSize(width:  xy.x * thumbRunway,
-                      height: xy.y * thumbRunway)
-    }
-
+    
     init(type: MuNodeType,
          count: Int = 1,
          axis: Axis = .vertical) {
@@ -49,10 +45,10 @@ class MuBorder {
     }
     
     init(from: MuBorder) {
-        self.type     = from.type
-        self.margin   = from.margin
-        self.axis     = from.axis
-        self.count    = from.count
+        self.type   = from.type
+        self.margin = from.margin
+        self.axis   = from.axis
+        self.count  = from.count
     }
 
     func updateBounds(_ bounds: CGRect) -> CGRect {

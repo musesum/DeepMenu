@@ -22,7 +22,7 @@ class MuRootVm: ObservableObject, Equatable {
 
     var corner: MuCorner
     let pilotVm = MuPilotVm()   // captures touch events to dispatch to this root
-    var limbs = [MuLimbVm]()    // usually a vertical and/or horizon limb
+    var limbVms = [MuLimbVm]()  // usually a vertical and/or horizontal limb
     var limbNowVm: MuLimbVm?    // most recently used limb
     var spotNodeVm: MuNodeVm?   // current spotlight node
     var branchVm: MuBranchVm?   // branch that is capturing touch events
@@ -31,10 +31,10 @@ class MuRootVm: ObservableObject, Equatable {
     init(_ corner: MuCorner, branches: [MuBranchVm]?) {
 
         self.corner = corner
-        pilotVm.setRoot(self)
+        pilotVm.setRootVm(self)
 
         if let branches = branches {
-            limbs = branches.map({ branch in
+            limbVms = branches.map({ branch in
                 MuLimbVm(branches: [branch], root: self)
             })
         }
@@ -70,8 +70,8 @@ class MuRootVm: ObservableObject, Equatable {
             default: break
         }
 
-        for limb in limbs {
-            limb.offset = (limb.axis == .horizontal ? hOfs : vOfs)
+        for limbVm in limbVms {
+            limbVm.offset = (limbVm.axis == .horizontal ? hOfs : vOfs)
         }
     }
 
@@ -102,8 +102,8 @@ class MuRootVm: ObservableObject, Equatable {
     var beginDepths: ClosedRange<Int> { get {
         var maxDepth = 0
         var minDepth = 99 // instead of Int.max for readable logs
-        for limb in limbs {
-            let depth = limb.depthShown
+        for limbVm in limbVms {
+            let depth = limbVm.depthShown
             maxDepth = max(maxDepth,depth)
             minDepth = min(minDepth,depth)
         }
@@ -168,7 +168,7 @@ class MuRootVm: ObservableObject, Equatable {
         if let nodeModel = self.spotNodeVm?.node {
             if nodeModel.nodeType == .node {
                 nodeModel.callback(nodeModel)
-            } else if nodeModel.nodeType == .slide {
+            } else if nodeModel.nodeType == .dial {
                 // TODO: this should somehow be passing updated values from a slider via nodeModel.callback(value)
             }
         }
@@ -257,10 +257,10 @@ class MuRootVm: ObservableObject, Equatable {
         }
 
         let depth = (beginDepths == 1...1 ? lowestDepth : 1)
-        for limb in limbs {
-            limb.showBranches(depth: depth)
+        for limbVm in limbVms {
+            limbVm.showBranches(depth: depth)
         }
-        limbNowVm = nil 
+        limbNowVm = nil
     }
 
     /// [begin | moved] >> updateRoot
@@ -273,7 +273,7 @@ class MuRootVm: ObservableObject, Equatable {
                 spotNodeVm = spotNext
                 // print(".", terminator: "")
             }
-            spotNodeVm?.spotPrev?.superSpotlight() 
+            spotNodeVm?.spotParent?.superSpotlight()
         }
         alignFlightWithSpotNode(touch.pointNow)
     }
@@ -283,12 +283,12 @@ class MuRootVm: ObservableObject, Equatable {
 
         func setSpotLimb(_ limbNext: MuLimbVm) {
             
-            for hideLimb in limbs {
-                if hideLimb.id != limbNext.id {
-                    hideLimb.showBranches(depth: 0)
+            for limbVm in limbVms {
+                if limbVm.id != limbNext.id {
+                    limbVm.showBranches(depth: 0)
                 }
                 limbNowVm = limbNext
-                limbNowVm?.showBranches(depth: 99) 
+                limbNowVm?.showBranches(depth: 99)
             }
             updateStatus(.limb, debug: "3")
         }
@@ -303,13 +303,13 @@ class MuRootVm: ObservableObject, Equatable {
                 return nearestNode
             } else {
                 // no longer on spotLimb
-                for limb in limbs {
+                for limbVm in limbVms {
                     // skip spotlight limb, already searched above
-                    if limb.id == spotLimb.id { continue }
+                    if limbVm.id == spotLimb.id { continue }
                     // look for nearestNode
-                    if let nearestNode = limb.nearestNode(touchNow, branchVm) {
+                    if let nearestNode = limbVm.nearestNode(touchNow, branchVm) {
                         // found a node on another limb
-                        setSpotLimb(limb)
+                        setSpotLimb(limbVm)
                         return nearestNode
                     }
                 }
@@ -317,9 +317,9 @@ class MuRootVm: ObservableObject, Equatable {
         }
         // starting out from root
         else {
-            for limb in limbs {
-                if let nearestNode = limb.nearestNode(touchNow, branchVm)  {
-                    setSpotLimb(limb)
+            for limbVm in limbVms {
+                if let nearestNode = limbVm.nearestNode(touchNow, branchVm)  {
+                    setSpotLimb(limbVm)
                     return nearestNode
                 }
             }
@@ -343,7 +343,7 @@ class MuRootVm: ObservableObject, Equatable {
     /// either center flight icon on spotNode or track finger
     private func alignFlightWithSpotNode(_ touchNow: CGPoint) {
 
-        if spotNodeVm?.node.nodeType == .boxy {
+        if spotNodeVm?.node.nodeType == .box {
             pilotVm.pointNow = pilotVm.pointHome // no fly icon for leaf
         }
         else if let spotXY = spotNodeVm?.nodeXY {
@@ -396,8 +396,8 @@ class MuRootVm: ObservableObject, Equatable {
         if delay < 0 { return } // started dragging, so don't finish old one
 
         func resetting(_ timer: Timer) {
-            for limb in limbs {
-                limb.showBranches(depth: 0)
+            for limbVm in limbVms {
+                limbVm.showBranches(depth: 0)
             }
             updateStatus(.rootVm, debug: "9")
         }

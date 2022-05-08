@@ -12,10 +12,10 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     @Published var spotlight = false // true when selected or under cursor
     var spotTime = TimeInterval(0)
 
-    var node: MuNode           // each model MuNode maybe on several MuNodeVm(s)
+    var node: MuNode            // each model MuNode maybe on several MuNodeVm(s)
     var icon: String            // icon for this node (not implemented)
     var branch: MuBranchVm      // branch that this node is on
-    //?? var spotPrev: MuNodeVm?     // parent branch's spotlight node
+    var spotParent: MuNodeVm?   // parent branch's spotlight node
     var nodeXY = CGPoint.zero   // current position
 
     var border: MuBorder
@@ -29,20 +29,16 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         self.branch = branch
         self.node = node
         self.icon = icon
-        self.spotPrev = spotPrev
+        self.spotParent = spotPrev
         self.border = MuBorder(type: type)
 
-        if [.knob, .boxy].contains(type) {
+        if [.dial, .box].contains(type) {
             branch.border.type = type
         }
     }
     
     func copy() -> MuNodeVm {
-        let node = MuNodeVm(border.type,
-                          branch,
-                          node,
-                          icon: icon,
-                          spotPrev: self)
+        let node = MuNodeVm(border.type, branch, node, icon: icon, spotPrev: self)
         return node
     }
 
@@ -53,13 +49,13 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         }
         spotlight = true
         spotTime = time
-        spotPrev?.superSpotlight(time)
+        spotParent?.superSpotlight(time)
     }
 
     /// select self, parent, grand, etc. in branch
     func superSelect() {
 
-        if let spotPrev = spotPrev {
+        if let spotPrev = spotParent {
             spotPrev.spotlight = true
             spotPrev.node.childNow = node
             spotPrev.superSelect()

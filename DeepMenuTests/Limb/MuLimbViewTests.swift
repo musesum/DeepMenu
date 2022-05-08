@@ -30,12 +30,12 @@ class MuLimbViewTests: XCTestCase {
 
     func testLayoutRelativeToRootPlacement() throws {
         let horizontalLowerRightLimb = MuLimbVm(branches: [horizontalBranch], root: rootLowerRight)
-        var limbView = MuLimbView(limb: horizontalLowerRightLimb).environmentObject(rootLowerRight)
+        var limbView = MuLimbView(limbVm: horizontalLowerRightLimb).environmentObject(rootLowerRight)
         var vStackView = try limbView.inspect().view(MuLimbView.self).vStack()
         XCTAssertEqual(HorizontalAlignment.trailing, try vStackView.alignment())
 
         let horizontalLowerLeftLimb = MuLimbVm(branches: [horizontalBranch], root: rootLowerLeft)
-        limbView = MuLimbView(limb: horizontalLowerLeftLimb).environmentObject(rootLowerLeft)
+        limbView = MuLimbView(limbVm: horizontalLowerLeftLimb).environmentObject(rootLowerLeft)
         vStackView = try limbView.inspect().view(MuLimbView.self).vStack()
         XCTAssertEqual(HorizontalAlignment.leading, try vStackView.alignment())
     }

@@ -2,9 +2,9 @@ import SwiftUI
 
 /// four posible corners
 struct MuRootView: View {
-    @EnvironmentObject var root: MuRootVm
+    @EnvironmentObject var rootVm: MuRootVm
     var body: some View {
-        switch root.corner {
+        switch rootVm.corner {
             case [.lower, .right]: LowerRightView()
             case [.lower, .left ]: LowerLeftView()
             case [.upper, .right]: UpperRightView()
@@ -16,13 +16,13 @@ struct MuRootView: View {
 
 /// space with: vert, hori, and pilot views
 private struct SpaceView: View {
-    @EnvironmentObject var root: MuRootVm
+    @EnvironmentObject var rootVm: MuRootVm
     var body: some View {
 
-        ForEach(root.limbs, id: \.id) {
-            MuLimbView(limb: $0)
+        ForEach(rootVm.limbVms, id: \.id) {
+            MuLimbView(limbVm: $0)
         }
-        MuPilotView(pilot: root.pilotVm)
+        MuPilotView(pilot: rootVm.pilotVm)
     }
 }
 

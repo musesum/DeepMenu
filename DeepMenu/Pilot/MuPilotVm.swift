@@ -47,10 +47,10 @@ class MuPilotVm: ObservableObject {
         rootBranch.addNode(baseNodeVm)
     }
     
-    func setRoot(_ root: MuRootVm) {
-        self.rootVm = root
+    func setRootVm(_ rootVm: MuRootVm) {
+        self.rootVm = rootVm
         var name: String
-        switch root.corner {
+        switch rootVm.corner {
             case [.lower, .right]: name = "◢"
             case [.lower, .left ]: name = "◣"
             case [.upper, .right]: name = "◥"

@@ -2,47 +2,57 @@
 
 import SwiftUI
 
-enum MuNodeType {
-    case none   // no defined thpe
-    case node   // either icon or text
-    case slide  // branch with 1d slider
-    case knob   // branch with 2d radians, value control
-    case boxy   // branch with 2d rectangular XY control
-    case togl   // toggle on/off
-    case drum   // drum pad (trigger)
-    case segmt  // segment control
+enum MuNodeType: String {
+    case none // no defined thpe
+    case node // either icon or text
+    case dial // branch with 2d radians, value control
+    case box  // branch with 2d rectangular XY control
+    case tog  // toggle on/off
+    case pad  // drum pad (trigger)
+    case seg  // segment control
 
     public var description: String {
         get {
             switch self {
-                case .none  : return " ⃝"
-                case .node  : return "⑂⃝"
-                case .slide : return "⬌⃝"
-                case .knob  : return "⟳⃝"
-                case .boxy  : return "᛭⃣"
-                case .togl  : return "◑⃝"
-                case .segmt : return "꠲⃝"
-                case .drum  : return "◉⃝"
+                case .none : return "none"
+                case .node : return "node"
+                case .dial : return "dial"
+                case .box  : return "box"
+                case .tog  : return "tog"
+                case .seg  : return "seg"
+                case .pad  : return "pad"
+            }
+        }
+    }
+    public var bug: String {
+        get {
+            switch self {
+                case .none : return " ⃝"
+                case .node : return "ᛘ⃝"
+                case .dial : return "⟳⃝"
+                case .box  : return "᛭⃣"
+                case .tog  : return "◧⃝"
+                case .seg  : return "◔⃝"
+                case .pad  : return "◉⃝"
             }
         }
     }
     init(_ name: String) {
         switch name {
-            case "none"  : self = .none
-            case "node"  : self = .node
-            case "slide" : self = .slide
-            case "knob"  : self = .knob
-            case "boxy"  : self = .boxy
-            case "togl"  : self = .togl
-            case "segmt" : self = .segmt
-            case "drum " : self = .slide
-            default      : self = .none
+            case "none" : self = .none
+            case "node" : self = .node
+            case "dial" : self = .dial
+            case "box"  : self = .box
+            case "tog"  : self = .tog
+            case "seg"  : self = .pad
+            case "pad"  : self = .seg
+            default     : self = .none
         }
     }
     var isLeaf: Bool { get {
         switch self {
-            case .slide, .knob, .boxy, .togl, .segmt, .drum: return true
-            default: return false
+            case .node, .none: return false
+            default: return true
         }
     }}
 
