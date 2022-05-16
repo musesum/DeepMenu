@@ -34,7 +34,11 @@ class MuBorder {
         let yyy = (yy-thumbRadius) / thumbRunway
         return CGPoint(x: xxx, y: yyy)
     }
-    
+    func normalizeTouch(v: CGFloat) -> CGFloat {
+        let yy = v.clamped(to: thumbValue)
+        let yyy = (yy-thumbRadius) / thumbRunway
+        return CGFloat(yyy)
+    }
     init(type: MuNodeType,
          count: Int = 1,
          axis: Axis = .vertical) {

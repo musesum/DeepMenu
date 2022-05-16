@@ -83,11 +83,11 @@ class MuPilotVm: ObservableObject {
             pointDelta = touchNow
             rootVm?.begin(touchBranch, touchNow)
 
-            touchOfs = CGSize(baseNodeVm.nodeXY - touchNow)
+            touchOfs = CGSize(baseNodeVm.center - touchNow)
             touchOfs.width += rightSideOffset(for: .root)
 
             log("touch", [touchNow], terminator: " ")
-            log("root", [baseNodeVm.nodeXY], terminator: " ")
+            log("root", [baseNodeVm.center], terminator: " ")
         }
 
         func moved() {

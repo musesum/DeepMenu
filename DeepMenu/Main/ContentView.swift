@@ -54,7 +54,7 @@ struct ContentView: View {
         clientModel.addChild(MuNodeTest("Three") { _ in ContentViews.client.model.path = "Three" })
 
         let clientXY = MuNodeTest("Client XY")
-        clientXY.addChild(MuNodeTest("Client XY", type: .box) { xy in
+        clientXY.addChild(MuNodeTest("Client XY", type: .boxy) { xy in
             if let xy = xy as? CGPoint {
                 ContentViews.client.model.path = "Client XY"
                 ContentViews.client.model.x = xy.x

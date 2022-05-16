@@ -12,9 +12,8 @@ struct MuNodeView: View {
             Group {
                 switch node {
 
-                    case let leaf as MuLeafVm:
-
-                        MuLeafView(leafVm: leaf)
+                    case let leaf as MuLeafBoxyVm: MuLeafBoxyView(leafVm: leaf)
+                    case let leaf as MuLeafSldrVm: MuLeafSldrView(leafVm: leaf)
 
                     default:
 
@@ -32,7 +31,7 @@ struct MuNodeView: View {
         .frame(width: border.diameter, height: border.diameter)
         .padding(Layout.spacing)
         .allowsHitTesting(true)
-        .animation(.easeInOut(duration: Layout.animate), value: node.nodeXY)
+        .animation(.easeInOut(duration: Layout.animate), value: node.center)
     }
 }
 

@@ -168,7 +168,7 @@ class MuRootVm: ObservableObject, Equatable {
         if let nodeModel = self.spotNodeVm?.node {
             if nodeModel.nodeType == .node {
                 nodeModel.callback(nodeModel)
-            } else if nodeModel.nodeType == .dial {
+            } else if nodeModel.nodeType == .sldr {
                 // TODO: this should somehow be passing updated values from a slider via nodeModel.callback(value)
             }
         }
@@ -273,7 +273,7 @@ class MuRootVm: ObservableObject, Equatable {
                 spotNodeVm = spotNext
                 // print(".", terminator: "")
             }
-            spotNodeVm?.spotParent?.superSpotlight()
+            spotNodeVm?.parentVm?.superSpotlight()
         }
         alignFlightWithSpotNode(touch.pointNow)
     }
@@ -343,10 +343,10 @@ class MuRootVm: ObservableObject, Equatable {
     /// either center flight icon on spotNode or track finger
     private func alignFlightWithSpotNode(_ touchNow: CGPoint) {
 
-        if spotNodeVm?.node.nodeType == .box {
+        if spotNodeVm?.node.nodeType == .boxy {
             pilotVm.pointNow = pilotVm.pointHome // no fly icon for leaf
         }
-        else if let spotXY = spotNodeVm?.nodeXY {
+        else if let spotXY = spotNodeVm?.center {
             let pointDelta = spotXY - touchNow
             pilotVm.updateDelta(pointDelta)
         } else {
@@ -363,7 +363,7 @@ class MuRootVm: ObservableObject, Equatable {
         let pointDelta = touch.pointDelta
 
         // still on same spotlight node
-        let spotDistance = abs(spotNode.nodeXY.distance(pointNow))
+        let spotDistance = abs(spotNode.center.distance(pointNow))
         if spotDistance < Layout.zone { return false }
 
         // on different node inside same branch

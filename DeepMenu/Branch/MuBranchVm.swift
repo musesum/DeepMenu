@@ -75,11 +75,15 @@ class MuBranchVm: Identifiable, ObservableObject {
     private func buildNodesFromChildren(_ children: [MuNode]) {
         for child in children {
             var node: MuNodeVm
-            switch child.nodeType {
-                case .node, .none:
-                    node = MuNodeVm(child.nodeType, self, child, spotPrev: spotPrev)
-                default:
-                    node = MuLeafVm(child.nodeType, self, child, spotPrev: spotPrev)
+            let type = child.nodeType
+            switch type {
+                case .sldr: node = MuLeafSldrVm(self, child, spotPrev)
+                case .boxy: node = MuLeafBoxyVm(self, child, spotPrev)
+                case .togl: node = MuLeafToglVm(self, child, spotPrev)
+                case .tap:  node = MuLeafTapVm (self, child, spotPrev)
+                case .sgmt: node = MuLeafSgmtVm(self, child, spotPrev)
+                default:    node = MuNodeVm(type,self,child, spotPrev)
+                    
             }
             branchNodes.append(node)
         }
@@ -92,7 +96,7 @@ class MuBranchVm: Identifiable, ObservableObject {
         guard let limb = limb else { return }
         self.limb = limb
 
-        if let center = branchPrev?.spotNode?.nodeXY {
+        if let center = branchPrev?.spotNode?.center {
             bounds = border.bounds(center)
         }
         branchShift = branchPrev?.branchShift ?? .zero
@@ -118,7 +122,7 @@ class MuBranchVm: Identifiable, ObservableObject {
         //TODO: this is rather inefficient, is a workaround for the above
         for node in branchNodes {
 
-            if node.nodeXY.distance(touchNow) < border.diameter {
+            if node.center.distance(touchNow) < border.diameter {
                 spotNode = node
                 node.superSpotlight()
                 return node

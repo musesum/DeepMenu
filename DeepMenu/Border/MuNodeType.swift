@@ -5,22 +5,22 @@ import SwiftUI
 enum MuNodeType: String {
     case none // no defined thpe
     case node // either icon or text
-    case dial // branch with 2d radians, value control
-    case box  // branch with 2d rectangular XY control
-    case tog  // toggle on/off
-    case pad  // drum pad (trigger)
-    case seg  // segment control
+    case sldr // slider control
+    case boxy // branch with 2d rectangular XY control
+    case togl // toggle on/off
+    case tap  // drum pad (trigger)
+    case sgmt // segment control
 
     public var description: String {
         get {
             switch self {
                 case .none : return "none"
                 case .node : return "node"
-                case .dial : return "dial"
-                case .box  : return "box"
-                case .tog  : return "tog"
-                case .seg  : return "seg"
-                case .pad  : return "pad"
+                case .sldr : return "sldr"
+                case .boxy : return "boxy"
+                case .togl : return "togl"
+                case .sgmt : return "sgmt"
+                case .tap  : return "tap"
             }
         }
     }
@@ -29,11 +29,11 @@ enum MuNodeType: String {
             switch self {
                 case .none : return " ⃝"
                 case .node : return "ᛘ⃝"
-                case .dial : return "⟳⃝"
-                case .box  : return "᛭⃣"
-                case .tog  : return "◧⃝"
-                case .seg  : return "◔⃝"
-                case .pad  : return "◉⃝"
+                case .sldr : return "≣⃝"
+                case .boxy : return "᛭⃣"
+                case .togl : return "◧⃝"
+                case .sgmt : return "◔⃝"
+                case .tap  : return "◉⃝"
             }
         }
     }
@@ -41,11 +41,11 @@ enum MuNodeType: String {
         switch name {
             case "none" : self = .none
             case "node" : self = .node
-            case "dial" : self = .dial
-            case "box"  : self = .box
-            case "tog"  : self = .tog
-            case "seg"  : self = .pad
-            case "pad"  : self = .seg
+            case "sldr" : self = .sldr
+            case "boxy" : self = .boxy
+            case "togl" : self = .togl
+            case "sgmt" : self = .sgmt
+            case "tap"  : self = .tap
             default     : self = .none
         }
     }

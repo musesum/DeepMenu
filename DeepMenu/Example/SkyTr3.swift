@@ -24,7 +24,7 @@ class SkyTr3: NSObject {
         parseFile("sky.menu")
         parseFile("midi")
 
-        let script = root.makeScript(indent: 0, pretty: false)
+        let script = root.makeTr3Script(indent: 0, pretty: false)
         print(script)
     }
 }

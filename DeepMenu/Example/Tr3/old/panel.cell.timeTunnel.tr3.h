@@ -1,4 +1,4 @@
-panel.cell.timetunnel: _cell {
+panel.cell.tunl: _cell {
     base {
         title "Time Tunnel"
         icon "icon.cell.timeTunnel.png"
