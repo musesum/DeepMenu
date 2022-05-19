@@ -32,7 +32,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         self.parentVm = spotPrev
         self.border = MuBorder(type: type)
 
-        if [.sldr, .boxy].contains(type) {
+        if [.val, .vxy].contains(type) {
             branch.border.type = type
         }
     }

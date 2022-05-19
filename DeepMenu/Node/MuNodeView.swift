@@ -12,8 +12,8 @@ struct MuNodeView: View {
             Group {
                 switch node {
 
-                    case let leaf as MuLeafBoxyVm: MuLeafBoxyView(leafVm: leaf)
-                    case let leaf as MuLeafSldrVm: MuLeafSldrView(leafVm: leaf)
+                    case let leaf as MuLeafVxyVm: MuLeafVxyView(leafVm: leaf)
+                    case let leaf as MuLeafValVm: MuLeafValView(leafVm: leaf)
 
                     default:
 

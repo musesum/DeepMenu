@@ -11,7 +11,7 @@ midi { // musical instrument device interface
     }
     cc {
         main {
-            modWheel    (num == 1, val, chan, time) 
+            modWheel    (num == 1, val, chan, time)
             volume      (num == 7, val, chan, time)
             balance     (num == 8, val, chan, time)
             panPosition (num == 10, val, chan, time)

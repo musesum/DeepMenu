@@ -3,9 +3,9 @@
 import SwiftUI
 import Accelerate
 
-struct MuLeafBoxyView: View {
+struct MuLeafTapView: View {
 
-    @ObservedObject var leafVm: MuLeafBoxyVm
+    @ObservedObject var leafVm: MuLeafTapVm
     @GestureState private var touchXY: CGPoint = .zero
     @EnvironmentObject var root: MuRootVm
     var border: MuBorder { get { leafVm.border } }

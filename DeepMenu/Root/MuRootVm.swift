@@ -168,7 +168,7 @@ class MuRootVm: ObservableObject, Equatable {
         if let nodeModel = self.spotNodeVm?.node {
             if nodeModel.nodeType == .node {
                 nodeModel.callback(nodeModel)
-            } else if nodeModel.nodeType == .sldr {
+            } else if nodeModel.nodeType == .val {
                 // TODO: this should somehow be passing updated values from a slider via nodeModel.callback(value)
             }
         }
@@ -343,7 +343,7 @@ class MuRootVm: ObservableObject, Equatable {
     /// either center flight icon on spotNode or track finger
     private func alignFlightWithSpotNode(_ touchNow: CGPoint) {
 
-        if spotNodeVm?.node.nodeType == .boxy {
+        if spotNodeVm?.node.nodeType == .vxy {
             pilotVm.pointNow = pilotVm.pointHome // no fly icon for leaf
         }
         else if let spotXY = spotNodeVm?.center {

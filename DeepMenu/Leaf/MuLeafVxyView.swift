@@ -1,11 +1,11 @@
-// Created by warren on 10/17/21.
+//  Created by warren on 5/10/22.
 
 import SwiftUI
 import Accelerate
 
-struct MuLeafSldrView: View {
+struct MuLeafVxyView: View {
 
-    @ObservedObject var leafVm: MuLeafSldrVm
+    @ObservedObject var leafVm: MuLeafVxyVm
     @GestureState private var touchXY: CGPoint = .zero
     @EnvironmentObject var root: MuRootVm
     var border: MuBorder { get { leafVm.border } }
@@ -30,7 +30,7 @@ struct MuLeafSldrView: View {
                         .onChange(of: touchXY) { xy in
                             leafVm.touching(root.touch.touching, xy)
                         }
-                    
+
                     Image("icon.pearl.white")
                         .resizable()
                         .frame(width: border.thumbRadius*2, height: border.thumbRadius*2)

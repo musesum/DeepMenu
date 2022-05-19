@@ -77,11 +77,11 @@ class MuBranchVm: Identifiable, ObservableObject {
             var node: MuNodeVm
             let type = child.nodeType
             switch type {
-                case .sldr: node = MuLeafSldrVm(self, child, spotPrev)
-                case .boxy: node = MuLeafBoxyVm(self, child, spotPrev)
-                case .togl: node = MuLeafToglVm(self, child, spotPrev)
+                case .val: node = MuLeafValVm(self, child, spotPrev)
+                case .vxy: node = MuLeafVxyVm(self, child, spotPrev)
+                case .tog: node = MuLeafTogVm(self, child, spotPrev)
                 case .tap:  node = MuLeafTapVm (self, child, spotPrev)
-                case .sgmt: node = MuLeafSgmtVm(self, child, spotPrev)
+                case .seg: node = MuLeafSegVm(self, child, spotPrev)
                 default:    node = MuNodeVm(type,self,child, spotPrev)
                     
             }

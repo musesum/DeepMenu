@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5747E93C27C95B4E0014AB34 /* MuLeafSldrView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747E93B27C95B4E0014AB34 /* MuLeafSldrView.swift */; };
+		5747E93C27C95B4E0014AB34 /* MuLeafValView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747E93B27C95B4E0014AB34 /* MuLeafValView.swift */; };
 		57A0A23827BDAFAE00B5598B /* MuLimbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A23727BDAFAE00B5598B /* MuLimbTests.swift */; };
 		57A0A26127BED18A00B5598B /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 57A0A26027BED18A00B5598B /* ViewInspector */; };
 		57A0A26327BED1E900B5598B /* MuLimbViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26227BED1E900B5598B /* MuLimbViewTests.swift */; };
@@ -15,7 +15,7 @@
 		57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26727C015F600B5598B /* MuIdentityTests.swift */; };
 		57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029427C142FC00203F63 /* ExampleNodeModels.swift */; };
 		57F3029827C4389B00203F63 /* MuPodModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029727C4389B00203F63 /* MuPodModelTests.swift */; };
-		800064A327646D67004B4C63 /* MuLeafSldrVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800064A227646D67004B4C63 /* MuLeafSldrVm.swift */; };
+		800064A327646D67004B4C63 /* MuLeafValVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800064A227646D67004B4C63 /* MuLeafValVm.swift */; };
 		8006196B27933375005960FF /* MuTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8006196A27933375005960FF /* MuTouch.swift */; };
 		800D4AE5272A2A6800E71519 /* MuLimbVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE4272A2A6800E71519 /* MuLimbVm.swift */; };
 		800D4AE9272B220700E71519 /* CG+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D4AE8272B220700E71519 /* CG+ext.swift */; };
@@ -42,10 +42,10 @@
 		8019DC05271C901500420923 /* MuIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC04271C901500420923 /* MuIdentity.swift */; };
 		802346FA2717D7EE0006645B /* MuRootVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802346F92717D7EE0006645B /* MuRootVm.swift */; };
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
-		8040EDEA282B03390091F226 /* MuLeafSgmtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE6282B03390091F226 /* MuLeafSgmtView.swift */; };
-		8040EDEB282B03390091F226 /* MuLeafSgmtVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE7282B03390091F226 /* MuLeafSgmtVm.swift */; };
-		8040EDEC282B03390091F226 /* MuLeafToglVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE8282B03390091F226 /* MuLeafToglVm.swift */; };
-		8040EDED282B03390091F226 /* MuLeafToglView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE9282B03390091F226 /* MuLeafToglView.swift */; };
+		8040EDEA282B03390091F226 /* MuLeafSegView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE6282B03390091F226 /* MuLeafSegView.swift */; };
+		8040EDEB282B03390091F226 /* MuLeafSegVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE7282B03390091F226 /* MuLeafSegVm.swift */; };
+		8040EDEC282B03390091F226 /* MuLeafTogVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE8282B03390091F226 /* MuLeafTogVm.swift */; };
+		8040EDED282B03390091F226 /* MuLeafTogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE9282B03390091F226 /* MuLeafTogView.swift */; };
 		8040EDF0282B039F0091F226 /* MuLeafTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDEE282B039F0091F226 /* MuLeafTapView.swift */; };
 		8040EDF1282B039F0091F226 /* MuLeafTapVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDEF282B039F0091F226 /* MuLeafTapVm.swift */; };
 		805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B0EDE2748216700004A85 /* Comparable+ext.swift */; };
@@ -61,8 +61,8 @@
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
 		80A9B63D272F3B9B00355445 /* MuPilotVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuPilotVm.swift */; };
 		80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63F272F7CAD00355445 /* MuLayout.swift */; };
-		80B1E227282AE73E00F81FF0 /* MuLeafBoxyVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1E226282AE73E00F81FF0 /* MuLeafBoxyVm.swift */; };
-		80B1E229282AE74B00F81FF0 /* MuLeafBoxyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1E228282AE74B00F81FF0 /* MuLeafBoxyView.swift */; };
+		80B1E227282AE73E00F81FF0 /* MuLeafVxyVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1E226282AE73E00F81FF0 /* MuLeafVxyVm.swift */; };
+		80B1E229282AE74B00F81FF0 /* MuLeafVxyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1E228282AE74B00F81FF0 /* MuLeafVxyView.swift */; };
 		80B251DE2706BDBF00E63DA3 /* MuBranchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B251DD2706BDBF00E63DA3 /* MuBranchView.swift */; };
 		80B251E02707563300E63DA3 /* MuNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B251DF2707563300E63DA3 /* MuNodeView.swift */; };
 		80B8EE872790A08500149AA3 /* Range+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B8EE862790A08500149AA3 /* Range+ext.swift */; };
@@ -93,14 +93,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5747E93B27C95B4E0014AB34 /* MuLeafSldrView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafSldrView.swift; sourceTree = "<group>"; };
+		5747E93B27C95B4E0014AB34 /* MuLeafValView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafValView.swift; sourceTree = "<group>"; };
 		57A0A23727BDAFAE00B5598B /* MuLimbTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbTests.swift; sourceTree = "<group>"; };
 		57A0A26227BED1E900B5598B /* MuLimbViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbViewTests.swift; sourceTree = "<group>"; };
 		57A0A26427BF15AA00B5598B /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = config.yml; path = .circleci/config.yml; sourceTree = "<group>"; };
 		57A0A26727C015F600B5598B /* MuIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentityTests.swift; sourceTree = "<group>"; };
 		57F3029427C142FC00203F63 /* ExampleNodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNodeModels.swift; sourceTree = "<group>"; };
 		57F3029727C4389B00203F63 /* MuPodModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodModelTests.swift; sourceTree = "<group>"; };
-		800064A227646D67004B4C63 /* MuLeafSldrVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeafSldrVm.swift; sourceTree = "<group>"; };
+		800064A227646D67004B4C63 /* MuLeafValVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeafValVm.swift; sourceTree = "<group>"; };
 		800619692791D984005960FF /* scratch2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch2.h; sourceTree = "<group>"; };
 		8006196A27933375005960FF /* MuTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouch.swift; sourceTree = "<group>"; };
 		800D4AE4272A2A6800E71519 /* MuLimbVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLimbVm.swift; sourceTree = "<group>"; };
@@ -132,10 +132,10 @@
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802346F92717D7EE0006645B /* MuRootVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuRootVm.swift; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		8040EDE6282B03390091F226 /* MuLeafSgmtView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafSgmtView.swift; sourceTree = "<group>"; };
-		8040EDE7282B03390091F226 /* MuLeafSgmtVm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafSgmtVm.swift; sourceTree = "<group>"; };
-		8040EDE8282B03390091F226 /* MuLeafToglVm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafToglVm.swift; sourceTree = "<group>"; };
-		8040EDE9282B03390091F226 /* MuLeafToglView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafToglView.swift; sourceTree = "<group>"; };
+		8040EDE6282B03390091F226 /* MuLeafSegView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafSegView.swift; sourceTree = "<group>"; };
+		8040EDE7282B03390091F226 /* MuLeafSegVm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafSegVm.swift; sourceTree = "<group>"; };
+		8040EDE8282B03390091F226 /* MuLeafTogVm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafTogVm.swift; sourceTree = "<group>"; };
+		8040EDE9282B03390091F226 /* MuLeafTogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafTogView.swift; sourceTree = "<group>"; };
 		8040EDEE282B039F0091F226 /* MuLeafTapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafTapView.swift; sourceTree = "<group>"; };
 		8040EDEF282B039F0091F226 /* MuLeafTapVm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafTapVm.swift; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
@@ -173,8 +173,12 @@
 		809D126A275B26CA0091D252 /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
 		80A9B63C272F3B9B00355445 /* MuPilotVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPilotVm.swift; sourceTree = "<group>"; };
 		80A9B63F272F7CAD00355445 /* MuLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLayout.swift; sourceTree = "<group>"; };
-		80B1E226282AE73E00F81FF0 /* MuLeafBoxyVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeafBoxyVm.swift; sourceTree = "<group>"; };
-		80B1E228282AE74B00F81FF0 /* MuLeafBoxyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeafBoxyView.swift; sourceTree = "<group>"; };
+		80B0B7CB28348AFA00E3EDE4 /* sky.menu.tr3.v2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.menu.tr3.v2.h; sourceTree = "<group>"; };
+		80B0B7CC28348C9300E3EDE4 /* sky.shader.v2.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.shader.v2.tr3.h; sourceTree = "<group>"; };
+		80B0B7CD28348F0E00E3EDE4 /* midi.v2.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = midi.v2.tr3.h; sourceTree = "<group>"; };
+		80B0B7CF2836A84000E3EDE4 /* sky.main.v2.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.main.v2.tr3.h; sourceTree = "<group>"; };
+		80B1E226282AE73E00F81FF0 /* MuLeafVxyVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeafVxyVm.swift; sourceTree = "<group>"; };
+		80B1E228282AE74B00F81FF0 /* MuLeafVxyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeafVxyView.swift; sourceTree = "<group>"; };
 		80B251DD2706BDBF00E63DA3 /* MuBranchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBranchView.swift; sourceTree = "<group>"; };
 		80B251DF2707563300E63DA3 /* MuNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeView.swift; sourceTree = "<group>"; };
 		80B8EE862790A08500149AA3 /* Range+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Range+ext.swift"; sourceTree = "<group>"; };
@@ -245,14 +249,14 @@
 			children = (
 				8040EDEE282B039F0091F226 /* MuLeafTapView.swift */,
 				8040EDEF282B039F0091F226 /* MuLeafTapVm.swift */,
-				8040EDE9282B03390091F226 /* MuLeafToglView.swift */,
-				8040EDE8282B03390091F226 /* MuLeafToglVm.swift */,
-				8040EDE6282B03390091F226 /* MuLeafSgmtView.swift */,
-				8040EDE7282B03390091F226 /* MuLeafSgmtVm.swift */,
-				5747E93B27C95B4E0014AB34 /* MuLeafSldrView.swift */,
-				800064A227646D67004B4C63 /* MuLeafSldrVm.swift */,
-				80B1E228282AE74B00F81FF0 /* MuLeafBoxyView.swift */,
-				80B1E226282AE73E00F81FF0 /* MuLeafBoxyVm.swift */,
+				8040EDE9282B03390091F226 /* MuLeafTogView.swift */,
+				8040EDE8282B03390091F226 /* MuLeafTogVm.swift */,
+				8040EDE6282B03390091F226 /* MuLeafSegView.swift */,
+				8040EDE7282B03390091F226 /* MuLeafSegVm.swift */,
+				5747E93B27C95B4E0014AB34 /* MuLeafValView.swift */,
+				800064A227646D67004B4C63 /* MuLeafValVm.swift */,
+				80B1E228282AE74B00F81FF0 /* MuLeafVxyView.swift */,
+				80B1E226282AE73E00F81FF0 /* MuLeafVxyVm.swift */,
 			);
 			path = Leaf;
 			sourceTree = "<group>";
@@ -406,6 +410,7 @@
 		80731CD0281715D9005FCE1A /* Tr3 */ = {
 			isa = PBXGroup;
 			children = (
+				80B0B7CE28348F5D00E3EDE4 /* v2 */,
 				80731CEA28187A45005FCE1A /* sky.menu.tr3.h */,
 				80731CCF281715C0005FCE1A /* sky.main.tr3.h */,
 				80CBDA14281D90BF008CB97A /* sky.shader.tr3.h */,
@@ -503,6 +508,17 @@
 				80135A08272C724E00BCDE27 /* MuPilotView.swift */,
 			);
 			path = Pilot;
+			sourceTree = "<group>";
+		};
+		80B0B7CE28348F5D00E3EDE4 /* v2 */ = {
+			isa = PBXGroup;
+			children = (
+				80B0B7CB28348AFA00E3EDE4 /* sky.menu.tr3.v2.h */,
+				80B0B7CC28348C9300E3EDE4 /* sky.shader.v2.tr3.h */,
+				80B0B7CD28348F0E00E3EDE4 /* midi.v2.tr3.h */,
+				80B0B7CF2836A84000E3EDE4 /* sky.main.v2.tr3.h */,
+			);
+			path = v2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -667,10 +683,10 @@
 				800D4AE5272A2A6800E71519 /* MuLimbVm.swift in Sources */,
 				80A9B63D272F3B9B00355445 /* MuPilotVm.swift in Sources */,
 				80631DFD277141780071AF93 /* MuBorder.swift in Sources */,
-				80B1E227282AE73E00F81FF0 /* MuLeafBoxyVm.swift in Sources */,
+				80B1E227282AE73E00F81FF0 /* MuLeafVxyVm.swift in Sources */,
 				80C9A7C7270F5A820013CA49 /* MuBranchRectView.swift in Sources */,
-				8040EDEA282B03390091F226 /* MuLeafSgmtView.swift in Sources */,
-				80B1E229282AE74B00F81FF0 /* MuLeafBoxyView.swift in Sources */,
+				8040EDEA282B03390091F226 /* MuLeafSegView.swift in Sources */,
+				80B1E229282AE74B00F81FF0 /* MuLeafVxyView.swift in Sources */,
 				8019DBFF271C8D5300420923 /* MuNodeIconView.swift in Sources */,
 				8019DBF4271BD7A200420923 /* MuBranchVm.swift in Sources */,
 				80B8EE872790A08500149AA3 /* Range+ext.swift in Sources */,
@@ -683,19 +699,19 @@
 				805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */,
 				80C5E880270CCA1B0000832C /* Log.swift in Sources */,
 				8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */,
-				8040EDEC282B03390091F226 /* MuLeafToglVm.swift in Sources */,
+				8040EDEC282B03390091F226 /* MuLeafTogVm.swift in Sources */,
 				80B251E02707563300E63DA3 /* MuNodeView.swift in Sources */,
 				8040EDF1282B039F0091F226 /* MuLeafTapVm.swift in Sources */,
-				800064A327646D67004B4C63 /* MuLeafSldrVm.swift in Sources */,
+				800064A327646D67004B4C63 /* MuLeafValVm.swift in Sources */,
 				80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */,
 				800E2A9B2824DCA7006AE6A1 /* MuNodeTr3.swift in Sources */,
 				809D126B275B26CA0091D252 /* Delay.swift in Sources */,
 				800E2A9D282568A1006AE6A1 /* MuNode.swift in Sources */,
-				8040EDEB282B03390091F226 /* MuLeafSgmtVm.swift in Sources */,
+				8040EDEB282B03390091F226 /* MuLeafSegVm.swift in Sources */,
 				57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */,
-				5747E93C27C95B4E0014AB34 /* MuLeafSldrView.swift in Sources */,
+				5747E93C27C95B4E0014AB34 /* MuLeafValView.swift in Sources */,
 				80C9A7BF270F4C4B0013CA49 /* Scroll+ext.swift in Sources */,
-				8040EDED282B03390091F226 /* MuLeafToglView.swift in Sources */,
+				8040EDED282B03390091F226 /* MuLeafTogView.swift in Sources */,
 				80631E002772428E0071AF93 /* MuNodeType.swift in Sources */,
 				80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */,
 				8006196B27933375005960FF /* MuTouch.swift in Sources */,

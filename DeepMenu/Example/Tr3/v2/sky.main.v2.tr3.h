@@ -28,14 +28,17 @@ sky { // visual music program
         >> sky.draw.brush.size
     }
     draw { // draw on metal layer
-        fill(0) 
+        fill { // fill 32 bit universe
+            zero(0) // all zeros 0x00000000
+            one(-1) // all ones 0xFFFFFFFF
+        }
         brush { // type of brush and value
             type "dot"          // draw a circle
             size (1..64 = 10)     // value of radius
             press(0..1 = 1)       // pressure changes size
             index(1..255 = 127)   // index in 256 color palette
-                                  // <<(osc.tuio.z osc.manos˚z)
-                                  // redirect from OSC
+                                // <<(osc.tuio.z osc.manos˚z)
+                                // redirect from OSC
         }
         line { // place holder for line drawing
             prev (x 0..1, y 0..1) // staring point of segment

@@ -4,7 +4,7 @@ import SwiftUI
 import Accelerate
 import Tr3
 
-class MuLeafSldrVm: MuNodeVm {
+class MuLeafValVm: MuNodeVm {
 
     var v = CGFloat(0)
     var editing: Bool = false
@@ -24,7 +24,7 @@ class MuLeafSldrVm: MuNodeVm {
           _ parentVm: MuNodeVm?,
           icon: String = "") {
         
-        super.init(.sldr, branch, node, parentVm, icon: icon)
+        super.init(.val, branch, node, parentVm, icon: icon)
         
         if let node = node as? MuNodeTr3 ,
            let vv = node.tr3.CGFloatVal() {

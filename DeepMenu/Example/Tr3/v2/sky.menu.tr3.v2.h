@@ -3,18 +3,18 @@ menu {
         fill (icon "icon.speed.png") {
             plane (val 0)
             zero  (tap, icon "icon.drop.clear") >> sky.draw.fill(0)
-            one   (tap, icon "icon.drop.gray")  >> sky.draw.fill(-1)
+            one   (tap, icon "icon.drop.gray") >> sky.draw.fill(-1)
         }
         tile (icon "icon.shader.tile.png") {
-            mirror (vxy, x 0, y 0, icon "icon.shader.tile.png") >> shader.pipe.mirror
-            repeat (vxy, x 0, y 0, icon "icon.shader.tile.png") >> shader.pipe.repeat
+            mirror (xy, x 0, y 0, icon "icon.shader.tile.png") >> shader.pipe.mirror
+            repeat (xy, x 0, y 0, icon "icon.shader.tile.png") >> shader.pipe.repeat
         }
         scroll (icon "icon.cell.scroll.png") {
-            shift (vxy, x 0.5, y 0.5, icon "icon.cell.scroll.png") >> shader.pipe.scroll
+            shift (xy, x 0.5, y 0.5, icon "icon.cell.scroll.png") >> shader.pipe.scroll
             tilt  (tog 0, icon "icon.pen.tilt.png") // brushTilt
         }
         color(icon "icon.pal.main.png") {
-            fade  (vxy, x 0, y 0, icon "icon.scroll.png")
+            fade  (xy 0 0, icon "icon.scroll.png")
             plane (val, icon "icon.pen.tilt.png")
         }
     }
