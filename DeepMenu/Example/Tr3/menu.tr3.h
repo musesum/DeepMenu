@@ -28,18 +28,20 @@ menu {
         tilt  (tog 1  , icon "icon.pen.tilt.png") >> sky.input.brush.tilt
     }
     cell {
-        fade  (val 0.5   , icon "icon.cell.fade" ) >> shader.cell.fade
-        ave   (val 0.5   , icon "icon.cell.ave"  ) >> shader.cell.ave
-        melt  (val 0.5   , icon "icon.cell.melt" ) >> shader.cell.melt
-        tunl  (seg 0..5=1, icon "icon.cell.time" ) >> shader.cell.tunl
-        zha   (seg 0..6=2, icon "icon.cell.zha"  ) >> shader.cell.zha
-        slide (seg 0..7=3, icon "icon.cell.slide") >> shader.cell.slide
-        fred  (seg 0..4=4, icon "icon.cell.fred" ) >> shader.cell.fred
+        fade  (val 0.5     , icon "icon.cell.fade" ) >> shader.cell.fade
+        ave   (val 0.5     , icon "icon.cell.ave"  ) >> shader.cell.ave
+        melt  (val 0.5     , icon "icon.cell.melt" ) >> shader.cell.melt
+        tunl  (seg 0..5 = 1, icon "icon.cell.time" ) >> shader.cell.tunl
+        zha   (seg 0..6 = 2, icon "icon.cell.zha"  ) >> shader.cell.zha
+        slide (seg 0..7 = 3, icon "icon.cell.slide") >> shader.cell.slide
+        fred  (seg 0..4 = 4, icon "icon.cell.fred" ) >> shader.cell.fred
     }
-    camera (icon "icon.camera.png") {
-        fake  (tog  0, icon "icon.camera.png")
-        real  (tog  1, icon "icon.camera.png")
-        face  (tog  1, icon "icon.camera.flip.png") >> shader.pipe.camera.flip
+    camera (vstack, icon "icon.camera.png") {
+        hstack {
+            fake (tog 0, icon "icon.camera.png")
+            real (tog 1, icon "icon.camera.png")
+            face (tog 1, icon "icon.camera.flip.png") >> shader.pipe.camera.flip
+        }
         snap  (tap  0, icon "icon.camera.png")
         xfade (val .5, icon "icon.pearl.white.png")
     }

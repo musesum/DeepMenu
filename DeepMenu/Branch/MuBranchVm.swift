@@ -121,8 +121,8 @@ class MuBranchVm: Identifiable, ObservableObject {
 
         //TODO: this is rather inefficient, is a workaround for the above
         for node in branchNodes {
-
-            if node.center.distance(touchNow) < border.diameter {
+            let threshold = Layout.diameter + Layout.spacing
+            if node.center.distance(touchNow) < threshold { 
                 spotNode = node
                 node.superSpotlight()
                 return node

@@ -15,7 +15,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     var node: MuNode            // each model MuNode maybe on several MuNodeVm(s)
     var icon: String            // icon for this node (not implemented)
     var branch: MuBranchVm      // branch that this node is on
-    var parentVm: MuNodeVm?   // parent branch's spotlight node
+    var parentVm: MuNodeVm?     // parent branch's spotlight node
     var center = CGPoint.zero   // current position
 
     var border: MuBorder
@@ -64,7 +64,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
     func updateCenter(_ fr: CGRect) {
         center = CGPoint(x: fr.origin.x + fr.size.width/2,
-                              y: fr.origin.y + fr.size.height/2)
+                         y: fr.origin.y + fr.size.height/2)
     }
 
 }

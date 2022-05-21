@@ -4,8 +4,8 @@
 import SwiftUI
 
 func log(_ title: String,
-         _ items: [Any],
          format: String = "%.0f",
+         _ items: [Any],
          terminator: String = "\n") {
     var text = title
     for item in items {

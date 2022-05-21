@@ -19,7 +19,7 @@ struct ContentView: View {
         ContentViews.client
         ZStack(alignment: .bottomLeading) {
             AppBackgroundView(space: appSpace)
-            MuRootView().environmentObject(MuRootVm([.lower, .right], branches: testBranches()))
+            //MuRootView().environmentObject(MuRootVm([.lower, .right], branches: testBranches()))
             MuRootView().environmentObject(MuRootVm([.lower, .left ], branches: skyBranches()))
         }
         .coordinateSpace(name: "Space")

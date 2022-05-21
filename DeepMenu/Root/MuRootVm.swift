@@ -16,7 +16,7 @@ class MuRootVm: ObservableObject, Equatable {
     func updateStatus(_ newValue: MuRootStatus, debug: String) {
         if status != newValue {
             status = newValue
-            print(status.description + debug, terminator: " ")
+            //print(status.description + debug, terminator: " ")
         }
     }
 
@@ -49,7 +49,6 @@ class MuRootVm: ObservableObject, Equatable {
     func updateOffsets() {
 
         let idiom = UIDevice.current.userInterfaceIdiom
-
         let margin = 2 * Layout.spacing
         let x = (idiom == .pad ? margin : 0)
         let y = ( (corner.contains(.upper) && idiom == .phone) ||
@@ -129,7 +128,7 @@ class MuRootVm: ObservableObject, Equatable {
 
         guard let branch = branch else {
             // touching root
-            updateStatus(.root, debug: "1")
+            updateStatus(.root, debug: "G")
             toggleBranches(lowestDepth: 1) //TODO: -- fix by determining current state
             return
         }
@@ -163,7 +162,7 @@ class MuRootVm: ObservableObject, Equatable {
                 toggleBranches(lowestDepth: 0)
             }
         }
-        updateStatus(.root, debug: "2")
+        updateStatus(.root, debug: "H")
         
         if let nodeModel = self.spotNodeVm?.node {
             if nodeModel.nodeType == .node {
@@ -271,7 +270,6 @@ class MuRootVm: ObservableObject, Equatable {
         if isExploring() {
             if let spotNext = followTouch(touch.pointNow)  {
                 spotNodeVm = spotNext
-                // print(".", terminator: "")
             }
             spotNodeVm?.parentVm?.superSpotlight()
         }
@@ -290,7 +288,7 @@ class MuRootVm: ObservableObject, Equatable {
                 limbNowVm = limbNext
                 limbNowVm?.showBranches(depth: 99)
             }
-            updateStatus(.limb, debug: "3")
+            updateStatus(.limb, debug: "A")
         }
 
         // begin -------------------------------------------
@@ -299,7 +297,7 @@ class MuRootVm: ObservableObject, Equatable {
         if let spotLimb = limbNowVm {
             if let nearestNode = spotLimb.nearestNode(touchNow, branchVm) {
                 // still within same spotlight limb
-                updateStatus(.limb, debug: "6")
+                updateStatus(.limb, debug: "B")
                 return nearestNode
             } else {
                 // no longer on spotLimb
@@ -325,17 +323,20 @@ class MuRootVm: ObservableObject, Equatable {
             }
         }
         // hovering over root
-        if pilotVm.pointHome.distance(touchNow) < Layout.spotArea {
+        let touchDelta = pilotVm.pointHome.distance(touchNow)
+        if  touchDelta < Layout.spotArea {
             if status != .root {
-                updateStatus(.root, debug: "4")
+                updateStatus(.root, debug: "C")
                 toggleBranches(lowestDepth: 1)
             } else {
-                updateStatus(.root, debug: "-4")
+                updateStatus(.root, debug: "D")
             }
             pilotVm.rootVm?.alignFlightWithSpotNode(touchNow)
         }
         else {
-            updateStatus(.space, debug: "5")
+            // log("Δ ", [pilotVm.deltaOfs, pilotVm.pointHome])
+            updateStatus(.space, debug: "E")
+            spotNodeVm = nil
         }
         return nil
     }
@@ -343,14 +344,16 @@ class MuRootVm: ObservableObject, Equatable {
     /// either center flight icon on spotNode or track finger
     private func alignFlightWithSpotNode(_ touchNow: CGPoint) {
 
-        if spotNodeVm?.node.nodeType == .vxy {
-            pilotVm.pointNow = pilotVm.pointHome // no fly icon for leaf
+        guard let spotNodeVm = spotNodeVm else {
+            pilotVm.setTouchNow(touchNow)
+            return
         }
-        else if let spotXY = spotNodeVm?.center {
-            let pointDelta = spotXY - touchNow
-            pilotVm.updateDelta(pointDelta)
-        } else {
+        if spotNodeVm.node.nodeType.isLeaf {
+            pilotVm.pointNow = pilotVm.pointHome // no fly icon for leaf
             pilotVm.updateDelta(.zero)
+        } else {
+            let delta = spotNodeVm.center - touchNow
+            pilotVm.updateDelta(delta)
         }
     }
 
@@ -399,7 +402,7 @@ class MuRootVm: ObservableObject, Equatable {
             for limbVm in limbVms {
                 limbVm.showBranches(depth: 0)
             }
-            updateStatus(.rootVm, debug: "9")
+            updateStatus(.rootVm, debug: "F")
         }
         rootTimer = Timer.scheduledTimer(withTimeInterval: delay,
                                         repeats: false,

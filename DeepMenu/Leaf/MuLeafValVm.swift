@@ -12,7 +12,7 @@ class MuLeafValVm: MuNodeVm {
     var status: String {
         get {
             if editing {
-                return String(format: "%.1f", v)
+                return String(format: "%.2f", v)
             } else {
                 return node.name
             }
@@ -35,9 +35,9 @@ class MuLeafValVm: MuNodeVm {
     func touching(_ touching: Bool,
                   _ point: CGPoint) {
         
-        //?? let value = border.normalizeTouch(v: point.y)
         if touching {
             v = border.normalizeTouch(v: point.y)
+            log("yv", format: "%.2f", [point.y, v])
             editing = true
             node.callback(v)
         } else {
@@ -47,9 +47,7 @@ class MuLeafValVm: MuNodeVm {
     
     var offset: CGSize {
         get {
-            let runway = border.thumbRunway
-            let size = CGSize(width:  0,
-                              height: v * runway)
+            let size = CGSize(width: 0, height: v * border.yRunway())
             return size
         }
     }

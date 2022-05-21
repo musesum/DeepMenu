@@ -17,13 +17,13 @@ class MuPilotVm: ObservableObject {
     var hoverNodeVm: MuNodeVm?  // selected hover node while dragging
     var rootBranch: MuBranchVm
 
-    var touchOfs = CGSize.zero // offset between rootNode and touchNow
+    private var touchOfs = CGSize.zero // offset between rootNode and touchNow
     var deltaOfs = CGSize.zero // offset between touch point and center in coord
     var pilotOfs: CGSize { get {
         switch rootVm?.status ?? .root {
             case .root:  return touchOfs
             case .limb:  return deltaOfs
-            case .space: return touchOfs
+            case .space: return deltaOfs
         }}}
 
     /// adjust offset for root on right side of canvas
@@ -66,26 +66,28 @@ class MuPilotVm: ObservableObject {
         baseNodeVm.node.name = name
     }
 
+    func setTouchNow( _ touchNow: CGPoint) {
+        pointNow = touchNow
+        pointDelta = touchNow
+        touchOfs = CGSize(baseNodeVm.center - touchNow)
+        touchOfs.width += rightSideOffset(for: .root)
+        deltaOfs = .zero
+    }
+
     /**  via MuBranchView::@GestureState touchNow .onChange,
      which also detects end when touchNow is reset to .zero
      */
     func touchUpdate(_ touchNow: CGPoint,
                      _ touchBranch: MuBranchVm?) {
 
-        if touchNow == .zero  { ended() }
+        if      touchNow == .zero  { ended() }
         else if hoverNodeVm == nil { begin() }
-        else                  { moved() }
+        else                       { moved() }
 
         func begin() {
-
-            pointNow = touchNow
+            setTouchNow(touchNow)
             hoverNodeVm = baseNodeVm.copy()
-            pointDelta = touchNow
             rootVm?.begin(touchBranch, touchNow)
-
-            touchOfs = CGSize(baseNodeVm.center - touchNow)
-            touchOfs.width += rightSideOffset(for: .root)
-
             log("touch", [touchNow], terminator: " ")
             log("root", [baseNodeVm.center], terminator: " ")
         }
@@ -119,17 +121,9 @@ class MuPilotVm: ObservableObject {
         }
     }
 
-    /** center flyNode either on spotlight node or on finger
-
-     MuRoot::alignFlightWithSpotNode(touchNow)
-     will set a pointDelta between touchNow and spotXY.
-     When there is no spotNode, then the the delta is .zero,
-     allowing the flyNode to center on finger, which is
-     handled by MuPilotView.flyNode.offset.
-     */
     func updateDelta(_ pointDelta: CGPoint) {
         deltaOfs = .zero + pointDelta
         deltaOfs.width += rightSideOffset(for: .limb)
-        // log("Δ\(root?.status.description ?? "")", [deltaOfs], terminator: " ")
+         // log("Δ ", [pointNow, deltaOfs])
     }
 }

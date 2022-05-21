@@ -49,12 +49,11 @@ enum ExampleTr3Sky {
         // begin ------------------------------------------------------------------
 
         let root = SkyTr3.shared.root
-        let rootModel = MuNodeTr3(root, type: .node) //??? 
+        let rootModel = MuNodeTr3(root, type: .node)
 
         for child in root.children {
             parseTr3(child, rootModel)
         }
-
         return rootModel.children
     }
 

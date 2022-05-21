@@ -12,8 +12,8 @@ enum MuRootStatus: String  {
     public var description: String {
         get {
             switch self {
-                case .root   : return "⦿"
-                case .limb : return "⌖"
+                case .root  : return "⦿"
+                case .limb  : return "⌖"
                 case .space : return "⬚"
             }
         }

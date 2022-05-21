@@ -14,6 +14,9 @@ struct MuNodeView: View {
 
                     case let leaf as MuLeafVxyVm: MuLeafVxyView(leafVm: leaf)
                     case let leaf as MuLeafValVm: MuLeafValView(leafVm: leaf)
+                    case let leaf as MuLeafSegVm: MuLeafSegView(leafVm: leaf)
+                    case let leaf as MuLeafTogVm: MuLeafTogView(leafVm: leaf)
+                    case let leaf as MuLeafTapVm: MuLeafTapView(leafVm: leaf)
 
                     default:
 
@@ -25,10 +28,12 @@ struct MuNodeView: View {
                         }
                 }
             }
-            .onChange(of: geo.frame(in: .named("Space"))) { node.updateCenter($0) }
+            .onChange(of: geo.frame(in: .named("Space"))) {
+                node.updateCenter($0)
+            }
             .onAppear { node.updateCenter(geo.frame(in: .named("Space"))) }
         }
-        .frame(width: border.diameter, height: border.diameter)
+        .frame(width: border.inner.width, height: border.inner.height)
         .padding(Layout.spacing)
         .allowsHitTesting(true)
         .animation(.easeInOut(duration: Layout.animate), value: node.center)

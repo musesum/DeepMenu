@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct Layout {
-    static let titleHeight: CGFloat = 32
+    static let titleHeight: CGFloat = 40
     static let diameter: CGFloat = 40
     static let spacing: CGFloat = 4
     static var spotArea: CGFloat { get { diameter + spacing * 2 } }

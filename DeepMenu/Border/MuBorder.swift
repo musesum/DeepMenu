@@ -6,38 +6,81 @@ class MuBorder {
     var type: MuNodeType
     var axis: Axis
     var count: CGFloat
+    var margin = CGFloat(0) // overlap with a negative number
 
     // changed by type
-    var diameter: CGFloat { get { Layout.diameter * (type.isLeaf ? 4 : 1) } }
-    var cornerRadius: CGFloat { get { type.isLeaf ? (Layout.diameter + Layout.spacing) / 2 : (Layout.diameter / 2) }}
+    var cornerRadius: CGFloat { get {
+        type.isLeaf
+        ? (Layout.diameter + Layout.spacing) / 2
+        : (Layout.diameter / 2)
+    }}
 
-    var thumbRadius: CGFloat { get { Layout.diameter/2 - 1 } }
-    var thumbValue : ClosedRange<CGFloat> { get { thumbRadius ... diameter-thumbRadius }}
-    var thumbRunway: CGFloat { get { diameter - thumbRadius*2 }}
+    var thumbRadius = Layout.diameter/2 - 1
+    func xRunway() -> CGFloat { return inner.width  - thumbRadius*2 }
+    func yRunway() -> CGFloat { return inner.height - thumbRadius*2 }
 
-     var size: CGSize {
+    var aspect: CGSize { get {
+        switch type {
+            case .none : return CGSize(width: 1, height: 1)
+            case .node : return CGSize(width: 1, height: 1)
+            case .val  : return CGSize(width: 1, height: 4)
+            case .vxy  : return CGSize(width: 4, height: 4)
+            case .tog  : return CGSize(width: 2, height: 1)
+            case .seg  : return CGSize(width: 1, height: 4)
+            case .tap  : return CGSize(width: 2, height: 2)
+        }
+    }}
+    var inner: CGSize {
         get {
-            let length = diameter + 2 * Layout.spacing
-            let runway = length * count + margin * 2 * (count-1)
-            let width = (axis == .vertical) ? length : runway
-            let height = type.isLeaf ? runway + Layout.titleHeight : (axis == .vertical) ? runway : length
-            return CGSize(width: width, height: height)
+            let result = aspect * Layout.diameter
+            return result
+        }}
+
+    var outer: CGSize {
+        get {
+            let result: CGSize
+            if type.isLeaf {
+                result = inner + CGSize(width: 0, height: Layout.titleHeight)
+            } else {
+                let trough = Layout.diameter + (2 * Layout.spacing)
+                let runway = (trough * count) + (margin * 2 * (count-1))
+                let width  = (axis == .vertical ? trough : runway)
+                let height = (axis == .vertical ? runway : trough)
+                result = CGSize(width: width, height: height)
+            }
+
+            return result
         }
     }
 
-    var margin = CGFloat(0) // overlap with a negative number
-
     func normalizeTouch(xy: CGPoint) -> CGPoint {
-        let xx = xy.x.clamped(to: thumbValue)
-        let yy = xy.y.clamped(to: thumbValue)
-        let xxx = (xx-thumbRadius) / thumbRunway
-        let yyy = (yy-thumbRadius) / thumbRunway
-        return CGPoint(x: xxx, y: yyy)
+        let xMax = (inner.width  - thumbRadius)
+        let yMax = (inner.height - thumbRadius)
+        let xRange = thumbRadius...xMax
+        let yRange = thumbRadius...yMax
+        let xx = xy.x.clamped(to: xRange)
+        let yy = xy.y.clamped(to: yRange)
+        let xxx = (xx - thumbRadius) / xRunway()
+        let yyy = (yy - thumbRadius) / yRunway()
+        let result = CGPoint(x: xxx, y: yyy)
+        return result
     }
     func normalizeTouch(v: CGFloat) -> CGFloat {
-        let yy = v.clamped(to: thumbValue)
-        let yyy = (yy-thumbRadius) / thumbRunway
-        return CGFloat(yyy)
+        if axis == .vertical {
+            let yMax = (inner.height - thumbRadius)
+            let yRange = thumbRadius...yMax
+            let yy = v.clamped(to: yRange)
+            let yyy = (yy - thumbRadius) / yRunway()
+            let result = CGFloat(yyy)
+            return result
+        } else {
+            let xMax = (inner.width  - thumbRadius)
+            let xRange = thumbRadius...xMax
+            let xx = v.clamped(to: xRange)
+            let xxx = (xx - thumbRadius) / xRunway()
+            let result = CGFloat(xxx)
+            return result
+        }
     }
     init(type: MuNodeType,
          count: Int = 1,
@@ -74,10 +117,11 @@ class MuBorder {
     }
 
     func bounds(_ center: CGPoint) -> CGRect {
-
-        return CGRect(x: center.x - diameter/2,
-                      y: center.y - diameter/2,
-                      width: diameter,
-                      height: diameter)
+        let result = CGRect(x: center.x - outer.width/2,
+                            y: center.y - outer.height/2,
+                            width: outer.width,
+                            height: outer.height)
+        // log("cob ",  [center, outer, result])
+        return result
     }
 }
