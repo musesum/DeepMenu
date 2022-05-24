@@ -4,19 +4,19 @@ import SwiftUI
 
 struct MuPilotView: View {
 
-    @ObservedObject var pilot: MuPilot
+    @ObservedObject var pilot: MuPilotVm
     @GestureState private var touchXY: CGPoint = .zero
 
     var body: some View {
         Group {
-            // hub icon
+            // root icon
             GeometryReader() { geo in
-                MuPodView(pod: pilot.hubPod)
+
+                MuNodeView(node: pilot.baseNodeVm)
 
                     .frame(width: Layout.diameter, height: Layout.diameter)
                     .onAppear { pilot.updateHome(geo.frame(in: .named("Space"))) }
                     .onChange(of: geo.frame(in: .named("Space"))) { pilot.updateHome($0) }
-
                     .padding(Layout.spacing)
                     .opacity(pilot.alpha + 0.1)
                     .position(pilot.pointHome)
@@ -29,8 +29,9 @@ struct MuPilotView: View {
 
             // fly icon
             GeometryReader { geo in
-                if let flyPod = pilot.flyPod {
-                    MuPodView(pod: flyPod)
+                if let flyNode = pilot.hoverNodeVm {
+                   
+                    MuNodeView(node: flyNode)
                         .position(pilot.pointNow)
                         .animation(.easeInOut(duration: Layout.animate), value: pilot.pointNow)
                         .opacity(1-pilot.alpha)

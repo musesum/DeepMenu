@@ -3,24 +3,26 @@
 
 import SwiftUI
 
-func log(_ text: String,
-         xy: CGPoint = .zero,
-         wh: CGSize = .zero,
+func log(_ title: String,
+         format: String = "%.0f",
+         _ items: [Any],
          terminator: String = "\n") {
+    var text = title
+    for item in items {
+        switch item {
+            case let v as CGFloat:  text += String(format: "_(\(format)) ", v)
+            case let v as Float:    text += String(format: "_(\(format)) ", v)
 
-    let sizeStr  = (wh == .zero ? "" : String(format: "∘(%.0f, %.0f) ", wh.width, wh.height))
-    let pointStr = (xy == .zero ? "" : String(format: "∙(%.0f, %.0f) ", xy.x, xy.y))
-    //let pointStr = String(format: " (x:%.0f,y:%.0f) ", xy.x, xy.y)
-    print(text + pointStr + sizeStr, terminator: terminator)
+            case let v as CGPoint: text += String(format: "∙(\(format), \(format)) ",
+                                                  v.x, v.y)
+            case let v as CGSize:  text += String(format: "∘(\(format), \(format)) ",
+                                                  v.width, v.height)
+            case let v as CGRect:  text += String(format: "◻︎(\(format),\(format); \(format),\(format)) ",
+                                                  v.origin.x, v.origin.y, v.size.width, v.size.height)
+
+            default: break
+        }
+    }
+    print(text, terminator: terminator)
 }
 
-func log(_ text: String,
-         _ rect1: CGRect,
-         _ rect2: CGRect,
-         terminator: String = "\n") {
-    print(String(format: "\(text)(%.0f,%.0f; %.0f,%.0f)⟹(%.0f,%.0f; %.0f,%.0f)",
-                 rect1.minX, rect1.minY, rect1.width, rect1.height,
-                 rect2.minX, rect2.minY, rect2.width, rect2.height),
-          terminator: terminator)
-
-}

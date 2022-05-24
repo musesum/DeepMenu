@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Par",
+        "repositoryURL": "https://github.com/musesum/Par.git",
+        "state": {
+          "branch": null,
+          "revision": "e5fd1785f7fb2ad57c9dc06b7a637a02e2ae826e",
+          "version": "0.2.11"
+        }
+      },
+      {
+        "package": "ViewInspector",
+        "repositoryURL": "https://github.com/nalexn/ViewInspector",
+        "state": {
+          "branch": null,
+          "revision": "6b88c4ec1fa20cf38f2138052e63c8e79df5d76e",
+          "version": "0.9.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

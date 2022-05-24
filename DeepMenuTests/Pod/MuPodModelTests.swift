@@ -1,5 +1,5 @@
 //
-//  MuPodModelTests.swift
+//  MuNodeModelTests.swift
 //  DeepMenuTests
 //
 //  Created by Dav Yaginuma on 2/21/22.
@@ -9,7 +9,7 @@ import XCTest
 
 @testable import DeepMenu
 
-class MuPodModelTests: XCTestCase {
+class MuNodeModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -20,17 +20,17 @@ class MuPodModelTests: XCTestCase {
     }
 
     func testInit_withOnlyName() throws {
-        let sut = MuPodModel("TEST")
+        let sut = MuNodeTest("TEST")
         XCTAssertEqual("TEST", sut.name)
-        XCTAssertEqual(.pod, sut.borderType)
+        XCTAssertEqual(.node, sut.nodeType)
         XCTAssertEqual("TEST", sut.title)
     }
 
     func testInit_withSelectionCallback() throws {
         var callbackRan = false
-        let sut = MuPodModel("TEST") { _ in callbackRan = true }
+        let sut = MuNodeTest("TEST") { _ in callbackRan = true }
         XCTAssertEqual("TEST", sut.name)
-        XCTAssertEqual(MuBorderType.pod, sut.borderType)
+        XCTAssertEqual(MuNodeType.node, sut.nodeType)
         XCTAssertEqual("TEST", sut.title)
         XCTAssert(callbackRan == false)
         sut.callback("Something")
@@ -38,12 +38,12 @@ class MuPodModelTests: XCTestCase {
     }
 
     func test_addChild() throws {
-        let sut = MuPodModel("Parent")
-        let child = MuPodModel("Child")
+        let sut = MuNodeTest("Parent")
+        let child = MuNodeTest("Child")
         
         sut.addChild(child)
 
-        XCTAssertEqual([child], sut.subModels)
+        XCTAssertEqual([child], sut.children)
         XCTAssertEqual(sut, child.parent)
     }
 }

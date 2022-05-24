@@ -1,16 +1,32 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "ViewInspector",
-        "repositoryURL": "https://github.com/nalexn/ViewInspector",
-        "state": {
-          "branch": null,
-          "revision": "6b88c4ec1fa20cf38f2138052e63c8e79df5d76e",
-          "version": "0.9.1"
-        }
+  "pins" : [
+    {
+      "identity" : "par",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/Par.git",
+      "state" : {
+        "revision" : "e5fd1785f7fb2ad57c9dc06b7a637a02e2ae826e",
+        "version" : "0.2.11"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "tr3",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/Tr3",
+      "state" : {
+        "revision" : "7b002e69f867053782929da3431882d2d9d94374",
+        "version" : "0.2.21"
+      }
+    },
+    {
+      "identity" : "viewinspector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nalexn/ViewInspector",
+      "state" : {
+        "revision" : "6b88c4ec1fa20cf38f2138052e63c8e79df5d76e",
+        "version" : "0.9.1"
+      }
+    }
+  ],
+  "version" : 2
 }

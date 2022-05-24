@@ -8,8 +8,8 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    # Specify the execution environment. You can specify an image from Brancherhub or use one of our Convenience Images from CircleCI's Developer Root.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#brancher-machine-macos-windows-executor
     macos:
       xcode: 13.2.1 # Specify the Xcode version to use
 
@@ -17,7 +17,7 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      # - run: pod install # Install CocoaPods dependencies
+      # - run: node install # Install CocoaNodes dependencies
       - run: fastlane scan # Run tests using Fastlane
 
       # Collect XML test results data to show in the UI, and save the same XML

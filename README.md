@@ -3,35 +3,34 @@ Deep Menu
 
 Naming convention
 
-    Mu<name>Model - A persistent model of pods, shared by Mu<name> views (MVVM "Model")
-    Mu<name> - ObservableObject companion to a Mu<name>View (MVVM "ViewModel")
+    Mu<name>Model - A persistent model of nodes, shared by Mu<name> views (MVVM "Model")
+    Mu<name>Vm - ObservableObject companion to a Mu<name>View (MVVM "ViewModel")
     Mu<name>View - Always a SwiftUI View (MVVM "View")
 
     The <name> views follows a hierarchy of
 
         Space - where content and menues are
 
-        Pilot - follows your finger/thumb/pencil to select Pods and stack Docks
+        Pilot - follows your finger/thumb/pencil to select Nodes and stack Branches
 
-        Hub - Corner of Space that contains one or two Spokes
-            each spoke is aligned horizonal or vertical
+        Root - Corner of Space that contains one or two Limbs
+            each limb is aligned horizonal or vertical
 
-        Spoke - a hierarchy of stacked Docks
-            vSpoke instance - a static hierarchy of Docks for vert
-            hSpoke instance - a dynamic history of vert
+        Limb - a hierarchy of stacked Branches
+            vLimb instance - a static hierarchy of vertical Branches
+            hLimb instance - a dynamic history of horizontal Branches
 
-        Dock - contains one or more Pods
+        Branch - a viewable collection of Nodes
             stacked in levels of increasing detail
-            landing bay multiple docking pods
+            
+        Node - an individual item
+            spotNode - spotlight node highlighted in bar
+            same node can be on multiple branches
 
-        Pod - an individual item to select
-            spotPod - spotlight pod highlighted in bar
-            pods don't move -
-
-        Border - Border and bounds for dock
+        Border - Border and bounds for branch
 
     
-    spot* - spotlight on current Pod, Dock
+    spot* - spotlight on current Node, Branch
     
     prefixes - may be a single letter to prefix to a variable name
     
@@ -43,41 +42,41 @@ Naming convention
     
         h* - height in a CGSize
     
-        r* - radius / distance from center of a pod
+        r* - radius / distance from center of a node
     
-        s* - spacing between pods
+        s* - spacing between nodes
         
-        supr - super `Pod` or `Model` / parent in a hierarchy
+        parent - super `Node` or `Model` / parent in a hierarchy
          
 Programming convention
 
-    Views don't own Pods, Docks, Spoke, or Hub,
+    Views don't own Nodes, Branches, Limb, or Root,
         which may be synchroniozed accross devices,
-        like iPhone, iDock, TV, watch, shareplay
+        like iPhone, iBranch, TV, watch, shareplay
     So, no @State or @StateObjects are used
         Keep View(s) as functions, which down own source of truth
         Instead, use a 1:1 class:struct Mu<name>:Mu<name>View
 
 Components - Mu<Name>
 
-    Main - content View containing Hub and Space
+    Main - content View containing Root and Space
 
     Space - where the actual non menu content goes
 
     Touch - Helper to manage touch deltas and tap timing
 
-    Pilot - move from pod to pod or into open space
+    Pilot - move from node to node or into open space
 
-    Hub - starting poinrt in the corners, contains 1 or 2 spokes
+    Root - starting point in the corners, contains 1 or 2 limbs
 
-    Spoke - contains unfolding docks of either horizontal or vertical docs
+    Limb - unfolding horizontal or vertical branches
 
-    Dock - a series of sub-menue (sub-docks)
+    Branch - a series of sub-menu (sub-branches)
 
-    Pod - individual nodes aligned along dock
+    Node - individual nodes aligned along branch
 
-    Leaf - last sub-dock contains a special pod 
+    Leaf - last sub-branch contains a special node 
 
-    Border - helper function for drawing bezel around docks 
+    Border - helper function for drawing bezel around branches 
 
 Use case - Replace MuseSky Tr3Thumb Panel -- see DeepMuseMenu.h
