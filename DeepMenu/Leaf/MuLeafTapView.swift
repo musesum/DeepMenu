@@ -1,41 +1,37 @@
 //  Created by warren on 5/10/22.
 
 import SwiftUI
-import Accelerate
 
 struct MuLeafTapView: View {
 
     @ObservedObject var leafVm: MuLeafTapVm
     @GestureState private var touchXY: CGPoint = .zero
-    @EnvironmentObject var root: MuRootVm
-    var border: MuBorder { get { leafVm.border } }
-    var borderColor: Color   { leafVm.spotlight ? .white : .gray }
-
+    var panel: MuPanel { get { leafVm.panel } }
+    var fillColor  : Color   { get { Layout.fillColor(leafVm.editing) }}
+    var strokeColor: Color   { get { Layout.strokeColor(leafVm.editing) }}
+    var strokeWidth: CGFloat { get { Layout.strokeWidth(leafVm.editing) }}
+    
     var body: some View {
-
         VStack {
             Text(leafVm.status)
                 .scaledToFit()
                 .foregroundColor(Color.white)
-                .animation(.easeInOut(duration: 0.20), value: borderColor)
-
             ZStack {
                 GeometryReader { geo in
-                    RoundedRectangle(cornerRadius: leafVm.border.cornerRadius)
-                        .fill((Color( white: 0.01, opacity: 0.5)))
-                        .frame(width: border.inner.width, height: border.inner.height)
-                        .gesture(DragGesture(minimumDistance: 0)
-                            .updating($touchXY) { (input, result, _) in
-                                result = input.location })
-                        .onChange(of: touchXY) { xy in
-                            leafVm.touching(root.touch.touching, xy)
-                        }
-                    Capsule()
-                        .fill(.white)
-                        .frame(width: border.thumbRadius, height: border.thumbRadius)
-                        .offset(leafVm.offset)
-                        .allowsHitTesting(false)
+                    RoundedRectangle(cornerRadius: leafVm.panel.cornerRadius)
+                        .fill(fillColor)
+                        .frame(width: panel.inner.width, height: panel.inner.height)
+                        .animation(Layout.flash(), value: fillColor)
+                    RoundedRectangle(cornerRadius: panel.cornerRadius)
+                        .stroke(strokeColor, lineWidth: strokeWidth)
+                        .frame(width: panel.inner.width, height: panel.inner.height)
+                        .animation(Layout.flash(), value: strokeColor)
+                        .animation(Layout.flash(), value: strokeWidth)
                 }
+                .gesture(DragGesture(minimumDistance: 0)
+                    .updating($touchXY) { (input, result, _) in
+                        result = input.location })
+                .onChange(of: touchXY) { leafVm.touchNow($0) }
             }
         }
     }

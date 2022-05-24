@@ -2,9 +2,9 @@
 
 import SwiftUI
 
-struct MuLeafVxyView: View {
+struct MuLeafTogView: View {
     
-    @ObservedObject var leafVm: MuLeafVxyVm
+    @ObservedObject var leafVm: MuLeafTogVm
     @GestureState private var touchXY: CGPoint = .zero
     var panel: MuPanel { get { leafVm.panel } }
     

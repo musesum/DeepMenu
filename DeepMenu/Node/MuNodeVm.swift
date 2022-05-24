@@ -17,8 +17,9 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     var branch: MuBranchVm      // branch that this node is on
     var parentVm: MuNodeVm?     // parent branch's spotlight node
     var center = CGPoint.zero   // current position
+    var panel: MuPanel
 
-    var border: MuBorder
+    @Published var editing: Bool = false   // changing value of leaf (or order of node, later)
 
     init (_ type: MuNodeType,
           _ branch: MuBranchVm,
@@ -30,15 +31,15 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         self.node = node
         self.icon = icon
         self.parentVm = spotPrev
-        self.border = MuBorder(type: type)
+        self.panel = MuPanel(type: type)
 
         if [.val, .vxy].contains(type) {
-            branch.border.type = type
+            branch.panel.type = type
         }
     }
     
     func copy() -> MuNodeVm {
-        let node = MuNodeVm(border.type, branch, node, self, icon: icon)
+        let node = MuNodeVm(panel.type, branch, node, self, icon: icon)
         return node
     }
 

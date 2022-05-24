@@ -1,33 +1,30 @@
-//  Created by warren on 12/10/21.
+//  Created by warren on 5/10/22.
 
 import SwiftUI
 import Accelerate
 import Tr3
 
-class MuLeafValVm: MuNodeVm {
+class MuLeafTapVm: MuNodeVm {
 
-    var v = CGFloat(0)
-    
     var status: String {
         get {
             if editing {
-                return String(format: "%.2f", v)
+                return "!"
             } else {
                 return node.name
             }
         }
     }
-    
+
     init (_ branch: MuBranchVm,
           _ node: MuNode,
           _ parentVm: MuNodeVm?,
           icon: String = "") {
         
-        super.init(.val, branch, node, parentVm, icon: icon)
+        super.init(.tap, branch, node, parentVm, icon: icon)
         
-        if let node = node as? MuNodeTr3 ,
-           let vv = node.tr3.CGFloatVal() {
-            v = vv
+        if let node = node as? MuNodeTr3 {
+            node.callback(1)
         }
     }
 
@@ -35,18 +32,16 @@ class MuLeafValVm: MuNodeVm {
 
         if touchNow != .zero {
             editing = true
-            v = panel.normalizeTouch(v: touchNow.y)
-            // log("yv", format: "%.2f", [point.y, v])
-            node.callback(v)
+            node.callback(1)
         } else {
             editing = false
+            node.callback(0)
         }
     }
-    
+
     var offset: CGSize {
         get {
-            let size = CGSize(width: 0,
-                              height: v * panel.yRunway())
+            let size = CGSize(width: 0, height:  panel.yRunway())
             return size
         }
     }

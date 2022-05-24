@@ -1,32 +1,25 @@
 {
-  "pins" : [
-    {
-      "identity" : "par",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/Par.git",
-      "state" : {
-        "revision" : "e5fd1785f7fb2ad57c9dc06b7a637a02e2ae826e",
-        "version" : "0.2.11"
+  "object": {
+    "pins": [
+      {
+        "package": "Par",
+        "repositoryURL": "https://github.com/musesum/Par.git",
+        "state": {
+          "branch": null,
+          "revision": "e5fd1785f7fb2ad57c9dc06b7a637a02e2ae826e",
+          "version": "0.2.11"
+        }
+      },
+      {
+        "package": "ViewInspector",
+        "repositoryURL": "https://github.com/nalexn/ViewInspector",
+        "state": {
+          "branch": null,
+          "revision": "6b88c4ec1fa20cf38f2138052e63c8e79df5d76e",
+          "version": "0.9.1"
+        }
       }
-    },
-    {
-      "identity" : "tr3",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/Tr3",
-      "state" : {
-        "revision" : "99f795bd8ab011c22deeac5413dd5d2d1a9830fa",
-        "version" : "0.2.15"
-      }
-    },
-    {
-      "identity" : "viewinspector",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/nalexn/ViewInspector",
-      "state" : {
-        "revision" : "6b88c4ec1fa20cf38f2138052e63c8e79df5d76e",
-        "version" : "0.9.1"
-      }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }

@@ -1,10 +1,10 @@
-//  Created by warren on 5/10/22.
+// Created by warren on 10/17/21.
 
 import SwiftUI
 
-struct MuLeafVxyView: View {
+struct MuLeafSegView: View {
     
-    @ObservedObject var leafVm: MuLeafVxyVm
+    @ObservedObject var leafVm: MuLeafSegVm
     @GestureState private var touchXY: CGPoint = .zero
     var panel: MuPanel { get { leafVm.panel } }
     
@@ -23,7 +23,7 @@ struct MuLeafVxyView: View {
                         .onChange(of: touchXY) { leafVm.touchNow($0) }
                     Capsule()
                         .fill(.white)
-                        .frame(width: panel.thumbRadius*2, height: panel.thumbRadius*2)
+                        .frame(width: panel.inner.width, height: panel.thumbRadius*2)
                         .offset(leafVm.offset)
                         .allowsHitTesting(false)
                 }

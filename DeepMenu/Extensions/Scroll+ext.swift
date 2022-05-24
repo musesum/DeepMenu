@@ -4,26 +4,26 @@
 import SwiftUI
 
 struct HVScroll<Content: View>: View {
-    let border: MuBorder
+    let panel: MuPanel
     let content: () -> Content
 
-    init(_ border: MuBorder, @ViewBuilder content: @escaping () -> Content) {
-        self.border = border
+    init(_ panel: MuPanel, @ViewBuilder content: @escaping () -> Content) {
+        self.panel = panel
         self.content = content
     }
 
     var body: some View {
         Group {
-            if border.axis == .vertical {
+            if panel.axis == .vertical {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading,
-                           spacing: border.margin,
+                           spacing: panel.margin,
                            content: content)
                 }
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .bottom,
-                           spacing: border.margin,
+                           spacing: panel.margin,
                            content: content)
                 }
             }

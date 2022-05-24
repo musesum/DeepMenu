@@ -192,8 +192,8 @@ class MuRootVm: ObservableObject, Equatable {
         // calc values
         let oneSpace = Layout.diameter + Layout.spacing * 3 // distance between branches
         let maxSpace = touchBranchDepth * oneSpace // maximum distance up to branch
-        let vert = branch.border.axis == .vertical
-        let hori = branch.border.axis == .horizontal
+        let vert = branch.panel.axis == .vertical
+        let hori = branch.panel.axis == .horizontal
         let left = corner.contains(.left)
         let upper = corner.contains(.upper)
 
@@ -375,7 +375,7 @@ class MuRootVm: ObservableObject, Equatable {
         // touch began at root
         if touchBranch.isRoot == true { return true }
 
-        switch touchBranch.border.axis  { // explore outward (✶) or hover inward (⌂)
+        switch touchBranch.panel.axis  { // explore outward (✶) or hover inward (⌂)
             case .vertical:
                 return (corner.contains(.right)
                         ? pointDelta.x < 0

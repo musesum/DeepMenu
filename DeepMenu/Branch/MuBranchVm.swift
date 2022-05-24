@@ -17,7 +17,7 @@ class MuBranchVm: Identifiable, ObservableObject {
     var spotNode: MuNodeVm?       // current spotlight node
     var spotPrev: MuNodeVm?       // prevBranch's spotlight node
 
-    var border: MuBorder
+    var panel: MuPanel
     var bounds: CGRect = .zero
     @Published var branchShift: CGSize = .zero
     @Published var show = true
@@ -38,7 +38,7 @@ class MuBranchVm: Identifiable, ObservableObject {
         self.level = level
         self.isRoot = isRoot
         self.show = show
-        self.border = MuBorder(type: .node, count: branchNodes.count, axis: axis)
+        self.panel = MuPanel(type: .node, count: branchNodes.count, axis: axis)
 
         branchPrev?.branchNext = self
         updateLimb(limb)
@@ -59,7 +59,7 @@ class MuBranchVm: Identifiable, ObservableObject {
         self.level = level
         self.show = show
         
-        self.border = MuBorder(type: .node, count: children.count, axis: axis)
+        self.panel = MuPanel(type: .node, count: children.count, axis: axis)
 
         branchPrev?.branchNext = self
 
@@ -80,9 +80,9 @@ class MuBranchVm: Identifiable, ObservableObject {
                 case .val: node = MuLeafValVm(self, child, spotPrev)
                 case .vxy: node = MuLeafVxyVm(self, child, spotPrev)
                 case .tog: node = MuLeafTogVm(self, child, spotPrev)
-                case .tap:  node = MuLeafTapVm (self, child, spotPrev)
+                case .tap: node = MuLeafTapVm(self, child, spotPrev)
                 case .seg: node = MuLeafSegVm(self, child, spotPrev)
-                default:    node = MuNodeVm(type,self,child, spotPrev)
+                default: node = MuNodeVm(type, self, child, spotPrev)
                     
             }
             branchNodes.append(node)
@@ -97,7 +97,7 @@ class MuBranchVm: Identifiable, ObservableObject {
         self.limb = limb
 
         if let center = branchPrev?.spotNode?.center {
-            bounds = border.bounds(center)
+            bounds = panel.bounds(center)
         }
         branchShift = branchPrev?.branchShift ?? .zero
     }
@@ -141,7 +141,7 @@ class MuBranchVm: Identifiable, ObservableObject {
 
     func updateBounds(_ from: CGRect) {
         if bounds != from {
-            bounds = border.updateBounds(from)
+            bounds = panel.updateBounds(from)
             // log("∿" + title, from, bounds)
         }
     }

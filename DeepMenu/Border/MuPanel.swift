@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-class MuBorder {
+class MuPanel {
     var type: MuNodeType
     var axis: Axis
     var count: CGFloat
@@ -21,13 +21,13 @@ class MuBorder {
 
     var aspect: CGSize { get {
         switch type {
-            case .none : return CGSize(width: 1, height: 1)
-            case .node : return CGSize(width: 1, height: 1)
-            case .val  : return CGSize(width: 1, height: 4)
-            case .vxy  : return CGSize(width: 4, height: 4)
-            case .tog  : return CGSize(width: 2, height: 1)
-            case .seg  : return CGSize(width: 1, height: 4)
-            case .tap  : return CGSize(width: 2, height: 2)
+            case .none : return CGSize(width: 1.0, height: 1.0)
+            case .node : return CGSize(width: 1.0, height: 1.0)
+            case .val  : return CGSize(width: 1.2, height: 4.0)
+            case .vxy  : return CGSize(width: 4.0, height: 4.0)
+            case .tog  : return CGSize(width: 1.5, height: 1.0)
+            case .seg  : return CGSize(width: 1.2, height: 4.0)
+            case .tap  : return CGSize(width: 1.5, height: 1.5)
         }
     }}
     var inner: CGSize {
@@ -91,7 +91,7 @@ class MuBorder {
         self.axis = axis
     }
     
-    init(from: MuBorder) {
+    init(from: MuPanel) {
         self.type   = from.type
         self.margin = from.margin
         self.axis   = from.axis

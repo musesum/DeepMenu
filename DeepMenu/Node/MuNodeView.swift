@@ -5,7 +5,7 @@ import SwiftUI
 struct MuNodeView: View {
 
     @ObservedObject var node: MuNodeVm
-    var border: MuBorder { get { node.border } }
+    var panel: MuPanel { get { node.panel } }
 
     var body: some View {
         GeometryReader() { geo in
@@ -33,7 +33,7 @@ struct MuNodeView: View {
             }
             .onAppear { node.updateCenter(geo.frame(in: .named("Space"))) }
         }
-        .frame(width: border.inner.width, height: border.inner.height)
+        .frame(width: panel.inner.width, height: panel.inner.height)
         .padding(Layout.spacing)
         .allowsHitTesting(true)
         .animation(.easeInOut(duration: Layout.animate), value: node.center)

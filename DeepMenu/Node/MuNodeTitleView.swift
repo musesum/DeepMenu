@@ -5,24 +5,24 @@ import SwiftUI
 struct MuNodeTitleView: View {
 
     @ObservedObject var node: MuNodeVm
-    var borderColor: Color   { node.spotlight ? .white : .gray }
-    var borderWidth: CGFloat { node.spotlight ?    2.5 :   0.5 }
+    var color: Color   { node.spotlight ? .white : .gray }
+    var width: CGFloat { node.spotlight ?    2.0 :   0.5 }
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: node.border.cornerRadius)
+            RoundedRectangle(cornerRadius: node.panel.cornerRadius)
                 .fill(Color.black)
-            RoundedRectangle(cornerRadius: node.border.cornerRadius)
-                .stroke(borderColor, lineWidth: borderWidth)
-                .animation(.easeInOut(duration: 0.20), value: borderColor)
-                .animation(.easeInOut(duration: 0.20), value: borderWidth)
+            RoundedRectangle(cornerRadius: node.panel.cornerRadius)
+                .stroke(color, lineWidth: width)
+                .animation(Layout.flash(), value: color)
+                .animation(Layout.flash(), value: width)
                 .background(Color.clear)
             Text(node.node.name)
                 .scaledToFit()
                 .padding(1)
                 .minimumScaleFactor(0.01)
-                .foregroundColor(borderColor)
-                .animation(.easeInOut(duration: 0.20), value: borderColor)
+                .foregroundColor(color)
+                .animation(Layout.flash(), value: color)
         }
     }
 }

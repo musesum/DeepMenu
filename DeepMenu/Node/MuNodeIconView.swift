@@ -7,17 +7,17 @@ struct MuNodeIconView: View {
     @ObservedObject var node: MuNodeVm
     let icon: String
 
-    var borderColor: Color { node.spotlight ? .white : .gray }
-    var borderWidth: CGFloat { node.spotlight ? 2 : 1 }
+    var color: Color { node.spotlight ? .white : .black }
+    var width: CGFloat { node.spotlight ? 2 : 1 }
 
     var body: some View {
         ZStack {
             Circle()
                 .fill(Color.black)
             Circle()
-                .stroke(borderColor, lineWidth: borderWidth)
-                .animation(.easeInOut(duration: 0.20), value: borderColor)
-                .animation(.easeInOut(duration: 0.20), value: borderWidth)
+                .stroke(color, lineWidth: width)
+                .animation(Layout.flash(), value: color)
+                .animation(Layout.flash(), value: width)
                 .background(Color.clear)
 
             Image(icon)

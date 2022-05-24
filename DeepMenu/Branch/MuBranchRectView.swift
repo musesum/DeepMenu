@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct MuBranchRectView: View {
-    var border: MuBorder
+    var panel: MuPanel
     var body: some View {
         GeometryReader { geo in
             let size = geo.frame(in: .named("Space")).size
@@ -11,7 +11,7 @@ struct MuBranchRectView: View {
                 .opacity(0.1)
                 .background(.ultraThinMaterial)
                 .frame(width: size.width, height: size.height)
-                .cornerRadius(border.cornerRadius)
+                .cornerRadius(panel.cornerRadius)
         }
     }
 }

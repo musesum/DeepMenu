@@ -17,7 +17,7 @@ class MuLimbVm: Identifiable, ObservableObject {
 
         self.branches = branches
         self.root = root
-        self.axis = branches.first?.border.axis ?? .horizontal
+        self.axis = branches.first?.panel.axis ?? .horizontal
         for branch in branches {
             branch.updateLimb(self)
         }
@@ -109,7 +109,7 @@ class MuLimbVm: Identifiable, ObservableObject {
                 let filter = newBranch.branchNodes.filter { $0.node.id == leafModel.id }
                 newBranch.spotNode = filter.first
                 expandBranches(newBranch.spotNode, newBranch, &newBranches, level + 1)
-                newBranch.border.type = newBranch.spotNode?.border.type ?? .node
+                newBranch.panel.type = newBranch.spotNode?.panel.type ?? .node
             }
         }
     }
