@@ -16,7 +16,7 @@ struct ContentView: View {
     let appSpace = AppSpace()
 
     var body: some View {
-        ContentViews.client
+        // ContentViews.client
         ZStack(alignment: .bottomLeading) {
             AppBackgroundView(space: appSpace)
             //MuRootView().environmentObject(MuRootVm([.lower, .right], branches: testBranches()))

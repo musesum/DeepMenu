@@ -16,7 +16,7 @@ struct MuLeafSegView: View {
                 .foregroundColor(Color.white)
             ZStack {
                 GeometryReader { geo in
-                    MuPanelView(panel: panel, editing: leafVm.editing)
+                    MuLeafPanelView(panel: panel, editing: leafVm.editing)
                         .gesture(DragGesture(minimumDistance: 0)
                             .updating($touchXY) { (input, result, _) in
                                 result = input.location })

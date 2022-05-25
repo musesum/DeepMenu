@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct MuPanelView: View {
+struct MuLeafPanelView: View {
     @GestureState private var touchXY: CGPoint = .zero
     var panel: MuPanel
     var editing: Bool
@@ -10,7 +10,6 @@ struct MuPanelView: View {
     var strokeWidth: CGFloat { get { Layout.strokeWidth(editing) }}
 
     var body: some View {
-
         ZStack {
             GeometryReader { geo in
                 RoundedRectangle(cornerRadius: panel.cornerRadius)

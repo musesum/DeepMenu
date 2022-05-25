@@ -17,7 +17,7 @@ struct Layout {
     static func fillColor(_ high: Bool) -> Color {
         let color = (high
                      ? Color(white: 1.0, opacity: 1.00)
-                     : Color(white: 0.6, opacity: 0.80))
+                     : panelFill)
         return color
     }
 

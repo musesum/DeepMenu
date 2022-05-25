@@ -19,7 +19,7 @@ struct MuLeafTapView: View {
             ZStack {
                 GeometryReader { geo in
                     RoundedRectangle(cornerRadius: leafVm.panel.cornerRadius)
-                        .fill(fillColor)
+                        .fill(Layout.panelFill)
                         .frame(width: panel.inner.width, height: panel.inner.height)
                         .animation(Layout.flash(), value: fillColor)
                     RoundedRectangle(cornerRadius: panel.cornerRadius)
