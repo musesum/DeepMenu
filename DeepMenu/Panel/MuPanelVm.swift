@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-class MuPanel {
+class MuPanelVm {
     var type: MuNodeType
     var axis: Axis
     var count: CGFloat
@@ -23,10 +23,10 @@ class MuPanel {
         switch type {
             case .none : return CGSize(width: 1.0, height: 1.0)
             case .node : return CGSize(width: 1.0, height: 1.0)
-            case .val  : return CGSize(width: 1.2, height: 4.0)
+            case .val  : return CGSize(width: 1.0, height: 4.0)
             case .vxy  : return CGSize(width: 4.0, height: 4.0)
             case .tog  : return CGSize(width: 1.5, height: 1.0)
-            case .seg  : return CGSize(width: 1.2, height: 4.0)
+            case .seg  : return CGSize(width: 1.0, height: 4.0)
             case .tap  : return CGSize(width: 1.5, height: 1.5)
         }
     }}
@@ -91,7 +91,7 @@ class MuPanel {
         self.axis = axis
     }
     
-    init(from: MuPanel) {
+    init(from: MuPanelVm) {
         self.type   = from.type
         self.margin = from.margin
         self.axis   = from.axis

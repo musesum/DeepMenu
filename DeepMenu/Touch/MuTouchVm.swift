@@ -6,45 +6,40 @@ import SwiftUI
  Draggable clone of node withing a branch, which clips at border
  - note: Instead, move clones on space
  */
-class MuPilotVm: ObservableObject {
+class MuTouchVm: ObservableObject {
 
     @Published var pointNow = CGPoint.zero    // current position
-    var pointHome = CGPoint.zero  // starting position of touch
+    public var pointHome = CGPoint.zero  // starting position of touch
     var alpha: CGFloat { get { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }}
 
-    var rootVm: MuRootVm?
-    var baseNodeVm: MuNodeVm    // fixed node to start touch from
-    var hoverNodeVm: MuNodeVm?  // selected hover node while dragging
-    var rootBranch: MuBranchVm
+    var rootVm: MuRootVm?      //
+    var homeNodeVm: MuNodeVm?  // fixed home node in corner in which to drag from
+    var dragNodeVm: MuNodeVm?  // drag from home with duplicate node icon
 
     private var touchOfs = CGSize.zero // offset between rootNode and touchNow
-    var deltaOfs = CGSize.zero // offset between touch point and center in coord
+    private var deltaOfs = CGSize.zero // offset between touch point and center in coord
     var pilotOfs: CGSize { get {
         switch rootVm?.status ?? .root {
             case .root:  return touchOfs
-            case .limb:  return deltaOfs
+            case .tree:  return deltaOfs
+            case .edit:  return .zero
             case .space: return deltaOfs
         }}}
 
-    /// adjust offset for root on right side of canvas
-    func rightSideOffset(for rootStatus: MuRootStatus) -> CGFloat {
-        if let root = rootVm,
-           root.status == rootStatus,
-           root.corner.contains(.right) {
-            return -(2 * Layout.spacing)
-        } else {
-            return 0
-        }
-    }
 
     var touchBranch: MuBranchVm? // branch which captured DragGesture
     var pointDelta = CGPoint.zero // touch starting position
 
+
     init() {
-        let node = MuNodeTest("⚫︎") // name changed below
-        rootBranch = MuBranchVm(isRoot: true, axis: .horizontal)
-        baseNodeVm = MuNodeVm(.node, rootBranch, node, icon: Layout.hoverRing)
-        rootBranch.addNode(baseNodeVm)
+    }
+
+    func setRoot(_ rootVm: MuRootVm) {
+        self.rootVm = rootVm
+        let homeNode = MuNodeTest("⚫︎") //todo: replace with ??
+        let branchVm = MuBranchVm(tree: rootVm.treeNowVm, isRoot: true)
+        homeNodeVm = MuNodeVm(.node, homeNode, branchVm, icon: Layout.hoverRing)
+        branchVm.addNode(homeNodeVm)
     }
     
     func setRootVm(_ rootVm: MuRootVm) {
@@ -63,13 +58,25 @@ class MuPilotVm: ObservableObject {
             case [.left ]: name = "◀︎"
             default:       name = "??"
         }
-        baseNodeVm.node.name = name
+        homeNodeVm?.node.name = name
+    }
+
+    /// adjust offset for root on right side of canvas
+    func rightSideOffset(for rootStatus: MuRootStatus) -> CGFloat {
+        guard let rootVm = rootVm else { return 0 }
+        if rootVm.status == rootStatus,
+           rootVm.corner.contains(.right) {
+            return -(2 * Layout.spacing)
+        } else {
+            return 0
+        }
     }
 
     func setTouchNow( _ touchNow: CGPoint) {
         pointNow = touchNow
         pointDelta = touchNow
-        touchOfs = CGSize(baseNodeVm.center - touchNow)
+        let homeCenter = homeNodeVm?.center ?? .zero
+        touchOfs = CGSize(homeCenter - touchNow)
         touchOfs.width += rightSideOffset(for: .root)
         deltaOfs = .zero
     }
@@ -80,16 +87,17 @@ class MuPilotVm: ObservableObject {
     func touchUpdate(_ touchNow: CGPoint,
                      _ touchBranch: MuBranchVm?) {
 
-        if      touchNow == .zero  { ended() }
-        else if hoverNodeVm == nil { begin() }
-        else                       { moved() }
+        if      touchNow == .zero { ended() }
+        else if dragNodeVm == nil { begin() }
+        else                      { moved() }
 
         func begin() {
+            guard let homeNodeVm = homeNodeVm else { return }
             setTouchNow(touchNow)
-            hoverNodeVm = baseNodeVm.copy()
+            dragNodeVm = homeNodeVm.copy()
             rootVm?.begin(touchBranch, touchNow)
             log("touch", [touchNow], terminator: " ")
-            log("root", [baseNodeVm.center], terminator: " ")
+            //log("root", [baseNodeVm.center], terminator: " ")
         }
 
         func moved() {
@@ -109,21 +117,19 @@ class MuPilotVm: ObservableObject {
         }
         func touchDone() {
             rootVm?.resetRootTimer(delay: 4)
-            hoverNodeVm = nil
+            dragNodeVm = nil
         }
     }
 
     func updateHome(_ fr: CGRect) {
-        if let root = rootVm {
-            pointHome = root.cornerXY(in: fr)
-            pointNow = pointHome
-            // log("home: ", [pointNow])
-        }
+        pointHome = rootVm?.cornerXY(in: fr) ?? .zero
+        pointNow = pointHome
+        // log("home: ", [pointNow])
     }
 
     func updateDelta(_ pointDelta: CGPoint) {
         deltaOfs = .zero + pointDelta
-        deltaOfs.width += rightSideOffset(for: .limb)
+        deltaOfs.width += rightSideOffset(for: .tree)
          // log("Δ ", [pointNow, deltaOfs])
     }
 }

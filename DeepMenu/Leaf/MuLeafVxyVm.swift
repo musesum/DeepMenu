@@ -18,12 +18,12 @@ class MuLeafVxyVm: MuNodeVm {
         }
     }
 
-    init (_ branch: MuBranchVm,
-          _ node: MuNode,
+    init (_ node: MuNode,
+          _ branchVm: MuBranchVm,
           _ parentVm: MuNodeVm?,
           icon: String = "") {
         
-        super.init(.vxy, branch, node, parentVm, icon: icon)
+        super.init(.vxy, node, branchVm, parentVm, icon: icon)
         
         if let node = node as? MuNodeTr3,
            let p = node.tr3.CGPointVal() {
@@ -35,7 +35,7 @@ class MuLeafVxyVm: MuNodeVm {
 
         if touchNow != .zero {
             editing = true
-            xy = panel.normalizeTouch(xy: touchNow)
+            xy = panelVm.normalizeTouch(xy: touchNow)
             //log("👆", format: "%.2f", [xy])
             node.callback(xy)
         } else {
@@ -45,8 +45,8 @@ class MuLeafVxyVm: MuNodeVm {
 
     var offset: CGSize {
         get {
-            let size = CGSize(width:  xy.x * panel.xRunway(),
-                              height: xy.y * panel.yRunway())
+            let size = CGSize(width:  xy.x * panelVm.xRunway(),
+                              height: xy.y * panelVm.yRunway())
             return size
         }
     }

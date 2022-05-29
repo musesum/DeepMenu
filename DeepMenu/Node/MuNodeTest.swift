@@ -13,7 +13,7 @@ class MuNodeTest: MuNode {
          callback: @escaping CallAny = { _ in return })
     {
 
-        super.init(name: name, type: type, callback: callback)
+        super.init(name: name, callback: callback)
         
         if let children = children {
             for child in children {
@@ -40,7 +40,6 @@ class MuNodeTest: MuNode {
 
     func addChild(_ child: MuNode) {
         children.append(child)
-        child.parent = self
     }
     
 }

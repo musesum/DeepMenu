@@ -11,7 +11,7 @@ import SwiftUI
 
 @testable import DeepMenu
 
-extension MuLimbView: Inspectable { }
+extension MuTreeView: Inspectable { }
 
 class MuLimbViewTests: XCTestCase {
     let rootLowerRight = MuRootVm([.lower, .right], branches: nil)
@@ -29,14 +29,14 @@ class MuLimbViewTests: XCTestCase {
     }
 
     func testLayoutRelativeToRootPlacement() throws {
-        let horizontalLowerRightLimb = MuLimbVm(branches: [horizontalBranch], root: rootLowerRight)
-        var limbView = MuLimbView(limbVm: horizontalLowerRightLimb).environmentObject(rootLowerRight)
-        var vStackView = try limbView.inspect().view(MuLimbView.self).vStack()
+        let horizontalLowerRightLimb = MuTreeVm(branches: [horizontalBranch], root: rootLowerRight)
+        var treeView = MuTreeView(treeVm: horizontalLowerRightLimb).environmentObject(rootLowerRight)
+        var vStackView = try treeView.inspect().view(MuTreeView.self).vStack()
         XCTAssertEqual(HorizontalAlignment.trailing, try vStackView.alignment())
 
-        let horizontalLowerLeftLimb = MuLimbVm(branches: [horizontalBranch], root: rootLowerLeft)
-        limbView = MuLimbView(limbVm: horizontalLowerLeftLimb).environmentObject(rootLowerLeft)
-        vStackView = try limbView.inspect().view(MuLimbView.self).vStack()
+        let horizontalLowerLeftLimb = MuTreeVm(branches: [horizontalBranch], root: rootLowerLeft)
+        treeView = MuTreeView(treeVm: horizontalLowerLeftLimb).environmentObject(rootLowerLeft)
+        vStackView = try treeView.inspect().view(MuTreeView.self).vStack()
         XCTAssertEqual(HorizontalAlignment.leading, try vStackView.alignment())
     }
 }

@@ -23,7 +23,6 @@ class SkyTr3: NSObject {
         parseFile("menu")
         parseFile("midi")
 
-        let script = root.makeTr3Script(indent: 0, pretty: false)
-        print(script)
+        // print(root.makeTr3Script(indent: 0, pretty: false))
     }
 }

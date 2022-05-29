@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct MuNodeTitleView: View {
+struct MuNodeTextView: View {
 
     @ObservedObject var node: MuNodeVm
     var color: Color   { node.spotlight ? .white : .gray }
@@ -10,9 +10,9 @@ struct MuNodeTitleView: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: node.panel.cornerRadius)
+            RoundedRectangle(cornerRadius: node.panelVm.cornerRadius)
                 .fill(Color.black)
-            RoundedRectangle(cornerRadius: node.panel.cornerRadius)
+            RoundedRectangle(cornerRadius: node.panelVm.cornerRadius)
                 .stroke(color, lineWidth: width)
                 .animation(Layout.flash(), value: color)
                 .animation(Layout.flash(), value: width)

@@ -10,12 +10,12 @@ class MuLeafTogVm: MuNodeVm {
 
     var status: String { get { v == 1 ? "on" : "off" } }
 
-    init (_ branch: MuBranchVm,
-          _ node: MuNode,
+    init (_ node: MuNode,
+          _ branchVm: MuBranchVm,
           _ parentVm: MuNodeVm?,
           icon: String = "") {
 
-        super.init(.tog, branch, node, parentVm, icon: icon)
+        super.init(.tog, node, branchVm, parentVm, icon: icon)
         
         if let node = node as? MuNodeTr3 {
             if let vv = node.tr3.CGFloatVal() {
@@ -37,7 +37,7 @@ class MuLeafTogVm: MuNodeVm {
 
     var offset: CGSize {
         get {
-            let size = CGSize(width: v * panel.xRunway(),
+            let size = CGSize(width: v * panelVm.xRunway(),
                               height: 0)
             return size
         }

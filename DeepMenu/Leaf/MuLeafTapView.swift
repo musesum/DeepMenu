@@ -6,11 +6,11 @@ struct MuLeafTapView: View {
 
     @ObservedObject var leafVm: MuLeafTapVm
     @GestureState private var touchXY: CGPoint = .zero
-    var panel: MuPanel { get { leafVm.panel } }
-    var fillColor  : Color   { get { Layout.fillColor(leafVm.editing) }}
-    var strokeColor: Color   { get { Layout.strokeColor(leafVm.editing) }}
-    var strokeWidth: CGFloat { get { Layout.strokeWidth(leafVm.editing) }}
-    
+    var panelVm     : MuPanelVm { get { leafVm.panelVm } }
+    var fillColor   : Color     { get { Layout.fillColor(leafVm.editing) }}
+    var strokeColor : Color     { get { Layout.strokeColor(leafVm.editing) }}
+    var strokeWidth : CGFloat   { get { Layout.strokeWidth(leafVm.editing) }}
+
     var body: some View {
         VStack {
             Text(leafVm.status)
@@ -18,13 +18,13 @@ struct MuLeafTapView: View {
                 .foregroundColor(Color.white)
             ZStack {
                 GeometryReader { geo in
-                    RoundedRectangle(cornerRadius: leafVm.panel.cornerRadius)
+                    RoundedRectangle(cornerRadius: leafVm.panelVm.cornerRadius)
                         .fill(Layout.panelFill)
-                        .frame(width: panel.inner.width, height: panel.inner.height)
+                        .frame(width: panelVm.inner.width, height: panelVm.inner.height)
                         .animation(Layout.flash(), value: fillColor)
-                    RoundedRectangle(cornerRadius: panel.cornerRadius)
+                    RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                         .stroke(strokeColor, lineWidth: strokeWidth)
-                        .frame(width: panel.inner.width, height: panel.inner.height)
+                        .frame(width: panelVm.inner.width, height: panelVm.inner.height)
                         .animation(Layout.flash(), value: strokeColor)
                         .animation(Layout.flash(), value: strokeWidth)
                 }

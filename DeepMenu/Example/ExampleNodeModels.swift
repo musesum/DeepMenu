@@ -15,7 +15,7 @@ enum ExampleNodeModels {
     }
 
     /**
-     Create a stochastic limb of `MuNodeTest`s
+     Create a stochastic tree of `MuNodeTest`s
      */
     static func letteredNodes(parent: MuNodeTest? = nil, _ level: Int = 0) -> [MuNodeTest] {
         var nodes = [MuNodeTest]()

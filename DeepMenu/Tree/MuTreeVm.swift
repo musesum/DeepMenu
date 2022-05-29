@@ -1,33 +1,37 @@
 // Created by warren 10/27/21.
 import SwiftUI
 
-class MuLimbVm: Identifiable, ObservableObject {
+class MuTreeVm: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
 
     @Published var branches: [MuBranchVm]
-    var root: MuRootVm? // control tower root
+
     var axis: Axis  // vertical or horizontal
     var level = CGFloat(1) // starting level for branches
     var offset = CGSize(width: 0, height: 0)
     var depthShown = 0 // levels of branches shown
-    var spotNode: MuNodeVm? // current node under pilot's flyNode
+    var nodeNowVm: MuNodeVm? // current node under pilot's dragNode
 
     init(branches: [MuBranchVm],
+         axis: Axis,
          root: MuRootVm) {
 
         self.branches = branches
-        self.root = root
-        self.axis = branches.first?.panel.axis ?? .horizontal
+        self.axis = axis
         for branch in branches {
             branch.updateLimb(self)
         }
         showBranches(depth: 1)
     }
-
+    func addBranch(_ branchVm: MuBranchVm?) {
+        guard let branchVm = branchVm else { return }
+        branches.append(branchVm)
+    }
+    
     /// find nearest node to touch point
     func nearestNode(_ touchNow: CGPoint,
-                    _ touchBranch: MuBranchVm?) -> MuNodeVm? {
-        var skipPreBranches = touchBranch?.limb?.id == id
+                     _ touchBranch: MuBranchVm?) -> MuNodeVm? {
+        var skipPreBranches = (touchBranch?.tree?.id == id)
 
         for branch in branches {
             
@@ -36,37 +40,37 @@ class MuLimbVm: Identifiable, ObservableObject {
 
             skipPreBranches = false
 
-            if let nextNode = branch.findHover(touchNow) {
-                if spotNode?.id != nextNode.id {
-                    spotNode = nextNode
-                    spotNode?.superSelect()
-                    refreshBranches(nextNode.branch, nextNode)
+            if let nodeNext = branch.findHover(touchNow) {
+                if nodeNowVm?.id != nodeNext.id {
+                    nodeNowVm = nodeNext
+                    nodeNowVm?.superSelect()
+                    refreshBranches(nodeNext)
                 }
-                return spotNode
+                return nodeNowVm
             }
         }
         return nil
     }
 
     /// evenly space docs leading up to spotBranch's position
-    func refreshBranches(_ spotBranch: MuBranchVm,
-                         _ spotNode: MuNodeVm) {
+    func refreshBranches(_ nodeNextVm: MuNodeVm) {
 
+        let branchNextVm = nodeNextVm.branchVm
         // tapped on spotlight
-        if let branchNext = spotBranch.branchNext,
-           branchNext.show == true, // branchNext is also shown (limb.depth > 1)
-           let subId = branchNext.spotNode?.node.id,
-           let nowId = spotNode.node.childNow?.id, subId == nowId {
+        if let branchNext = branchNextVm.branchNext,
+           branchNext.show == true, // branchNext is also shown (tree.depth > 1)
+           let subId = branchNext.nodeNowVm?.node.id,
+           let nowId = nodeNextVm.node.childNow?.id, subId == nowId {
             // all subBranches are the same
             return
         }
-        spotBranch.spotNode = spotNode
+        branchNextVm.nodeNowVm = nodeNextVm
         // remove old sub branches 
-        while branches.last?.id != spotBranch.id {
+        while branches.last?.id != branchNextVm.id {
             branches.removeLast()
         }
         var newBranches = [MuBranchVm]()
-        expandBranches(spotNode, branches.last,  &newBranches, level + 1)
+        expandBranches(nodeNextVm, branches.last,  &newBranches, level + 1)
         if newBranches.count > 0 {
             branches.append(contentsOf: newBranches)
             // unfold branches
@@ -79,37 +83,35 @@ class MuLimbVm: Identifiable, ObservableObject {
     }
 
     /// add a branch to selected node and follow selected kid
-    func expandBranches(_ spotNode: MuNodeVm?,
-                        _ branchPrev: MuBranchVm?,
-                        _ newBranches: inout [MuBranchVm],
+    func expandBranches(_ nodeNowVm: MuNodeVm?,
+                        _ branchPrevVm: MuBranchVm?,
+                        _ newBranchVms: inout [MuBranchVm],
                         _ level: CGFloat) {
         
-        guard let spotNode = spotNode else { return }
+        guard let nodeNowVm = nodeNowVm else { return }
         self.level = level
-        spotNode.spotlight = true
+        nodeNowVm.spotlight = true
         
-        if spotNode.node.children.count > 0 {
-            let newBranch = MuBranchVm(branchPrev: branchPrev,
-                                     spotPrev: spotNode,
-                                     children: spotNode.node.children,
-                                     limb: self,
-                                     level: level + 1,
-                                     show: false,
-                                     axis: axis)
+        if nodeNowVm.node.children.count > 0 {
+            let newBranch = MuBranchVm(branchPrev: branchPrevVm,
+                                       spotPrev: nodeNowVm,
+                                       children: nodeNowVm.node.children,
+                                       tree: self,
+                                       show: false)
             
-            newBranches.append(newBranch)
-            if let leafModel = spotNode.node.childNow {
-                leafBranch(leafModel)
-            } else if spotNode.node.children.count == 1,
-                      let spotChild = spotNode.node.children.first {
+            newBranchVms.append(newBranch)
+            if let childNow = nodeNowVm.node.childNow {
+                leafBranch(childNow)
+            } else if nodeNowVm.node.children.count == 1,
+                      let spotChild = nodeNowVm.node.children.first {
                 leafBranch(spotChild)
             }
             func leafBranch(_ leafModel: MuNode) {
                 // TODO: use ordered dictionary?
-                let filter = newBranch.branchNodes.filter { $0.node.id == leafModel.id }
-                newBranch.spotNode = filter.first
-                expandBranches(newBranch.spotNode, newBranch, &newBranches, level + 1)
-                newBranch.panel.type = newBranch.spotNode?.panel.type ?? .node
+                let filter = newBranch.nodeVms.filter { $0.node.id == leafModel.id }
+                newBranch.nodeNowVm = filter.first
+                expandBranches(newBranch.nodeNowVm, newBranch, &newBranchVms, level + 1)
+                newBranch.panelVm.type = newBranch.nodeNowVm?.panelVm.type ?? .node
             }
         }
     }
@@ -119,10 +121,10 @@ class MuLimbVm: Identifiable, ObservableObject {
         var lag = TimeInterval(0)
         var newBranches = [MuBranchVm]()
 
-        // logStart()
+        logStart() //?? 
         if      depthShown < depthNext { expandBranches() }
         else if depthShown > depthNext { contractBranches() }
-        // logFinish()
+        logFinish() //??
 
         func expandBranches() {
             var countUp = 0

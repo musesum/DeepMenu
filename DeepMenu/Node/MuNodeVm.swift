@@ -2,51 +2,110 @@
 
 import SwiftUI
 
+extension MuNodeVm {
+
+    static func cache(_ type: MuNodeType,
+                      _ node: MuNode,
+                      _ branchVm: MuBranchVm,
+                      _ parentVm: MuNodeVm? = nil,
+                      icon: String = "") -> MuNodeVm {
+
+        switch type {
+            case .val: return MuLeafValVm(node, branchVm, parentVm)
+            case .vxy: return MuLeafVxyVm(node, branchVm, parentVm)
+            case .tog: return MuLeafTogVm(node, branchVm, parentVm)
+            case .tap: return MuLeafTapVm(node, branchVm, parentVm)
+            case .seg: return MuLeafSegVm(node, branchVm, parentVm)
+            default:   return MuNodeVm(type, node, branchVm, parentVm)
+        }
+    }
+}
+extension MuNodeVm {
+
+    func path() -> String {
+        if let prior = parentVm?.path() {
+            return prior + "." + node.name
+        } else {
+            return node.name
+        }
+    }
+
+    func path(child: String) -> String {
+        let prior = path()
+        if prior.isEmpty {
+            return child
+        } else {
+            return prior + "." + child
+        }
+    }
+
+    func hash() -> Int {
+        let path = path()
+        var hasher = Hasher()
+        hasher.combine(path)
+        let hash = hasher.finalize()
+        //print(path + String(format: ": %i", hash))
+        return hash
+    }
+
+    func hash(child: String) -> Int {
+        let path = path(child: child)
+        var hasher = Hasher()
+        hasher.combine(path)
+        let hash = hasher.finalize()
+        print(path + String(format: ": %i", hash))
+        return hash
+    }
+}
+
+
 class MuNodeVm: Identifiable, Equatable, ObservableObject {
     let id = MuIdentity.getId()
-
-    static func == (lhs: MuNodeVm, rhs: MuNodeVm) -> Bool {
-        return lhs.id == rhs.id
-    }
+    static func == (lhs: MuNodeVm, rhs: MuNodeVm) -> Bool { return lhs.id == rhs.id }
 
     @Published var spotlight = false // true when selected or under cursor
     var spotTime = TimeInterval(0)
 
+    var type: MuNodeType        // node, val, vxy, seg, tog, tap
     var node: MuNode            // each model MuNode maybe on several MuNodeVm(s)
     var icon: String            // icon for this node (not implemented)
-    var branch: MuBranchVm      // branch that this node is on
+    var branchVm: MuBranchVm    // branch that this node is on
     var parentVm: MuNodeVm?     // parent branch's spotlight node
     var center = CGPoint.zero   // current position
-    var panel: MuPanel
+    var panelVm: MuPanelVm
 
-    @Published var editing: Bool = false   // changing value of leaf (or order of node, later)
+    var components: [String: Any]? { get {
+        (node as? MuNodeTr3)?.tr3.components() ?? [:]
+    }}
+    @Published var editing: Bool = false // changing value of leaf (or order of node, later)
 
     init (_ type: MuNodeType,
-          _ branch: MuBranchVm,
           _ node: MuNode,
-          _ spotPrev: MuNodeVm? = nil,
+          _ branch: MuBranchVm,
+          _ parentVm: MuNodeVm? = nil,
           icon: String = "") {
 
-        self.branch = branch
         self.node = node
+        self.type = type
+        self.branchVm = branch
         self.icon = icon
-        self.parentVm = spotPrev
-        self.panel = MuPanel(type: type)
+        self.parentVm = parentVm
+        self.panelVm = MuPanelVm(type: type)
 
         if [.val, .vxy].contains(type) {
-            branch.panel.type = type
+            branch.panelVm.type = type
         }
     }
     
     func copy() -> MuNodeVm {
-        let node = MuNodeVm(panel.type, branch, node, self, icon: icon)
+        let node = MuNodeVm(panelVm.type, node, branchVm, self, icon: icon)
         return node
     }
 
     /// spotlight self, parent, grand, etc. in branch
     func superSpotlight(_ time: TimeInterval = Date().timeIntervalSince1970) {
-        for node in branch.branchNodes {
-            node.spotlight = false
+        for nodeVm in branchVm.nodeVms {
+            nodeVm.spotlight = false
         }
         spotlight = true
         spotTime = time
@@ -56,10 +115,10 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     /// select self, parent, grand, etc. in branch
     func superSelect() {
 
-        if let spotPrev = parentVm {
-            spotPrev.spotlight = true
-            spotPrev.node.childNow = node
-            spotPrev.superSelect()
+        if let parentVm = parentVm {
+            parentVm.spotlight = true
+            parentVm.node.childNow = node
+            parentVm.superSelect()
         }
     }
 

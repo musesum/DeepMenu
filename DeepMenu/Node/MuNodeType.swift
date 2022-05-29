@@ -24,7 +24,7 @@ enum MuNodeType: String {
             }
         }
     }
-    public var bug: String {
+    public var icon: String {
         get {
             switch self {
                 case .none : return " ⃝"

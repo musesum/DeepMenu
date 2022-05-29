@@ -4,17 +4,28 @@ import Foundation
 
 enum MuRootStatus: String  {
 
-    case root    // unknown at beginning
-    case limb  // over a limb's branch
-    case space  // neither hori or vert
+    case root   // only root node showing
+    case tree   // branches expanded, hovering
+    case edit   // editing a leaf
+    case space  // hovering over canvas
 
-
+    public var icon: String {
+        get {
+            switch self {
+                case .root  : return "√"
+                case .tree  : return "𐂷"
+                case .edit  : return "✎"
+                case .space : return "⬚"
+            }
+        }
+    }
     public var description: String {
         get {
             switch self {
-                case .root  : return "⦿"
-                case .limb  : return "⌖"
-                case .space : return "⬚"
+                case .root  : return "root"
+                case .tree  : return "tree"
+                case .edit  : return "edit"
+                case .space : return "space"
             }
         }
     }

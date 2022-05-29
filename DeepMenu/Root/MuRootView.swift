@@ -19,10 +19,10 @@ private struct SpaceView: View {
     @EnvironmentObject var rootVm: MuRootVm
     var body: some View {
 
-        ForEach(rootVm.limbVms, id: \.id) {
-            MuLimbView(limbVm: $0)
+        ForEach(rootVm.treeVms, id: \.id) {
+            MuTreeView(treeVm: $0)
         }
-        MuPilotView(pilot: rootVm.pilotVm)
+        MuTouchView(touchVm: rootVm.touchVm)
     }
 }
 

@@ -16,12 +16,12 @@ class MuLeafTapVm: MuNodeVm {
         }
     }
 
-    init (_ branch: MuBranchVm,
-          _ node: MuNode,
+    init (_ node: MuNode,
+          _ branchVm: MuBranchVm,
           _ parentVm: MuNodeVm?,
           icon: String = "") {
         
-        super.init(.tap, branch, node, parentVm, icon: icon)
+        super.init(.tap, node, branchVm, parentVm, icon: icon)
         
         if let node = node as? MuNodeTr3 {
             node.callback(1)
@@ -41,7 +41,7 @@ class MuLeafTapVm: MuNodeVm {
 
     var offset: CGSize {
         get {
-            let size = CGSize(width: 0, height:  panel.yRunway())
+            let size = CGSize(width: 0, height:  panelVm.yRunway())
             return size
         }
     }

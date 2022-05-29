@@ -4,39 +4,36 @@ import SwiftUI
 
 struct MuNodeView: View {
 
-    @ObservedObject var node: MuNodeVm
-    var panel: MuPanel { get { node.panel } }
+    @ObservedObject var nodeVm: MuNodeVm
+    var panelVm: MuPanelVm { get { nodeVm.panelVm } }
 
     var body: some View {
         GeometryReader() { geo in
             Group {
-                switch node {
-
-                    case let leaf as MuLeafVxyVm: MuLeafVxyView(leafVm: leaf)
-                    case let leaf as MuLeafValVm: MuLeafValView(leafVm: leaf)
-                    case let leaf as MuLeafSegVm: MuLeafSegView(leafVm: leaf)
-                    case let leaf as MuLeafTogVm: MuLeafTogView(leafVm: leaf)
-                    case let leaf as MuLeafTapVm: MuLeafTapView(leafVm: leaf)
+                switch nodeVm {
+                    case let n as MuLeafVxyVm: MuLeafVxyView(leafVm: n)
+                    case let n as MuLeafValVm: MuLeafValView(leafVm: n)
+                    case let n as MuLeafSegVm: MuLeafSegView(leafVm: n)
+                    case let n as MuLeafTogVm: MuLeafTogView(leafVm: n)
+                    case let n as MuLeafTapVm: MuLeafTapView(leafVm: n)
 
                     default:
-
-                        if node.icon.isEmpty {
-                            MuNodeTitleView(node: node)
-                        }
-                        else {
-                            Image(node.icon).resizable()
+                        if nodeVm.icon.isEmpty {
+                            MuNodeTextView(node: nodeVm)
+                        } else {
+                            Image(nodeVm.icon).resizable()
                         }
                 }
             }
             .onChange(of: geo.frame(in: .named("Space"))) {
-                node.updateCenter($0)
+                nodeVm.updateCenter($0)
             }
-            .onAppear { node.updateCenter(geo.frame(in: .named("Space"))) }
+            .onAppear { nodeVm.updateCenter(geo.frame(in: .named("Space"))) }
         }
-        .frame(width: panel.inner.width, height: panel.inner.height)
+        .frame(width: panelVm.inner.width, height: panelVm.inner.height)
         .padding(Layout.spacing)
         .allowsHitTesting(true)
-        .animation(.easeInOut(duration: Layout.animate), value: node.center)
+        .animation(.easeInOut(duration: Layout.animate), value: nodeVm.center)
     }
 }
 

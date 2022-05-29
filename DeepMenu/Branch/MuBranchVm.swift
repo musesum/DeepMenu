@@ -7,18 +7,19 @@ class MuBranchVm: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
 
     var isRoot: Bool = false
-    var limb: MuLimbVm?           // my limb; which unfolds a hierarchy of branches
-    var level: CGFloat          // zIndex within sub/super branches
+    var tree: MuTreeVm?          // my tree; which unfolds a hierarchy of branches
+    var level: CGFloat = 0       // zIndex within sub/super branches
 
-    var branchPrev: MuBranchVm?   // branch preceding this one
-    var branchNext: MuBranchVm?   // branch expanding from spotlight node
-    var branchNodes: [MuNodeVm]    // the nodes on this branch, incl spotNode
+    var branchPrev: MuBranchVm?  // branch preceding this one
+    var branchNext: MuBranchVm?  // branch expanding from spotlight node
+    var nodeVms: [MuNodeVm]     // the nodes on this branch, incl spotNode
 
-    var spotNode: MuNodeVm?       // current spotlight node
-    var spotPrev: MuNodeVm?       // prevBranch's spotlight node
+    var nodeNowVm: MuNodeVm?      // current spotlight node
+    var nodePrevVm: MuNodeVm?      // prevBranch's spotlight node
 
-    var panel: MuPanel
+    var panelVm: MuPanelVm
     var bounds: CGRect = .zero
+
     @Published var branchShift: CGSize = .zero
     @Published var show = true
 
@@ -26,90 +27,107 @@ class MuBranchVm: Identifiable, ObservableObject {
 
     init(branchPrev: MuBranchVm? = nil,
          branchNodes: [MuNodeVm] = [],
-         limb: MuLimbVm? = nil,
-         level: CGFloat = 0,
+         tree: MuTreeVm?,
          isRoot: Bool = false,
-         show: Bool = true,
-         axis: Axis) {
+         show: Bool = true) {
 
         self.branchPrev = branchPrev
-        self.branchNodes = branchNodes
-        self.limb = limb
-        self.level = level
+        self.nodeVms = branchNodes
+        self.tree = tree
+        self.level = (branchPrev?.level ?? 0) + 1
         self.isRoot = isRoot
         self.show = show
-        self.panel = MuPanel(type: .node, count: branchNodes.count, axis: axis)
+        let axis = tree?.axis ?? .vertical
+        self.panelVm = MuPanelVm(type: .node, count: branchNodes.count, axis: axis)
 
         branchPrev?.branchNext = self
-        updateLimb(limb)
+        updateLimb(tree)
     }
 
     init(branchPrev: MuBranchVm? = nil,
          spotPrev: MuNodeVm? = nil,
          children: [MuNode],
-         limb: MuLimbVm? = nil,
-         level: CGFloat = 0,
-         show: Bool = true,
-         axis: Axis) {
+         tree: MuTreeVm?,
+         show: Bool = true) {
 
         self.branchPrev = branchPrev
-        self.spotPrev = spotPrev
-        self.branchNodes = [MuNodeVm]()
-        self.limb = limb
-        self.level = level
+        self.nodePrevVm = spotPrev
+        self.nodeVms = [MuNodeVm]()
+        self.tree = tree
+        self.level = (branchPrev?.level ?? 0) + 1
         self.show = show
-        
-        self.panel = MuPanel(type: .node, count: children.count, axis: axis)
+        let axis = tree?.axis ?? .vertical
+        self.panelVm = MuPanelVm(type: .node, count: children.count, axis: axis)
 
         branchPrev?.branchNext = self
 
-        buildNodesFromChildren(children)
-        updateLimb(limb)
+        buildNodesFromChildren(spotPrev, children)
+        updateLimb(tree)
     }
-    
+
+    init(branchPrev: MuBranchVm? = nil,
+         tree: MuTreeVm,
+         type: MuNodeType) {
+
+        self.branchPrev = branchPrev
+        self.tree = tree
+        self.level = (branchPrev?.level ?? 0) + 1
+        self.nodeVms = [MuNodeVm]()
+        self.panelVm = MuPanelVm(type: type, axis: tree.axis)
+    }
     deinit {
         // print("\n🗑\(title)(\(id))", terminator: "")=
     }
 
-    /// leaf node should be a xy rectangle control
-    private func buildNodesFromChildren(_ children: [MuNode]) {
+
+    private func buildNodesFromChildren(_ spotPrevVm: MuNodeVm?,
+                                        _ children: [MuNode]) {
+
         for child in children {
-            var node: MuNodeVm
-            let type = child.nodeType
-            switch type {
-                case .val: node = MuLeafValVm(self, child, spotPrev)
-                case .vxy: node = MuLeafVxyVm(self, child, spotPrev)
-                case .tog: node = MuLeafTogVm(self, child, spotPrev)
-                case .tap: node = MuLeafTapVm(self, child, spotPrev)
-                case .seg: node = MuLeafSegVm(self, child, spotPrev)
-                default: node = MuNodeVm(type, self, child, spotPrev)
-                    
+
+            let nodeVm = MuNodeVm.cache(.node, child, self, spotPrevVm)
+            nodeVms.append(nodeVm)
+
+            if let components = nodeVm.components,
+               let type = components["type"] as? MuNodeType,
+               type.isLeaf {
+
+                let leafNode = MuNode(name: nodeVm.node.name, parent: nodeVm.node, callback: nodeVm.node.callback)
+                let branchVm = MuBranchVm(branchPrev: self,
+                                          children: [leafNode],
+                                          tree: tree,
+                                          show: false)
+                let leafVm = MuNodeVm.cache(type, leafNode, branchVm)
+                branchVm.nodeVms.append(leafVm)
             }
-            branchNodes.append(node)
+
         }
+        return
     }
+
     /**
-     May be updated after init for root limb inside updateRoot
+     May be updated after init for root tree inside updateRoot
      */
-    func updateLimb(_ limb: MuLimbVm?) {
+    func updateLimb(_ tree: MuTreeVm?) {
 
-        guard let limb = limb else { return }
-        self.limb = limb
+        guard let tree = tree else { return }
+        self.tree = tree
 
-        if let center = branchPrev?.spotNode?.center {
-            bounds = panel.bounds(center)
+        if let center = branchPrev?.nodeNowVm?.center {
+            bounds = panelVm.bounds(center)
         }
         branchShift = branchPrev?.branchShift ?? .zero
     }
 
-    func addNode(_ node: MuNodeVm) {
-        if branchNodes.contains(node) { return }
-        branchNodes.append(node)
+    func addNode(_ nodeVm: MuNodeVm?) {
+        guard let nodeVm = nodeVm else { return }
+        if nodeVms.contains(nodeVm) { return }
+        nodeVms.append(nodeVm)
     }
     
     func removeNode(_ node: MuNodeVm) {
-        let filtered = branchNodes.filter { $0.id != node.id }
-        branchNodes = filtered
+        let filtered = nodeVms.filter { $0.id != node.id }
+        nodeVms = filtered
     }
 
     func findHover(_ touchNow: CGPoint) -> MuNodeVm? {
@@ -120,12 +138,12 @@ class MuBranchVm: Identifiable, ObservableObject {
         }
 
         //TODO: this is rather inefficient, is a workaround for the above
-        for node in branchNodes {
+        for nodeVm in nodeVms {
             let threshold = Layout.diameter + Layout.spacing
-            if node.center.distance(touchNow) < threshold { 
-                spotNode = node
-                node.superSpotlight()
-                return node
+            if nodeVm.center.distance(touchNow) < threshold {
+                nodeNowVm = nodeVm
+                nodeVm.superSpotlight()
+                return nodeVm
             }
         }
         return nil
@@ -133,15 +151,15 @@ class MuBranchVm: Identifiable, ObservableObject {
 
     func beginTap() {
 
-        if let spotNode = spotNode {
-            spotNode.superSelect()
-            limb?.refreshBranches(self, spotNode)
+        if let nodeNowVm = nodeNowVm {
+            nodeNowVm.superSelect()
+            tree?.refreshBranches(nodeNowVm)
         }
     }
 
     func updateBounds(_ from: CGRect) {
         if bounds != from {
-            bounds = panel.updateBounds(from)
+            bounds = panelVm.updateBounds(from)
             // log("∿" + title, from, bounds)
         }
     }

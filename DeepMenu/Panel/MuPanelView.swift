@@ -2,9 +2,9 @@
 
 import SwiftUI
 
-struct MuLeafPanelView: View {
+struct MuPanelView: View {
     @GestureState private var touchXY: CGPoint = .zero
-    var panel: MuPanel
+    var panelVm: MuPanelVm
     var editing: Bool
     var strokeColor: Color   { get { Layout.strokeColor(editing) }}
     var strokeWidth: CGFloat { get { Layout.strokeWidth(editing) }}
@@ -12,13 +12,13 @@ struct MuLeafPanelView: View {
     var body: some View {
         ZStack {
             GeometryReader { geo in
-                RoundedRectangle(cornerRadius: panel.cornerRadius)
+                RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                     .fill(Layout.panelFill)
-                    .frame(width: panel.inner.width, height: panel.inner.height)
+                    .frame(width: panelVm.inner.width, height: panelVm.inner.height)
 
-                RoundedRectangle(cornerRadius: panel.cornerRadius)
+                RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                     .stroke(strokeColor, lineWidth: strokeWidth)
-                    .frame(width: panel.inner.width, height: panel.inner.height)
+                    .frame(width: panelVm.inner.width, height: panelVm.inner.height)
                     .animation(Layout.flash(), value: strokeColor)
                     .animation(Layout.flash(), value: strokeWidth)
             }

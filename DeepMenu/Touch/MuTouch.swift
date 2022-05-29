@@ -18,6 +18,7 @@ class MuTouch {
     var touching: Bool { get { return timeEnded > timeBegin }}
 
     func begin(_ pointNow: CGPoint) {
+
         self.pointNow = pointNow
         let timeNow = Date().timeIntervalSince1970
         if (timeNow - timeEnded) > MuTouch.tapThreshold {
@@ -27,17 +28,18 @@ class MuTouch {
         timeDelta = 0
         pointBegin = pointNow
         pointDelta = .zero
-        log("🟢")
+        logTime("🟢")
     }
     
     func moved(_ pointNow: CGPoint) {
+
         self.pointNow = pointNow
         pointDelta = pointNow - pointBegin
         timeDelta = Date().timeIntervalSince1970 - timeBegin
         if pointNow.distance(pointBegin) > moveThreshold {
             tapCount = 0
         }
-        //log("🟡")
+        //logTime("🟡")
     }
 
     func ended(_ pointNow: CGPoint) {
@@ -48,18 +50,18 @@ class MuTouch {
         timeEnded = Date().timeIntervalSince1970
         timeDelta = timeEnded - timeBegin
         tapCount = tapped ? tapCount + 1 : 0
-        log("🔴")
+        logTime("🔴")
     }
 
-    var tapped: Bool {
+    var tapped: Bool { get {
         let tapping = timeDelta < MuTouch.tapThreshold
         if tapping {
-            log("🟣" + (tapCount < 3 ? "¹²³"[tapCount] : String(tapCount)))
+            logTime("🟣" + (tapCount < 3 ? "¹²³"[tapCount] : String(tapCount)))
         }
         return tapping
-    }
+    }}
 
-    func log(_ symbol: String) {
+    func logTime(_ symbol: String) {
         print(String(format: "\n%.2f \(symbol)", timeDelta), terminator: " ")
     }
 }
