@@ -94,8 +94,8 @@ class MuTreeVm: Identifiable, ObservableObject {
         
         if nodeNowVm.node.children.count > 0 {
             let newBranch = MuBranchVm(branchPrevVm: branchPrevVm,
+                                       nodes: nodeNowVm.node.children,
                                        nodeNowVm: nodeNowVm,
-                                       children: nodeNowVm.node.children,
                                        treeVm: self,
                                        show: false)
             

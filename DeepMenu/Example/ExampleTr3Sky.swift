@@ -1,9 +1,4 @@
-//
-//  ExampleTr3Sky.swift
-//  DeepMenu
-//
 //  Created by warren on 4/25/22.
-//
 
 import Foundation
 import Tr3

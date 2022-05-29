@@ -21,37 +21,27 @@ class MuBranchVm: Identifiable, ObservableObject {
 
     var reverse = false
 
-    init(branchPrev: MuBranchVm? = nil,
-         branchNodes: [MuNodeVm] = [],
+    init(branchPrevVm: MuBranchVm? = nil,
+         nodes: [MuNode] = [],
+         nodeVms: [MuNodeVm] = [],
+         nodeNowVm: MuNodeVm? = nil,
          treeVm: MuTreeVm?,
          isRoot: Bool = false,
          show: Bool = true) {
 
-        self.branchPrevVm = branchPrev
-        self.nodeVms = branchNodes
-        self.treeVm = treeVm
-        self.level = (branchPrev?.level ?? 0) + 1
-        self.isRoot = isRoot
-        self.show = show
-        let axis = treeVm?.axis ?? .vertical
-        self.panelVm = MuPanelVm(type: .node, count: branchNodes.count, axis: axis)
-        updateTree(treeVm)
-    }
-
-    init(branchPrevVm: MuBranchVm? = nil,
-         nodeNowVm: MuNodeVm? = nil,
-         children: [MuNode],
-         treeVm: MuTreeVm?,
-         show: Bool = true) {
-
         self.branchPrevVm = branchPrevVm
+        self.nodeNowVm = nodeNowVm
         self.nodeVms = [MuNodeVm]()
         self.treeVm = treeVm
         self.level = (branchPrevVm?.level ?? 0) + 1
+        self.isRoot = isRoot
         self.show = show
         let axis = treeVm?.axis ?? .vertical
-        self.panelVm = MuPanelVm(type: .node, count: children.count, axis: axis)
-        buildNodesFromChildren(nodeNowVm, children)
+        let count = max(nodes.count, nodeVms.count)
+        self.panelVm = MuPanelVm(type: .node, count: nodes.count, axis: axis)
+        if nodes.count > 0 {
+            buildFromNodes(nodes)
+        }
         updateTree(treeVm)
     }
 
@@ -67,19 +57,18 @@ class MuBranchVm: Identifiable, ObservableObject {
         self.panelVm = MuPanelVm(type: type, axis: axis)
     }
 
-    private func buildNodesFromChildren(_ spotPrevVm: MuNodeVm?,
-                                        _ children: [MuNode]) {
+    private func buildFromNodes(_ nodes: [MuNode]) {
 
-        for child in children {
+        for node in nodes {
 
-            let nodeVm = MuNodeVm.cache(.node, child, self, spotPrevVm)
+            let nodeVm = MuNodeVm.cache(.node, node, self, nodeNowVm)
             nodeVms.append(nodeVm)
 
             if let components = nodeVm.components,
                let type = components["type"] as? MuNodeType,
                type.isLeaf {
 
-                let leafNode = MuNode(name: "✎"+nodeVm.node.name, parent: nodeVm.node, callback: nodeVm.node.callback)
+                let leafNode = MuNode(name: "✎", parent: nodeVm.node, callback: nodeVm.node.callback)
                 let branchVm = MuBranchVm(branchPrev: self,
                                           treeVm: treeVm,
                                           type: type)

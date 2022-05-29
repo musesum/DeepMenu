@@ -30,10 +30,6 @@ class MuTouchVm: ObservableObject {
     var touchBranch: MuBranchVm? // branch which captured DragGesture
     var pointDelta = CGPoint.zero // touch starting position
 
-
-    init() {
-    }
-
     func setRoot(_ rootVm: MuRootVm) {
         self.rootVm = rootVm
         let homeNode = MuNodeTest("⚫︎") //todo: replace with ??

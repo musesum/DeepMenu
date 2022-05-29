@@ -9,7 +9,7 @@ import Foundation
 import Par
 
 
-class MuNode: Identifiable, Equatable { //?? }, CustomStringConvertible {
+class MuNode: Identifiable, Equatable {
 
     let id = MuIdentity.getId() //TODO: use a persistent storage ID after debugging
 

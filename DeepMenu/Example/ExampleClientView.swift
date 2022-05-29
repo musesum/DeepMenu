@@ -1,9 +1,4 @@
-//
-//  ExampleClient.swift
-//  DeepMenu
-//
 //  Created by warren on 4/13/22.
-//
 
 import SwiftUI
 
