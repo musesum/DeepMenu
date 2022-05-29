@@ -19,7 +19,7 @@ class MuTreeVm: Identifiable, ObservableObject {
         self.branches = branches
         self.axis = axis
         for branch in branches {
-            branch.updateLimb(self)
+            branch.updateTree(self)
         }
         showBranches(depth: 1)
     }
@@ -31,7 +31,7 @@ class MuTreeVm: Identifiable, ObservableObject {
     /// find nearest node to touch point
     func nearestNode(_ touchNow: CGPoint,
                      _ touchBranch: MuBranchVm?) -> MuNodeVm? {
-        var skipPreBranches = (touchBranch?.tree?.id == id)
+        var skipPreBranches = (touchBranch?.treeVm?.id == id)
 
         for branch in branches {
             
@@ -40,7 +40,7 @@ class MuTreeVm: Identifiable, ObservableObject {
 
             skipPreBranches = false
 
-            if let nodeNext = branch.findHover(touchNow) {
+            if let nodeNext = branch.findNearestNode(touchNow) {
                 if nodeNowVm?.id != nodeNext.id {
                     nodeNowVm = nodeNext
                     nodeNowVm?.superSelect()
@@ -52,12 +52,12 @@ class MuTreeVm: Identifiable, ObservableObject {
         return nil
     }
 
-    /// evenly space docs leading up to spotBranch's position
+    /// evenly space brqnches leading up to spotBranch's position
     func refreshBranches(_ nodeNextVm: MuNodeVm) {
 
         let branchNextVm = nodeNextVm.branchVm
         // tapped on spotlight
-        if let branchNext = branchNextVm.branchNext,
+        if let branchNext = branchNextVm.nodeNowVm?.branchVm,
            branchNext.show == true, // branchNext is also shown (tree.depth > 1)
            let subId = branchNext.nodeNowVm?.node.id,
            let nowId = nodeNextVm.node.childNow?.id, subId == nowId {
@@ -93,10 +93,10 @@ class MuTreeVm: Identifiable, ObservableObject {
         nodeNowVm.spotlight = true
         
         if nodeNowVm.node.children.count > 0 {
-            let newBranch = MuBranchVm(branchPrev: branchPrevVm,
-                                       spotPrev: nodeNowVm,
+            let newBranch = MuBranchVm(branchPrevVm: branchPrevVm,
+                                       nodeNowVm: nodeNowVm,
                                        children: nodeNowVm.node.children,
-                                       tree: self,
+                                       treeVm: self,
                                        show: false)
             
             newBranchVms.append(newBranch)

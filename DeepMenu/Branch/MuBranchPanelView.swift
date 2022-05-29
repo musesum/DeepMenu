@@ -6,7 +6,7 @@ struct MuBranchPanelView: View {
     var panelVm: MuPanelVm
     var body: some View {
         GeometryReader { geo in
-            let size = geo.frame(in: .named("Space")).size
+            let size = geo.frame(in: .named("Sky")).size
             Rectangle()
                 .opacity(0.1)
                 .background(.ultraThinMaterial)

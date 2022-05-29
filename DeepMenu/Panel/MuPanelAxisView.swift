@@ -3,7 +3,8 @@
 
 import SwiftUI
 
-struct HVScroll<Content: View>: View {
+struct MuPanelAxisView<Content: View>: View {
+
     let panelVm: MuPanelVm
     let content: () -> Content
 

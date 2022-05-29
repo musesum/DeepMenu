@@ -25,16 +25,16 @@ class ContentVm {
         skyNodes = ExampleTr3Sky.skyNodes()
         skyRootVm = MuRootVm([.lower, .left], axii: [.vertical])
         skyTreeVm = skyRootVm.treeNowVm
-        skyBranchVm = MuBranchVm(children: skyNodes, tree: skyTreeVm)
+        skyBranchVm = MuBranchVm(children: skyNodes, treeVm: skyTreeVm)
         skyTreeVm?.addBranch(skyBranchVm)
         skyTouchVm = skyRootVm.touchVm
     }
     
-    private func testBranches(_ tree: MuTreeVm) -> [MuBranchVm] {
+    private func testBranches(_ treeVm: MuTreeVm) -> [MuBranchVm] {
         let numberedNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
         let letteredNodes = ExampleNodeModels.letteredNodes()
-        let hBranch = MuBranchVm(children: numberedNodes, tree: tree) //?? axis: .horizontal)
-        let vBranch = MuBranchVm(children: letteredNodes, tree: tree) //?? axis: .vertical)
+        let hBranch = MuBranchVm(children: numberedNodes, treeVm: treeVm) //?? axis: .horizontal)
+        let vBranch = MuBranchVm(children: letteredNodes, treeVm: treeVm) //?? axis: .vertical)
         return [hBranch, vBranch]
     }
 }
@@ -50,7 +50,7 @@ struct ContentView: View {
             //MuRootView().environmentObject(MuRootVm([.lower, .right], branches: testBranches()))
             MuRootView().environmentObject(contentVm.skyRootVm)
         }
-        .coordinateSpace(name: "Space")
+        .coordinateSpace(name: "Sky")
         .statusBar(hidden: true)
     }
 }

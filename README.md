@@ -33,12 +33,16 @@ Naming convention
     MuPanel* - background for MuBranchView and bounds for Mu[Node,Leaf]*View
         MuPanelVm - type, axis, size, and margins for View
         MuPanelView - SwiftUI background 
+        MuPanelAxisView - vertical or horizontal PanelView  
     class and struct suffixes 
         Mu*View - A SwiftUI View with corresponding Mu*Vm
         Mu*Vm  - View Model for comnpanion Mu*View
     
     var prefixes - may be a single letter to prefix to a variable name
-    
+        <name>*Vm - instance of view model
+        <name>*Vms - array of [<name>*Vm]
+        
+        
         x* - x in a CGPoint(x:y:)
         y* - y in a CGPoint(x:y:)
     

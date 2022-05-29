@@ -21,7 +21,7 @@ struct MuBranchView: View, Identifiable {
                                ? root.corner.contains(.lower) ? true : false
                                : root.corner.contains(.left)  ? true : false )
 
-                HVScroll(panelVm) {
+                MuPanelAxisView(panelVm) {
                     ForEach(reverse
                             ? branch.nodeVms.reversed()
                             : branch.nodeVms, id: \.id) {
@@ -29,8 +29,8 @@ struct MuBranchView: View, Identifiable {
                     }
                 }
             }
-            .onAppear { branch.updateBounds(geo.frame(in: .named("Space"))) }
-            .onChange(of: geo.frame(in: .named("Space"))) { branch.updateBounds($0) }
+            .onAppear { branch.updateBounds(geo.frame(in: .named("Sky"))) }
+            .onChange(of: geo.frame(in: .named("Sky"))) { branch.updateBounds($0) }
         }
         .frame(width: panelVm.outer.width, height: panelVm.outer.height)
 
@@ -40,7 +40,7 @@ struct MuBranchView: View, Identifiable {
         .offset(branch.branchShift)
         .animation(.easeIn(duration: Layout.animate), value: branch.branchShift)
         .gesture(
-            DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
+            DragGesture(minimumDistance: 0, coordinateSpace: .named("Sky"))
                 .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
         .onChange(of: touchXY) { root.touchVm.touchUpdate($0, branch) }
     }

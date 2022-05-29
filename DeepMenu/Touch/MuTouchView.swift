@@ -9,27 +9,26 @@ struct MuTouchView: View {
 
     var body: some View {
         Group {
-            // root icon
+
             GeometryReader() { geo in
+                // home (root) icon
                 if let homeNodeVm = touchVm.homeNodeVm {
                     MuNodeView(nodeVm: homeNodeVm)
 
                         .frame(width: Layout.diameter, height: Layout.diameter)
-                        .onAppear { touchVm.updateHome(geo.frame(in: .named("Space"))) }
-                        .onChange(of: geo.frame(in: .named("Space"))) { touchVm.updateHome($0) }
+                        .onAppear { touchVm.updateHome(geo.frame(in: .named("Sky"))) }
+                        .onChange(of: geo.frame(in: .named("Sky"))) { touchVm.updateHome($0) }
                         .padding(Layout.spacing)
                         .opacity(touchVm.alpha + 0.1)
                         .position(touchVm.pointHome)
 
                         .gesture(
-                            DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
+                            DragGesture(minimumDistance: 0, coordinateSpace: .named("Sky"))
                                 .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
                         .onChange(of: touchXY) { touchVm.touchUpdate($0, nil) }
                 }
-            }
 
-            // hovering node icon, follows touch
-            GeometryReader { geo in
+                // hovering node icon, follows touch
                 if let dragNodeVm = touchVm.dragNodeVm {
                    
                     MuNodeView(nodeVm: dragNodeVm)

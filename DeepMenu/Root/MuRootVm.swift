@@ -117,7 +117,7 @@ class MuRootVm: ObservableObject, Equatable {
     ///
     var touchBranchDepth: CGFloat { get {
         guard let branchNowVm = branchNowVm else { return  0 }
-        let branches = branchNowVm.tree?.branches ?? [branchNowVm]
+        let branches = branchNowVm.treeVm?.branches ?? [branchNowVm]
         var touchBranchDepth = CGFloat(0)
         for branchi in branches {
             if  branchNowVm.id == branchi.id { break }
@@ -179,7 +179,7 @@ class MuRootVm: ObservableObject, Equatable {
     func updateBranchShift(_ branchOffset: CGSize) {
         // update each branch's `branchShift` offset
         guard let branchNowVm = branchNowVm else { return }
-        let branches = branchNowVm.tree?.branches ?? [branchNowVm]
+        let branches = branchNowVm.treeVm?.branches ?? [branchNowVm]
         var branchIndex = CGFloat(0)
         for branch in branches {
             let factor = (branchIndex < touchBranchDepth) ? branchIndex/touchBranchDepth : 1
@@ -188,28 +188,6 @@ class MuRootVm: ObservableObject, Equatable {
         }
     }
 
-    func getvalues(_ branch: MuBranchVm) -> (ClosedRange<CGFloat>,
-                                       ClosedRange<CGFloat>) {
-        // calc values
-        let oneSpace = Layout.diameter + Layout.spacing * 3 // distance between branches
-        let maxSpace = touchBranchDepth * oneSpace // maximum distance up to branch
-        let vert = branch.panelVm.axis == .vertical
-        let hori = branch.panelVm.axis == .horizontal
-        let left = corner.contains(.left)
-        let upper = corner.contains(.upper)
-
-        let rangeW = (vert ? left
-                      ? -maxSpace...0   // vertical left
-                      : 0...maxSpace    // vertical right
-                      : 0...0)          // hoizontal or root
-
-        let rangeH = (hori ? upper
-                      ? -maxSpace...0   // horizontal upper
-                      : 0...maxSpace    // horizontal lower
-                      : 0...0)          // vertical or root
-
-        return (rangeW, rangeH)
-    }
 
     /// set fixed point for stretching/folding branchesx1x11
     func anchorBranch() {
@@ -236,6 +214,28 @@ class MuRootVm: ObservableObject, Equatable {
                     // log(title, [touchDelta, anchorShift, branchOffset, clamp], terminator: " ")
                 }
             }
+        }
+        func getvalues(_ branch: MuBranchVm) -> (ClosedRange<CGFloat>,
+                                                 ClosedRange<CGFloat>) {
+            // calc values
+            let oneSpace = Layout.diameter + Layout.spacing * 3 // distance between branches
+            let maxSpace = touchBranchDepth * oneSpace // maximum distance up to branch
+            let vert = branch.panelVm.axis == .vertical
+            let hori = branch.panelVm.axis == .horizontal
+            let left = corner.contains(.left)
+            let upper = corner.contains(.upper)
+
+            let rangeW = (vert ? left
+                          ? -maxSpace...0   // vertical left
+                          : 0...maxSpace    // vertical right
+                          : 0...0)          // hoizontal or root
+
+            let rangeH = (hori ? upper
+                          ? -maxSpace...0   // horizontal upper
+                          : 0...maxSpace    // horizontal lower
+                          : 0...0)          // vertical or root
+
+            return (rangeW, rangeH)
         }
     }
 
