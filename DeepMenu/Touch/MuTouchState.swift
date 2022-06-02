@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-class MuTouch {
+class MuTouchState {
 
     static let tapThreshold = TimeInterval(0.5) // tap time threshold
     private var timeBegin = TimeInterval(0) // starting time for tap candidate
@@ -21,7 +21,7 @@ class MuTouch {
 
         self.pointNow = pointNow
         let timeNow = Date().timeIntervalSince1970
-        if (timeNow - timeEnded) > MuTouch.tapThreshold {
+        if (timeNow - timeEnded) > MuTouchState.tapThreshold {
             tapCount = 0 // not a tap
         }
         timeBegin = timeNow
@@ -54,7 +54,7 @@ class MuTouch {
     }
 
     var tapped: Bool { get {
-        let tapping = timeDelta < MuTouch.tapThreshold
+        let tapping = timeDelta < MuTouchState.tapThreshold
         if tapping {
             logTime("🟣" + (tapCount < 3 ? "¹²³"[tapCount] : String(tapCount)))
         }
