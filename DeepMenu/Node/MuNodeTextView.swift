@@ -4,25 +4,25 @@ import SwiftUI
 
 struct MuNodeTextView: View {
 
-    @ObservedObject var node: MuNodeVm
-    var color: Color   { node.spotlight ? .white : .gray }
-    var width: CGFloat { node.spotlight ?    2.0 :   0.5 }
+    @ObservedObject var nodeVm: MuNodeVm
+    var color: Color   { nodeVm.spotlight ? .white : .gray }
+    var width: CGFloat { nodeVm.spotlight ?    2.0 :   0.5 }
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: node.panelVm.cornerRadius)
+            RoundedRectangle(cornerRadius: nodeVm.panelVm.cornerRadius)
                 .fill(Color.black)
-            RoundedRectangle(cornerRadius: node.panelVm.cornerRadius)
+            RoundedRectangle(cornerRadius: nodeVm.panelVm.cornerRadius)
                 .stroke(color, lineWidth: width)
-                .animation(Layout.flash(), value: color)
-                .animation(Layout.flash(), value: width)
+                .animation(Layout.flashAnim, value: color)
+                .animation(Layout.flashAnim, value: width)
                 .background(Color.clear)
-            Text(node.node.name)
+            Text(nodeVm.node.name)
                 .scaledToFit()
                 .padding(1)
                 .minimumScaleFactor(0.01)
                 .foregroundColor(color)
-                .animation(Layout.flash(), value: color)
+                .animation(Layout.flashAnim, value: color)
         }
     }
 }

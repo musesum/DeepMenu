@@ -33,7 +33,8 @@ class MuTouchVm: ObservableObject {
     func setRoot(_ rootVm: MuRootVm) {
         self.rootVm = rootVm
         let homeNode = MuNodeTest("⚫︎") //todo: replace with ??
-        let branchVm = MuBranchVm(treeVm: rootVm.treeNowVm, isRoot: true)
+        let branchVm = MuBranchVm(nodes: [],
+                                  treeVm: rootVm.treeNowVm, type: .node)
         homeNodeVm = MuNodeVm(.node, homeNode, branchVm, icon: Layout.hoverRing)
         branchVm.addNode(homeNodeVm)
     }
@@ -98,11 +99,11 @@ class MuTouchVm: ObservableObject {
 
         func moved() {
             pointNow = touchNow
-            rootVm?.moved(touchNow)
+            rootVm?.moved(pointNow)
         }
 
         func ended() {
-            rootVm?.ended(touchNow)
+            rootVm?.ended(pointNow) // touchNow is now .zero
             pointNow = pointHome
             deltaOfs = .zero
             touchOfs = .zero

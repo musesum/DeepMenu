@@ -163,8 +163,8 @@ extension CGPoint {
         return p
     }
     public func distance(_ from: CGPoint) -> CGFloat {
-        
-        return sqrt( (x-from.x) * (x-from.x) + (y-from.y) *  (y-from.y) )
+        let result = sqrt( (x-from.x) * (x-from.x) + (y-from.y) *  (y-from.y) )
+        return result
     }
     
     /// round to nearest grid

@@ -1,10 +1,13 @@
 // Created by warren 10/27/21.
 import SwiftUI
 
-class MuTreeVm: Identifiable, ObservableObject {
+class MuTreeVm: Identifiable, Equatable, ObservableObject {
     let id = MuIdentity.getId()
+    static func == (lhs: MuTreeVm, rhs: MuTreeVm) -> Bool {
+        return lhs.id == rhs.id
+    }
 
-    @Published var branches: [MuBranchVm]
+    @Published var branchVms: [MuBranchVm]
 
     var axis: Axis  // vertical or horizontal
     var level = CGFloat(1) // starting level for branches
@@ -16,7 +19,7 @@ class MuTreeVm: Identifiable, ObservableObject {
          axis: Axis,
          root: MuRootVm) {
 
-        self.branches = branches
+        self.branchVms = branches
         self.axis = axis
         for branch in branches {
             branch.updateTree(self)
@@ -25,95 +28,74 @@ class MuTreeVm: Identifiable, ObservableObject {
     }
     func addBranch(_ branchVm: MuBranchVm?) {
         guard let branchVm = branchVm else { return }
-        branches.append(branchVm)
+        branchVms.append(branchVm)
     }
     
-    /// find nearest node to touch point
+    /** find nearest node to touch point
+    - Parameters:
+      - touchNow: current touch point
+      - touchBranch: starting branch user touched
+
+     User may either
+        1) start from root and drag to hover over all branchs, or
+        2) start from one of the branches and hover only outward.
+
+     When starting from a branch, dragging towards super-branches
+     will result the sub-branches to shift over. So, starting
+     on a branch can only explore sub-branches. To explore all
+     branches, start from the root (method 1)
+
+     Why: allow for a bit more forgiveness when waundering slightly
+     outside the branch. Often you want to explore each node within
+     a single branch. That's why you jumped to that branch in the
+     first place. So, allow a wider touch area to stay within
+     that branch.
+     */
     func nearestNode(_ touchNow: CGPoint,
                      _ touchBranch: MuBranchVm?) -> MuNodeVm? {
-        var skipPreBranches = (touchBranch?.treeVm?.id == id)
 
-        for branch in branches {
+
+        // is hovering over same node as before
+        if (nodeNowVm?.center.distance(touchNow) ?? .infinity) < Layout.diameter {
+            return nodeNowVm
+        }
+
+        /// make sure searching on same tree before limiting search to sub-branches
+         var skipSuperBranch = (touchBranch?.treeVm == self)
+
+        for branchVm in branchVms {
             
-            if branch.show == false { continue } 
-            if skipPreBranches && (touchBranch?.id != branch.id) { continue }
+            if branchVm.show == false {
+                continue
+            }
+            if skipSuperBranch && (touchBranch?.id  != branchVm.id) {
+                continue
+            }
+            skipSuperBranch = false
 
-            skipPreBranches = false
-
-            if let nodeNext = branch.findNearestNode(touchNow) {
-                if nodeNowVm?.id != nodeNext.id {
-                    nodeNowVm = nodeNext
+            if let nearestNodeVm = branchVm.findNearestNode(touchNow) {
+                if nearestNodeVm.id != nodeNowVm?.id  {
+                    nodeNowVm = nearestNodeVm
                     nodeNowVm?.superSelect()
-                    refreshBranches(nodeNext)
+                    nodeNowVm?.branchVm.refreshBranch(nodeNowVm)
                 }
                 return nodeNowVm
             }
         }
         return nil
     }
-
-    /// evenly space brqnches leading up to spotBranch's position
-    func refreshBranches(_ nodeNextVm: MuNodeVm) {
-
-        let branchNextVm = nodeNextVm.branchVm
-        // tapped on spotlight
-        if let branchNext = branchNextVm.nodeNowVm?.branchVm,
-           branchNext.show == true, // branchNext is also shown (tree.depth > 1)
-           let subId = branchNext.nodeNowVm?.node.id,
-           let nowId = nodeNextVm.node.childNow?.id, subId == nowId {
-            // all subBranches are the same
-            return
-        }
-        branchNextVm.nodeNowVm = nodeNextVm
-        // remove old sub branches 
-        while branches.last?.id != branchNextVm.id {
-            branches.removeLast()
-        }
+    func refreshTree(_ branchVm: MuBranchVm) {
+        var branchVm = branchVms.first
         var newBranches = [MuBranchVm]()
-        expandBranches(nodeNextVm, branches.last,  &newBranches, level + 1)
-        if newBranches.count > 0 {
-            branches.append(contentsOf: newBranches)
-            // unfold branches
-            var lag = TimeInterval(0)
-            for branch in branches {
-                Delay(lag) { branch.show = true }
-                lag += Layout.lagStep
+        var delim = " "
+        while branchVm != nil {
+            if let b = branchVm {
+                print(delim + (b.nodeNowVm?.node.name ?? " "), terminator: ""); delim = "."
+                newBranches.append(b)
+                branchVm = b.nodeNowVm?.branchVm
             }
         }
-    }
-
-    /// add a branch to selected node and follow selected kid
-    func expandBranches(_ nodeNowVm: MuNodeVm?,
-                        _ branchPrevVm: MuBranchVm?,
-                        _ newBranchVms: inout [MuBranchVm],
-                        _ level: CGFloat) {
-        
-        guard let nodeNowVm = nodeNowVm else { return }
-        self.level = level
-        nodeNowVm.spotlight = true
-        
-        if nodeNowVm.node.children.count > 0 {
-            let newBranch = MuBranchVm(branchPrevVm: branchPrevVm,
-                                       nodes: nodeNowVm.node.children,
-                                       nodeNowVm: nodeNowVm,
-                                       treeVm: self,
-                                       show: false)
-            
-            newBranchVms.append(newBranch)
-            if let childNow = nodeNowVm.node.childNow {
-                leafBranch(childNow)
-            } else if nodeNowVm.node.children.count == 1,
-                      let spotChild = nodeNowVm.node.children.first {
-                leafBranch(spotChild)
-            }
-            func leafBranch(_ leafModel: MuNode) {
-                // TODO: use ordered dictionary?
-                let filter = newBranch.nodeVms.filter { $0.node.id == leafModel.id }
-                newBranch.nodeNowVm = filter.first
-                expandBranches(newBranch.nodeNowVm, newBranch, &newBranchVms, level + 1)
-                newBranch.panelVm.type = newBranch.nodeNowVm?.panelVm.type ?? .node
-            }
-        }
+        branchVms = newBranches
     }
 
     func showBranches(depth depthNext: Int) {
@@ -128,10 +110,10 @@ class MuTreeVm: Identifiable, ObservableObject {
 
         func expandBranches() {
             var countUp = 0
-            for branch in branches {
+            for branch in branchVms {
                 if countUp < depthNext {
                     newBranches.append(branch)
-                    Delay(lag) { branch.show = true }
+                    Schedule(lag) { branch.show = true }
                     lag += Layout.lagStep
                 } else {
                     branch.show = false
@@ -141,11 +123,11 @@ class MuTreeVm: Identifiable, ObservableObject {
             depthShown = min(countUp, depthNext)
         }
         func contractBranches() {
-            var countDown = branches.count
-            for branch in branches.reversed() {
+            var countDown = branchVms.count
+            for branch in branchVms.reversed() {
                 if countDown > depthNext,
                    branch.show == true {
-                    Delay(lag) { branch.show = false }
+                    Schedule(lag) { branch.show = false }
                     lag += Layout.lagStep
                 }
                 countDown -= 1
@@ -153,10 +135,10 @@ class MuTreeVm: Identifiable, ObservableObject {
             depthShown = depthNext
         }
         func logStart() {
-            let isRoot = branches.first?.isRoot == true
+            let isRoot = branchVms.first?.isRoot == true
             let vert = (axis == .vertical)
-            let axStr = isRoot ? " ⃝" : vert ? "V⃝" : "H⃝"
-            print ("\(axStr) \(depthShown)⇨\(depthNext)", terminator: "=")
+            let symbol = isRoot ? "√⃝" : vert ? "V⃝" : "H⃝"
+            print ("\(symbol) \(depthShown)⇨\(depthNext)", terminator: "=")
         }
         func logFinish() {
             print (depthShown, terminator: " ")

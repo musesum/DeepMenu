@@ -170,7 +170,11 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
   - Handpose overlay
   - Apple Watch Dial
   - Touch.AI web setup
-    
++ Web
+  - DeepMuse.com with DeepSky demo
+  - Touch.AI site DeepMenu UI demo
+  - link back from this readme to demos
++ Swift Package Manager
 + MuseSky integration
   - Sky as UIKit compatible view
   - replace Tr3Thumb.package

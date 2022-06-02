@@ -6,9 +6,9 @@ import Tr3
 
 class MuLeafTogVm: MuNodeVm {
 
-    var v = CGFloat(0)
+    var thumb = CGFloat(0)
 
-    var status: String { get { v == 1 ? "on" : "off" } }
+    var status: String { get { thumb == 1 ? "on" : "off" } }
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -19,7 +19,7 @@ class MuLeafTogVm: MuNodeVm {
         
         if let node = node as? MuNodeTr3 {
             if let vv = node.tr3.CGFloatVal() {
-                v = vv
+                thumb = vv
             }
         }
     }
@@ -28,8 +28,8 @@ class MuLeafTogVm: MuNodeVm {
 
         if !editing, touchNow != .zero  {
             editing = true
-            v = (v==1 ? 0 : 1)
-            node.callback(v)
+            thumb = (thumb==1 ? 0 : 1)
+            node.callback(thumb)
         } else if editing, touchNow == .zero {
             editing = false
         }
@@ -37,7 +37,7 @@ class MuLeafTogVm: MuNodeVm {
 
     var offset: CGSize {
         get {
-            let size = CGSize(width: v * panelVm.xRunway(),
+            let size = CGSize(width: thumb * panelVm.xRunway(),
                               height: 0)
             return size
         }

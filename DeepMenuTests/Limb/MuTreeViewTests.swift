@@ -13,7 +13,7 @@ import SwiftUI
 
 extension MuTreeView: Inspectable { }
 
-class MuLimbViewTests: XCTestCase {
+class MuTreeViewTests: XCTestCase {
     let rootLowerRight = MuRootVm([.lower, .right], branches: nil)
     let rootLowerLeft = MuRootVm([.lower, .left ], branches: nil)
     let rootUpperRight = MuRootVm([.upper, .right], branches: nil)

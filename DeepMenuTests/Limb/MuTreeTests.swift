@@ -8,7 +8,7 @@
 import XCTest
 @testable import DeepMenu
 
-class MuLimbTests: XCTestCase {
+class MuTreeTests: XCTestCase {
     var root: MuRootVm!
     var tree: MuTreeVm!
     var branch1: MuBranchVm!
@@ -16,7 +16,7 @@ class MuLimbTests: XCTestCase {
     override func setUpWithError() throws {
         root = MuRootVm([.lower, .right], axii: [.vertical])
         tree = root.treeNowVm
-        branch1 = MuBranchVm(tree)
+        branch1 = MuBranchVm(nodes: [], tree: tree)
     }
 
     override func tearDownWithError() throws {
@@ -25,7 +25,7 @@ class MuLimbTests: XCTestCase {
     func testInit() throws {
         let tree = MuTreeVm(branches: [branch1], axis: .vertical, root: root)
         XCTAssertNotNil(tree)
-        XCTAssertEqual(1, tree.branches.count)
+        XCTAssertEqual(1, tree.branchVms.count)
     }
 
     func testObservableAndBranchesPublished() throws {

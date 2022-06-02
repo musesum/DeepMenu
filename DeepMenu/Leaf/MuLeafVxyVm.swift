@@ -6,12 +6,12 @@ import Tr3
 
 class MuLeafVxyVm: MuNodeVm {
 
-    var xy: CGPoint = .zero
+    var thumb: CGPoint = .zero
 
     var status: String {
         get {
             if editing {
-                return String(format: "x: %.2f, y: %.2f", xy.x, xy.y)
+                return String(format: "x: %.2f, y: %.2f", thumb.x, thumb.y)
             } else {
                 return node.name
             }
@@ -27,7 +27,7 @@ class MuLeafVxyVm: MuNodeVm {
         
         if let node = node as? MuNodeTr3,
            let p = node.tr3.CGPointVal() {
-            xy = p
+            thumb = p
         }
     }
 
@@ -35,9 +35,9 @@ class MuLeafVxyVm: MuNodeVm {
 
         if touchNow != .zero {
             editing = true
-            xy = panelVm.normalizeTouch(xy: touchNow)
+            thumb = panelVm.normalizeTouch(xy: touchNow)
             //log("👆", format: "%.2f", [xy])
-            node.callback(xy)
+            node.callback(thumb)
         } else {
             editing = false
         }
@@ -45,8 +45,8 @@ class MuLeafVxyVm: MuNodeVm {
 
     var offset: CGSize {
         get {
-            let size = CGSize(width:  xy.x * panelVm.xRunway(),
-                              height: xy.y * panelVm.yRunway())
+            let size = CGSize(width:  thumb.x * panelVm.xRunway(),
+                              height: thumb.y * panelVm.yRunway())
             return size
         }
     }

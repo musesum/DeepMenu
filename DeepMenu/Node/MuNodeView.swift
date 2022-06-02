@@ -18,10 +18,10 @@ struct MuNodeView: View {
                     case let n as MuLeafTapVm: MuLeafTapView(leafVm: n)
 
                     default:
-                        if nodeVm.icon.isEmpty {
-                            MuNodeTextView(node: nodeVm)
+                        if let icon = nodeVm.icon {
+                            Image(icon).resizable()
                         } else {
-                            Image(nodeVm.icon).resizable()
+                            MuNodeTextView(nodeVm: nodeVm)
                         }
                 }
             }

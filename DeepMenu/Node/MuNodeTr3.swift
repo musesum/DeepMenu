@@ -1,14 +1,22 @@
-//
-//  MuNodeTr3.swift
-//  DeepMenu
-//
-//  Created by warren on 5/5/22.
-//
 // Created by warren on 10/17/21.
 
 import SwiftUI
 import Tr3
 import Par
+
+/// shared between 1 or more MuNodeVm
+class MuNodeTr3: MuNode {
+
+    var tr3: Tr3
+
+    init(_ tr3: Tr3,
+         parent: MuNode? = nil,
+         callback: @escaping CallAny = { _ in return }) {
+
+        self.tr3 = tr3
+        super.init(name: tr3.name, parent: parent, callback: callback)
+    }
+}
 
 extension Tr3 {
     func hash() -> Int {
@@ -22,7 +30,9 @@ extension Tr3 {
 
     }
 }
+
 extension Tr3 {
+
     func components() -> [String: Any] {
         var result = [String: Any]()
         if let exprs = val as? Tr3Exprs {
@@ -36,19 +46,5 @@ extension Tr3 {
             }
         }
         return result
-    }
-}
-
-/// shared between 1 or more MuNodeVm
-class MuNodeTr3: MuNode {
-
-    var tr3: Tr3
-
-    init(_ tr3: Tr3,
-         parent: MuNode? = nil,
-         callback: @escaping CallAny = { _ in return })
-    {
-        self.tr3 = tr3
-        super.init(name: tr3.name, parent: parent, callback: callback)
     }
 }

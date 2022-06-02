@@ -4,11 +4,11 @@ import SwiftUI
 
 struct MuNodeIconView: View {
 
-    @ObservedObject var node: MuNodeVm
+    @ObservedObject var nodeVm: MuNodeVm
     let icon: String
 
-    var color: Color { node.spotlight ? .white : .black }
-    var width: CGFloat { node.spotlight ? 2 : 1 }
+    var color: Color { nodeVm.spotlight ? .white : .black }
+    var width: CGFloat { nodeVm.spotlight ? 2 : 1 }
 
     var body: some View {
         ZStack {
@@ -16,8 +16,8 @@ struct MuNodeIconView: View {
                 .fill(Color.black)
             Circle()
                 .stroke(color, lineWidth: width)
-                .animation(Layout.flash(), value: color)
-                .animation(Layout.flash(), value: width)
+                .animation(Layout.flashAnim, value: color)
+                .animation(Layout.flashAnim, value: width)
                 .background(Color.clear)
 
             Image(icon)

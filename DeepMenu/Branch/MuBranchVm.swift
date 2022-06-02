@@ -6,92 +6,110 @@ import SwiftUI
 class MuBranchVm: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
 
-    var treeVm: MuTreeVm?           // my tree; which unfolds a hierarchy of branches
-    var branchPrevVm: MuBranchVm?   // branch preceding this one
-    var nodeVms: [MuNodeVm]         // all the node view models on this branch
-    var nodeNowVm: MuNodeVm?        // current node on hierarcy sequence
+    var treeVm: MuTreeVm?     /// my tree; which unfolds a hierarchy of branches
+    var nodeVms: [MuNodeVm]   /// all the node view models on this branch
+    var nodeNowVm: MuNodeVm?  /// current node, nodeNowVm.branchVm is next branch
     var panelVm: MuPanelVm
 
     var isRoot: Bool = false
     var bounds: CGRect = .zero
-    var level: CGFloat = 0          // zIndex within sub/super branches
+    var level: CGFloat = 0    /// zIndex within sub/super branches
+    var reverse = false       /// show in reverse order
 
     @Published var branchShift: CGSize = .zero
     @Published var show = true
 
-    var reverse = false
-
-    init(branchPrevVm: MuBranchVm? = nil,
-         nodes: [MuNode] = [],
-         nodeVms: [MuNodeVm] = [],
-         nodeNowVm: MuNodeVm? = nil,
+    init(nodes: [MuNode] = [],
          treeVm: MuTreeVm?,
-         isRoot: Bool = false,
-         show: Bool = true) {
+         type: MuNodeType,
+         level: CGFloat = 0) {
 
-        self.branchPrevVm = branchPrevVm
-        self.nodeNowVm = nodeNowVm
-        self.nodeVms = [MuNodeVm]()
+        self.nodeVms = []
         self.treeVm = treeVm
-        self.level = (branchPrevVm?.level ?? 0) + 1
-        self.isRoot = isRoot
-        self.show = show
-        let axis = treeVm?.axis ?? .vertical
-        let count = max(nodes.count, nodeVms.count)
-        self.panelVm = MuPanelVm(type: .node, count: nodes.count, axis: axis)
-        if nodes.count > 0 {
-            buildFromNodes(nodes)
-        }
+        self.level = level
+        self.isRoot = nodes.count == 0
+
+        self.panelVm = MuPanelVm(type: .node,
+                                 count: nodes.count,
+                                 axis: treeVm?.axis ?? .vertical)
+        buildFromNodes(nodes)
         updateTree(treeVm)
-    }
-
-    init(branchPrev: MuBranchVm? = nil,
-         treeVm: MuTreeVm?,
-         type: MuNodeType) {
-
-        self.branchPrevVm = branchPrev
-        self.treeVm = treeVm
-        self.level = (branchPrev?.level ?? 0) + 1
-        self.nodeVms = [MuNodeVm]()
-        let axis = treeVm?.axis ?? .vertical
-        self.panelVm = MuPanelVm(type: type, axis: axis)
     }
 
     private func buildFromNodes(_ nodes: [MuNode]) {
 
         for node in nodes {
-
             let nodeVm = MuNodeVm.cache(.node, node, self, nodeNowVm)
             nodeVms.append(nodeVm)
-
-            if let components = nodeVm.components,
-               let type = components["type"] as? MuNodeType,
-               type.isLeaf {
-
-                let leafNode = MuNode(name: "✎", parent: nodeVm.node, callback: nodeVm.node.callback)
-                let branchVm = MuBranchVm(branchPrev: self,
-                                          treeVm: treeVm,
-                                          type: type)
-                let leafVm = MuNodeVm.cache(type, leafNode, branchVm)
-                branchVm.nodeVms.append(leafVm)
+            if nodeVm.spotlight {
+                nodeNowVm = nodeVm
             }
-
         }
-        return
+    }
+    
+    /// evenly space branches leading up to current branch's position
+    func refreshBranch(_ nodeNextVm: MuNodeVm?) {
+        
+        if nodeNowVm?.id != nodeNextVm?.id {
+            nodeNowVm?.spotlight = false
+            nodeNowVm = nodeNextVm
+            nodeNowVm?.spotlight = true
+        }
+        if nodeNowVm?.branchVm.show == true {
+            expandBranch()
+            treeVm?.refreshTree(self)
+        }
+    }
+
+    /** add a branch to selected node and follow next node
+
+
+     */
+    func expandBranch() {
+
+        guard let nodeNowVm = nodeNowVm else { return }
+        nodeNowVm.spotlight = true
+
+        let nextType = nodeNowVm.components?["type"] as? MuNodeType ?? .node
+
+        if nodeNowVm.node.children.count > 0 {
+            let newBranch = MuBranchVm(nodes: nodeNowVm.node.children,
+                                       treeVm: treeVm,
+                                       type: .node,
+                                       level: level+1)
+
+            nodeNowVm.branchVm = newBranch
+
+            if newBranch.nodeNowVm?.spotlight ?? false {
+                newBranch.expandBranch()
+            }
+        } else if nextType.isLeaf {
+
+            let leafNode = MuNode(name: "✎",
+                                  parent: nodeNowVm.node,
+                                  callback: nodeNowVm.node.callback)
+
+            let branchVm = MuBranchVm(nodes: [leafNode],
+                                      treeVm: treeVm,
+                                      type: nextType,
+                                      level: level+1)
+            
+            nodeNowVm.branchVm = branchVm
+        }
     }
 
     /**
      May be updated after init for root tree inside updateRoot
      */
     func updateTree(_ treeVm: MuTreeVm?) {
-
         guard let treeVm = treeVm else { return }
+
         self.treeVm = treeVm
 
-        if let center = branchPrevVm?.nodeNowVm?.center {
+        if let center = nodeNowVm?.superVm?.center {
             bounds = panelVm.bounds(center)
         }
-        branchShift = branchPrevVm?.branchShift ?? .zero
+        branchShift = nodeNowVm?.superVm?.branchVm.branchShift ?? .zero
     }
 
     func addNode(_ nodeVm: MuNodeVm?) {
@@ -99,24 +117,18 @@ class MuBranchVm: Identifiable, ObservableObject {
         if nodeVms.contains(nodeVm) { return }
         nodeVms.append(nodeVm)
     }
-    
-    func removeNode(_ node: MuNodeVm) {
-        let filtered = nodeVms.filter { $0.id != node.id }
-        nodeVms = filtered
-    }
 
     func findNearestNode(_ touchNow: CGPoint) -> MuNodeVm? {
 
-        // not hovering over branch? 
-        if !bounds.contains(touchNow) {
-            //TODO: return nil has false positives
+        // is hovering over same node as before
+        if (nodeNowVm?.center.distance(touchNow) ?? .infinity) < Layout.diameter {
+            return nodeNowVm
         }
-
-        //TODO: this is rather inefficient, is a workaround for the above
         for nodeVm in nodeVms {
-            let threshold = Layout.diameter + Layout.spacing
-            if nodeVm.center.distance(touchNow) < threshold {
+            if nodeVm.center.distance(touchNow) < Layout.diameter {
+                nodeNowVm?.spotlight = false
                 nodeNowVm = nodeVm
+                nodeNowVm?.spotlight = true
                 nodeVm.superSpotlight()
                 return nodeVm
             }
@@ -124,12 +136,10 @@ class MuBranchVm: Identifiable, ObservableObject {
         return nil
     }
 
-    func beginTap() {
-
-        if let nodeNowVm = nodeNowVm {
-            nodeNowVm.superSelect()
-            treeVm?.refreshBranches(nodeNowVm)
-        }
+    func beginTap(_ nearestNode: MuNodeVm) {
+        nodeNowVm = nearestNode
+        nearestNode.superSelect()
+        refreshBranch(nearestNode)
     }
 
     func updateBounds(_ from: CGRect) {
@@ -137,5 +147,22 @@ class MuBranchVm: Identifiable, ObservableObject {
             bounds = panelVm.updateBounds(from)
             // log("∿" + title, from, bounds)
         }
+    }
+}
+extension MuBranchVm {
+    func cached(nodes: [MuNode] = [],
+                nodeVms: [MuNodeVm] = [],
+                treeVm: MuTreeVm?,
+                isRoot: Bool = false,
+                type: MuNodeType = .node,
+                level: CGFloat = 0,
+                show: Bool = true) -> MuBranchVm
+    {
+        let newBranch = MuBranchVm(
+            nodes: nodes,
+            treeVm: treeVm,
+            type: type,
+            level: level)
+        return newBranch
     }
 }

@@ -19,8 +19,8 @@ struct MuPanelView: View {
                 RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                     .stroke(strokeColor, lineWidth: strokeWidth)
                     .frame(width: panelVm.inner.width, height: panelVm.inner.height)
-                    .animation(Layout.flash(), value: strokeColor)
-                    .animation(Layout.flash(), value: strokeWidth)
+                    .animation(Layout.flashAnim, value: strokeColor)
+                    .animation(Layout.flashAnim, value: strokeWidth)
             }
         }
     }

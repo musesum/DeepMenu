@@ -1,13 +1,7 @@
-//
-//  MuNode.swift
-//  DeepMenu
-//
-//  Created by warren on 5/6/22.
-//
+// Created by warren on 5/6/22.
 
 import Foundation
 import Par
-
 
 class MuNode: Identifiable, Equatable {
 

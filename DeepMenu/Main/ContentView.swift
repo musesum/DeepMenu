@@ -25,17 +25,17 @@ class ContentVm {
         skyNodes = ExampleTr3Sky.skyNodes()
         skyRootVm = MuRootVm([.lower, .left], axii: [.vertical])
         skyTreeVm = skyRootVm.treeNowVm
-        skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm)
+        skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm, type: .node)
         skyTreeVm?.addBranch(skyBranchVm)
         skyTouchVm = skyRootVm.touchVm
     }
     
     private func testBranches(_ treeVm: MuTreeVm) -> [MuBranchVm] {
-        let numberedNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
-        let letteredNodes = ExampleNodeModels.letteredNodes()
-        let hBranch = MuBranchVm(nodes: numberedNodes, treeVm: treeVm) //?? axis: .horizontal)
-        let vBranch = MuBranchVm(nodes: letteredNodes, treeVm: treeVm) //?? axis: .vertical)
-        return [hBranch, vBranch]
+        let numberNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
+        let letterNodes = ExampleNodeModels.letteredNodes()
+        let branches = [MuBranchVm(nodes: numberNodes, treeVm: treeVm, type: .node),
+                        MuBranchVm(nodes: letterNodes, treeVm: treeVm, type: .node)]
+        return branches
     }
 }
 

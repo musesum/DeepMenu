@@ -87,7 +87,7 @@ class MuPanelVm {
          axis: Axis = .vertical) {
         
         self.type = type
-        self.count = CGFloat(count)
+        self.count = CGFloat(max(count,1))
         self.axis = axis
     }
     

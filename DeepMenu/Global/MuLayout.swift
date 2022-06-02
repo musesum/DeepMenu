@@ -3,16 +3,24 @@
 import SwiftUI
 
 struct Layout {
+
     static let titleHeight: CGFloat = 40
+
     static let diameter: CGFloat = 40
+
+    /// margin between nodes and branches
     static let spacing: CGFloat = 4
-    static var spotArea: CGFloat { get { diameter + spacing * 2 } }
-    static var zone: CGFloat { get { diameter + spacing } }
+
+    /// distance from center while inside node
+    static let insideNode: CGFloat = 24
+
     static let animate = CGFloat(0.33)
     static let hoverRing = "icon.ring.roygbiv"
     static let lagStep = TimeInterval(1.0/32.0) // sixteenth of a second
     static let panelFill = Color(white: 0.01, opacity: 0.5)
-    static func flash() -> Animation { return .easeInOut(duration: 0.20)}
+
+    /// quick animatin for fla
+    static var flashAnim: Animation { get { .easeInOut(duration: 0.20) }}
 
     static func fillColor(_ high: Bool) -> Color {
         let color = (high

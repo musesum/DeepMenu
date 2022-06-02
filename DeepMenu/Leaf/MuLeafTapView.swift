@@ -21,12 +21,12 @@ struct MuLeafTapView: View {
                     RoundedRectangle(cornerRadius: leafVm.panelVm.cornerRadius)
                         .fill(Layout.panelFill)
                         .frame(width: panelVm.inner.width, height: panelVm.inner.height)
-                        .animation(Layout.flash(), value: fillColor)
+                        .animation(Layout.flashAnim, value: fillColor)
                     RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                         .stroke(strokeColor, lineWidth: strokeWidth)
                         .frame(width: panelVm.inner.width, height: panelVm.inner.height)
-                        .animation(Layout.flash(), value: strokeColor)
-                        .animation(Layout.flash(), value: strokeWidth)
+                        .animation(Layout.flashAnim, value: strokeColor)
+                        .animation(Layout.flashAnim, value: strokeWidth)
                 }
                 .gesture(DragGesture(minimumDistance: 0)
                     .updating($touchXY) { (input, result, _) in
