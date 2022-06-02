@@ -140,11 +140,11 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
 
 #### Use cases 
 
-    Conductor style menu for hand pose (AR Glasses?)
-    
-    Replace MuseSky Tr3Thumb Panel
++ MuseSky - visual synth menu
 	
-	Hardware device
++ Hand pose menu HUD
+    
++ Touch.AI - proof of concept
 
 
 #### To Do
