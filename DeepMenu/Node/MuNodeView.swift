@@ -5,7 +5,7 @@ import SwiftUI
 struct MuNodeView: View {
 
     @ObservedObject var nodeVm: MuNodeVm
-    var panelVm: MuPanelVm { get { nodeVm.panelVm } }
+    var panelVm: MuPanelVm { nodeVm.panelVm }
 
     var body: some View {
         GeometryReader() { geo in

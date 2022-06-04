@@ -9,17 +9,17 @@ class MuPanelVm {
     var margin = CGFloat(0) // overlap with a negative number
 
     // changed by type
-    var cornerRadius: CGFloat { get {
+    var cornerRadius: CGFloat {
         type.isLeaf
         ? (Layout.diameter + Layout.spacing) / 2
         : (Layout.diameter / 2)
-    }}
+    }
 
     var thumbRadius = Layout.diameter/2 - 1
     func xRunway() -> CGFloat { return inner.width  - thumbRadius*2 }
     func yRunway() -> CGFloat { return inner.height - thumbRadius*2 }
 
-    var aspect: CGSize { get {
+    var aspect: CGSize {
         switch type {
             case .none : return CGSize(width: 1.0, height: 1.0)
             case .node : return CGSize(width: 1.0, height: 1.0)
@@ -29,28 +29,21 @@ class MuPanelVm {
             case .seg  : return CGSize(width: 1.0, height: 4.0)
             case .tap  : return CGSize(width: 1.5, height: 1.5)
         }
-    }}
-    var inner: CGSize {
-        get {
-            let result = aspect * Layout.diameter
-            return result
-        }}
+    }
+    var inner: CGSize { aspect * Layout.diameter }
 
     var outer: CGSize {
-        get {
-            let result: CGSize
-            if type.isLeaf {
-                result = inner + CGSize(width: 0, height: Layout.titleHeight)
-            } else {
-                let trough = Layout.diameter + (2 * Layout.spacing)
-                let runway = (trough * count) + (margin * 2 * (count-1))
-                let width  = (axis == .vertical ? trough : runway)
-                let height = (axis == .vertical ? runway : trough)
-                result = CGSize(width: width, height: height)
-            }
-
-            return result
+        let result: CGSize
+        if type.isLeaf {
+            result = inner + CGSize(width: 0, height: Layout.titleHeight)
+        } else {
+            let trough = Layout.diameter + (2 * Layout.spacing)
+            let runway = (trough * count) + (margin * 2 * (count-1))
+            let width  = (axis == .vertical ? trough : runway)
+            let height = (axis == .vertical ? runway : trough)
+            result = CGSize(width: width, height: height)
         }
+        return result
     }
 
     func normalizeTouch(xy: CGPoint) -> CGPoint {

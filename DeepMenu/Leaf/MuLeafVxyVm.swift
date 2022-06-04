@@ -5,19 +5,17 @@ import Accelerate
 import Tr3
 
 class MuLeafVxyVm: MuNodeVm {
-
+    
     var thumb: CGPoint = .zero
-
+    
     var status: String {
-        get {
-            if editing {
-                return String(format: "x: %.2f, y: %.2f", thumb.x, thumb.y)
-            } else {
-                return node.name
-            }
+        if editing {
+            return String(format: "x: %.2f, y: %.2f", thumb.x, thumb.y)
+        } else {
+            return node.name
         }
     }
-
+    
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
           _ parentVm: MuNodeVm?,
@@ -30,9 +28,9 @@ class MuLeafVxyVm: MuNodeVm {
             thumb = p
         }
     }
-
+    
     func touchNow(_ touchNow: CGPoint) {
-
+        
         if touchNow != .zero {
             editing = true
             thumb = panelVm.normalizeTouch(xy: touchNow)
@@ -42,12 +40,9 @@ class MuLeafVxyVm: MuNodeVm {
             editing = false
         }
     }
-
+    
     var offset: CGSize {
-        get {
-            let size = CGSize(width:  thumb.x * panelVm.xRunway(),
-                              height: thumb.y * panelVm.yRunway())
-            return size
-        }
+        CGSize(width:  thumb.x * panelVm.xRunway(),
+               height: thumb.y * panelVm.yRunway())
     }
 }

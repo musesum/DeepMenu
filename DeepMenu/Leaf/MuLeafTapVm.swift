@@ -7,12 +7,10 @@ import Tr3
 class MuLeafTapVm: MuNodeVm {
 
     var status: String {
-        get {
-            if editing {
-                return "!"
-            } else {
-                return node.name
-            }
+        if editing {
+            return "!"
+        } else {
+            return node.name
         }
     }
 
@@ -40,9 +38,6 @@ class MuLeafTapVm: MuNodeVm {
     }
 
     var offset: CGSize {
-        get {
-            let size = CGSize(width: 0, height:  panelVm.yRunway())
-            return size
-        }
+        CGSize(width: 0, height:  panelVm.yRunway())
     }
 }

@@ -1,14 +1,20 @@
 # Deep Menu 
 
+### Interaction
+![Screenshot](Interaction.png)
+
 ### Components
 ![Screenshot](Components.png)
 
 #### Naming convention for components
+DeepMenu follows a MVVM pattern (Model, View, View Model) 
+
++ MuNode* - proxy for Model, such as MuNodeTr3
 + Mu*View - SwiftUI View for [root,tree,branch,panel,node,leaf] 
-+ Mu*Vm   - view model for [root,tree,branch,panel,node,leaf] 
-   
++ Mu*Vm   - View Model for [root,tree,branch,panel,node,leaf] 
+
 #### MuRoot* - starting point for one of more MuTree(s)
-+ MuRootVm - touch, corner, pilot, trees, branchNow, nodeNow
++ MuRootVm - touch, corner, pilot, trees, branchSpot, nodeSpot
 + MuRootView - manage UIViews for each corner 
 + MuRootStatus - publish changed state in [root,tree,edit,space]
 
@@ -36,8 +42,7 @@
 + MuLeafVal - single dimension value
 + MuLeafVxy - 2 dimension xy control
    
-##### MuPanel* - stroke+fill branches and bounds for node views
-
+##### MuPanel* - stroke+fill branches and bounds for node views\
 + MuPanelVm - type, axis, size, and margins for View
 + MuPanelView - SwiftUI background 
 + MuPanelAxisView - vertical or horizontal PanelView 
@@ -48,9 +53,10 @@
   - MuTouchView - view for root and drag nodes
    
 ##### Prefixes and Suffixes
-+ components 
-  - <name>*Vm - instance of view model
-  - <name>*Vms - array of [<name>*Vm]
++ component instances 
+  - *Vm - instance of view model, such as branchVm
+  - *Vms - array of [*Vm], such as branchVms
+  
 + point, size, radius, spacing 
   - x* - x in a CGPoint(x:y:)
   - y* - y in a CGPoint(x:y:)
@@ -59,7 +65,7 @@
   - r* - radius / distance from center of a node
   - s* - spacing between nodes
 + hierarchy
-  - spot* - spotlight on current Node, Branch
+  - spot* - spotlight on current Node or Branch
   - parent* - parent in model hierarchy
   - children* - [child] array in model hierarchy
   - child - current child in for loop
@@ -79,16 +85,21 @@
 ### SwiftUI restrictions
 
 + SwiftUI Views cannot modify its own state  
-  - So, no @State or @StateObjects are used
+  - So, no @State, @Binding, or @StateObject are used
   + Instead, change state in view model (Vm)
         
 + View Model(Vm) is a class, not struct
   - fine tuned @Published to update View
   - synchronize state between devices, including: iPhone, iPad, TV, watch, Shareplay
             
-+ pros: @State has been somewhat buggy in the past
++ pros
+    - @State has been somewhat buggy in the past
+    - @State, @Binding, @StateObject adds semantic complexity
+    - Simplify migration from UIKit with MVVM pattern
+    - confusion on how to extract 
         
-+ cons: requires a manually enforced coding policy 
++ cons 
+    - requires a manually enforced coding policy 
         
 ### SwiftLint violations - emphasis on columnwise alignment
     
@@ -107,14 +118,12 @@
         
 ##### Exceptions to columnwise alignment 
         
-+ lvalue = rvalue
-
-    equals(=) sign is always single space from lvalue
++ lvalue = rvalue, where equals(=) sign is always single space from lvalue
 
          name = value
          longerName = value
     
-    avoid (do NOT align)
+    so, avoid
       
          name       = value
          longerNmae = value
@@ -126,13 +135,23 @@
              
 ##### Whitespace row after func (...)
  
-+ separate spacer line after `func <name> (...) {`
++ separate spacer line after - easier to scan code for functions
 
-  easier to scan code for functions
+        func foo (...) {
+            
+            let whatever = something
+            ...
+
+  
     
-+ exception for `guard <parm> = <parm> else { return }` statements
-
-  extension of `(...)` in `func <name> (...)`
++ except for parameter cleanup - treated as part of entry point
+    
+        func foo(bar: Bar?) {
+            guard bar = bar else { return }
+            
+            let whatever = something
+                ...
+    
   
 see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
         using typography for source code
@@ -155,6 +174,7 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
 + Tree
   - Slide-in hides super-branches
   - Transparent while editing leaf
+  - Horizontal Test
 + Node
   - Show icons 
 + Leaf 

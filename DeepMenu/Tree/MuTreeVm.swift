@@ -3,9 +3,7 @@ import SwiftUI
 
 class MuTreeVm: Identifiable, Equatable, ObservableObject {
     let id = MuIdentity.getId()
-    static func == (lhs: MuTreeVm, rhs: MuTreeVm) -> Bool {
-        return lhs.id == rhs.id
-    }
+    static func == (lhs: MuTreeVm, rhs: MuTreeVm) -> Bool { return lhs.id == rhs.id }
 
     @Published var branchVms: [MuBranchVm]
 
@@ -13,7 +11,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     var level = CGFloat(1) // starting level for branches
     var offset = CGSize(width: 0, height: 0)
     var depthShown = 0 // levels of branches shown
-    var nodeNowVm: MuNodeVm? // current node under pilot's dragNode
+    var nodeSpotVm: MuNodeVm? // current node under pilot's dragNode
 
     init(branches: [MuBranchVm],
          axis: Axis,
@@ -56,8 +54,8 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
 
         // is hovering over same node as before
-        if (nodeNowVm?.center.distance(touchNow) ?? .infinity) < Layout.diameter {
-            return nodeNowVm
+        if (nodeSpotVm?.center.distance(touchNow) ?? .infinity) < Layout.diameter {
+            return nodeSpotVm
         }
 
         /// make sure searching on same tree before limiting search to sub-branches
@@ -74,12 +72,12 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
             skipSuperBranch = false
 
             if let nearestNodeVm = branchVm.findNearestNode(touchNow) {
-                if nearestNodeVm.id != nodeNowVm?.id  {
-                    nodeNowVm = nearestNodeVm
-                    nodeNowVm?.superSelect()
-                    nodeNowVm?.branchVm.refreshBranch(nodeNowVm)
+                if nearestNodeVm.id != nodeSpotVm?.id  {
+                    nodeSpotVm = nearestNodeVm
+                    nodeSpotVm?.superSelect()
+                    nodeSpotVm?.branchVm.refreshBranch(nodeSpotVm)
                 }
-                return nodeNowVm
+                return nodeSpotVm
             }
         }
         return nil
@@ -90,9 +88,9 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         var delim = " "
         while branchVm != nil {
             if let b = branchVm {
-                print(delim + (b.nodeNowVm?.node.name ?? " "), terminator: ""); delim = "."
+                print(delim + (b.nodeSpotVm?.node.name ?? " "), terminator: ""); delim = "."
                 newBranches.append(b)
-                branchVm = b.nodeNowVm?.branchVm
+                branchVm = b.nodeSpotVm?.branchVm
             }
         }
         branchVms = newBranches

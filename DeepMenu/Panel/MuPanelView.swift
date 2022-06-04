@@ -6,8 +6,8 @@ struct MuPanelView: View {
     @GestureState private var touchXY: CGPoint = .zero
     var panelVm: MuPanelVm
     var editing: Bool
-    var strokeColor: Color   { get { Layout.strokeColor(editing) }}
-    var strokeWidth: CGFloat { get { Layout.strokeWidth(editing) }}
+    var strokeColor: Color   { Layout.strokeColor(editing) }
+    var strokeWidth: CGFloat { Layout.strokeWidth(editing) }
 
     var body: some View {
         ZStack {

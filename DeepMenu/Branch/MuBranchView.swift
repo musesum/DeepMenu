@@ -8,8 +8,8 @@ struct MuBranchView: View, Identifiable {
     @EnvironmentObject var root: MuRootVm
     @ObservedObject var branch: MuBranchVm
 
-    var opacity: CGFloat { get { branch.show ? 1 : 0 }}
-    var panelVm: MuPanelVm { get { branch.panelVm } }
+    var opacity: CGFloat { branch.show ? 1 : 0 }
+    var panelVm: MuPanelVm { branch.panelVm }
     @GestureState private var touchXY: CGPoint = .zero
 
     var body: some View {

@@ -12,18 +12,16 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     /// publish when selected or is under cursor
     @Published var spotlight = false
 
-    let type: MuNodeType      // node, val, vxy, seg, tog, tap
-    let node: MuNode          // each model MuNode maybe on several MuNodeVm's
-    let icon: String?         // icon for this node (not implemented)
-    var branchVm: MuBranchVm  // branch that this node is on
-    var superVm: MuNodeVm?    // parent nodeVm in hierarchy
-    var subVms = [MuNodeVm]() // child nodeVm's in hierarchy
-    var center = CGPoint.zero // current position
+    let type: MuNodeType      /// node, val, vxy, seg, tog, tap
+    let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
+    let icon: String?         /// icon for this node (not implemented)
+    var branchVm: MuBranchVm  /// branch that this node is on
+    var superVm: MuNodeVm?    /// parent nodeVm in hierarchy
+    var subVms = [MuNodeVm]() /// child nodeVm's in hierarchy
+    var center = CGPoint.zero /// current position
     var panelVm: MuPanelVm
 
-    var components: [String: Any]? { get {
-        (node as? MuNodeTr3)?.tr3.components() ?? [:]
-    }}
+    var components: [String: Any]? { (node as? MuNodeTr3)?.tr3.components() ?? [:] }
 
     init (_ type: MuNodeType,
           _ node: MuNode,
@@ -60,7 +58,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
         if let parentVm = superVm {
             parentVm.spotlight = true
-            parentVm.node.childNow = node
+            parentVm.node.childSpot = node
             parentVm.superSelect()
         }
     }

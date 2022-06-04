@@ -24,7 +24,7 @@ class ContentVm {
         // init in sequence: nodes, root, tree, branch, touch
         skyNodes = ExampleTr3Sky.skyNodes()
         skyRootVm = MuRootVm([.lower, .left], axii: [.vertical])
-        skyTreeVm = skyRootVm.treeNowVm
+        skyTreeVm = skyRootVm.treeSpotVm
         skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm, type: .node)
         skyTreeVm?.addBranch(skyBranchVm)
         skyTouchVm = skyRootVm.touchVm

@@ -9,7 +9,7 @@ class MuNode: Identifiable, Equatable {
 
     var name: String
     var children = [MuNode]()
-    var childNow: MuNode? // most recently selected nodeModel
+    var childSpot: MuNode? // most recently selected nodeModel
     var callback: ((Any) -> Void)
 
     static func == (lhs: MuNode, rhs: MuNode) -> Bool {

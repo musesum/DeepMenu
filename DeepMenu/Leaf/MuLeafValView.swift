@@ -6,7 +6,7 @@ struct MuLeafValView: View {
 
     @ObservedObject var leafVm: MuLeafValVm
     @GestureState private var touchXY: CGPoint = .zero
-    var panelVm: MuPanelVm { get { leafVm.panelVm } }
+    var panelVm: MuPanelVm { leafVm.panelVm }
 
     var body: some View {
         VStack {

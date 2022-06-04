@@ -8,7 +8,7 @@ class MuLeafTogVm: MuNodeVm {
 
     var thumb = CGFloat(0)
 
-    var status: String { get { thumb == 1 ? "on" : "off" } }
+    var status: String { thumb == 1 ? "on" : "off" }
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -36,10 +36,7 @@ class MuLeafTogVm: MuNodeVm {
     }
 
     var offset: CGSize {
-        get {
-            let size = CGSize(width: thumb * panelVm.xRunway(),
-                              height: 0)
-            return size
-        }
+        CGSize(width: thumb * panelVm.xRunway(),
+               height: 0)
     }
 }

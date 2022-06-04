@@ -6,10 +6,10 @@ struct MuLeafTapView: View {
 
     @ObservedObject var leafVm: MuLeafTapVm
     @GestureState private var touchXY: CGPoint = .zero
-    var panelVm     : MuPanelVm { get { leafVm.panelVm } }
-    var fillColor   : Color     { get { Layout.fillColor(leafVm.editing) }}
-    var strokeColor : Color     { get { Layout.strokeColor(leafVm.editing) }}
-    var strokeWidth : CGFloat   { get { Layout.strokeWidth(leafVm.editing) }}
+    var panelVm: MuPanelVm { leafVm.panelVm }
+    var fillColor: Color { Layout.fillColor(leafVm.editing) }
+    var strokeColor: Color { Layout.strokeColor(leafVm.editing) }
+    var strokeWidth: CGFloat { Layout.strokeWidth(leafVm.editing) }
 
     var body: some View {
         VStack {

@@ -9,12 +9,10 @@ class MuLeafSegVm: MuNodeVm {
     var thumb = CGFloat(0)
     
     var status: String {
-        get {
-            if editing {
-                return String(format: "%.1f", thumb)
-            } else {
-                return node.name
-            }
+        if editing {
+            return String(format: "%.1f", thumb)
+        } else {
+            return node.name
         }
     }
     
@@ -42,10 +40,7 @@ class MuLeafSegVm: MuNodeVm {
         }
     }
     
-    var offset: CGSize {
-        get {
-            let size = CGSize(width: 0, height: thumb * panelVm.yRunway())
-            return size
-        }
+    var offset: CGSize { CGSize(width: 0,
+                                height: thumb * panelVm.yRunway())
     }
 }

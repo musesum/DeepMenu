@@ -15,7 +15,7 @@ class MuTreeTests: XCTestCase {
 
     override func setUpWithError() throws {
         root = MuRootVm([.lower, .right], axii: [.vertical])
-        tree = root.treeNowVm
+        tree = root.treeSpotVm
         branch1 = MuBranchVm(nodes: [], tree: tree)
     }
 

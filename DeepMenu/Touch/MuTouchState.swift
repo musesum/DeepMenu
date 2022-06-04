@@ -13,9 +13,9 @@ class MuTouchState {
     private var pointBegin = CGPoint.zero   // where touch started
 
     var tapCount  = 0  // number of taps
-    var pointNow   = CGPoint.zero   // current position of touch
+    var pointNow = CGPoint.zero   // current position of touch
     var pointDelta = CGPoint.zero   // pointNow - pointBegin
-    var touching: Bool { get { return timeEnded > timeBegin }}
+    var touching: Bool { return timeEnded > timeBegin }
 
     func begin(_ pointNow: CGPoint) {
 
@@ -53,13 +53,13 @@ class MuTouchState {
         logTime("🔴")
     }
 
-    var tapped: Bool { get {
+    var tapped: Bool {
         let tapping = timeDelta < MuTouchState.tapThreshold
         if tapping {
             logTime("🟣" + (tapCount < 3 ? "¹²³"[tapCount] : String(tapCount)))
         }
         return tapping
-    }}
+    }
 
     func logTime(_ symbol: String) {
         print(String(format: "\n%.2f \(symbol)", timeDelta), terminator: " ")

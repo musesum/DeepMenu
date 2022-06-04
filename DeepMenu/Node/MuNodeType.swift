@@ -10,31 +10,27 @@ enum MuNodeType: String {
     case tog  // toggle on/off
     case tap  // tap a button
     case seg  // segment control
-
+    
     public var description: String {
-        get {
-            switch self {
-                case .none : return "none"
-                case .node : return "node"
-                case .val  : return "val"
-                case .vxy  : return "vxy"
-                case .tog  : return "tog"
-                case .seg  : return "seg"
-                case .tap  : return "tap"
-            }
+        switch self {
+            case .none : return "none"
+            case .node : return "node"
+            case .val  : return "val"
+            case .vxy  : return "vxy"
+            case .tog  : return "tog"
+            case .seg  : return "seg"
+            case .tap  : return "tap"
         }
     }
     public var icon: String {
-        get {
-            switch self {
-                case .none : return " ⃝"
-                case .node : return "ᛘ⃝"
-                case .val  : return "≣⃝"
-                case .vxy  : return "᛭⃣"
-                case .tog  : return "◧⃝"
-                case .seg  : return "◔⃝"
-                case .tap  : return "◉⃝"
-            }
+        switch self {
+            case .none : return " ⃝"
+            case .node : return "ᛘ⃝"
+            case .val  : return "≣⃝"
+            case .vxy  : return "᛭⃣"
+            case .tog  : return "◧⃝"
+            case .seg  : return "◔⃝"
+            case .tap  : return "◉⃝"
         }
     }
     init(_ name: String) {
@@ -49,11 +45,11 @@ enum MuNodeType: String {
             default     : self = .none
         }
     }
-    var isLeaf: Bool { get {
+    var isLeaf: Bool {
         switch self {
             case .node, .none: return false
             default: return true
         }
-    }}
-
+    }
+    
 }

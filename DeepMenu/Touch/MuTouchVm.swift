@@ -10,7 +10,7 @@ class MuTouchVm: ObservableObject {
 
     @Published var pointNow = CGPoint.zero    // current position
     public var pointHome = CGPoint.zero  // starting position of touch
-    var alpha: CGFloat { get { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }}
+    var alpha: CGFloat { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }
 
     var rootVm: MuRootVm?      //
     var homeNodeVm: MuNodeVm?  // fixed home node in corner in which to drag from
@@ -18,13 +18,13 @@ class MuTouchVm: ObservableObject {
 
     private var touchOfs = CGSize.zero // offset between rootNode and touchNow
     private var deltaOfs = CGSize.zero // offset between touch point and center in coord
-    var pilotOfs: CGSize { get {
+    var pilotOfs: CGSize {
         switch rootVm?.status ?? .root {
             case .root:  return touchOfs
             case .tree:  return deltaOfs
             case .edit:  return .zero
             case .space: return deltaOfs
-        }}}
+        }}
 
 
     var touchBranch: MuBranchVm? // branch which captured DragGesture
@@ -34,7 +34,7 @@ class MuTouchVm: ObservableObject {
         self.rootVm = rootVm
         let homeNode = MuNodeTest("⚫︎") //todo: replace with ??
         let branchVm = MuBranchVm(nodes: [],
-                                  treeVm: rootVm.treeNowVm, type: .node)
+                                  treeVm: rootVm.treeSpotVm, type: .node)
         homeNodeVm = MuNodeVm(.node, homeNode, branchVm, icon: Layout.hoverRing)
         branchVm.addNode(homeNodeVm)
     }
@@ -69,7 +69,7 @@ class MuTouchVm: ObservableObject {
         }
     }
 
-    func setTouchNow( _ touchNow: CGPoint) {
+    func updatePointNow( _ touchNow: CGPoint) {
         pointNow = touchNow
         pointDelta = touchNow
         let homeCenter = homeNodeVm?.center ?? .zero
@@ -90,7 +90,7 @@ class MuTouchVm: ObservableObject {
 
         func begin() {
             guard let homeNodeVm = homeNodeVm else { return }
-            setTouchNow(touchNow)
+            updatePointNow(touchNow)
             dragNodeVm = homeNodeVm.copy()
             rootVm?.begin(touchBranch, touchNow)
             log("touch", [touchNow], terminator: " ")

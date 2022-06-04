@@ -58,6 +58,7 @@
 		80731CE8281715F3005FCE1A /* sky.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCF281715C0005FCE1A /* sky.tr3.h */; };
 		80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCD281715C0005FCE1A /* midi.tr3.h */; };
 		80731CEB2819BBF1005FCE1A /* menu.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CEA28187A45005FCE1A /* menu.tr3.h */; };
+		8073EE8B284A83AD00B0E3B2 /* Interaction.png in Resources */ = {isa = PBXBuildFile; fileRef = 8073EE8A284A83AD00B0E3B2 /* Interaction.png */; };
 		807C5A9328493B9A0027863A /* Components.png in Resources */ = {isa = PBXBuildFile; fileRef = 807C5A9228493B9A0027863A /* Components.png */; };
 		8087FC87280771CF00572436 /* ExampleClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* ExampleClientView.swift */; };
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
@@ -150,6 +151,7 @@
 		80731CCD281715C0005FCE1A /* midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = midi.tr3.h; sourceTree = "<group>"; };
 		80731CCF281715C0005FCE1A /* sky.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.tr3.h; sourceTree = "<group>"; };
 		80731CEA28187A45005FCE1A /* menu.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menu.tr3.h; sourceTree = "<group>"; };
+		8073EE8A284A83AD00B0E3B2 /* Interaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interaction.png; sourceTree = "<group>"; };
 		807C5A9228493B9A0027863A /* Components.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Components.png; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* ExampleClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleClientView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,
 				807C5A9228493B9A0027863A /* Components.png */,
+				8073EE8A284A83AD00B0E3B2 /* Interaction.png */,
 				8014B7C82700DE3800691126 /* DeepMenu */,
 				8014B7D92700DE3A00691126 /* DeepMenuTests */,
 				8014B7E32700DE3A00691126 /* DeepMenuUITests */,
@@ -571,6 +574,7 @@
 			files = (
 				800E2A99281DB8AA006AE6A1 /* shader.tr3.h in Resources */,
 				80731CEB2819BBF1005FCE1A /* menu.tr3.h in Resources */,
+				8073EE8B284A83AD00B0E3B2 /* Interaction.png in Resources */,
 				80731CE8281715F3005FCE1A /* sky.tr3.h in Resources */,
 				80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */,
 				57A0A26527BF15AA00B5598B /* config.yml in Resources */,

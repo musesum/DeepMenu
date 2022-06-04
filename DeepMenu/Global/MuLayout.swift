@@ -20,7 +20,7 @@ struct Layout {
     static let panelFill = Color(white: 0.01, opacity: 0.5)
 
     /// quick animatin for fla
-    static var flashAnim: Animation { get { .easeInOut(duration: 0.20) }}
+    static var flashAnim: Animation { .easeInOut(duration: 0.20) }
 
     static func fillColor(_ high: Bool) -> Color {
         let color = (high
