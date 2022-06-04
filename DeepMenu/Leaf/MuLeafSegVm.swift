@@ -7,14 +7,7 @@ import Tr3
 class MuLeafSegVm: MuNodeVm {
 
     var thumb = CGFloat(0)
-    
-    var status: String {
-        if editing {
-            return String(format: "%.1f", thumb)
-        } else {
-            return node.name
-        }
-    }
+    var status: String { editing ? String(format: "%.1f", thumb) : node.name }
     
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,

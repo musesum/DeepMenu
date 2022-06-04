@@ -7,14 +7,7 @@ import Tr3
 class MuLeafVxyVm: MuNodeVm {
     
     var thumb: CGPoint = .zero
-    
-    var status: String {
-        if editing {
-            return String(format: "x: %.2f, y: %.2f", thumb.x, thumb.y)
-        } else {
-            return node.name
-        }
-    }
+    var status: String { editing ? String(format: "x: %.2f, y: %.2f", thumb.x, thumb.y) : node.name }
     
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
