@@ -52,6 +52,7 @@
 		805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B0EDE2748216700004A85 /* Comparable+ext.swift */; };
 		80631DFD277141780071AF93 /* MuPanelVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFC277141780071AF93 /* MuPanelVm.swift */; };
 		80631E002772428E0071AF93 /* MuNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFF2772428E0071AF93 /* MuNodeType.swift */; };
+		8068A435284BED3E007256DA /* ContentVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8068A434284BED3E007256DA /* ContentVm.swift */; };
 		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
 		80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB128170880005FCE1A /* ExampleTr3Sky.swift */; };
 		80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB528170D9A005FCE1A /* SkyTr3.swift */; };
@@ -146,6 +147,7 @@
 		805B0EDE2748216700004A85 /* Comparable+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ext.swift"; sourceTree = "<group>"; };
 		80631DFC277141780071AF93 /* MuPanelVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPanelVm.swift; sourceTree = "<group>"; };
 		80631DFF2772428E0071AF93 /* MuNodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeType.swift; sourceTree = "<group>"; };
+		8068A434284BED3E007256DA /* ContentVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVm.swift; sourceTree = "<group>"; };
 		80731CB128170880005FCE1A /* ExampleTr3Sky.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTr3Sky.swift; sourceTree = "<group>"; };
 		80731CB528170D9A005FCE1A /* SkyTr3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyTr3.swift; sourceTree = "<group>"; };
 		80731CCD281715C0005FCE1A /* midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = midi.tr3.h; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				8014B7CB2700DE3800691126 /* ContentView.swift */,
+				8068A434284BED3E007256DA /* ContentVm.swift */,
 				80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */,
 				8014B7C92700DE3800691126 /* DeepMenuApp.swift */,
 				80135A0A272C728700BCDE27 /* AppBackgroundView.swift */,
@@ -634,6 +637,7 @@
 				800D4AE9272B220700E71519 /* CG+ext.swift in Sources */,
 				8040EDF0282B039F0091F226 /* MuLeafTapView.swift in Sources */,
 				805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */,
+				8068A435284BED3E007256DA /* ContentVm.swift in Sources */,
 				80C5E880270CCA1B0000832C /* Log.swift in Sources */,
 				8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */,
 				8040EDEC282B03390091F226 /* MuLeafTogVm.swift in Sources */,
