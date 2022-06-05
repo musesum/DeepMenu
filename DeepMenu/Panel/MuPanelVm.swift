@@ -109,7 +109,7 @@ class MuPanelVm {
         return result
     }
 
-    func bounds(_ center: CGPoint) -> CGRect {
+    func getBounds(from center: CGPoint) -> CGRect {
         let result = CGRect(x: center.x - outer.width/2,
                             y: center.y - outer.height/2,
                             width: outer.width,

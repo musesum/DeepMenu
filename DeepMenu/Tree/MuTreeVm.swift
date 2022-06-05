@@ -11,7 +11,6 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     var level = CGFloat(1) // starting level for branches
     var offset = CGSize(width: 0, height: 0)
     var depthShown = 0 // levels of branches shown
-    var nodeSpotVm: MuNodeVm? // current node under pilot's dragNode
 
     init(branches: [MuBranchVm],
          axis: Axis,
@@ -29,7 +28,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         branchVms.append(branchVm)
     }
     
-    /** find nearest node to touch point
+    /** find nearest brach containing touch point
     - Parameters:
       - touchNow: current touch point
       - touchBranch: starting branch user touched
@@ -49,39 +48,31 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
      first place. So, allow a wider touch area to stay within
      that branch.
      */
-    func nearestNode(_ touchNow: CGPoint,
-                     _ touchBranch: MuBranchVm?) -> MuNodeVm? {
 
-
-        // is hovering over same node as before
-        if (nodeSpotVm?.center.distance(touchNow) ?? .infinity) < Layout.diameter {
-            return nodeSpotVm
-        }
-
-        /// make sure searching on same tree before limiting search to sub-branches
-         var skipSuperBranch = (touchBranch?.treeVm == self)
+    func nearestBranch(_ touchNow: CGPoint,
+                       _ touchBranch: MuBranchVm?) -> MuBranchVm? {
 
         for branchVm in branchVms {
-            
-            if branchVm.show == false {
-                continue
-            }
-            if skipSuperBranch && (touchBranch?.id  != branchVm.id) {
-                continue
-            }
-            skipSuperBranch = false
+//            /// make sure searching on same tree before limiting search to sub-branches
+//            var skipPrevBranch = (touchBranch?.treeVm == self)
+//
+//            if branchVm.show == false {
+//                continue
+//            }
+//            if skipPrevBranch && (touchBranch?.id != branchVm.id) {
+//                continue
+//            }
+//            skipPrevBranch = false
 
-            if let nearestNodeVm = branchVm.findNearestNode(touchNow) {
-                if nearestNodeVm.id != nodeSpotVm?.id  {
-                    nodeSpotVm = nearestNodeVm
-                    nodeSpotVm?.superSelect()
-                    nodeSpotVm?.branchVm.refreshBranch(nodeSpotVm)
-                }
-                return nodeSpotVm
+            if branchVm.bounds.contains(touchNow) {
+                return branchVm
             }
+
         }
         return nil
     }
+
+
     func refreshTree(_ branchVm: MuBranchVm) {
         var branchVm = branchVms.first
         var newBranches = [MuBranchVm]()

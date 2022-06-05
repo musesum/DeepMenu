@@ -31,15 +31,24 @@ class MuTouchVm: ObservableObject {
     var pointDelta = CGPoint.zero // touch starting position
 
     func setRoot(_ rootVm: MuRootVm) {
+        
         self.rootVm = rootVm
         let homeNode = MuNodeTest("⚫︎") //todo: replace with ??
+
         let branchVm = MuBranchVm(nodes: [],
-                                  treeVm: rootVm.treeSpotVm, type: .node)
-        homeNodeVm = MuNodeVm(.node, homeNode, branchVm, icon: Layout.hoverRing)
-        branchVm.addNode(homeNodeVm)
+                                  treeVm: rootVm.treeSpotVm,
+                                  type: .node)
+
+        homeNodeVm = MuNodeVm(.node,
+                              homeNode,
+                              branchVm,
+                              icon: Layout.hoverRing)
+
+        branchVm.addNodeVm(homeNodeVm)
     }
     
     func setRootVm(_ rootVm: MuRootVm) {
+
         self.rootVm = rootVm
         var name: String
         switch rootVm.corner {

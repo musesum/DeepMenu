@@ -11,13 +11,18 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     @Published var editing: Bool = false
     /// publish when selected or is under cursor
     @Published var spotlight = false
+    func publishChanged(spotlight nextSpotlight: Bool) {
+        if spotlight != nextSpotlight {
+            spotlight = nextSpotlight
+        }
+    }
 
     let type: MuNodeType      /// node, val, vxy, seg, tog, tap
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
     let icon: String?         /// icon for this node (not implemented)
-    var branchVm: MuBranchVm  /// branch that this node is on
+    var branchVm: MuBranchVm? /// branch that this node is on
+    var nextVm: MuBranchVm?   /// child node's branch
     var superVm: MuNodeVm?    /// parent nodeVm in hierarchy
-    var subVms = [MuNodeVm]() /// child nodeVm's in hierarchy
     var center = CGPoint.zero /// current position
     var panelVm: MuPanelVm
 
@@ -25,7 +30,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
     init (_ type: MuNodeType,
           _ node: MuNode,
-          _ branchVm: MuBranchVm,
+          _ branchVm: MuBranchVm? = nil,
           _ superVm: MuNodeVm? = nil,
           icon: String? = nil) {
 
@@ -35,8 +40,6 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         self.superVm = superVm
         self.icon = icon
         self.panelVm = MuPanelVm(type: type)
-
-        superVm?.subVms.append(self)
     }
     
     func copy() -> MuNodeVm {
@@ -45,22 +48,15 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     }
 
     /// spotlight self, parent, grand, etc. in branch
-    func superSpotlight(_ time: TimeInterval = Date().timeIntervalSince1970) {
-        for nodeVm in branchVm.nodeVms {
-            nodeVm.spotlight = false
+    func superSpotlight() {
+        for nodeVm in branchVm?.nodeVms ?? [] {
+            if nodeVm != self {
+                nodeVm.publishChanged(spotlight: false)
+            } else {
+                nodeVm.publishChanged(spotlight: true)
+            }
         }
-        spotlight = true
-        superVm?.superSpotlight(time)
-    }
-
-    /// select self, parent, grand, etc. in branch
-    func superSelect() {
-
-        if let parentVm = superVm {
-            parentVm.spotlight = true
-            parentVm.node.childSpot = node
-            parentVm.superSelect()
-        }
+        superVm?.superSpotlight()
     }
 
     func updateCenter(_ fr: CGRect) {
