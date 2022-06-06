@@ -81,7 +81,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
             if let b = branchVm {
                 print(delim + (b.nodeSpotVm?.node.name ?? " "), terminator: ""); delim = "."
                 newBranches.append(b)
-                branchVm = b.nodeSpotVm?.branchVm
+                branchVm = b.nextBranch
             }
         }
         branchVms = newBranches

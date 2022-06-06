@@ -13,7 +13,7 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
 + Mu*View - SwiftUI View for [root,tree,branch,panel,node,leaf] 
 + Mu*Vm   - View Model for [root,tree,branch,panel,node,leaf] 
 
-#### MuRoot* - starting point for one of more MuTree(s)
+##### MuRoot* - starting point for one of more MuTree(s)
 + MuRootVm - touch, corner, pilot, trees, branchSpot, nodeSpot
 + MuRootView - manage UIViews for each corner 
 + MuRootStatus - publish changed state in [root,tree,edit,space]
@@ -56,7 +56,6 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
 + component instances 
   - *Vm - instance of view model, such as branchVm
   - *Vms - array of [*Vm], such as branchVms
-  
 + point, size, radius, spacing 
   - x* - x in a CGPoint(x:y:)
   - y* - y in a CGPoint(x:y:)
@@ -73,37 +72,34 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
   - sub - a child in view hierarcy
              
 ### Relationships between classes and structs  (1:1, 1:M, M:N) 
-+ treeVm ->> branchVm ->> nodeVm <-> node
++ `treeVm ▹▹ branchVm ▹▹ nodeVm ▹ leafVm ◃◃ node
+    treeView
 
   - treeVm   to branchVm {1,}   // 1:M array [branchVm]s expanded  
   - branchVm to nodeVm   {1,}   // 1:M a branchVm has 1 or more nodeVms
-  - nodeVm   to node     {1,1}  // 1:1 one branchVm for each nodeVm    
-  - node     to nodeVm   {0,}   // 1:M may be shared by many or cached
+  - nodeVm   to leafVm   {0,1}  // 1:1 optional leaf
+  - leafVm   to node     {1,1}  // 1:1 one branchVm for each nodeVm    
+  - node     to leafVm   {0,}   // 1:M may be shared by many or cached
   
-   
-    
 ### SwiftUI restrictions
-
-+ SwiftUI Views cannot modify its own state  
++ SwiftUI Views do not modify its own state  
   - So, no @State, @Binding, or @StateObject are used
-  + Instead, change state in view model (Vm)
-        
+  - Instead, change state in view model (Vm)
 + View Model(Vm) is a class, not struct
   - fine tuned @Published to update View
   - synchronize state between devices, including: iPhone, iPad, TV, watch, Shareplay
-            
 + pros
     - @State has been somewhat buggy in the past
     - @State, @Binding, @StateObject adds semantic complexity
     - Simplify migration from UIKit with MVVM pattern
     - confusion on how to extract 
-        
 + cons 
     - requires a manually enforced coding policy 
         
 ### SwiftLint violations - emphasis on columnwise alignment
     
 + column-wise comments on right side 
+
 + finitw state machine colums for case statements
 
 + pros
@@ -141,8 +137,6 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
             
             let whatever = something
             ...
-
-  
     
 + except for parameter cleanup - treated as part of entry point
     
@@ -150,9 +144,8 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
             guard bar = bar else { return }
             
             let whatever = something
-                ...
-    
-  
+            ...
+
 see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
         using typography for source code
          
@@ -160,9 +153,7 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
 #### Use cases 
 
 + MuseSky - visual synth menu
-	
-+ Hand pose menu HUD
-    
++ Hand pose menu HUD for AR
 + Touch.AI - proof of concept
 
 
@@ -181,7 +172,7 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
   - Tr3 Callback & persist
   - Drag leaf to Sky
 + Touch 
-  - finder latency to hop accross Branches
+  - finger latency to hop across Branches
 + Devices 
   - Synchonize Vms
   - iPad Mac layout
@@ -195,6 +186,7 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
   - Touch.AI site DeepMenu UI demo
   - link back from this readme to demos
 + Swift Package Manager
+
 + MuseSky integration
   - Sky as UIKit compatible view
   - replace Tr3Thumb.package

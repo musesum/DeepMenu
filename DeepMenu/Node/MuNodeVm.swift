@@ -9,6 +9,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
     /// publish changing value of leaf (or order of node, later)
     @Published var editing: Bool = false
+
     /// publish when selected or is under cursor
     @Published var spotlight = false
     func publishChanged(spotlight nextSpotlight: Bool) {
@@ -21,8 +22,8 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
     let icon: String?         /// icon for this node (not implemented)
     var branchVm: MuBranchVm? /// branch that this node is on
-    var nextVm: MuBranchVm?   /// child node's branch
-    var superVm: MuNodeVm?    /// parent nodeVm in hierarchy
+    var leafVm: MuNodeVm?     /// optional MuLeaf for editing value
+    var prevVm: MuNodeVm?    /// parent nodeVm in hierarchy
     var center = CGPoint.zero /// current position
     var panelVm: MuPanelVm
 
@@ -31,13 +32,13 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     init (_ type: MuNodeType,
           _ node: MuNode,
           _ branchVm: MuBranchVm? = nil,
-          _ superVm: MuNodeVm? = nil,
+          _ prevVm: MuNodeVm? = nil,
           icon: String? = nil) {
 
         self.type = type
         self.node = node
         self.branchVm = branchVm
-        self.superVm = superVm
+        self.prevVm = prevVm
         self.icon = icon
         self.panelVm = MuPanelVm(type: type)
     }
@@ -56,7 +57,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
                 nodeVm.publishChanged(spotlight: true)
             }
         }
-        superVm?.superSpotlight()
+        prevVm?.superSpotlight()
     }
 
     func updateCenter(_ fr: CGRect) {
@@ -70,23 +71,23 @@ extension MuNodeVm {
     static func cache(_ type: MuNodeType,
                       _ node: MuNode,
                       _ branchVm: MuBranchVm,
-                      _ parentVm: MuNodeVm? = nil,
+                      _ prevVm: MuNodeVm? = nil,
                       icon: String = "") -> MuNodeVm {
 
         switch type {
-            case .val: return MuLeafValVm(node, branchVm, parentVm)
-            case .vxy: return MuLeafVxyVm(node, branchVm, parentVm)
-            case .tog: return MuLeafTogVm(node, branchVm, parentVm)
-            case .tap: return MuLeafTapVm(node, branchVm, parentVm)
-            case .seg: return MuLeafSegVm(node, branchVm, parentVm)
-            default:   return MuNodeVm(type, node, branchVm, parentVm)
+            case .val: return MuLeafValVm(node, branchVm, prevVm)
+            case .vxy: return MuLeafVxyVm(node, branchVm, prevVm)
+            case .tog: return MuLeafTogVm(node, branchVm, prevVm)
+            case .tap: return MuLeafTapVm(node, branchVm, prevVm)
+            case .seg: return MuLeafSegVm(node, branchVm, prevVm)
+            default:   return MuNodeVm(type, node, branchVm, prevVm)
         }
     }
 }
 extension MuNodeVm {
 
     func path() -> String {
-        if let prior = superVm?.path() {
+        if let prior = prevVm?.path() {
             return prior + "." + node.name
         } else {
             return node.name

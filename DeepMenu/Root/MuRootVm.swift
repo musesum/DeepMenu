@@ -8,30 +8,31 @@ class MuRootVm: ObservableObject, Equatable {
     let id = MuIdentity.getId()
     static func == (lhs: MuRootVm, rhs: MuRootVm) -> Bool { return lhs.id == rhs.id }
 
-    @Published var status = MuRootStatus.root
-    func publishChanged(status: MuRootStatus, debug: String) {
-        if self.status != status {
-            self.status = status
-            print(status.icon + debug, terminator: " ")
+    var status = MuRootStatus.root {
+        willSet {
+            if status != newValue {
+                objectWillChange.send()
+                print(newValue.icon, terminator: " ")
+            }
         }
     }
-
+    
     func updateChanged(nodeSpotVm: MuNodeVm) {
-        if self.nodeSpotVm != nodeSpotVm  {
-            
+
+        if self.nodeSpotVm != nodeSpotVm  { 
             self.nodeSpotVm = nodeSpotVm
             nodeSpotVm.superSpotlight()
             nodeSpotVm.branchVm?.refreshBranch(nodeSpotVm)
         }
     }
 
-    var corner: MuCorner
+    var corner: MuCorner            /// corner where root begins, ex: `[south,west]`
     let touchVm = MuTouchVm()       /// captures touch events to dispatch to this root
     var treeVms = [MuTreeVm]()      /// vertical or horizontal stack of branches
     var treeSpotVm: MuTreeVm?       /// most recently used tree
     var branchSpotVm: MuBranchVm?   /// branch that is capturing touch events
     var nodeSpotVm: MuNodeVm?       /// current spotlight node
-    var touch = MuTouchState()      /// begin,moved,end state plus tap count
+    var touchState = MuTouchState() /// begin,moved,end state plus tap count
 
     init(_ corner: MuCorner, axii: [Axis]) {
         
@@ -129,11 +130,11 @@ class MuRootVm: ObservableObject, Equatable {
     func begin(_ branchVm: MuBranchVm?,
                _ touchNow: CGPoint) {
 
-        touch.begin(touchNow)
+        touchState.begin(touchNow)
 
         guard let branchVm = branchVm else {
             // touching root
-            publishChanged(status: .root, debug: "👆₀")
+            status = .root
             toggleBranches(lowestDepth: 1) //TODO: -- fix by determining current state
             return
         }
@@ -148,7 +149,7 @@ class MuRootVm: ObservableObject, Equatable {
     // touch began at first encountered branch
     func moved(_ touchNow: CGPoint) {
 
-        touch.moved(touchNow)
+        touchState.moved(touchNow)
         anchorBranch()
         updateRoot()
     }
@@ -165,13 +166,14 @@ class MuRootVm: ObservableObject, Equatable {
 
     func ended(_ touchNow: CGPoint) {
 
-        touch.ended(touchNow)
+        touchState.ended(touchNow)
 
-        if touch.tapCount > 0 {
-
+        // tapped on something
+        if touchState.tapCount > 0 {
+            // search branches and node within that branch
             if let branchVm = treeSpotVm?.nearestBranch(touchNow, branchSpotVm),
                let nodeVm = branchVm.findNearestNode(touchNow) {
-
+                
                 branchVm.beginTap(nodeVm)
                 updateChanged(nodeSpotVm: nodeVm)
             } else {
@@ -179,7 +181,7 @@ class MuRootVm: ObservableObject, Equatable {
             }
             resetRootTimer(delay: 8)
         }
-        publishChanged(status: .root, debug: "👍ₙ")
+        status = .root
         
         if let nodeTr3 = nodeSpotVm?.node as? MuNodeTr3 {
             nodeTr3.callback(nodeTr3)
@@ -209,19 +211,16 @@ class MuRootVm: ObservableObject, Equatable {
     func anchorBranch() {
         guard let branchSpotVm = branchSpotVm else { return }
 
-        let deltaTouch = CGSize(touch.pointDelta)
+        let deltaTouch = CGSize(touchState.pointDelta)
         let (rangeW, rangeH) = getBranchRanges(branchSpotVm)
         let branchOffset = (deltaTouch + anchorShift).clamp(rangeW, rangeH)
         logTouch()
         updateBranchShift(branchOffset)
 
         func logTouch() {
-            let touchBegin = touch.pointDelta == .zero
+            let touchBegin = touchState.pointDelta == .zero
             if touchBegin {
-                let nameFirst = branchSpotVm.nodeVms.first?.node.name ?? ""
-                let nameLast  = branchSpotVm.nodeVms.last?.node.name ?? ""
-                let title = nameFirst + "…" + nameLast
-                log(title, [branchOffset.string()], terminator: " ")
+                log(branchSpotVm.title, [branchOffset.string()], terminator: " ")
                 // let touchDelta  = touch.pointDelta.string()
                 // let anchorShift = anchorShift.string()
                 // let branchOffset = branchOffset.string() // clamped
@@ -283,12 +282,12 @@ class MuRootVm: ObservableObject, Equatable {
         resetRootTimer()
 
         if isExploring() {
-            if let nodeVm = followTouch(touch.pointNow)  {
+            if let nodeVm = followTouch(touchState.pointNow)  {
                 nodeSpotVm = nodeVm
             }
-            nodeSpotVm?.superVm?.superSpotlight()
+            nodeSpotVm?.prevVm?.superSpotlight()
         }
-        alignSpotWithTouch(touch.pointNow)
+        alignSpotWithTouch(touchState.pointNow)
     }
 
     private func followTouch(_ touchNow: CGPoint) -> MuNodeVm? {
@@ -299,7 +298,7 @@ class MuRootVm: ObservableObject, Equatable {
            let nearestNode = nearestBranch.findNearestNode(touchNow) {
 
             updateChanged(nodeSpotVm: nearestNode)
-            publishChanged(status: .tree, debug: "👆₁")
+            status = .tree
             return nearestNode
 
         } else {
@@ -313,7 +312,7 @@ class MuRootVm: ObservableObject, Equatable {
                     treeSpotVm?.showBranches(depth: 0)   // retract old tree
                     treeSpotVm = treeVm                  // set new tree
                     treeSpotVm?.showBranches(depth: 999) // expand new tree
-                    publishChanged(status: .tree, debug: "👆₂")
+                    status = .tree
                     return nearestNode
                 }
             }
@@ -322,15 +321,15 @@ class MuRootVm: ObservableObject, Equatable {
         let touchDelta = touchVm.pointHome.distance(touchNow)
         if  touchDelta < Layout.insideNode {
             if status != .root {
-                publishChanged(status: .root, debug: "👆₃")
+                status = .root
                 toggleBranches(lowestDepth: 1)
             } else {
-                publishChanged(status: .root, debug: "👆₄")
+                status = .root
             }
             alignSpotWithTouch(touchNow)
         }
         else {
-            publishChanged(status: .space, debug: "👆₅")
+            status = .space
             nodeSpotVm = nil
         }
         return nil
@@ -344,9 +343,11 @@ class MuRootVm: ObservableObject, Equatable {
             return
         }
         if nodeSpotVm.type.isLeaf {
-            touchVm.pointNow = touchVm.pointHome // no fly icon for leaf
+            // return dragNode to homeNode
+            touchVm.pointNow = touchVm.pointHome
             touchVm.updateDelta(.zero)
         } else {
+            // center dragNode to center of nodeSpot
             let delta = nodeSpotVm.center - touchNow
             touchVm.updateDelta(delta)
         }
@@ -357,8 +358,8 @@ class MuRootVm: ObservableObject, Equatable {
 
         guard let nodeSpotVm   = nodeSpotVm   else { return true }
         guard let touchBranch = branchSpotVm else { return true }
-        let pointNow = touch.pointNow
-        let pointDelta = touch.pointDelta
+        let pointNow = touchState.pointNow
+        let pointDelta = touchState.pointDelta
 
         // still on same spotlight node
         let spotDistance = nodeSpotVm.center.distance(pointNow)
@@ -397,7 +398,7 @@ class MuRootVm: ObservableObject, Equatable {
             for treeVm in treeVms {
                 treeVm.showBranches(depth: 0)
             }
-            publishChanged(status: .rootVm, debug: "👆₆")
+            status = .root
         }
         rootTimer = Timer.scheduledTimer(withTimeInterval: delay,
                                         repeats: false,
