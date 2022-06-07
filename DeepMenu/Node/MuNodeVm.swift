@@ -73,6 +73,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
 
             branchVm.nodeSpotVm?.spotlight = false
             branchVm.nodeSpotVm = self
+            branchVm.show = true
             spotlight = true
         }
         prevVm?.superSpotlight()
