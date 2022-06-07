@@ -89,7 +89,7 @@ class MuTouchVm: ObservableObject {
      which also detects end when touchNow is reset to .zero
      */
     func touchUpdate(_ touchNow: CGPoint,
-                     _ touchBranch: MuBranchVm?) {
+                     _ touchBranch: MuBranchVm? = nil) {
 
         if      touchNow == .zero { ended() }
         else if dragNodeVm == nil { begin() }

@@ -13,11 +13,13 @@ class AppSpace: ObservableObject {
 struct AppBackgroundView: View {
 
     @ObservedObject var space: AppSpace
-
+    
     var body: some View {
-        Rectangle()
-            .foregroundColor(space.backgroundColor)
-            .ignoresSafeArea(.all, edges: .all)
-            .allowsHitTesting(false)
+        GeometryReader { geo in
+            Rectangle()
+                .foregroundColor(space.backgroundColor)
+                .ignoresSafeArea(.all, edges: .all)
+                .allowsHitTesting(false)
+        }
     }
 }

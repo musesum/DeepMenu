@@ -5,7 +5,7 @@ import SwiftUI
 struct MuBranchView: View, Identifiable {
     var id = MuIdentity.getId()
 
-    @EnvironmentObject var root: MuRootVm
+    @EnvironmentObject var rootVm: MuRootVm
     @ObservedObject var branch: MuBranchVm
 
     var opacity: CGFloat { branch.show ? 1 : 0 }
@@ -18,8 +18,8 @@ struct MuBranchView: View, Identifiable {
                 MuBranchPanelView(panelVm: panelVm)
 
                 let reverse = (panelVm.axis == .vertical
-                               ? root.corner.contains(.lower) ? true : false
-                               : root.corner.contains(.left)  ? true : false )
+                               ? rootVm.corner.contains(.lower) ? true : false
+                               : rootVm.corner.contains(.left)  ? true : false )
 
                 MuPanelAxisView(panelVm) {
                     ForEach(reverse
@@ -39,9 +39,5 @@ struct MuBranchView: View, Identifiable {
         //.onTapGesture { } // allow scrolling
         .offset(branch.branchShift)
         .animation(.easeIn(duration: Layout.animate), value: branch.branchShift)
-        .gesture(
-            DragGesture(minimumDistance: 0, coordinateSpace: .named("Sky"))
-                .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
-        .onChange(of: touchXY) { root.touchVm.touchUpdate($0, branch) }
     }
 }

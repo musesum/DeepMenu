@@ -28,10 +28,6 @@ struct MuLeafTapView: View {
                         .animation(Layout.flashAnim, value: strokeColor)
                         .animation(Layout.flashAnim, value: strokeWidth)
                 }
-                .gesture(DragGesture(minimumDistance: 0)
-                    .updating($touchXY) { (input, result, _) in
-                        result = input.location })
-                .onChange(of: touchXY) { leafVm.touchNow($0) }
             }
         }
     }

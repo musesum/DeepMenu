@@ -3,11 +3,13 @@
 import SwiftUI
 
 struct MuPanelView: View {
+
     @GestureState private var touchXY: CGPoint = .zero
+
     var panelVm: MuPanelVm
-    var editing: Bool
-    var strokeColor: Color   { Layout.strokeColor(editing) }
-    var strokeWidth: CGFloat { Layout.strokeWidth(editing) }
+    var nodeVm: MuNodeVm
+    var strokeColor: Color   { Layout.strokeColor(nodeVm.editing) }
+    var strokeWidth: CGFloat { Layout.strokeWidth(nodeVm.editing) }
 
     var body: some View {
         ZStack {
@@ -22,6 +24,11 @@ struct MuPanelView: View {
                     .animation(Layout.flashAnim, value: strokeColor)
                     .animation(Layout.flashAnim, value: strokeWidth)
             }
+            .gesture(DragGesture(minimumDistance: 0)
+                .updating($touchXY) { (input, result, _) in
+                    result = input.location })
+            .onChange(of: touchXY) { nodeVm.touchNow($0) }
+
         }
     }
 }

@@ -23,7 +23,7 @@ class MuLeafTogVm: MuNodeVm {
         }
     }
 
-    func touchNow(_ touchNow: CGPoint) {
+    override func touchNow(_ touchNow: CGPoint) {
 
         if !editing, touchNow != .zero  {
             editing = true

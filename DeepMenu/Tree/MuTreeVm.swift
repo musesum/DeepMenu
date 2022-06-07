@@ -52,7 +52,6 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
             if branchVm.bounds.contains(touchNow) {
                 return branchVm
             }
-
         }
         return nil
     }
@@ -64,6 +63,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         var delim = " "
         while branchVm != nil {
             if let b = branchVm {
+                b.show = true
                 print(delim + (b.nodeSpotVm?.node.name ?? " "), terminator: ""); delim = "."
                 newBranches.append(b)
                 branchVm = b.nodeSpotVm?.nextBranchVm

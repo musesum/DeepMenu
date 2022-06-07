@@ -14,6 +14,8 @@ struct ContentViews {
 
 
 struct ContentView: View {
+    @EnvironmentObject var rootVm: MuRootVm
+    @GestureState private var touchXY: CGPoint = .zero
     let appSpace = AppSpace()
     let contentVm = ContentVm()
 
@@ -26,6 +28,10 @@ struct ContentView: View {
         }
         .coordinateSpace(name: "Sky")
         .statusBar(hidden: true)
+        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Sky"))
+            .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
+        .onChange(of: touchXY) { contentVm.skyRootVm.touchVm.touchUpdate($0) }
+
     }
 }
 

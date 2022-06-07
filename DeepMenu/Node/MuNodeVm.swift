@@ -2,7 +2,6 @@
 
 import SwiftUI
 
-
 class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
     let id =  MuIdentity.getId()
     static func == (lhs: MuNodeVm, rhs: MuNodeVm) -> Bool { return lhs.id == rhs.id }
@@ -12,13 +11,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
 
     /// publish when selected or is under cursor
     @Published var spotlight = false
-//    {
-//        willSet {
-//            if spotlight != newValue {
-//                objectWillChange.send()
-//            }
-//        }
-//    }
+
 
     public func hash(into hasher: inout Hasher) {
         let path = path()
@@ -31,6 +24,10 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
         if spotlight != nextSpotlight {
             spotlight = nextSpotlight
         }
+    }
+
+    public func touchNow(_ touchNow: CGPoint) {
+
     }
 
     let type: MuNodeType      /// node, val, vxy, seg, tog, tap

@@ -153,8 +153,6 @@ class MuRootVm: ObservableObject, Equatable {
         updateRoot()
     }
 
-
-
     func onSameNode(_ touchNow: CGPoint) -> MuNodeVm? {
         // is hovering over same node as before
         if (nodeSpotVm?.center.distance(touchNow) ?? .infinity) < Layout.diameter {
@@ -206,7 +204,7 @@ class MuRootVm: ObservableObject, Equatable {
     }
 
 
-    /// set fixed point for stretching/folding branchesx1x11
+    /// set fixed point for stretching/folding branches
     func anchorBranch() {
         guard let branchSpotVm = branchSpotVm else { return }
 
