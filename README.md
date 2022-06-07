@@ -71,9 +71,8 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
   - super - a parent in a view hierarchy
   - sub - a child in view hierarcy
              
-### Relationships between classes and structs  (1:1, 1:M, M:N) 
-+ `treeVm ▹▹ branchVm ▹▹ nodeVm ▹ leafVm ◃◃ node
-    treeView
+### Relationships between classes and structs 
++ `treeVm ▹▹ branchVm ▹▹ nodeVm ▹ leafVm ◃◃ node`
 
   - treeVm   to branchVm {1,}   // 1:M array [branchVm]s expanded  
   - branchVm to nodeVm   {1,}   // 1:M a branchVm has 1 or more nodeVms
@@ -98,9 +97,9 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
         
 ### SwiftLint violations - emphasis on columnwise alignment
     
-+ column-wise comments on right side 
-
-+ finitw state machine colums for case statements
++ Column-wise comments on right side
+ 
++ Finite State Machine columns for case statements
 
 + pros
   - Human Readable; catch mistakes

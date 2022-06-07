@@ -10,10 +10,10 @@ class MuLeafTapVm: MuNodeVm {
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
-          _ parentVm: MuNodeVm?,
+          _ prevVm: MuNodeVm?,
           icon: String = "") {
         
-        super.init(.tap, node, branchVm, parentVm, icon: icon)
+        super.init(.tap, node, branchVm, prevVm, icon: icon)
         
         if let node = node as? MuNodeTr3 {
             node.callback(1)

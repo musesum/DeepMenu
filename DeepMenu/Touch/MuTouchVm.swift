@@ -35,9 +35,7 @@ class MuTouchVm: ObservableObject {
         self.rootVm = rootVm
         let homeNode = MuNodeTest("⚫︎") //todo: replace with ??
 
-        let branchVm = MuBranchVm(nodes: [],
-                                  treeVm: rootVm.treeSpotVm,
-                                  type: .node)
+        let branchVm = MuBranchVm.cached(treeVm: rootVm.treeSpotVm)
 
         homeNodeVm = MuNodeVm(.node,
                               homeNode,

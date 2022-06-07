@@ -16,12 +16,11 @@ class MuRootVm: ObservableObject, Equatable {
             }
         }
     }
-    
+
     func updateChanged(nodeSpotVm: MuNodeVm) {
 
-        if self.nodeSpotVm != nodeSpotVm  { 
+        if self.nodeSpotVm != nodeSpotVm  {
             self.nodeSpotVm = nodeSpotVm
-            nodeSpotVm.superSpotlight()
             nodeSpotVm.branchVm?.refreshBranch(nodeSpotVm)
         }
     }
@@ -173,8 +172,8 @@ class MuRootVm: ObservableObject, Equatable {
             // search branches and node within that branch
             if let branchVm = treeSpotVm?.nearestBranch(touchNow, branchSpotVm),
                let nodeVm = branchVm.findNearestNode(touchNow) {
-                
-                branchVm.beginTap(nodeVm)
+
+                branchVm.refreshBranch(nodeVm)
                 updateChanged(nodeSpotVm: nodeVm)
             } else {
                 toggleBranches(lowestDepth: 0)
@@ -273,7 +272,6 @@ class MuRootVm: ObservableObject, Equatable {
         for treeVm in treeVms {
             treeVm.showBranches(depth: depth)
         }
-        //??? treeNowVm = nil
     }
 
     /// [begin | moved] >> updateRoot
@@ -284,8 +282,8 @@ class MuRootVm: ObservableObject, Equatable {
         if isExploring() {
             if let nodeVm = followTouch(touchState.pointNow)  {
                 nodeSpotVm = nodeVm
+                nodeSpotVm?.superSpotlight()
             }
-            nodeSpotVm?.prevVm?.superSpotlight()
         }
         alignSpotWithTouch(touchState.pointNow)
     }

@@ -23,10 +23,6 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         }
         showBranches(depth: 1)
     }
-    func addBranch(_ branchVm: MuBranchVm?) {
-        guard let branchVm = branchVm else { return }
-        branchVms.append(branchVm)
-    }
     
     /** find nearest brach containing touch point
     - Parameters:
@@ -53,17 +49,6 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
                        _ touchBranch: MuBranchVm?) -> MuBranchVm? {
 
         for branchVm in branchVms {
-//            /// make sure searching on same tree before limiting search to sub-branches
-//            var skipPrevBranch = (touchBranch?.treeVm == self)
-//
-//            if branchVm.show == false {
-//                continue
-//            }
-//            if skipPrevBranch && (touchBranch?.id != branchVm.id) {
-//                continue
-//            }
-//            skipPrevBranch = false
-
             if branchVm.bounds.contains(touchNow) {
                 return branchVm
             }
@@ -81,7 +66,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
             if let b = branchVm {
                 print(delim + (b.nodeSpotVm?.node.name ?? " "), terminator: ""); delim = "."
                 newBranches.append(b)
-                branchVm = b.nextBranch
+                branchVm = b.nodeSpotVm?.nextBranchVm
             }
         }
         branchVms = newBranches

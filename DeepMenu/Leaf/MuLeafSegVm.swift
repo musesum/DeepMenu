@@ -11,10 +11,10 @@ class MuLeafSegVm: MuNodeVm {
     
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
-          _ parentVm: MuNodeVm?,
+          _ prevVm: MuNodeVm?,
           icon: String = "") {
         
-        super.init(.seg, node, branchVm, parentVm, icon: icon)
+        super.init(.seg, node, branchVm, prevVm, icon: icon)
         
         if let node = node as? MuNodeTr3 ,
            let vv = node.tr3.CGFloatVal() {

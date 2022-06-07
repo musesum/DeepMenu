@@ -5,6 +5,7 @@ import SwiftUI
 
 class MuBranchVm: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
+    static func == (lhs: MuBranchVm, rhs: MuBranchVm) -> Bool { lhs.id == rhs.id }
 
     @Published var branchShift: CGSize = .zero
     @Published var show = true
@@ -13,13 +14,12 @@ class MuBranchVm: Identifiable, ObservableObject {
     var nodeVms: [MuNodeVm]     /// all the node View Models on this branch
     var nodeSpotVm: MuNodeVm?   /// current node, nodeSpotVm.branchVm is next branch
     var prevBranch: MuBranchVm? /// previous (super) branch to this one
-    var nextBranch: MuBranchVm? /// next (sub) branch to this one
-    var panelVm: MuPanelVm
+    var panelVm: MuPanelVm      /// background + stroke model for BranchView
 
     var isRoot: Bool = false
     var bounds: CGRect = .zero
-    var level: CGFloat = 0    /// zIndex within sub/super branches
-    var reverse = false       /// show in reverse order
+    var level: CGFloat = 0     /// zIndex within sub/super branches
+    var reverse = false        /// show in reverse order
 
     var title: String {
         let nameFirst = nodeVms.first?.node.name ?? ""
@@ -27,11 +27,10 @@ class MuBranchVm: Identifiable, ObservableObject {
         return nameFirst + "…" + nameLast
     }
 
-
     init(nodes: [MuNode] = [],
          treeVm: MuTreeVm?,
-         type: MuNodeType,
-         prevVm: MuNodeVm? = nil,
+         type: MuNodeType = .node,
+         prevNodeVm: MuNodeVm? = nil,
          level: CGFloat = 0) {
 
         self.nodeVms = []
@@ -44,23 +43,23 @@ class MuBranchVm: Identifiable, ObservableObject {
                                  axis: treeVm?.axis ?? .vertical)
         buildNodeVms(from: nodes,
                      type: type,
-                     prevVm: prevVm)
+                     prevNodeVm: prevNodeVm)
 
         updateTree(treeVm)
     }
 
     private func buildNodeVms(from nodes: [MuNode],
                               type: MuNodeType,
-                              prevVm: MuNodeVm?) {
+                              prevNodeVm: MuNodeVm?) {
 
         for node in nodes {
-            let nodeVm = MuNodeVm.cache(type, node, self, prevVm)
+            let nodeVm = MuNodeVm.cache(type, node, self, prevNodeVm)
             nodeVms.append(nodeVm)
             if nodeVm.type.isLeaf {
-                prevVm?.leafVm = nodeVm // is leaf of previous (parent) node
+                prevNodeVm?.leafVm = nodeVm // is leaf of previous (parent) node
                 nodeSpotVm = nodeVm
             }
-            if nodeVm.spotlight {
+            else if nodeVm.spotlight {
                 nodeSpotVm = nodeVm
             }
         }
@@ -68,19 +67,14 @@ class MuBranchVm: Identifiable, ObservableObject {
     
     /// evenly space branches leading up to current branch's position
     func refreshBranch(_ nodeNextVm: MuNodeVm?) {
-        
-        if nodeSpotVm?.id != nodeNextVm?.id {
-            nodeSpotVm?.spotlight = false
-            nodeSpotVm = nodeNextVm
-            nodeSpotVm?.spotlight = true
-        }
+
+        nodeNextVm?.superSpotlight()
+
         if nodeSpotVm?.type.isLeaf == true {
             print("🍁")
         }
-        else if nodeSpotVm?.branchVm?.show == true {
-            expandBranch()
-            treeVm?.refreshTree(self)
-        }
+        expandBranch()
+        treeVm?.refreshTree(self)
     }
 
     /// add a branch to selected node and follow next node
@@ -88,39 +82,38 @@ class MuBranchVm: Identifiable, ObservableObject {
     private func expandBranch() {
 
         guard let nodeSpotVm = nodeSpotVm else { return }
-        nodeSpotVm.spotlight = true
-
 
         if let leafVm = nodeSpotVm.leafVm {
             leafVm.branchVm?.expandBranch()
         }
-
         else if let nextType = nodeSpotVm.components?["type"] as? MuNodeType,
             nextType.isLeaf {
 
-            let leafNode = MuNode(name: "✎",
+            let name = (String(nodeSpotVm.branchVm?.id ?? 0) +
+                        "✎" +
+                        nodeSpotVm.node.name +
+                        "." +
+                        String(nodeSpotVm.node.id))
+            
+            let leafNode = MuNode(name: name,
                                   parent: nodeSpotVm.node,
                                   callback: nodeSpotVm.node.callback)
             
-            let newBranchVm = MuBranchVm(nodes: [leafNode],
-                                         treeVm: treeVm,
-                                         type: nextType,
-                                         prevVm: nodeSpotVm,
-                                         level: level+1)
-
-            nextBranch = newBranchVm
-            nextBranch?.prevBranch = self
+            _ = MuBranchVm.cached(nodes: [leafNode],
+                                  treeVm: treeVm,
+                                  type: nextType,
+                                  prevNodeVm: nodeSpotVm,
+                                  level: level+1)
         }
         else if nodeSpotVm.node.children.count > 0 {
 
-            let newBranchVm = MuBranchVm(nodes: nodeSpotVm.node.children,
+            let newBranchVm = MuBranchVm.cached(nodes: nodeSpotVm.node.children,
                                          treeVm: treeVm,
                                          type: .node,
+                                         prevNodeVm: nodeSpotVm,
                                          level: level+1)
 
-            nextBranch = newBranchVm
-            nextBranch?.prevBranch = self
-            nextBranch?.expandBranch()
+            newBranchVm.expandBranch()
         }
     }
 
@@ -163,12 +156,6 @@ class MuBranchVm: Identifiable, ObservableObject {
         return nil
     }
 
-    func beginTap(_ nearestNode: MuNodeVm) {
-        nodeSpotVm = nearestNode
-        nearestNode.superSpotlight()
-        refreshBranch(nearestNode)
-    }
-
     func updateBounds(_ from: CGRect) {
         if bounds != from {
             bounds = panelVm.updateBounds(from)
@@ -176,21 +163,40 @@ class MuBranchVm: Identifiable, ObservableObject {
         }
     }
 }
+
+var BranchCache = [Int: MuBranchVm]()
+
 extension MuBranchVm {
     
-    func cached(nodes: [MuNode] = [],
-                nodeVms: [MuNodeVm] = [],
-                treeVm: MuTreeVm?,
-                isRoot: Bool = false,
-                type: MuNodeType = .node,
-                level: CGFloat = 0,
-                show: Bool = true) -> MuBranchVm
-    {
+    static func cached(nodes: [MuNode] = [],
+                       treeVm: MuTreeVm?,
+                       type: MuNodeType = .node,
+                       prevNodeVm: MuNodeVm? = nil,
+                       level: CGFloat = 0) -> MuBranchVm {
+
+        func nextHash() -> Int {
+            var hasher = Hasher()
+            hasher.combine(prevNodeVm?.hashValue ?? 0)
+            hasher.combine(type.icon)
+            let hash = hasher.finalize()
+            return hash
+        }
+
+        let nextHash = nextHash()
+        if let oldBranch = BranchCache[nextHash] {
+            print(" 🧟 ", terminator: "")
+            return oldBranch
+        }
         let newBranch = MuBranchVm(
             nodes: nodes,
             treeVm: treeVm,
             type: type,
+            prevNodeVm: prevNodeVm,
             level: level)
+
+        BranchCache[nextHash] = newBranch
+
         return newBranch
     }
 }
+

@@ -3,8 +3,8 @@
 import SwiftUI
 
 
-class MuNodeVm: Identifiable, Equatable, ObservableObject {
-    let id = MuIdentity.getId()
+class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
+    let id =  MuIdentity.getId()
     static func == (lhs: MuNodeVm, rhs: MuNodeVm) -> Bool { return lhs.id == rhs.id }
 
     /// publish changing value of leaf (or order of node, later)
@@ -12,6 +12,21 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
     /// publish when selected or is under cursor
     @Published var spotlight = false
+//    {
+//        willSet {
+//            if spotlight != newValue {
+//                objectWillChange.send()
+//            }
+//        }
+//    }
+
+    public func hash(into hasher: inout Hasher) {
+        let path = path()
+        hasher.combine(path)
+        let result = hasher.finalize()
+        print(path + String(format: ": %i", result))
+    }
+
     func publishChanged(spotlight nextSpotlight: Bool) {
         if spotlight != nextSpotlight {
             spotlight = nextSpotlight
@@ -22,6 +37,8 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
     let icon: String?         /// icon for this node (not implemented)
     var branchVm: MuBranchVm? /// branch that this node is on
+    var nextBranchVm: MuBranchVm? /// branch this node generates
+
     var leafVm: MuNodeVm?     /// optional MuLeaf for editing value
     var prevVm: MuNodeVm?    /// parent nodeVm in hierarchy
     var center = CGPoint.zero /// current position
@@ -41,6 +58,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         self.prevVm = prevVm
         self.icon = icon
         self.panelVm = MuPanelVm(type: type)
+        prevVm?.nextBranchVm = branchVm
     }
     
     func copy() -> MuNodeVm {
@@ -50,12 +68,12 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
     /// spotlight self, parent, grand, etc. in branch
     func superSpotlight() {
-        for nodeVm in branchVm?.nodeVms ?? [] {
-            if nodeVm != self {
-                nodeVm.publishChanged(spotlight: false)
-            } else {
-                nodeVm.publishChanged(spotlight: true)
-            }
+        if let branchVm = branchVm,
+           branchVm.nodeSpotVm != self {
+
+            branchVm.nodeSpotVm?.spotlight = false
+            branchVm.nodeSpotVm = self
+            spotlight = true
         }
         prevVm?.superSpotlight()
     }
@@ -84,6 +102,7 @@ extension MuNodeVm {
         }
     }
 }
+
 extension MuNodeVm {
 
     func path() -> String {

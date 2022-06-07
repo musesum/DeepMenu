@@ -10,11 +10,11 @@ class MuLeafValVm: MuNodeVm {
     var status: String { editing ? String(format: "%.2f", thumb) : node.name }
 
     init (_ node: MuNode,
-          _ branch: MuBranchVm,
-          _ parentVm: MuNodeVm?,
+          _ branchVm: MuBranchVm,
+          _ prevVm: MuNodeVm?,
           icon: String = "") {
         
-        super.init(.val, node, branch, parentVm, icon: icon)
+        super.init(.val, node, branchVm, prevVm, icon: icon)
         
         if let node = node as? MuNodeTr3 ,
            let vv = node.tr3.CGFloatVal() {
