@@ -13,7 +13,6 @@ class MuBranchVm: Identifiable, ObservableObject {
     var treeVm: MuTreeVm?       /// my tree; which unfolds a hierarchy of branches
     var nodeVms: [MuNodeVm]     /// all the node View Models on this branch
     var nodeSpotVm: MuNodeVm?   /// current node, nodeSpotVm.branchVm is next branch
-    var prevBranch: MuBranchVm? /// previous (super) branch to this one
     var panelVm: MuPanelVm      /// background + stroke model for BranchView
 
     var isRoot: Bool = false
@@ -89,13 +88,7 @@ class MuBranchVm: Identifiable, ObservableObject {
         else if let nextType = nodeSpotVm.components?["type"] as? MuNodeType,
             nextType.isLeaf {
 
-            let name = (String(nodeSpotVm.branchVm?.id ?? 0) +
-                        "✎" +
-                        nodeSpotVm.node.name +
-                        "." +
-                        String(nodeSpotVm.node.id))
-            
-            let leafNode = MuNode(name: name,
+            let leafNode = MuNode(name: "✎",
                                   parent: nodeSpotVm.node,
                                   callback: nodeSpotVm.node.callback)
             
