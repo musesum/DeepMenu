@@ -7,7 +7,6 @@ class MuBranchVm: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
     static func == (lhs: MuBranchVm, rhs: MuBranchVm) -> Bool { lhs.id == rhs.id }
 
-    @Published var branchShift: CGSize = .zero
     @Published var show = true
 
     var treeVm: MuTreeVm?       /// my tree; which unfolds a hierarchy of branches
@@ -122,7 +121,6 @@ class MuBranchVm: Identifiable, ObservableObject {
         if let center = nodeSpotVm?.prevVm?.center {
             bounds = panelVm.getBounds(from: center)
         }
-        branchShift = nodeSpotVm?.prevVm?.branchVm?.branchShift ?? .zero
     }
 
     func addNodeVm(_ nodeVm: MuNodeVm?) {

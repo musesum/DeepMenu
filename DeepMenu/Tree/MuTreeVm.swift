@@ -74,10 +74,10 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         var lag = TimeInterval(0)
         var newBranches = [MuBranchVm]()
 
-        logStart() //?? 
+        logStart()
         if      depthShown < depthNext { expandBranches() }
         else if depthShown > depthNext { contractBranches() }
-        logFinish() //??
+        logFinish()
 
         func expandBranches() {
             var countUp = 0

@@ -37,7 +37,5 @@ struct MuBranchView: View, Identifiable {
         .opacity(opacity)
         .animation(.easeInOut(duration: Layout.animate/2), value: opacity)
         //.onTapGesture { } // allow scrolling
-        .offset(branch.branchShift)
-        .animation(.easeIn(duration: Layout.animate), value: branch.branchShift)
     }
 }
