@@ -7,6 +7,7 @@ struct MuLeafTogView: View {
     @ObservedObject var leafVm: MuLeafTogVm
     @GestureState private var touchXY: CGPoint = .zero
     var panelVm: MuPanelVm { leafVm.panelVm }
+    var thumbFill: Color   { Layout.thumbColor(leafVm.thumb) }
     
     var body: some View {
         VStack {
@@ -18,8 +19,9 @@ struct MuLeafTogView: View {
                 GeometryReader { geo in
                     MuPanelView(panelVm: panelVm, nodeVm: leafVm)
                     Capsule()
-                        .fill(.white)
-                        .frame(width: panelVm.thumbRadius*2, height: panelVm.thumbRadius*2)
+                        .fill(thumbFill)
+                        .frame(width: panelVm.thumbRadius*2,
+                               height: panelVm.thumbRadius*2)
                         .offset(leafVm.offset)
                         .allowsHitTesting(false)
                 }

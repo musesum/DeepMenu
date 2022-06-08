@@ -36,6 +36,6 @@ class MuLeafTogVm: MuNodeVm {
 
     var offset: CGSize {
         CGSize(width: thumb * panelVm.xRunway(),
-               height: 0)
+               height: 1)
     }
 }

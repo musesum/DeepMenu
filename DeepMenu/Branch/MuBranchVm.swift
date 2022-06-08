@@ -51,7 +51,7 @@ class MuBranchVm: Identifiable, ObservableObject {
                               prevNodeVm: MuNodeVm?) {
 
         for node in nodes {
-            let nodeVm = MuNodeVm.cache(type, node, self, prevNodeVm)
+            let nodeVm = MuNodeVm.makeType(type, node, self, prevNodeVm)
             nodeVms.append(nodeVm)
             if nodeVm.type.isLeaf {
                 prevNodeVm?.leafVm = nodeVm // is leaf of previous (parent) node

@@ -12,11 +12,10 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
     /// publish when selected or is under cursor
     @Published var spotlight = false
 
-
     public func hash(into hasher: inout Hasher) {
         let path = path()
         hasher.combine(path)
-        let result = hasher.finalize()
+        _ = hasher.finalize()
         //print(path + String(format: ": %i", result))
     }
 
@@ -26,9 +25,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
         }
     }
 
-    public func touchNow(_ touchNow: CGPoint) {
-
-    }
+    public func touchNow(_ touchNow: CGPoint) { }
 
     let type: MuNodeType      /// node, val, vxy, seg, tog, tap
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
@@ -37,11 +34,13 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
     var nextBranchVm: MuBranchVm? /// branch this node generates
 
     var leafVm: MuNodeVm?     /// optional MuLeaf for editing value
-    var prevVm: MuNodeVm?    /// parent nodeVm in hierarchy
-    var center = CGPoint.zero /// current position
+    var prevVm: MuNodeVm?     /// parent nodeVm in hierarchy
     var panelVm: MuPanelVm
 
-    var components: [String: Any]? { (node as? MuNodeTr3)?.tr3.components() ?? [:] }
+    var center = CGPoint.zero /// current position
+
+    var components: [String: Any]? {
+        (node as? MuNodeTr3)?.tr3.components() ?? [:] }
 
     init (_ type: MuNodeType,
           _ node: MuNode,
@@ -84,11 +83,11 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
 }
 extension MuNodeVm {
 
-    static func cache(_ type: MuNodeType,
-                      _ node: MuNode,
-                      _ branchVm: MuBranchVm,
-                      _ prevVm: MuNodeVm? = nil,
-                      icon: String = "") -> MuNodeVm {
+    static func makeType(_ type: MuNodeType,
+                         _ node: MuNode,
+                         _ branchVm: MuBranchVm,
+                         _ prevVm: MuNodeVm? = nil,
+                         icon: String = "") -> MuNodeVm {
 
         switch type {
             case .val: return MuLeafValVm(node, branchVm, prevVm)

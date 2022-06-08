@@ -35,6 +35,12 @@ struct Layout {
                      : Color(white: 0.4, opacity: 0.80))
         return color
     }
+    static func thumbColor(_ thumb: CGFloat) -> Color {
+        let color = (thumb > 0
+                     ? Color(white: 1.0, opacity: 1.00)
+                     : Color(white: 0.5, opacity: 0.90))
+        return color
+    }
 
     static func strokeWidth(_ high: Bool) -> CGFloat {
         return(high ? 2.0 : 1.0)
