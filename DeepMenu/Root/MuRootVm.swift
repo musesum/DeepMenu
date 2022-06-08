@@ -25,11 +25,11 @@ class MuRootVm: ObservableObject, Equatable {
         }
     }
 
-    var corner: MuCorner            /// corner where root begins, ex: `[south,west]`
-    let touchVm = MuTouchVm()       /// captures touch events to dispatch to this root
-    var treeVms = [MuTreeVm]()      /// vertical or horizontal stack of branches
-    var treeSpotVm: MuTreeVm?       /// most recently used tree
-    var nodeSpotVm: MuNodeVm?       /// current spotlight node
+    var corner: MuCorner         /// corner where root begins, ex: `[south,west]`
+    let touchVm = MuTouchVm()    /// captures touch events to dispatch to this root
+    var treeVms = [MuTreeVm]()   /// vertical or horizontal stack of branches
+    var treeSpotVm: MuTreeVm?    /// most recently used tree
+    var nodeSpotVm: MuNodeVm?    /// current spotlight node
     var touchState = MuTouchState() /// begin,moved,end state plus tap count
 
     init(_ corner: MuCorner, axii: [Axis]) {
@@ -122,7 +122,9 @@ class MuRootVm: ObservableObject, Equatable {
     func moved(_ touchNow: CGPoint) {
 
         touchState.moved(touchNow)
-        updateRoot()
+        if !touchState.isFast {
+            updateRoot()
+        }
     }
 
     func onSameNode(_ touchNow: CGPoint) -> MuNodeVm? {
