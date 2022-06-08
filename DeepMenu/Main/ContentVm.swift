@@ -20,7 +20,7 @@ class ContentVm {
         skyTouchVm = skyRootVm.touchVm
     }
 
-    private func testBranches(_ treeVm: MuTreeVm) -> [MuBranchVm] {
+    func testBranches(_ treeVm: MuTreeVm) -> [MuBranchVm] {
         let numberNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
         let letterNodes = ExampleNodeModels.letteredNodes()
         let numberBranch = MuBranchVm.cached(nodes: numberNodes, treeVm: treeVm)

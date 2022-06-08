@@ -177,7 +177,7 @@ extension MuBranchVm {
 
         let nextHash = nextHash()
         if let oldBranch = BranchCache[nextHash] {
-            print("🪣 ", terminator: "")
+            print("🧺 ", terminator: "")
             return oldBranch
         }
         let newBranch = MuBranchVm(

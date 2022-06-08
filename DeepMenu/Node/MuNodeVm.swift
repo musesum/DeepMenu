@@ -17,7 +17,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
         let path = path()
         hasher.combine(path)
         let result = hasher.finalize()
-        print(path + String(format: ": %i", result))
+        //print(path + String(format: ": %i", result))
     }
 
     func publishChanged(spotlight nextSpotlight: Bool) {
@@ -134,7 +134,7 @@ extension MuNodeVm {
         var hasher = Hasher()
         hasher.combine(path)
         let hash = hasher.finalize()
-        print(path + String(format: ": %i", hash))
+        //print(path + String(format: ": %i", hash))
         return hash
     }
 }

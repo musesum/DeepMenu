@@ -88,8 +88,7 @@ class MuTouchVm: ObservableObject {
     /**  via MuBranchView::@GestureState touchNow .onChange,
      which also detects end when touchNow is reset to .zero
      */
-    func touchUpdate(_ touchNow: CGPoint,
-                     _ touchBranch: MuBranchVm? = nil) {
+    func touchUpdate(_ touchNow: CGPoint) {
 
         if      touchNow == .zero { ended() }
         else if dragNodeVm == nil { begin() }
@@ -99,7 +98,7 @@ class MuTouchVm: ObservableObject {
             guard let homeNodeVm = homeNodeVm else { return }
             updatePointNow(touchNow)
             dragNodeVm = homeNodeVm.copy()
-            rootVm?.begin(touchBranch, touchNow)
+            rootVm?.begin(touchNow)  
             log("touch", [touchNow], terminator: " ")
             //log("root", [baseNodeVm.center], terminator: " ")
         }

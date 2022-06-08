@@ -29,7 +29,6 @@ class MuRootVm: ObservableObject, Equatable {
     let touchVm = MuTouchVm()       /// captures touch events to dispatch to this root
     var treeVms = [MuTreeVm]()      /// vertical or horizontal stack of branches
     var treeSpotVm: MuTreeVm?       /// most recently used tree
-    var branchSpotVm: MuBranchVm?   /// branch that is capturing touch events
     var nodeSpotVm: MuNodeVm?       /// current spotlight node
     var touchState = MuTouchState() /// begin,moved,end state plus tap count
 
@@ -99,7 +98,6 @@ class MuRootVm: ObservableObject, Equatable {
         }
     }
 
-    var anchorShift = CGSize.zero
     var lastLog = "" // compare to avoid duplicate log statements
 
     var beginDepths: ClosedRange<Int> {
@@ -113,35 +111,10 @@ class MuRootVm: ObservableObject, Equatable {
         return minDepth...maxDepth
     }
 
-    ///
-    var touchBranchDepth: CGFloat {
-        guard let branchSpotVm = branchSpotVm else { return  0 }
-        let branches = branchSpotVm.treeVm?.branchVms ?? [branchSpotVm]
-        var touchBranchDepth = CGFloat(0)
-        for branchi in branches {
-            if  branchSpotVm.id == branchi.id { break }
-            touchBranchDepth += 1
-        }
-        return touchBranchDepth
-    }
-
     /// touch began at first encountered branch
-    func begin(_ branchVm: MuBranchVm?,
-               _ touchNow: CGPoint) {
+    func begin( _ touchNow: CGPoint) {
 
         touchState.begin(touchNow)
-
-        guard let branchVm = branchVm else {
-            // touching root
-            status = .root
-            toggleBranches(lowestDepth: 1) //TODO: -- fix by determining current state
-            return
-        }
-        self.branchSpotVm = branchVm
-
-        // depth of branch
-        anchorShift = branchVm.branchShift
-        anchorBranch()
         updateRoot()
     }
 
@@ -149,7 +122,6 @@ class MuRootVm: ObservableObject, Equatable {
     func moved(_ touchNow: CGPoint) {
 
         touchState.moved(touchNow)
-        anchorBranch()
         updateRoot()
     }
 
@@ -168,7 +140,7 @@ class MuRootVm: ObservableObject, Equatable {
         // tapped on something
         if touchState.tapCount > 0 {
             // search branches and node within that branch
-            if let branchVm = treeSpotVm?.nearestBranch(touchNow, branchSpotVm),
+            if let branchVm = treeSpotVm?.nearestBranch(touchNow),
                let nodeVm = branchVm.findNearestNode(touchNow) {
 
                 branchVm.refreshBranch(nodeVm)
@@ -182,70 +154,6 @@ class MuRootVm: ObservableObject, Equatable {
         
         if let nodeTr3 = nodeSpotVm?.node as? MuNodeTr3 {
             nodeTr3.callback(nodeTr3)
-        }
-
-        branchSpotVm = nil
-    }
-
-    /// adjust branch panels to accomadate tucking in
-    private func updateBranchShift(_ branchOffset: CGSize) {
-        guard let branchSpotVm = branchSpotVm else { return }
-
-        // update each branch's `branchShift` offset
-        let branches = branchSpotVm.treeVm?.branchVms ?? [branchSpotVm]
-        var branchIndex = CGFloat(0)
-        for branch in branches {
-            let factor = (branchIndex < touchBranchDepth
-                          ? branchIndex/touchBranchDepth
-                          : 1)
-            branch.branchShift = branchOffset * factor
-            branchIndex += 1
-        }
-    }
-
-
-    /// set fixed point for stretching/folding branches
-    func anchorBranch() {
-        guard let branchSpotVm = branchSpotVm else { return }
-
-        let deltaTouch = CGSize(touchState.pointDelta)
-        let (rangeW, rangeH) = getBranchRanges(branchSpotVm)
-        let branchOffset = (deltaTouch + anchorShift).clamp(rangeW, rangeH)
-        logTouch()
-        updateBranchShift(branchOffset)
-
-        func logTouch() {
-            let touchBegin = touchState.pointDelta == .zero
-            if touchBegin {
-                log(branchSpotVm.title, [branchOffset.string()], terminator: " ")
-                // let touchDelta  = touch.pointDelta.string()
-                // let anchorShift = anchorShift.string()
-                // let branchOffset = branchOffset.string() // clamped
-                // let clamp = "\(rangeW.string()) \(rangeH.string())"
-                // log(title, [touchDelta, anchorShift, branchOffset, clamp], terminator: " ")
-            }
-        }
-        func getBranchRanges(_ branch: MuBranchVm) -> (ClosedRange<CGFloat>,
-                                                       ClosedRange<CGFloat>) {
-            // calc values
-            let oneSpace = Layout.diameter + Layout.spacing * 3 // distance between branches
-            let maxSpace = touchBranchDepth * oneSpace // maximum distance up to branch
-            let vert = branch.panelVm.axis == .vertical
-            let hori = branch.panelVm.axis == .horizontal
-            let left = corner.contains(.left)
-            let upper = corner.contains(.upper)
-
-            let rangeW = (vert ? left
-                          ? -maxSpace...0   // vertical left
-                          : 0...maxSpace    // vertical right
-                          : 0...0)          // hoizontal or root
-
-            let rangeH = (hori ? upper
-                          ? -maxSpace...0   // horizontal upper
-                          : 0...maxSpace    // horizontal lower
-                          : 0...0)          // vertical or root
-
-            return (rangeW, rangeH)
         }
     }
 
@@ -276,12 +184,9 @@ class MuRootVm: ObservableObject, Equatable {
     func updateRoot() {
 
         resetRootTimer()
-
-        if isExploring() {
-            if let nodeVm = followTouch(touchState.pointNow)  {
-                nodeSpotVm = nodeVm
-                nodeSpotVm?.superSpotlight()
-            }
+        if let nodeVm = followTouch(touchState.pointNow)  {
+            nodeSpotVm = nodeVm
+            nodeSpotVm?.superSpotlight()
         }
         alignSpotWithTouch(touchState.pointNow)
     }
@@ -290,7 +195,7 @@ class MuRootVm: ObservableObject, Equatable {
 
         // check current set of menus
         if let treeNowVm = treeSpotVm,
-           let nearestBranch = treeNowVm.nearestBranch(touchNow, branchSpotVm),
+           let nearestBranch = treeNowVm.nearestBranch(touchNow),
            let nearestNode = nearestBranch.findNearestNode(touchNow) {
 
             updateChanged(nodeSpotVm: nearestNode)
@@ -301,7 +206,7 @@ class MuRootVm: ObservableObject, Equatable {
             // check other set of menus
             for treeVm in treeVms {
                 if treeVm != treeSpotVm,
-                   let nearestBranch = treeVm.nearestBranch(touchNow, branchSpotVm),
+                   let nearestBranch = treeVm.nearestBranch(touchNow),
                    let nearestNode = nearestBranch.findNearestNode(touchNow) {
 
                     updateChanged(nodeSpotVm: nearestNode)
@@ -346,37 +251,6 @@ class MuRootVm: ObservableObject, Equatable {
             // center dragNode to center of nodeSpot
             let delta = nodeSpotVm.center - touchNow
             touchVm.updateDelta(delta)
-        }
-    }
-
-    /// cursor has not wandered past current spotlight node?
-    func isExploring() -> Bool {
-
-        guard let nodeSpotVm   = nodeSpotVm   else { return true }
-        guard let touchBranch = branchSpotVm else { return true }
-        let pointNow = touchState.pointNow
-        let pointDelta = touchState.pointDelta
-
-        // still on same spotlight node
-        let spotDistance = nodeSpotVm.center.distance(pointNow)
-        if spotDistance < Layout.insideNode { return false }
-
-        // on different node inside same branch
-        if touchBranch.bounds.contains(pointNow) { return true }
-
-        // touch began at root
-        if touchBranch.isRoot == true { return true }
-
-        switch touchBranch.panelVm.axis  { // explore outward (✶) or hover inward (⌂)
-            case .vertical:
-                return (corner.contains(.right)
-                        ? pointDelta.x < 0
-                        : pointDelta.x > 0)
-
-            case .horizontal:
-                return (corner.contains(.lower)
-                        ? pointDelta.y < 0
-                        : pointDelta.y > 0)
         }
     }
 

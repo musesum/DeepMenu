@@ -27,7 +27,6 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     /** find nearest brach containing touch point
     - Parameters:
       - touchNow: current touch point
-      - touchBranch: starting branch user touched
 
      User may either
         1) start from root and drag to hover over all branchs, or
@@ -45,8 +44,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
      that branch.
      */
 
-    func nearestBranch(_ touchNow: CGPoint,
-                       _ touchBranch: MuBranchVm?) -> MuBranchVm? {
+    func nearestBranch(_ touchNow: CGPoint) -> MuBranchVm? {
 
         for branchVm in branchVms {
             if branchVm.bounds.contains(touchNow) {
@@ -55,7 +53,6 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         }
         return nil
     }
-
 
     func refreshTree(_ branchVm: MuBranchVm) {
         var branchVm = branchVms.first

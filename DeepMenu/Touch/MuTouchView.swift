@@ -21,11 +21,6 @@ struct MuTouchView: View {
                         .padding(Layout.spacing)
                         .opacity(touchVm.alpha + 0.1)
                         .position(touchVm.pointHome)
-
-//                        .gesture(
-//                            DragGesture(minimumDistance: 0, coordinateSpace: .named("Sky"))
-//                                .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
-//                        .onChange(of: touchXY) { touchVm.touchUpdate($0, nil) }
                 }
 
                 // hovering node icon, follows touch
