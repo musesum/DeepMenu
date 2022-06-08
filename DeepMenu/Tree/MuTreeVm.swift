@@ -55,17 +55,28 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     }
 
     func refreshTree(_ branchVm: MuBranchVm) {
+
+        var delim = " " // for logName
+        func logName(_ name: String? = nil) {
+            if let name = name {
+                print(delim + name, terminator: "")
+                delim = "."
+            } else {
+                print(" ", terminator: "")
+            }
+        }
+        // begin ---------------------------
         var branchVm = branchVms.first
         var newBranches = [MuBranchVm]()
-        var delim = " "
         while branchVm != nil {
             if let b = branchVm {
                 b.show = true
-                print(delim + (b.nodeSpotVm?.node.name ?? " "), terminator: ""); delim = "."
+                logName(b.nodeSpotVm?.node.name)
                 newBranches.append(b)
                 branchVm = b.nodeSpotVm?.nextBranchVm
             }
         }
+        logName()
         branchVms = newBranches
     }
 

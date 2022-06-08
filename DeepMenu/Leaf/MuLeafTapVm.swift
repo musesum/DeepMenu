@@ -6,7 +6,7 @@ import Tr3
 
 class MuLeafTapVm: MuNodeVm {
 
-    var status: String { editing ? "!" :  node.name }
+    var status: String { editing ? "1" :  "0" }
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,

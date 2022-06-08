@@ -10,8 +10,8 @@ func log(_ title: String,
     var text = title
     for item in items {
         switch item {
-            case let v as CGFloat:  text += String(format: "_(\(format)) ", v)
-            case let v as Float:    text += String(format: "_(\(format)) ", v)
+            case let v as CGFloat:  text += String(format: "(\(format)) ", v)
+            case let v as Float:    text += String(format: "(\(format)) ", v)
 
             case let v as CGPoint: text += String(format: "∙(\(format), \(format)) ",
                                                   v.x, v.y)
@@ -26,3 +26,6 @@ func log(_ title: String,
     print(text, terminator: terminator)
 }
 
+func log(time: TimeInterval, _ symbol: String) {
+    print(String(format: "\n%.2f \(symbol)", time), terminator: " ")
+    }

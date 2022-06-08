@@ -7,7 +7,7 @@ import Tr3
 class MuLeafTogVm: MuNodeVm {
 
     var thumb = CGFloat(0)
-    var status: String { thumb == 1 ? "on" : "off" }
+    var status: String { thumb == 1 ? "1" : "0" }
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
