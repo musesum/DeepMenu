@@ -16,7 +16,8 @@ enum ExampleTr3Sky {
     }
 
     /// recursively parse tr3 hierachy
-    static func parseTr3(_ tr3: Tr3,_  parent: MuNode) {
+    static func parseTr3(_ tr3: Tr3,
+                         _ parent: MuNode) {
 
         let node = MuNodeTr3(tr3, parent: parent)
         for child in tr3.children {
@@ -25,6 +26,7 @@ enum ExampleTr3Sky {
             }
         }
     }
+
 
 }
 

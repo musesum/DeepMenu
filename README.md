@@ -42,7 +42,7 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
 + MuLeafVal - single dimension value
 + MuLeafVxy - 2 dimension xy control
    
-##### MuPanel* - stroke+fill branches and bounds for node views\
+##### MuPanel* - stroke+fill branches and bounds for node views
 + MuPanelVm - type, axis, size, and margins for View
 + MuPanelView - SwiftUI background 
 + MuPanelAxisView - vertical or horizontal PanelView 
@@ -91,7 +91,7 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
     - @State has been somewhat buggy in the past
     - @State, @Binding, @StateObject adds semantic complexity
     - Simplify migration from UIKit with MVVM pattern
-    - confusion on how to extract 
+    - confusion on how to extract value from gestures
 + cons 
     - requires a manually enforced coding policy 
         
@@ -157,15 +157,17 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
 
 
 #### To Do
-+ Bugs
-  - Branch Fix navigation
+
 + Root
   - Tap toggles hide/show last Views
+  - Status line
+  - voice over
+  - taptic clicks
 + Tree
-  - Slide-in hides super-branches
   - Transparent while editing leaf
   - Horizontal Test
 + Node
+  - Callback to Tr3 example
   - Show icons 
 + Leaf 
   - Tr3 Callback & persist
@@ -187,10 +189,12 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
 + Swift Package Manager
 
 + MuseSky integration
+  - curate icon list
   - Sky as UIKit compatible view
   - replace Tr3Thumb.package
   - replace panel.*.tr3.h
   - refactor sky.tr3.h
   - refactor shader.tr3.h
   - refactor midi.tr3.h
+  - control from Apple Watch
             

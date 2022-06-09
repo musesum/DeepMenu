@@ -1,9 +1,8 @@
 //  Created by warren on 12/10/21.
 
 import SwiftUI
-import Accelerate
-import Tr3
 
+/// segmented control
 class MuLeafSegVm: MuNodeVm {
 
     var thumb = CGFloat(0)
@@ -15,25 +14,31 @@ class MuLeafSegVm: MuNodeVm {
           icon: String = "") {
         
         super.init(.seg, node, branchVm, prevVm, icon: icon)
-        
-        if let node = node as? MuNodeTr3 ,
-           let vv = node.tr3.CGFloatVal() {
-            thumb = vv
-        }
+        node.leaf = self // MuLeaf delegate for setting value
+        thumb = node.value?.get() ?? .zero
     }
+    
+    var offset: CGSize {
+        CGSize(width: 0,
+               height: thumb * panelVm.yRunway())
+    }
+}
 
-    override func touchNow(_ touchNow: CGPoint) {
+extension MuLeafSegVm: MuLeaf {
 
-        if touchNow != .zero {
+    func touchPoint(_ point: CGPoint) {
+
+        if point != .zero {
             editing = true
-            thumb = panelVm.normalizeTouch(v: touchNow.y)
-            node.callback(thumb)
+            thumb = panelVm.normalizeTouch(v: point.y) //todo: axis ??
+            node.value?.set(thumb)
         } else {
             editing = false
         }
     }
-    
-    var offset: CGSize { CGSize(width: 0,
-                                height: thumb * panelVm.yRunway())
+    func updatePoint(_ point: CGPoint) {
+        editing = true
+        thumb = panelVm.normalizeTouch(v: point.y) //todo: axis ??
+        editing = false
     }
 }

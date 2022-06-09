@@ -9,11 +9,10 @@ class MuNodeTest: MuNode {
     init(_ name: String,
          type: MuNodeType = .node,
          parent: MuNode? = nil,
-         children: [MuNodeTest]? = nil,
-         callback: @escaping CallAny = { _ in return })
+         children: [MuNodeTest]? = nil)
     {
 
-        super.init(name: name, callback: callback)
+        super.init(name: name)
         
         if let children = children {
             for child in children {

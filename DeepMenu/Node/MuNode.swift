@@ -1,7 +1,9 @@
 // Created by warren on 5/6/22.
 
-import Foundation
+import UIKit
 import Par
+
+public typealias CallAnyVisitor = ((Any,Visitor)->())
 
 class MuNode: Identifiable, Equatable {
 
@@ -9,18 +11,19 @@ class MuNode: Identifiable, Equatable {
 
     var name: String
     var children = [MuNode]()
-    var callback: ((Any) -> Void)
+    var value: MuNodeValue?
+    var leaf: MuLeaf?
 
     static func == (lhs: MuNode, rhs: MuNode) -> Bool {
         return lhs.id == rhs.id
     }
 
     init(name: String,
-         parent: MuNode? = nil,
-         callback: @escaping CallAny) {
+         parent: MuNode? = nil) {
 
         self.name = name
-        self.callback = callback
         parent?.children.append(self)
     }
+
+
 }

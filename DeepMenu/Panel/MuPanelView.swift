@@ -27,7 +27,7 @@ struct MuPanelView: View {
             .gesture(DragGesture(minimumDistance: 0)
                 .updating($touchXY) { (input, result, _) in
                     result = input.location })
-            .onChange(of: touchXY) { nodeVm.touchNow($0) }
+            .onChange(of: touchXY) { nodeVm.node.leaf?.touchPoint($0) }
 
         }
     }

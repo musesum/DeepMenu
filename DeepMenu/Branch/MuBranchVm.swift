@@ -76,7 +76,6 @@ class MuBranchVm: Identifiable, ObservableObject {
     }
 
     /// add a branch to selected node and follow next node
-
     private func expandBranch() {
 
         guard let nodeSpotVm = nodeSpotVm else { return }
@@ -87,15 +86,14 @@ class MuBranchVm: Identifiable, ObservableObject {
         else if let nextType = nodeSpotVm.components?["type"] as? MuNodeType,
             nextType.isLeaf {
 
-            let leafNode = MuNode(name: "✎",
-                                  parent: nodeSpotVm.node,
-                                  callback: nodeSpotVm.node.callback)
+            let leafNode = MuNode(name: "✎ ",
+                                  parent: nodeSpotVm.node)
             
             _ = MuBranchVm.cached(nodes: [leafNode],
                                   treeVm: treeVm,
                                   type: nextType,
                                   prevNodeVm: nodeSpotVm,
-                                  level: level+1)
+                                  level: level + 1)
         }
         else if nodeSpotVm.node.children.count > 0 {
 

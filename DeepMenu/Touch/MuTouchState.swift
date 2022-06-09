@@ -17,7 +17,7 @@ class MuTouchState {
 
     var tapCount = 0  // number of taps
     var pointNow = CGPoint.zero // current position of touch
-    var isFast = false
+    var isFast = false // move fast to skip branches
 
     private var pointLast = CGPoint.zero  // last reported touch while moving
     private var touchSpeed = CGFloat.zero // speed while moving
@@ -77,19 +77,17 @@ class MuTouchState {
         pointBeginDelta = point - pointLast
         timeEnded = timeLast
         timeBeginDelta = timeEnded - timeBegin
-        tapCount = tapped ? tapCount + 1 : 0
+        updateTapCount()
         log(time: timeBeginDelta, "🔴")
     }
 
-    var tapped: Bool {
-        let tapping = timeBeginDelta < MuTouchState.tapThreshold
-        if tapping {
-            log(time: timeBeginDelta,
-                "🟣" + (tapCount < 3
-                        ? "¹²³"[tapCount]
-                        : String(tapCount)))
+    func updateTapCount() {
+        if timeBeginDelta < MuTouchState.tapThreshold {
+            tapCount += 1
+            log(time: timeBeginDelta, "🟣" + superScript(tapCount))
+        } else {
+            tapCount = 0
         }
-        return tapping
     }
 
 }

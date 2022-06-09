@@ -1,9 +1,8 @@
 //  Created by warren on 5/10/22.
 
 import SwiftUI
-import Accelerate
-import Tr3
 
+/// tap control
 class MuLeafTapVm: MuNodeVm {
 
     var status: String { editing ? "1" :  "0" }
@@ -14,24 +13,29 @@ class MuLeafTapVm: MuNodeVm {
           icon: String = "") {
         
         super.init(.tap, node, branchVm, prevVm, icon: icon)
-        
-        if let node = node as? MuNodeTr3 {
-            node.callback(1)
-        }
-    }
-
-    override func touchNow(_ touchNow: CGPoint) {
-
-        if touchNow != .zero {
-            editing = true
-            node.callback(1)
-        } else {
-            editing = false
-            node.callback(0)
-        }
+        node.leaf = self // MuLeaf delegate for setting value
     }
 
     var offset: CGSize {
         CGSize(width: 0, height:  panelVm.yRunway())
+    }
+}
+extension MuLeafTapVm: MuLeaf {
+
+    func touchPoint(_ point: CGPoint) {
+
+        if point != .zero {
+            editing = true
+            node.value?.set(1)
+        } else {
+            editing = false
+            node.value?.set(0)
+        }
+    }
+    func updatePoint(_ point: CGPoint) {
+        editing = true
+        node.value?.set(1)
+        node.value?.set(0)
+        editing = false
     }
 }

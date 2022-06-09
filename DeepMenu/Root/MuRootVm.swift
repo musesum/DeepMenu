@@ -129,7 +129,8 @@ class MuRootVm: ObservableObject, Equatable {
 
     func onSameNode(_ touchNow: CGPoint) -> MuNodeVm? {
         // is hovering over same node as before
-        if (nodeSpotVm?.center.distance(touchNow) ?? .infinity) < Layout.diameter {
+        if let center = nodeSpotVm?.center,
+           center.distance(touchNow) < Layout.diameter {
             return nodeSpotVm
         }
         return nil
@@ -153,10 +154,6 @@ class MuRootVm: ObservableObject, Equatable {
             resetRootTimer(delay: 8)
         }
         status = .root
-        
-        if let nodeTr3 = nodeSpotVm?.node as? MuNodeTr3 {
-            nodeTr3.callback(nodeTr3)
-        }
     }
 
     /// save time with going from depth 0 to depth 1

@@ -1,9 +1,8 @@
 //  Created by warren on 12/10/21.
 
 import SwiftUI
-import Accelerate
-import Tr3
 
+// 1d slider control
 class MuLeafValVm: MuNodeVm {
 
     var thumb = CGFloat(0)
@@ -15,24 +14,32 @@ class MuLeafValVm: MuNodeVm {
           icon: String = "") {
         
         super.init(.val, node, branchVm, prevVm, icon: icon)
-        
-        if let node = node as? MuNodeTr3 ,
-           let vv = node.tr3.CGFloatVal() {
-            thumb = vv
-        }
+        node.leaf = self // MuLeaf delegate for setting value
+        thumb = node.value?.get() ?? .zero
     }
 
-    override func touchNow(_ touchNow: CGPoint) {
+    var offset: CGSize {
+        CGSize(width: 0,
+               height: thumb * panelVm.yRunway())
+    }
+}
 
-        if touchNow != .zero {
+extension MuLeafValVm: MuLeaf {
+
+    func touchPoint(_ point: CGPoint) {
+
+        if point != .zero {
             editing = true
-            thumb = panelVm.normalizeTouch(v: touchNow.y)
+            thumb = panelVm.normalizeTouch(v: point.y) //todo: axis ??
             // log("yv", format: "%.2f", [point.y, v])
-            node.callback(thumb)
+            node.value?.set(thumb)
         } else {
             editing = false
         }
     }
-    
-    var offset: CGSize { CGSize(width: 0, height: thumb * panelVm.yRunway()) }
+    func updatePoint(_ point: CGPoint) {
+        editing = true
+        thumb = panelVm.normalizeTouch(v: point.y) //todo: axis ??
+        editing = false
+    }
 }

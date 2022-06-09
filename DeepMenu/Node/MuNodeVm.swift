@@ -2,6 +2,8 @@
 
 import SwiftUI
 
+
+
 class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
     let id =  MuIdentity.getId()
     static func == (lhs: MuNodeVm, rhs: MuNodeVm) -> Bool { return lhs.id == rhs.id }
@@ -25,8 +27,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
         }
     }
 
-    public func touchNow(_ touchNow: CGPoint) { }
-
+    
     let type: MuNodeType      /// node, val, vxy, seg, tog, tap
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
     let icon: String?         /// icon for this node (not implemented)
