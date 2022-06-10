@@ -16,8 +16,8 @@ struct MuTouchView: View {
                     MuNodeView(nodeVm: homeNodeVm)
 
                         .frame(width: Layout.diameter, height: Layout.diameter)
-                        .onAppear { touchVm.updateHome(geo.frame(in: .named("Sky"))) }
-                        .onChange(of: geo.frame(in: .named("Sky"))) { touchVm.updateHome($0) }
+                        .onAppear { touchVm.updateHome(geo.frame(in: .named("Space"))) }
+                        .onChange(of: geo.frame(in: .named("Space"))) { touchVm.updateHome($0) }
                         .padding(Layout.spacing)
                         .opacity(touchVm.alpha + 0.1)
                         .position(touchVm.pointHome)

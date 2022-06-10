@@ -25,10 +25,10 @@ struct MuNodeView: View {
                         }
                 }
             }
-            .onChange(of: geo.frame(in: .named("Sky"))) {
+            .onChange(of: geo.frame(in: .named("Space"))) {
                 nodeVm.updateCenter($0)
             }
-            .onAppear { nodeVm.updateCenter(geo.frame(in: .named("Sky"))) }
+            .onAppear { nodeVm.updateCenter(geo.frame(in: .named("Space"))) }
         }
         .frame(width: panelVm.inner.width, height: panelVm.inner.height)
         .padding(Layout.spacing)

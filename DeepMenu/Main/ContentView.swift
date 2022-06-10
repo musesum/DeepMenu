@@ -28,9 +28,9 @@ struct ContentView: View {
             MuRootView().environmentObject(contentVm.testRootVm)
             //MuRootView().environmentObject(contentVm.skyRootVm)
         }
-        .coordinateSpace(name: "Sky")
+        .coordinateSpace(name: "Space")
         .statusBar(hidden: true)
-        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Sky"))
+        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
             .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
         .onChange(of: touchXY) { contentVm.testRootVm.touchVm.touchUpdate($0) }
 
