@@ -10,7 +10,7 @@ class AppSpace: ObservableObject {
 }
 
 /// placeholder dark red background
-struct AppBackgroundView: View {
+struct BackView: View {
 
     @ObservedObject var space: AppSpace
     

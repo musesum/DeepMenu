@@ -25,8 +25,6 @@ class MuPanelVm {
     }
 
 
-
-
     // changed by type
     var cornerRadius: CGFloat {
         type.isLeaf

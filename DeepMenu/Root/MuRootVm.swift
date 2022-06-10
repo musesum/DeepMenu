@@ -36,6 +36,9 @@ class MuRootVm: ObservableObject, Equatable {
 
         self.corner = corner
         self.treeVms = treeVms
+        for treeVm in treeVms {
+            treeVm.rootVm = self
+        }
         treeSpotVm = treeVms.first
         touchVm.setRoot(self)
         updateOffsets()

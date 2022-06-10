@@ -73,12 +73,22 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
              
 ### Relationships between classes and structs 
 + `treeVm ▹▹ branchVm ▹▹ nodeVm ▹ leafVm ◃◃ node`
-
   - treeVm   to branchVm {1,}   // 1:M array [branchVm]s expanded  
   - branchVm to nodeVm   {1,}   // 1:M a branchVm has 1 or more nodeVms
   - nodeVm   to leafVm   {0,1}  // 1:1 optional leaf
   - leafVm   to node     {1,1}  // 1:1 one branchVm for each nodeVm    
   - node     to leafVm   {0,}   // 1:M may be shared by many or cached
+
+### logging symbols
+  - `0.00 🟢` start touch at time 0.00  
+  - `0.44 🔴` end touch at delta time 0.44
+  - `0.33 🟣¹` single tap (² double, ³ triple, etc)
+  - `touch∙(393, 675)` coordinate of touch event
+  - `🧺` found cached instance
+  - `√` `𐂷` `✎` `⬚` - status: .root .tree .edit .space
+  - `V⃝ 1⇨0=0` vertical branch from single level to hidden 
+  - `H⃝ 0⇨1=1` horzontal branch from hidden to single level
+
   
 ### SwiftUI restrictions
 + SwiftUI Views do not modify its own state  

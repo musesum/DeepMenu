@@ -10,9 +10,9 @@ class MuBranchVm: Identifiable, ObservableObject {
     @Published var show = true
 
     var treeVm: MuTreeVm       /// my tree; which unfolds a hierarchy of branches
-    var nodeVms: [MuNodeVm]     /// all the node View Models on this branch
-    var nodeSpotVm: MuNodeVm?   /// current node, nodeSpotVm.branchVm is next branch
-    var panelVm: MuPanelVm      /// background + stroke model for BranchView
+    var nodeVms: [MuNodeVm]    /// all the node View Models on this branch
+    var nodeSpotVm: MuNodeVm?  /// current node, nodeSpotVm.branchVm is next branch
+    var panelVm: MuPanelVm     /// background + stroke model for BranchView
 
     var isRoot: Bool = false
     var bounds: CGRect = .zero
@@ -165,7 +165,13 @@ extension MuBranchVm {
 
         func nextHash() -> Int {
             var hasher = Hasher()
-            hasher.combine(prevNodeVm?.hashValue ?? 0)
+            if let prevNodeVm = prevNodeVm {
+                hasher.combine(prevNodeVm.hashValue)
+            } else if let corner = treeVm.rootVm?.corner {
+                hasher.combine(corner.rawValue)
+            } else {
+                print("oops")
+            }
             hasher.combine(type.icon)
             let hash = hasher.finalize()
             return hash

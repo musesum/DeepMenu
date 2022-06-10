@@ -12,27 +12,32 @@ struct ContentViews {
     static let client = ExampleClientView()
 }
 
+struct MenuView: View {
+    @GestureState private var touchXY: CGPoint = .zero
+    let vm: MenuVm
+    var body: some View {
+        MuRootView().environmentObject(vm.rootVm)
+            .coordinateSpace(name: "Space")
+            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
+                .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
+            .onChange(of: touchXY) { vm.rootVm.touchVm.touchUpdate($0) }
+    }
+}
 
 struct ContentView: View {
-    
-    @EnvironmentObject var rootVm: MuRootVm
+
     @GestureState private var touchXY: CGPoint = .zero
-    let appSpace = AppSpace()
-    let contentVm = ContentVm()
-    
+                    let appSpace = AppSpace()
 
     var body: some View {
         // ContentViews.client
         ZStack(alignment: .bottomLeading) {
-            AppBackgroundView(space: appSpace)
-            MuRootView().environmentObject(contentVm.testRootVm)
-            //MuRootView().environmentObject(contentVm.skyRootVm)
+            BackView(space: appSpace)
+            MenuView(vm: SkyVm(corner: [.lower, .left]))
+            MenuView(vm: SkyVm(corner: [.lower, .right]))
+            //MenuView(vm: TestVm(corner: [.upper, .right]))
         }
-        .coordinateSpace(name: "Space")
         .statusBar(hidden: true)
-        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
-            .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
-        .onChange(of: touchXY) { contentVm.testRootVm.touchVm.touchUpdate($0) }
 
     }
 }

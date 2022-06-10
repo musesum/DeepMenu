@@ -11,6 +11,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     var level = CGFloat(1) // starting level for branches
     var offset = CGSize(width: 0, height: 0)
     var depthShown = 0 // levels of branches shown
+    var rootVm: MuRootVm? // used to determine MuBranchVm hash value
 
     init(axis: Axis) {
         self.axis = axis

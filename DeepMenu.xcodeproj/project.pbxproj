@@ -24,7 +24,7 @@
 		800E2A9D282568A1006AE6A1 /* MuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800E2A9C282568A1006AE6A1 /* MuNode.swift */; };
 		80135A07272C71EA00BCDE27 /* MuTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A06272C71EA00BCDE27 /* MuTreeView.swift */; };
 		80135A09272C724E00BCDE27 /* MuTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A08272C724E00BCDE27 /* MuTouchView.swift */; };
-		80135A0B272C728700BCDE27 /* AppBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A0A272C728700BCDE27 /* AppBackgroundView.swift */; };
+		80135A0B272C728700BCDE27 /* BackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A0A272C728700BCDE27 /* BackView.swift */; };
 		8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7C92700DE3800691126 /* DeepMenuApp.swift */; };
 		8014B7CC2700DE3800691126 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7CB2700DE3800691126 /* ContentView.swift */; };
 		8014B7CE2700DE3A00691126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8014B7CD2700DE3A00691126 /* Assets.xcassets */; };
@@ -116,7 +116,7 @@
 		800E2A9C282568A1006AE6A1 /* MuNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNode.swift; sourceTree = "<group>"; };
 		80135A06272C71EA00BCDE27 /* MuTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTreeView.swift; sourceTree = "<group>"; };
 		80135A08272C724E00BCDE27 /* MuTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouchView.swift; sourceTree = "<group>"; };
-		80135A0A272C728700BCDE27 /* AppBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBackgroundView.swift; sourceTree = "<group>"; };
+		80135A0A272C728700BCDE27 /* BackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackView.swift; sourceTree = "<group>"; };
 		8014B7C62700DE3800691126 /* DeepMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeepMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8014B7C92700DE3800691126 /* DeepMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepMenuApp.swift; sourceTree = "<group>"; };
 		8014B7CB2700DE3800691126 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 				8068A434284BED3E007256DA /* ContentVm.swift */,
 				80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */,
 				8014B7C92700DE3800691126 /* DeepMenuApp.swift */,
-				80135A0A272C728700BCDE27 /* AppBackgroundView.swift */,
+				80135A0A272C728700BCDE27 /* BackView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -620,7 +620,7 @@
 			files = (
 				80135A07272C71EA00BCDE27 /* MuTreeView.swift in Sources */,
 				8019DBFB271C8CEC00420923 /* MuNodeTest.swift in Sources */,
-				80135A0B272C728700BCDE27 /* AppBackgroundView.swift in Sources */,
+				80135A0B272C728700BCDE27 /* BackView.swift in Sources */,
 				80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */,
 				80135A09272C724E00BCDE27 /* MuTouchView.swift in Sources */,
 				80FC93F327344C3400FC10E5 /* MuCorner.swift in Sources */,
