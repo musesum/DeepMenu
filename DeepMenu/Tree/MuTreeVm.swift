@@ -46,7 +46,8 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     func nearestBranch(_ touchNow: CGPoint) -> MuBranchVm? {
 
         for branchVm in branchVms {
-            if branchVm.bounds.contains(touchNow) {
+            if branchVm.show == true,
+                branchVm.bounds.contains(touchNow) {
                 return branchVm
             }
         }
