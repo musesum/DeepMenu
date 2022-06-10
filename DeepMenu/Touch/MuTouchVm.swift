@@ -31,11 +31,11 @@ class MuTouchVm: ObservableObject {
     var pointDelta = CGPoint.zero // touch starting position
 
     func setRoot(_ rootVm: MuRootVm) {
-        
+        guard let treeVm = rootVm.treeSpotVm else { return }
         self.rootVm = rootVm
         let homeNode = MuNodeTest("⚫︎") //todo: replace with ??
 
-        let branchVm = MuBranchVm.cached(treeVm: rootVm.treeSpotVm)
+        let branchVm = MuBranchVm.cached(treeVm: treeVm)
 
         homeNodeVm = MuNodeVm(.node,
                               homeNode,
@@ -45,25 +45,6 @@ class MuTouchVm: ObservableObject {
         branchVm.addNodeVm(homeNodeVm)
     }
     
-    func setRootVm(_ rootVm: MuRootVm) {
-
-        self.rootVm = rootVm
-        var name: String
-        switch rootVm.corner {
-            case [.lower, .right]: name = "◢"
-            case [.lower, .left ]: name = "◣"
-            case [.upper, .right]: name = "◥"
-            case [.upper, .left ]: name = "◤"
-
-                // reserved for later middling roots
-            case [.upper]: name = "▲"
-            case [.right]: name = "▶︎"
-            case [.lower]: name = "▼"
-            case [.left ]: name = "◀︎"
-            default:       name = "??"
-        }
-        homeNodeVm?.node.name = name
-    }
 
     /// adjust offset for root on right side of canvas
     func rightSideOffset(for rootStatus: MuRootStatus) -> CGFloat {

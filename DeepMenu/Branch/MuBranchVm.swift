@@ -9,7 +9,7 @@ class MuBranchVm: Identifiable, ObservableObject {
 
     @Published var show = true
 
-    var treeVm: MuTreeVm?       /// my tree; which unfolds a hierarchy of branches
+    var treeVm: MuTreeVm       /// my tree; which unfolds a hierarchy of branches
     var nodeVms: [MuNodeVm]     /// all the node View Models on this branch
     var nodeSpotVm: MuNodeVm?   /// current node, nodeSpotVm.branchVm is next branch
     var panelVm: MuPanelVm      /// background + stroke model for BranchView
@@ -26,7 +26,7 @@ class MuBranchVm: Identifiable, ObservableObject {
     }
 
     init(nodes: [MuNode] = [],
-         treeVm: MuTreeVm?,
+         treeVm: MuTreeVm,
          type: MuNodeType = .node,
          prevNodeVm: MuNodeVm? = nil,
          level: CGFloat = 0) {
@@ -38,7 +38,7 @@ class MuBranchVm: Identifiable, ObservableObject {
 
         self.panelVm = MuPanelVm(type: type,
                                  count: nodes.count,
-                                 axis: treeVm?.axis ?? .vertical)
+                                 axis: treeVm.axis)
         buildNodeVms(from: nodes,
                      type: type,
                      prevNodeVm: prevNodeVm)
@@ -72,7 +72,7 @@ class MuBranchVm: Identifiable, ObservableObject {
             print("🍁")
         }
         expandBranch()
-        treeVm?.refreshTree(self)
+        treeVm.refreshTree(self)
     }
 
     /// add a branch to selected node and follow next node
@@ -158,7 +158,7 @@ var BranchCache = [Int: MuBranchVm]()
 extension MuBranchVm {
     
     static func cached(nodes: [MuNode] = [],
-                       treeVm: MuTreeVm?,
+                       treeVm: MuTreeVm,
                        type: MuNodeType = .node,
                        prevNodeVm: MuNodeVm? = nil,
                        level: CGFloat = 0) -> MuBranchVm {

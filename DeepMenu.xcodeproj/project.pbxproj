@@ -78,6 +78,7 @@
 		80C9A7C7270F5A820013CA49 /* MuBranchPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C9A7C6270F5A820013CA49 /* MuBranchPanelView.swift */; };
 		80CBDA11281CABF3008CB97A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80CBDA10281CABF3008CB97A /* Tr3 */; };
 		80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */; };
+		80F695C2285395BE0077BF93 /* MuSpaceVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F695C1285395BE0077BF93 /* MuSpaceVm.swift */; };
 		80FC93F327344C3400FC10E5 /* MuCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FC93F227344C3400FC10E5 /* MuCorner.swift */; };
 /* End PBXBuildFile section */
 
@@ -175,6 +176,7 @@
 		80C9A7C6270F5A820013CA49 /* MuBranchPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuBranchPanelView.swift; sourceTree = "<group>"; };
 		80CBDA14281D90BF008CB97A /* shader.tr3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.tr3.h; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
+		80F695C1285395BE0077BF93 /* MuSpaceVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuSpaceVm.swift; sourceTree = "<group>"; };
 		80FC93F227344C3400FC10E5 /* MuCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuCorner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,8 +278,8 @@
 		8014B7C82700DE3800691126 /* DeepMenu */ = {
 			isa = PBXGroup;
 			children = (
-				80A7B5A6271B1883005ECF59 /* Main */,
 				8087FC882808760800572436 /* Example */,
+				80A7B5A6271B1883005ECF59 /* Main */,
 				8076229E27988F07008CBBE3 /* Touch */,
 				8019DBF7271BDB6100420923 /* Root */,
 				8060721827359440001945CD /* Tree */,
@@ -354,6 +356,7 @@
 		8019DBF7271BDB6100420923 /* Root */ = {
 			isa = PBXGroup;
 			children = (
+				80F695C1285395BE0077BF93 /* MuSpaceVm.swift */,
 				802346F92717D7EE0006645B /* MuRootVm.swift */,
 				8014B7F32700DED400691126 /* MuRootView.swift */,
 				80C43F4C274EE5E4002B0B76 /* MuRootStatus.swift */,
@@ -664,6 +667,7 @@
 				8040EDED282B03390091F226 /* MuLeafTogView.swift in Sources */,
 				80631E002772428E0071AF93 /* MuNodeType.swift in Sources */,
 				80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */,
+				80F695C2285395BE0077BF93 /* MuSpaceVm.swift in Sources */,
 				8006196B27933375005960FF /* MuTouchState.swift in Sources */,
 				8014B7F42700DED400691126 /* MuRootView.swift in Sources */,
 				80B251DE2706BDBF00E63DA3 /* MuBranchView.swift in Sources */,

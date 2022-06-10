@@ -23,5 +23,21 @@ struct MuCorner: OptionSet {
         let printable = result.joined(separator: ", ")
         return "\(printable)"
     }
+
+    public func indicator () -> String {
+        switch self {
+            case [.lower, .right]: return "◢"
+            case [.lower, .left ]: return "◣"
+            case [.upper, .right]: return "◥"
+            case [.upper, .left ]: return "◤"
+
+            // reserved for later middling roots
+            case [.upper]: return "▲"
+            case [.right]: return "▶︎"
+            case [.lower]: return "▼"
+            case [.left ]: return "◀︎"
+            default:       return "??"
+        }
+    }
 }
 

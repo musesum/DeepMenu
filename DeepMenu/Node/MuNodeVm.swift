@@ -45,7 +45,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
 
     init (_ type: MuNodeType,
           _ node: MuNode,
-          _ branchVm: MuBranchVm? = nil,
+          _ branchVm: MuBranchVm?,
           _ prevVm: MuNodeVm? = nil,
           icon: String? = nil) {
 
@@ -54,7 +54,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
         self.branchVm = branchVm
         self.prevVm = prevVm
         self.icon = icon
-        self.panelVm = MuPanelVm(type: type)
+        self.panelVm = MuPanelVm(type: type, axis: branchVm?.treeVm.axis ?? .vertical)
         prevVm?.nextBranchVm = branchVm
     }
     

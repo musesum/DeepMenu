@@ -5,25 +5,24 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     let id = MuIdentity.getId()
     static func == (lhs: MuTreeVm, rhs: MuTreeVm) -> Bool { return lhs.id == rhs.id }
 
-    @Published var branchVms: [MuBranchVm]
+    @Published var branchVms = [MuBranchVm]()
 
     var axis: Axis  // vertical or horizontal
     var level = CGFloat(1) // starting level for branches
     var offset = CGSize(width: 0, height: 0)
     var depthShown = 0 // levels of branches shown
 
-    init(branches: [MuBranchVm],
-         axis: Axis,
-         root: MuRootVm) {
-
-        self.branchVms = branches
+    init(axis: Axis) {
         self.axis = axis
-        for branch in branches {
-            branch.updateTree(self)
+    }
+
+    func addBranchVms(_ branchVms: [MuBranchVm]) {
+        self.branchVms.append(contentsOf: branchVms)
+        for branchVm in branchVms {
+            branchVm.updateTree(self)
         }
         showBranches(depth: 1)
     }
-    
     /** find nearest brach containing touch point
     - Parameters:
       - touchNow: current touch point

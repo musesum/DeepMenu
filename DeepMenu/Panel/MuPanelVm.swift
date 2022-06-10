@@ -3,10 +3,29 @@
 import SwiftUI
 
 class MuPanelVm {
+
     var type: MuNodeType
     var axis: Axis
     var count: CGFloat
     var margin = CGFloat(0) // overlap with a negative number
+    init(type: MuNodeType,
+         count: Int = 1,
+         axis: Axis) {
+
+        self.type = type
+        self.count = CGFloat(max(count,1))
+        self.axis = axis
+    }
+
+    init(from: MuPanelVm) {
+        self.type   = from.type
+        self.margin = from.margin
+        self.axis   = from.axis
+        self.count  = from.count
+    }
+
+
+
 
     // changed by type
     var cornerRadius: CGFloat {
@@ -74,21 +93,6 @@ class MuPanelVm {
             let result = CGFloat(xxx)
             return result
         }
-    }
-    init(type: MuNodeType,
-         count: Int = 1,
-         axis: Axis = .vertical) {
-        
-        self.type = type
-        self.count = CGFloat(max(count,1))
-        self.axis = axis
-    }
-    
-    init(from: MuPanelVm) {
-        self.type   = from.type
-        self.margin = from.margin
-        self.axis   = from.axis
-        self.count  = from.count
     }
 
     func updateBounds(_ bounds: CGRect) -> CGRect {

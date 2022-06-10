@@ -32,17 +32,15 @@ class MuRootVm: ObservableObject, Equatable {
     var nodeSpotVm: MuNodeVm?    /// current spotlight node
     var touchState = MuTouchState() /// begin,moved,end state plus tap count
 
-    init(_ corner: MuCorner, axii: [Axis]) {
-        
+    init(_ corner: MuCorner, treeVms: [MuTreeVm]) {
+
         self.corner = corner
-        for axis in axii {
-            let treeVm = MuTreeVm(branches: [], axis: axis, root: self)
-            treeVms.append(treeVm)
-            treeSpotVm = treeVm
-        }
+        self.treeVms = treeVms
+        treeSpotVm = treeVms.first
         touchVm.setRoot(self)
         updateOffsets()
     }
+
 
     /**
      Adjust tree offsets iPhone and iPad to avoid false positives, now that springboard adds a corner hotspot for launching the notes app. Also, adjust pilot offsets for home root and for flying.
@@ -275,4 +273,3 @@ class MuRootVm: ObservableObject, Equatable {
         #endif
     }
 }
-

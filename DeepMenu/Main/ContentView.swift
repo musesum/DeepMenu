@@ -14,23 +14,25 @@ struct ContentViews {
 
 
 struct ContentView: View {
+    
     @EnvironmentObject var rootVm: MuRootVm
     @GestureState private var touchXY: CGPoint = .zero
     let appSpace = AppSpace()
     let contentVm = ContentVm()
+    
 
     var body: some View {
         // ContentViews.client
         ZStack(alignment: .bottomLeading) {
             AppBackgroundView(space: appSpace)
-            //MuRootView().environmentObject(MuRootVm([.lower, .right], branches: testBranches()))
-            MuRootView().environmentObject(contentVm.skyRootVm)
+            MuRootView().environmentObject(contentVm.testRootVm)
+            //MuRootView().environmentObject(contentVm.skyRootVm)
         }
         .coordinateSpace(name: "Sky")
         .statusBar(hidden: true)
         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Sky"))
             .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
-        .onChange(of: touchXY) { contentVm.skyRootVm.touchVm.touchUpdate($0) }
+        .onChange(of: touchXY) { contentVm.testRootVm.touchVm.touchUpdate($0) }
 
     }
 }

@@ -4,28 +4,33 @@ import SwiftUI
 
 class ContentVm {
 
-    var skyNodes: [MuNode]
-    var skyTouchVm: MuTouchVm
     var skyRootVm: MuRootVm
-    var skyTreeVm: MuTreeVm?
-    var skyBranchVm: MuBranchVm
+    var testRootVm: MuRootVm
 
     init() {
         // init in sequence: nodes, root, tree, branch, touch
-        skyNodes = ExampleTr3Sky.skyNodes()
-        skyRootVm = MuRootVm([.lower, .left], axii: [.vertical])
-        skyTreeVm = skyRootVm.treeSpotVm
-        skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm)
-        skyTreeVm?.branchVms.append(skyBranchVm)
-        skyTouchVm = skyRootVm.touchVm
-    }
+        let skyTreeVm = MuTreeVm(axis: .vertical)
+        let skyNodes = ExampleTr3Sky.skyNodes()
+        let skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm)
+        skyTreeVm.addBranchVms([skyBranchVm])
 
-    func testBranches(_ treeVm: MuTreeVm) -> [MuBranchVm] {
-        let numberNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
-        let letterNodes = ExampleNodeModels.letteredNodes()
-        let numberBranch = MuBranchVm.cached(nodes: numberNodes, treeVm: treeVm)
-        let letterBranch = MuBranchVm.cached(nodes: letterNodes, treeVm: treeVm)
-        let branches = [numberBranch, letterBranch]
-        return branches
+        skyRootVm = MuRootVm([.lower, .left], treeVms: [skyTreeVm])
+        testRootVm = makeTestRootVm()
     }
+}
+
+func makeTestRootVm () -> MuRootVm {
+    let letterTreeVm = MuTreeVm(axis: .vertical)
+    let letterNodes = ExampleNodeModels.letteredNodes()
+    let letterBranchVm = MuBranchVm(nodes: letterNodes, treeVm: letterTreeVm)
+    letterTreeVm.addBranchVms([letterBranchVm])
+
+    let numberTreeVm = MuTreeVm(axis: .horizontal)
+    let numberNodes = ExampleNodeModels.numberedNodes(5, numLevels: 5)
+    let numberBranchVm = MuBranchVm(nodes: numberNodes, treeVm: numberTreeVm)
+    numberTreeVm.addBranchVms([numberBranchVm])
+
+    let treeVms = [letterTreeVm, numberTreeVm]
+
+    return MuRootVm([.lower, .right], treeVms: treeVms)
 }
