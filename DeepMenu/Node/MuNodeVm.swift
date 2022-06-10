@@ -83,12 +83,12 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
 
 }
 extension MuNodeVm {
-
-    static func makeType(_ type: MuNodeType,
-                         _ node: MuNode,
-                         _ branchVm: MuBranchVm,
-                         _ prevVm: MuNodeVm? = nil,
-                         icon: String = "") -> MuNodeVm {
+    
+    static func cached(_ type: MuNodeType,
+                       _ node: MuNode,
+                       _ branchVm: MuBranchVm,
+                       _ prevVm: MuNodeVm? = nil,
+                       icon: String = "") -> MuNodeVm {
 
         switch type {
             case .val: return MuLeafValVm(node, branchVm, prevVm)

@@ -51,7 +51,7 @@ class MuBranchVm: Identifiable, ObservableObject {
                               prevNodeVm: MuNodeVm?) {
 
         for node in nodes {
-            let nodeVm = MuNodeVm.makeType(type, node, self, prevNodeVm)
+            let nodeVm = MuNodeVm.cached(type, node, self, prevNodeVm)
             nodeVms.append(nodeVm)
             if nodeVm.type.isLeaf {
                 prevNodeVm?.leafVm = nodeVm // is leaf of previous (parent) node
@@ -165,13 +165,8 @@ extension MuBranchVm {
 
         func nextHash() -> Int {
             var hasher = Hasher()
-            if let prevNodeVm = prevNodeVm {
-                hasher.combine(prevNodeVm.hashValue)
-            } else if let corner = treeVm.rootVm?.corner {
-                hasher.combine(corner.rawValue)
-            } else {
-                print("oops")
-            }
+            hasher.combine(prevNodeVm?.hashValue ?? 0)
+            hasher.combine(treeVm.rootVm?.corner.rawValue ?? 0)
             hasher.combine(type.icon)
             let hash = hasher.finalize()
             return hash

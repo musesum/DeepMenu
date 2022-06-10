@@ -9,7 +9,7 @@ enum MuRootStatus: String  {
     case edit   // editing a leaf
     case space  // hovering over canvas
     
-    public var icon: String {
+    public var symbol: String {
         switch self {
             case .root  : return "√"
             case .tree  : return "𐂷"

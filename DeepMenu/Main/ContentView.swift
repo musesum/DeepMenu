@@ -35,7 +35,9 @@ struct ContentView: View {
             BackView(space: appSpace)
             MenuView(vm: SkyVm(corner: [.lower, .left]))
             MenuView(vm: SkyVm(corner: [.lower, .right]))
-            //MenuView(vm: TestVm(corner: [.upper, .right]))
+//            MenuView(vm: TestVm(corner: [.upper, .right]))
+//            MenuView(vm: TestVm(corner: [.upper, .left]))
+
         }
         .statusBar(hidden: true)
 

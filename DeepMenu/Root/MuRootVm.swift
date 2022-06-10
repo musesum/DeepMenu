@@ -12,7 +12,7 @@ class MuRootVm: ObservableObject, Equatable {
         willSet {
             if status != newValue {
                 objectWillChange.send()
-                print(newValue.icon, terminator: " ")
+                print(newValue.symbol, terminator: " ")
             }
         }
     }
