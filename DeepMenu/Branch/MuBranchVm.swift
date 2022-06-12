@@ -83,15 +83,14 @@ class MuBranchVm: Identifiable, ObservableObject {
         if let leafVm = nodeSpotVm.leafVm {
             leafVm.branchVm?.expandBranch()
         }
-        else if let nextType = nodeSpotVm.components?["type"] as? MuNodeType,
-            nextType.isLeaf {
+        else if let leafType = nodeSpotVm.node.leafType() {
 
             let leafNode = MuNode(name: "✎ ",
                                   parent: nodeSpotVm.node)
             
             _ = MuBranchVm.cached(nodes: [leafNode],
                                   treeVm: treeVm,
-                                  type: nextType,
+                                  type: leafType,
                                   prevNodeVm: nodeSpotVm,
                                   level: level + 1)
         }

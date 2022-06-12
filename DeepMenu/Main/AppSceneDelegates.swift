@@ -24,7 +24,7 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
         /// setup `HostingController` here:
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let rootView = ContentViews.main
+            let rootView = ContentView()
             let hostingController = HostingController(rootView: rootView)
             window.rootViewController = hostingController
             self.window = window

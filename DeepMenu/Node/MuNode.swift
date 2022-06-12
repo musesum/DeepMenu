@@ -1,18 +1,14 @@
 // Created by warren on 5/6/22.
 
-import UIKit
-import Par
-
-public typealias CallAnyVisitor = ((Any,Visitor)->())
+import SwiftUI
 
 class MuNode: Identifiable, Equatable {
-
     let id = MuIdentity.getId() //TODO: use a persistent storage ID after debugging
 
     var name: String
     var children = [MuNode]()
     var value: MuNodeValue?
-    var leaf: MuLeaf?
+    var leaf: MuLeafProtocol?
 
     static func == (lhs: MuNode, rhs: MuNode) -> Bool {
         return lhs.id == rhs.id
@@ -23,6 +19,11 @@ class MuNode: Identifiable, Equatable {
 
         self.name = name
         parent?.children.append(self)
+    }
+
+    /// overrides this to add controls to the Menu
+    func leafType() -> MuNodeType? {
+        return nil
     }
 
 

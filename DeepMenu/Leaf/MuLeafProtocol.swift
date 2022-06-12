@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-public protocol MuLeaf {
+public protocol MuLeafProtocol {
     func touchPoint(_ point: CGPoint) /// update from user interaction
     func updatePoint(_ point: CGPoint) /// update from model
 }

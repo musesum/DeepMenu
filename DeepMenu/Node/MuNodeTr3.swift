@@ -21,6 +21,14 @@ class MuNodeTr3: MuNode {
         tr3.addClosure(getting)
         value = self // setup delegate for MuValue protocol
     }
+    override func leafType() -> MuNodeType? {
+        let components = tr3.components()
+        if let nextType = components["type"] as? MuNodeType,
+            nextType.isLeaf {
+            return nextType
+        }
+        return nil
+    }
 }
 extension MuNodeTr3: MuNodeValue {
     func set(_ any: Any) {
@@ -35,9 +43,7 @@ extension MuNodeTr3: MuNodeValue {
     }
     /// callback from tr3
     func getting(_ any: Any, _ visitor: Visitor) {
-
         // print("\(tr3.scriptLineage(3)).\(tr3.id): \(tr3.FloatVal() ?? -1)")
-
         if let tr3 = any as? Tr3,
            visitor.newVisit(id) {
             let p = tr3.CGPointVal() ?? .zero
@@ -51,19 +57,7 @@ extension MuNodeTr3: MuNodeValue {
 }
 
 extension Tr3 {
-
-    func hash() -> Int {
-        let path = scriptLineage(999)
-        var hasher = Hasher()
-        hasher.combine(path)
-        let hash = hasher.finalize()
-        print(path+String(format: ": %i", hash))
-        return hash
-    }
-}
-
-extension Tr3 {
-
+    /// parse Tr3Expr for names that match a `type` or `icon`
     func components() -> [String: Any] {
         var result = [String: Any]()
         if let exprs = val as? Tr3Exprs {

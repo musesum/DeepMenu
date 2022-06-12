@@ -6,8 +6,8 @@ struct app: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                ContentViews.main
-                ContentViews.client
+                ContentView()
+                PathView()
             }
         }
     }

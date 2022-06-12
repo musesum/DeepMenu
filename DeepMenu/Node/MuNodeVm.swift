@@ -2,9 +2,7 @@
 
 import SwiftUI
 
-
-
-class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
+class MuNodeVm: Identifiable, Equatable, ObservableObject {
     let id =  MuIdentity.getId()
     static func == (lhs: MuNodeVm, rhs: MuNodeVm) -> Bool { return lhs.id == rhs.id }
 
@@ -14,20 +12,12 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
     /// publish when selected or is under cursor
     @Published var spotlight = false
 
-    public func hash(into hasher: inout Hasher) {
-        let path = path()
-        hasher.combine(path)
-        _ = hasher.finalize()
-        //print(path + String(format: ": %i", result))
-    }
-
     func publishChanged(spotlight nextSpotlight: Bool) {
         if spotlight != nextSpotlight {
             spotlight = nextSpotlight
         }
     }
 
-    
     let type: MuNodeType      /// node, val, vxy, seg, tog, tap
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
     let icon: String?         /// icon for this node (not implemented)
@@ -39,9 +29,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject, Hashable {
     var panelVm: MuPanelVm
 
     var center = CGPoint.zero /// current position
-
-    var components: [String: Any]? {
-        (node as? MuNodeTr3)?.tr3.components() ?? [:] }
+    
 
     init (_ type: MuNodeType,
           _ node: MuNode,
@@ -139,3 +127,13 @@ extension MuNodeVm {
     }
 }
 
+extension MuNodeVm: Hashable {
+
+    public func hash(into hasher: inout Hasher) {
+        let path = path()
+        hasher.combine(path)
+        _ = hasher.finalize()
+        //print(path + String(format: ": %i", result))
+    }
+
+}

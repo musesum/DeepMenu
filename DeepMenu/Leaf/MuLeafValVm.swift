@@ -6,6 +6,7 @@ import SwiftUI
 class MuLeafValVm: MuNodeVm {
 
     var thumb = CGFloat(0)
+    var value: MuNodeValue?
     var status: String { editing ? String(format: "%.2f", thumb) : node.name }
 
     init (_ node: MuNode,
@@ -15,7 +16,8 @@ class MuLeafValVm: MuNodeVm {
         
         super.init(.val, node, branchVm, prevVm, icon: icon)
         node.leaf = self // MuLeaf delegate for setting value
-        thumb = node.value?.get() ?? .zero
+        value = node.value ?? prevVm?.node.value
+        thumb = value?.get() ?? .zero
     }
 
     var offset: CGSize {
@@ -24,7 +26,7 @@ class MuLeafValVm: MuNodeVm {
     }
 }
 
-extension MuLeafValVm: MuLeaf {
+extension MuLeafValVm: MuLeafProtocol {
 
     func touchPoint(_ point: CGPoint) {
 
@@ -32,7 +34,7 @@ extension MuLeafValVm: MuLeaf {
             editing = true
             thumb = panelVm.normalizeTouch(v: point.y) //todo: axis ??
             // log("yv", format: "%.2f", [point.y, v])
-            node.value?.set(thumb)
+            value?.set(thumb)
         } else {
             editing = false
         }
