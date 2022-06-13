@@ -22,54 +22,70 @@ class MuNodeTr3: MuNode {
         value = self // setup delegate for MuValue protocol
     }
     override func leafType() -> MuNodeType? {
-        let components = tr3.components()
-        if let nextType = components["type"] as? MuNodeType,
-            nextType.isLeaf {
-            return nextType
+        if let name = tr3.getName(in: MuNodeLeaves) {
+            return  MuNodeType(name)
         }
         return nil
     }
 }
 extension MuNodeTr3: MuNodeValue {
-    func set(_ any: Any) {
 
+    func setPoint(_ point: CGPoint) {
         var options = Tr3SetOptions([.activate, .zero1])
         if caching { options.insert(.cache) }
-        switch any {
-            case let p as CGPoint: tr3.setVal(p, options, Visitor(id))
-            case let f as CGFloat: tr3.setVal(f, options, Visitor(id))
-            default: break
+        tr3.setVal(point, options, Visitor(id))
+    }
+
+    func getPoint() -> CGPoint {
+        return tr3.CGPointVal() ?? .zero
+    }
+
+    func setNamed(_ name: String, _ any: Any) {
+        var options = Tr3SetOptions([.activate, .zero1])
+        if caching { options.insert(.cache) }
+        tr3.setVal((name, any), options, Visitor(id))
+    }
+
+    func getNamed(_ named: String) -> Any? {
+        let result = tr3.component(named: named)
+        if let num = result as? CGFloat {
+            return CGFloat(num)
+        } else {
+            return result
         }
     }
+
+    
+    func getRange() -> ClosedRange<Int> {
+        return 0...1 //??
+    }
+
     /// callback from tr3
+    ///
+    /// even though the val
     func getting(_ any: Any, _ visitor: Visitor) {
         // print("\(tr3.scriptLineage(3)).\(tr3.id): \(tr3.FloatVal() ?? -1)")
-        if let tr3 = any as? Tr3,
-           visitor.newVisit(id) {
-            let p = tr3.CGPointVal() ?? .zero
-            leaf?.updatePoint(p)
-        }
-    }
-    /// called from view model to get current value
-    func get() -> CGFloat { return tr3.CGFloatVal() ?? .zero }
-    func get() -> CGPoint { return tr3.CGPointVal() ?? .zero }
-    func range() -> ClosedRange<Int> { return 0...1 } // for segmented control
-}
-
-extension Tr3 {
-    /// parse Tr3Expr for names that match a `type` or `icon`
-    func components() -> [String: Any] {
-        var result = [String: Any]()
-        if let exprs = val as? Tr3Exprs {
-            for expr in exprs.exprs {
-                let type = MuNodeType(expr.name)
-                if type != .none {
-                    result["type"] = type
-                } else if expr.name == "icon" {
-                    result["icon"] = expr.string
+        if let tr3 = any as? Tr3 {
+            //??? visitor.newVisit(id) {
+            
+            for child in children {
+                for leaf in child.leaves {
+                    if let p = tr3.CGPointVal() {
+                        
+                        leaf.updateLeaf(p)
+                        
+                    } else if let name = tr3.getName(in: MuNodeLeaves),
+                              let any = tr3.component(named: name) {
+                        if let num = any as? Float {
+                            leaf.updateLeaf(CGFloat(num))
+                        } else {
+                            leaf.updateLeaf(any)
+                        }
+                    }
                 }
             }
         }
-        return result
     }
 }
+
+

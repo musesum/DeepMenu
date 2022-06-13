@@ -47,8 +47,8 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     }
     
     func copy() -> MuNodeVm {
-        let node = MuNodeVm(panelVm.type, node, branchVm, self, icon: icon)
-        return node
+        let nodeVm = MuNodeVm(panelVm.type, node, branchVm, self, icon: icon)
+        return nodeVm
     }
 
     /// spotlight self, parent, grand, etc. in branch

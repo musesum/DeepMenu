@@ -10,14 +10,17 @@ class MenuVm {
     }
 }
 
+
+
 class SkyVm: MenuVm {
+
+    static let Nodes = ExampleTr3Sky.skyNodes() // shared between instances
 
     init(corner: MuCorner) {
 
         // init in sequence: nodes, root, tree, branch, touch
         let skyTreeVm = MuTreeVm(axis: .vertical)
-        let skyNodes = ExampleTr3Sky.skyNodes()
-        let skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm)
+        let skyBranchVm = MuBranchVm(nodes: SkyVm.Nodes, treeVm: skyTreeVm)
         skyTreeVm.addBranchVms([skyBranchVm])
         super.init(MuRootVm(corner, treeVms: [skyTreeVm]))
     }

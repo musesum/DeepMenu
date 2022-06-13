@@ -16,19 +16,24 @@ struct MuPanelView: View {
             GeometryReader { geo in
                 RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                     .fill(Layout.panelFill)
-                    .frame(width: panelVm.inner.width, height: panelVm.inner.height)
+                    .frame(width: panelVm.inner.width,
+                           height: panelVm.inner.height)
 
                 RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                     .stroke(strokeColor, lineWidth: strokeWidth)
-                    .frame(width: panelVm.inner.width, height: panelVm.inner.height)
+                    .frame(width: panelVm.inner.width,
+                           height: panelVm.inner.height)
                     .animation(Layout.flashAnim, value: strokeColor)
                     .animation(Layout.flashAnim, value: strokeWidth)
             }
             .gesture(DragGesture(minimumDistance: 0)
                 .updating($touchXY) { (input, result, _) in
                     result = input.location })
-            .onChange(of: touchXY) { nodeVm.node.leaf?.touchPoint($0) }
-
+            .onChange(of: touchXY) {
+                for leaf in nodeVm.node.leaves {
+                    leaf.touchLeaf($0)
+                }
+            }
         }
     }
 }

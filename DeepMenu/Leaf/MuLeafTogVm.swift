@@ -15,9 +15,9 @@ class MuLeafTogVm: MuNodeVm {
           icon: String = "") {
 
         super.init(.tog, node, branchVm, prevVm, icon: icon)
-        node.leaf = self // MuLeaf delegat
+        node.leaves.append(self) 
         value = node.value ?? prevVm?.node.value
-        thumb = value?.get() ?? .zero
+        thumb = CGFloat(value?.getNamed(type.name) as? Float ?? .zero)
     }
 
 
@@ -28,20 +28,22 @@ class MuLeafTogVm: MuNodeVm {
 }
 extension MuLeafTogVm: MuLeafProtocol {
 
-   func touchPoint(_ point: CGPoint) {
+   func touchLeaf(_ point: CGPoint) {
 
         if !editing, point != .zero  {
             editing = true
             thumb = (thumb==1 ? 0 : 1)
-            value?.set(thumb)
+            value?.setNamed(type.name, thumb)
         } else if editing, point == .zero {
             editing = false
         }
-    }
-    func updatePoint(_ point: CGPoint) {
-        editing = true
-        thumb = (point == .zero ? .zero : 1)
-        editing = false
+   }
+    func updateLeaf(_ any: Any) {
+        if let v = any as? CGFloat {
+            editing = true
+            thumb = (v == .zero ? .zero : 1)
+            editing = false
+        }
     }
 
 }

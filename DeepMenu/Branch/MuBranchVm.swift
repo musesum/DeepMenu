@@ -84,24 +84,26 @@ class MuBranchVm: Identifiable, ObservableObject {
             leafVm.branchVm?.expandBranch()
         }
         else if let leafType = nodeSpotVm.node.leafType() {
-
+            
             let leafNode = MuNode(name: "✎ ",
                                   parent: nodeSpotVm.node)
             
-            _ = MuBranchVm.cached(nodes: [leafNode],
-                                  treeVm: treeVm,
-                                  type: leafType,
-                                  prevNodeVm: nodeSpotVm,
-                                  level: level + 1)
+            _ = MuBranchVm
+                .cached(nodes: [leafNode],
+                        treeVm: treeVm,
+                        type: leafType,
+                        prevNodeVm: nodeSpotVm,
+                        level: level + 1)
         }
         else if nodeSpotVm.node.children.count > 0 {
-
-            let newBranchVm = MuBranchVm.cached(nodes: nodeSpotVm.node.children,
-                                         treeVm: treeVm,
-                                         type: .node,
-                                         prevNodeVm: nodeSpotVm,
-                                         level: level+1)
-
+            
+            let newBranchVm = MuBranchVm
+                .cached(nodes: nodeSpotVm.node.children,
+                        treeVm: treeVm,
+                        type: .node,
+                        prevNodeVm: nodeSpotVm,
+                        level: level+1)
+            
             newBranchVm.expandBranch()
         }
     }

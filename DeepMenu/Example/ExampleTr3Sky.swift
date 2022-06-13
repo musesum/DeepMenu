@@ -9,10 +9,19 @@ enum ExampleTr3Sky {
         let rootTr3 = SkyTr3.shared.root
         let rootNode = MuNodeTr3(rootTr3)
 
-        for child in rootTr3.children {
-            parseTr3(child, rootNode)
+        if let menuTr3 = rootTr3.findPath("menu") {
+
+            parseTr3(menuTr3, rootNode)
+            return rootNode.children.first?.children ?? []
+
+        } else {
+
+            for child in rootTr3.children {
+                parseTr3(child, rootNode)
+            }
+            return rootNode.children
         }
-        return rootNode.children
+
     }
 
     /// recursively parse tr3 hierachy

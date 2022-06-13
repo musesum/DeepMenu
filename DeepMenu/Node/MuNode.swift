@@ -3,12 +3,12 @@
 import SwiftUI
 
 class MuNode: Identifiable, Equatable {
-    let id = MuIdentity.getId() //TODO: use a persistent storage ID after debugging
+    let id = MuIdentity.getId()
 
     var name: String
     var children = [MuNode]()
     var value: MuNodeValue?
-    var leaf: MuLeafProtocol?
+    var leaves = [MuLeafProtocol]()
 
     static func == (lhs: MuNode, rhs: MuNode) -> Bool {
         return lhs.id == rhs.id

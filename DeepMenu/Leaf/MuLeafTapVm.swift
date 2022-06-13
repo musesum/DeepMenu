@@ -14,7 +14,7 @@ class MuLeafTapVm: MuNodeVm {
           icon: String = "") {
         
         super.init(.tap, node, branchVm, prevVm, icon: icon)
-        node.leaf = self // MuLeaf delegate for setting value
+        node.leaves.append(self) // MuLeaf delegate for setting value
         value = node.value ?? prevVm?.node.value
     }
 
@@ -25,21 +25,21 @@ class MuLeafTapVm: MuNodeVm {
 
 extension MuLeafTapVm: MuLeafProtocol {
 
-    func touchPoint(_ point: CGPoint) {
+    func touchLeaf(_ point: CGPoint) {
 
         if point != .zero {
             editing = true
-            value?.set(1)
+            value?.setNamed(type.name, CGFloat(1))
         } else {
+            value?.setNamed(type.name, CGFloat(0))
             editing = false
-            value?.set(0)
         }
     }
     
-    func updatePoint(_ point: CGPoint) {
+    func updateLeaf(_ any: Any) {
         editing = true
-        value?.set(1)
-        value?.set(0)
-        editing = false
+        Schedule(0.125) {
+            self.editing = false
+        }
     }
 }

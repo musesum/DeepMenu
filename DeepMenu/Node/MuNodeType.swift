@@ -22,6 +22,9 @@ enum MuNodeType: String {
             case .tap  : return "tap"
         }
     }
+    public var name: String {
+        return description
+    }
     public var icon: String {
         switch self {
             case .none : return " ⃝"
@@ -33,7 +36,10 @@ enum MuNodeType: String {
             case .tap  : return "◉⃝"
         }
     }
+
+
     init(_ name: String) {
+
         switch name {
             case "none" : self = .none
             case "node" : self = .node
@@ -51,5 +57,7 @@ enum MuNodeType: String {
             default: return true
         }
     }
-    
+
 }
+
+public let MuNodeLeaves = Set<String>(["val", "vxy", "tog", "seg", "tap"])

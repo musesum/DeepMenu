@@ -15,9 +15,9 @@ class MuLeafSegVm: MuNodeVm {
           icon: String = "") {
         
         super.init(.seg, node, branchVm, prevVm, icon: icon)
-        node.leaf = self // MuLeaf delegate for setting value
+        node.leaves.append(self) // MuLeaf delegate for setting value
         value = node.value ?? prevVm?.node.value
-        thumb = value?.get() ?? .zero
+        thumb = CGFloat((value?.getNamed(type.name) as? Float) ?? .zero)
     }
     
     var offset: CGSize {
@@ -28,19 +28,21 @@ class MuLeafSegVm: MuNodeVm {
 
 extension MuLeafSegVm: MuLeafProtocol {
 
-    func touchPoint(_ point: CGPoint) {
+    func touchLeaf(_ point: CGPoint) {
 
         if point != .zero {
             editing = true
             thumb = panelVm.normalizeTouch(v: point.y) //todo: axis ??
-            value?.set(thumb)
+            value?.setNamed(type.name, thumb)
         } else {
             editing = false
         }
     }
-    func updatePoint(_ point: CGPoint) {
-        editing = true
-        thumb = panelVm.normalizeTouch(v: point.y) //todo: axis ??
-        editing = false
+    func updateLeaf(_ any: Any) {
+        if let v = any as? CGFloat {
+            editing = true
+            thumb = v
+            editing = false
+        }
     }
 }
