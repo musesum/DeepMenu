@@ -8,6 +8,7 @@ class MuPanelVm {
     var axis: Axis
     var count: CGFloat
     var margin = CGFloat(0) // overlap with a negative number
+
     init(type: MuNodeType,
          count: Int = 1,
          axis: Axis) {
@@ -23,7 +24,6 @@ class MuPanelVm {
         self.axis   = from.axis
         self.count  = from.count
     }
-
 
     // changed by type
     var cornerRadius: CGFloat {
@@ -50,11 +50,19 @@ class MuPanelVm {
     var inner: CGSize { aspect * Layout.diameter }
 
     var outer: CGSize {
+
         let result: CGSize
+        let outerMargin = (2 * Layout.spacing)
+
         if type.isLeaf {
-            result = inner + CGSize(width: 0, height: Layout.titleHeight)
+
+            result = inner +
+            (axis == .vertical
+             ? CGSize(width: outerMargin, height: Layout.titleHeight)
+             : CGSize(width: 0, height: outerMargin + Layout.titleHeight))
+
         } else {
-            let trough = Layout.diameter + (2 * Layout.spacing)
+            let trough = Layout.diameter + outerMargin
             let runway = (trough * count) + (margin * 2 * (count-1))
             let width  = (axis == .vertical ? trough : runway)
             let height = (axis == .vertical ? runway : trough)

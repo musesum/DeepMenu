@@ -32,7 +32,8 @@ struct MuBranchView: View, Identifiable {
             .onAppear { branch.updateBounds(geo.frame(in: .named("Space"))) }
             .onChange(of: geo.frame(in: .named("Space"))) { branch.updateBounds($0) }
         }
-        .frame(width: panelVm.outer.width, height: panelVm.outer.height)
+        .frame(width: panelVm.outer.width,
+               height: panelVm.outer.height)
         .opacity(opacity)
         .animation(.easeInOut(duration: Layout.animate/2), value: opacity)
         //.onTapGesture { } // allow scrolling
