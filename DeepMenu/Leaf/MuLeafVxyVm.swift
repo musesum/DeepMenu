@@ -8,8 +8,8 @@ class MuLeafVxyVm: MuNodeVm {
     var thumb: CGPoint = .zero
     var value: MuNodeValue?
 
-    var status: String { String(format: "x %.2f y %.2f id %i",
-                                          thumb.x, thumb.y, id) }
+    var status: String { String(format: "x %.2f y %.2f",
+                                thumb.x, thumb.y, id) }
     
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,

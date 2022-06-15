@@ -7,7 +7,7 @@ class MuLeafValVm: MuNodeVm {
 
     var thumb = CGFloat(0)
     var value: MuNodeValue?
-    var status: String { editing ? String(format: "%.2f", thumb) : node.name }
+    var status: String { String(format: "%.2f", thumb) }
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,

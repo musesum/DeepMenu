@@ -3,7 +3,7 @@
 import SwiftUI
 
 class MuPanelVm {
-
+ 
     var type: MuNodeType
     var axis: Axis
     var count: CGFloat
