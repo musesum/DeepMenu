@@ -8,9 +8,9 @@ public protocol MuNodeValue {
     func setPoint(_ point: CGPoint)
     func getPoint() -> CGPoint
 
-    func setNamed(_ named: String,_ any: Any)
-    func getNamed(_ named: String) -> Any?
+    func setAny(named: String,_ any: Any)
+    func getAny(named: String) -> Any?
 
     func getting(_ any: Any, _ visitor: Visitor)
-    func getRange() -> ClosedRange<Int> // for segmented control
+    func getRange(named: String) -> ClosedRange<Float> // for segmented control
 }

@@ -17,7 +17,7 @@ class MuLeafTogVm: MuNodeVm {
         super.init(.tog, node, branchVm, prevVm, icon: icon)
         node.leaves.append(self) 
         value = node.value ?? prevVm?.node.value
-        thumb = CGFloat(value?.getNamed(type.name) as? Float ?? .zero)
+        thumb = CGFloat(value?.getAny(named: type.name) as? Float ?? .zero)
     }
 
 
@@ -33,13 +33,13 @@ extension MuLeafTogVm: MuLeafProtocol {
         if !editing, point != .zero  {
             editing = true
             thumb = (thumb==1 ? 0 : 1)
-            value?.setNamed(type.name, thumb)
+            value?.setAny(named: type.name, thumb)
         } else if editing, point == .zero {
             editing = false
         }
    }
     func updateLeaf(_ any: Any) {
-        if let v = any as? CGFloat {
+        if let v = any as? Float {
             editing = true
             thumb = (v == .zero ? .zero : 1)
             editing = false

@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/Tr3",
       "state" : {
-        "revision" : "a3b2f98ba95fe9a42955451d736e5d93b9a5085f",
-        "version" : "0.2.25"
+        "revision" : "d1c25ce8c26111cd7dee7bd32dfe5ce6b4778b35",
+        "version" : "0.2.29"
       }
     },
     {

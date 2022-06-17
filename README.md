@@ -47,7 +47,7 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
 + MuPanelView - SwiftUI background 
 + MuPanelAxisView - vertical or horizontal PanelView 
 
-##### MuTouch* - capture touches which are captured by a branches
+##### MuTouch* - capture touches which are captured by aall branches
   - MuTouch - manage touch's [begin,moved,ended] state plus taps
   - MuTouchVm - state for root and drag nodes
   - MuTouchView - view for root and drag nodes
@@ -119,7 +119,8 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
   - when refactoring, may need manual fixup
   - will not pass standard SwiftLint
   - requires a manually enforced coding policy 
-  - cannot build documentation with right column /// comments  
+  - cannot build documentation with right column /// comments 
+  - maybe discarded in favor of dev team consensus 
         
 ##### Exceptions to columnwise alignment 
         

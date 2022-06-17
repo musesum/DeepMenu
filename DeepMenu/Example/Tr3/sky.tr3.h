@@ -30,7 +30,7 @@ sky { // visual music program
     draw { // draw on metal layer
         fill(0) 
         brush { // type of brush and value
-            type "dot"          // draw a circle
+            type "dot"            // draw a circle
             size (1..64 = 10)     // value of radius
             press(0..1 = 1)       // pressure changes size
             index(1..255 = 127)   // index in 256 color palette

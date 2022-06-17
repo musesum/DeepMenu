@@ -40,24 +40,35 @@ extension MuNodeTr3: MuNodeValue {
         return tr3.CGPointVal() ?? .zero
     }
 
-    func setNamed(_ name: String, _ any: Any) {
+    func setAny(named: String, _ any: Any) {
+
         var options = Tr3SetOptions([.activate, .zero1])
         if caching { options.insert(.cache) }
-        tr3.setVal((name, any), options, Visitor(id))
+        tr3.setVal((named, any), options, Visitor(id)) //TODO: get Visitor(id) from caller
     }
 
-    func getNamed(_ named: String) -> Any? {
-        let result = tr3.component(named: named)
-        if let num = result as? CGFloat {
-            return CGFloat(num)
+    func getAny(named: String) -> Any? {
+        let any = tr3.component(named: named)
+        if let val = any as? Tr3ValScalar {
+            let num = CGFloat(val.num)
+            return num
+        } else if let num = any as? Float {
+            return num
         } else {
-            return result
+            return any
         }
     }
 
-    
-    func getRange() -> ClosedRange<Int> {
-        return 0...1 //??
+    func getRange(named: String) -> ClosedRange<Float> {
+        
+        let any = tr3.component(named: named)
+        if let val = any as? Tr3ValScalar {
+            return val.min...val.max
+        } else if let val = tr3.val as? Tr3ValScalar {
+            return val.min...val.max
+        } else {
+            return 0...1
+        }
     }
 
     /// callback from tr3
@@ -66,7 +77,7 @@ extension MuNodeTr3: MuNodeValue {
     func getting(_ any: Any, _ visitor: Visitor) {
         // print("\(tr3.scriptLineage(3)).\(tr3.id): \(tr3.FloatVal() ?? -1)")
         if let tr3 = any as? Tr3 {
-            //??? visitor.newVisit(id) {
+            //TODO: visitor.newVisit(id) {
             
             for child in children {
                 for leaf in child.leaves {
@@ -76,8 +87,12 @@ extension MuNodeTr3: MuNodeValue {
                         
                     } else if let name = tr3.getName(in: MuNodeLeaves),
                               let any = tr3.component(named: name) {
-                        if let num = any as? Float {
-                            leaf.updateLeaf(CGFloat(num))
+                        
+                        if let val = any as? Tr3ValScalar {
+
+                            let num = val.num
+                            leaf.updateLeaf(num)
+                            
                         } else {
                             leaf.updateLeaf(any)
                         }

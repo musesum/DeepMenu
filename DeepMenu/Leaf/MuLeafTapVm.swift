@@ -29,9 +29,9 @@ extension MuLeafTapVm: MuLeafProtocol {
 
         if point != .zero {
             editing = true
-            value?.setNamed(type.name, CGFloat(1))
+            value?.setAny(named: type.name, CGFloat(1))
         } else {
-            value?.setNamed(type.name, CGFloat(0))
+            value?.setAny(named: type.name, CGFloat(0))
             editing = false
         }
     }
