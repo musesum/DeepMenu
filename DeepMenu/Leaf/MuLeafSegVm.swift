@@ -18,6 +18,7 @@ class MuLeafSegVm: MuNodeVm {
     var thumb = CGFloat(0)
     var value: MuNodeValue?
     var range: ClosedRange<Float> = 0...1
+    lazy var count: CGFloat = { CGFloat(range.upperBound - range.lowerBound) }()
 
     var status: String {
         range.upperBound > 1
@@ -35,18 +36,19 @@ class MuLeafSegVm: MuNodeVm {
         value = node.value ?? prevVm?.node.value
         range = value?.getRange(named: type.name) ?? 0...1
         thumb = CGFloat((value?.getAny(named: type.name) as? Float) ?? .zero)
-    }
-    lazy var runway: CGFloat = {
-        panelVm.yRunway()
-    }()
 
-    var nearestTick: CGFloat {
-        let count = CGFloat(range.upperBound - range.lowerBound)
-        return round(thumb*count)/count
+        // revise size aspect for branch and runway
+        let size = CGSize(width: 1, height: count.clamped(to: 2...4))
+        branchVm.panelVm.aspect = size
+        panelVm.aspect = size
+        branchVm.show = true // refresh view
     }
-    var offset: CGSize {
-        CGSize(width: 0, height: nearestTick * runway)
-    }
+
+    lazy var runway: CGFloat = { panelVm.yRunway() }()
+
+    var nearestTick: CGFloat { return round(thumb*count)/count }
+
+    var offset: CGSize { CGSize(width: 0, height: nearestTick * runway) }
 
     /// ticks above and below nearest tick,
     /// but never on panel border or thumb border

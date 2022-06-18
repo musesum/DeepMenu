@@ -8,6 +8,7 @@ class MuPanelVm {
     var axis: Axis
     var count: CGFloat
     var margin = CGFloat(0) // overlap with a negative number
+    var aspect = CGSize(width: 1, height: 1)
 
     init(type: MuNodeType,
          count: Int = 1,
@@ -16,6 +17,7 @@ class MuPanelVm {
         self.type = type
         self.count = CGFloat(max(count,1))
         self.axis = axis
+        setAspectFromType()
     }
 
     init(from: MuPanelVm) {
@@ -23,6 +25,19 @@ class MuPanelVm {
         self.margin = from.margin
         self.axis   = from.axis
         self.count  = from.count
+        setAspectFromType()
+    }
+
+    func setAspectFromType() {
+        switch type {
+            case .none : aspect = CGSize(width: 1.0, height: 1.0)
+            case .node : aspect = CGSize(width: 1.0, height: 1.0)
+            case .val  : aspect = CGSize(width: 1.0, height: 4.0)
+            case .vxy  : aspect = CGSize(width: 4.0, height: 4.0)
+            case .tog  : aspect = CGSize(width: 1.5, height: 1.0)
+            case .seg  : aspect = CGSize(width: 1.0, height: 4.0)
+            case .tap  : aspect = CGSize(width: 1.5, height: 1.5)
+        }
     }
 
     // changed by type
@@ -36,17 +51,7 @@ class MuPanelVm {
     func xRunway() -> CGFloat { return inner.width  - thumbRadius*2 }
     func yRunway() -> CGFloat { return inner.height - thumbRadius*2 }
 
-    var aspect: CGSize {
-        switch type {
-            case .none : return CGSize(width: 1.0, height: 1.0)
-            case .node : return CGSize(width: 1.0, height: 1.0)
-            case .val  : return CGSize(width: 1.0, height: 4.0)
-            case .vxy  : return CGSize(width: 4.0, height: 4.0)
-            case .tog  : return CGSize(width: 1.5, height: 1.0)
-            case .seg  : return CGSize(width: 1.0, height: 4.0)
-            case .tap  : return CGSize(width: 1.5, height: 1.5)
-        }
-    }
+
     var inner: CGSize { aspect * Layout.diameter }
 
     var outer: CGSize {

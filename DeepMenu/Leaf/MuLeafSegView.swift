@@ -23,7 +23,7 @@ struct MuLeafSegView: View {
                             .fill(.gray)
                             .frame(width: 4, height: 4)
                             .offset(CGSize(width: panelVm.inner.width/2-2,
-                                           height: $0-2))
+                                           height: $0-1))
                             .allowsHitTesting(false)
                     }
                     Capsule()

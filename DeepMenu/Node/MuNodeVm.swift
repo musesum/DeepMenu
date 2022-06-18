@@ -42,7 +42,8 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         self.branchVm = branchVm
         self.prevVm = prevVm
         self.icon = icon
-        self.panelVm = MuPanelVm(type: type, axis: branchVm?.treeVm.axis ?? .vertical)
+        self.panelVm = MuPanelVm(type: type,
+                                 axis: branchVm?.treeVm.axis ?? .vertical)
         prevVm?.nextBranchVm = branchVm
     }
     

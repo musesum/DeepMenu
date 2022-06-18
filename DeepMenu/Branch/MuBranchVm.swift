@@ -38,7 +38,7 @@ class MuBranchVm: Identifiable, ObservableObject {
 
         self.panelVm = MuPanelVm(type: type,
                                  count: nodes.count,
-                                 axis: treeVm.axis)
+                                 axis: treeVm.axis) 
         buildNodeVms(from: nodes,
                      type: type,
                      prevNodeVm: prevNodeVm)
