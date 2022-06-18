@@ -36,11 +36,32 @@ class MuLeafSegVm: MuNodeVm {
         range = value?.getRange(named: type.name) ?? 0...1
         thumb = CGFloat((value?.getAny(named: type.name) as? Float) ?? .zero)
     }
-    
-    var offset: CGSize {
-        CGSize(width: 0,
-               height: thumb * panelVm.yRunway())
+    lazy var runway: CGFloat = {
+        panelVm.yRunway()
+    }()
+
+    var nearestTick: CGFloat {
+        let count = CGFloat(range.upperBound - range.lowerBound)
+        return round(thumb*count)/count
     }
+    var offset: CGSize {
+        CGSize(width: 0, height: nearestTick * runway)
+    }
+
+    /// ticks above and below nearest tick,
+    /// but never on panel border or thumb border
+    lazy var ticks: [CGFloat] = {
+        var result = [CGFloat]()
+        let count = range.upperBound - range.lowerBound
+        if count < 2 { return [] }
+        let span = 1/max(1,count)
+        for index in stride(from: Float(0), through: 1, by: span) {
+            let ofs = CGFloat(index) * runway +  panelVm.thumbRadius
+            result.append( ofs)
+        }
+        return result
+    }()
+
 }
 
 extension MuLeafSegVm: MuLeafProtocol {

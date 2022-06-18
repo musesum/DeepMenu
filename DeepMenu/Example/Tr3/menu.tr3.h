@@ -36,7 +36,7 @@ menu {
         slide (seg 0..7 = 3, icon "icon.cell.slide") >> shader.cell.slide
         fred  (seg 0..4 = 4, icon "icon.cell.fred" ) >> shader.cell.fred
     }
-    camera (vstack, icon "icon.camera.png") {
+    cam (vstack, icon "icon.camera.png") {
         hstack {
             fake (tog 0, icon "icon.camera.png")
             real (tog 1, icon "icon.camera.png")
