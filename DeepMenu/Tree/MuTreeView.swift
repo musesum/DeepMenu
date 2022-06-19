@@ -14,7 +14,7 @@ struct MuTreeView: View {
                 ForEach(rootVm.corner.contains(.lower)
                         ? treeVm.branchVms.reversed()
                         : treeVm.branchVms, id: \.id) {
-                    MuBranchView(branch: $0)
+                    MuBranchView(branchVm: $0)
                         .zIndex($0.level)
                 }
             }
@@ -24,7 +24,7 @@ struct MuTreeView: View {
                 ForEach(rootVm.corner.contains(.right)
                         ? treeVm.branchVms.reversed()
                         : treeVm.branchVms, id: \.id) {
-                    MuBranchView(branch: $0)
+                    MuBranchView(branchVm: $0)
                         .zIndex($0.level)
                 }
             }

@@ -7,7 +7,8 @@ class MuLeafValVm: MuNodeVm {
 
     var thumb = CGFloat(0)
     var value: MuNodeValue?
-    var status: String { String(format: "%.2f", thumb) }
+    var status: String { String(format: "%.2f", scaled) }
+    var range: ClosedRange<Float> = 0...1
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -17,13 +18,29 @@ class MuLeafValVm: MuNodeVm {
         super.init(.val, node, branchVm, prevVm, icon: icon)
         node.leaves.append(self) // MuLeaf delegate for setting value
         value = node.value ?? prevVm?.node.value
-        thumb = CGFloat((value?.getAny(named: type.name) as? Float) ?? .zero)
+        range = value?.getRange(named: type.name) ?? 0...1
+        thumb = normalizedValue
+    }
+
+    var normalizedValue: CGFloat {
+        let val = (value?.getAny(named: type.name) as? Float) ?? .zero
+        return CGFloat(scale(val, fr: range, to: 0...1))
     }
 
     var offset: CGSize {
-        CGSize(width: 0,
-               height: thumb * panelVm.yRunway())
+        panelVm.axis == .vertical
+        ? CGSize(width: 0, height: thumb * panelVm.runway)
+        : CGSize(width: thumb * panelVm.runway, height: 0)
     }
+
+    var scaled: Float {
+        scale(Float(thumb), fr: 0...1, to: range)
+    }
+    func normalized(_ point: CGPoint) -> CGFloat {
+        let v = panelVm.axis == .vertical ? point.y : point.x
+        return panelVm.normalizeTouch(v: v)
+    }
+
 }
 
 extension MuLeafValVm: MuLeafProtocol {
@@ -32,8 +49,8 @@ extension MuLeafValVm: MuLeafProtocol {
 
         if point != .zero {
             editing = true
-            thumb = panelVm.normalizeTouch(v: point.y) //todo: axis ??
-            value?.setAny(named: type.name, thumb)
+            thumb = normalized(point)
+            value?.setAny(named: type.name, scaled)
         } else {
             editing = false
         }
@@ -41,7 +58,7 @@ extension MuLeafValVm: MuLeafProtocol {
     func updateLeaf(_ any: Any) {
         if let v = any as? Float {
             editing = true
-            thumb = CGFloat(v)
+            thumb = CGFloat(scale(v, fr: range, to: 0...1))
             editing = false
         }
     }

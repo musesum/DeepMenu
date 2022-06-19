@@ -6,10 +6,10 @@ struct MuBranchView: View, Identifiable {
     var id = MuIdentity.getId()
 
     @EnvironmentObject var rootVm: MuRootVm
-    @ObservedObject var branch: MuBranchVm
+    @ObservedObject var branchVm: MuBranchVm
 
-    var opacity: CGFloat { branch.show ? 1 : 0 }
-    var panelVm: MuPanelVm { branch.panelVm }
+    var opacity: CGFloat { branchVm.show ? 1 : 0 }
+    var panelVm: MuPanelVm { branchVm.panelVm }
     @GestureState private var touchXY: CGPoint = .zero
 
     var body: some View {
@@ -23,14 +23,14 @@ struct MuBranchView: View, Identifiable {
 
                 MuPanelAxisView(panelVm) {
                     ForEach(reverse
-                            ? branch.nodeVms.reversed()
-                            : branch.nodeVms, id: \.id) {
+                            ? branchVm.nodeVms.reversed()
+                            : branchVm.nodeVms) {
                         MuNodeView(nodeVm: $0)
                     }
                 }
             }
-            .onAppear { branch.updateBounds(geo.frame(in: .named("Space"))) }
-            .onChange(of: geo.frame(in: .named("Space"))) { branch.updateBounds($0) }
+            .onAppear { branchVm.updateBounds(geo.frame(in: .named("Space"))) }
+            .onChange(of: geo.frame(in: .named("Space"))) { branchVm.updateBounds($0) }
         }
         .frame(width: panelVm.outer.width,
                height: panelVm.outer.height)

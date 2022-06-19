@@ -35,34 +35,60 @@ class MuLeafSegVm: MuNodeVm {
         node.leaves.append(self) // MuLeaf delegate for setting value
         value = node.value ?? prevVm?.node.value
         range = value?.getRange(named: type.name) ?? 0...1
-        thumb = CGFloat((value?.getAny(named: type.name) as? Float) ?? .zero)
+        thumb = normalizedValue
+        updatePanelSizes()
+    }
+    /// get current value and normalize 0...1 based on defined range
+    var normalizedValue: CGFloat {
+        let val = (value?.getAny(named: type.name) as? Float) ?? .zero
+        return CGFloat(scale(val, fr: range, to: 0...1))
+    }
+    /// normalize point to 0...1 based on defined range
+    func normalizedTouch(_ point: CGPoint) -> CGFloat {
+        let v = panelVm.axis == .vertical ? point.y : point.x
+        return panelVm.normalizeTouch(v: v)
+    }
+    /// scale up normalized to defined range
+    var scaled: Float {
+        scale(Float(nearestTick), fr: 0...1, to: range)
+    }
+    var offset: CGSize {
+        panelVm.axis == .vertical
+        ? CGSize(width: 0, height: thumb * panelVm.runway)
+        : CGSize(width: thumb * panelVm.runway, height: 0)
+    }
 
-        // revise size aspect for branch and runway
-        let size = CGSize(width: 1, height: count.clamped(to: 2...4))
-        branchVm.panelVm.aspect = size
-        panelVm.aspect = size
+    /// adjust branch and panel sizes for smaller segments
+    func updatePanelSizes() {
+        guard let branchVm = branchVm else { return }
+        let size = panelVm.axis == .vertical
+        ? CGSize(width: 1, height: count.clamped(to: 2...4))
+        : CGSize(width: count.clamped(to: 2...4), height: 1)
+
+        branchVm.panelVm.axisSize = size
+        panelVm.axisSize = size
         branchVm.show = true // refresh view
     }
 
-    lazy var runway: CGFloat = { panelVm.yRunway() }()
-
     var nearestTick: CGFloat { return round(thumb*count)/count }
 
-    var offset: CGSize { CGSize(width: 0, height: nearestTick * runway) }
+    //var offset: CGSize { CGSize(width: 0, height: nearestTick * runway) }
 
     /// ticks above and below nearest tick,
     /// but never on panel border or thumb border
     lazy var ticks: [CGFloat] = {
         var result = [CGFloat]()
         let count = range.upperBound - range.lowerBound
-        if count < 2 { return [] }
+        if count < 1 { return [] }
         let span = 1/max(1,count)
         for index in stride(from: Float(0), through: 1, by: span) {
-            let ofs = CGFloat(index) * runway +  panelVm.thumbRadius
+            let ofs = CGFloat(index) * panelVm.runway +  panelVm.thumbRadius
             result.append( ofs)
         }
         return result
     }()
+
+
 
 }
 
@@ -72,8 +98,7 @@ extension MuLeafSegVm: MuLeafProtocol {
 
         if point != .zero {
             editing = true
-            thumb = panelVm.normalizeTouch(v: point.y) //TODO: axis ??
-            let scaled = CGFloat(scale(Float(thumb), fr: 0...1, to: range))
+            thumb = normalizedTouch(point)
             value?.setAny(named: type.name, scaled)
         } else {
             editing = false

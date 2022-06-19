@@ -21,10 +21,10 @@ class MuLeafVxyVm: MuNodeVm {
         value = node.value ?? prevVm?.node.value
         thumb = value?.getPoint() ?? .zero
     }
-    
+
     var offset: CGSize {
-        CGSize(width:  thumb.x * panelVm.xRunway(),
-               height: thumb.y * panelVm.yRunway())
+        CGSize(width:  thumb.x * panelVm.runway,
+               height: thumb.y * panelVm.runway)
     }
 }
 

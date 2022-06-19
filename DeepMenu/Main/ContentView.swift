@@ -11,8 +11,8 @@ struct ContentView: View {
         // ContentView())
         ZStack(alignment: .bottomLeading) {
             BackView(space: appSpace)
-            MenuView(vm: SkyVm(corner: [.lower, .left]))
-            MenuView(vm: SkyVm(corner: [.lower, .right]))
+            MenuView(vm: SkyVm(corner: [.lower, .left], axis: .vertical))
+            MenuView(vm: SkyVm(corner: [.lower, .right], axis: .horizontal))
 //            MenuView(vm: TestVm(corner: [.upper, .right]))
 //            MenuView(vm: TestVm(corner: [.upper, .left]))
 

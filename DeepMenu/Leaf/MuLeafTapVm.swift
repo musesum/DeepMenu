@@ -19,7 +19,7 @@ class MuLeafTapVm: MuNodeVm {
     }
 
     var offset: CGSize {
-        CGSize(width: 0, height:  panelVm.yRunway())
+        CGSize(width: 0, height:  panelVm.runway)
     }
 }
 

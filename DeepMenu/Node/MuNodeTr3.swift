@@ -50,8 +50,7 @@ extension MuNodeTr3: MuNodeValue {
     func getAny(named: String) -> Any? {
         let any = tr3.component(named: named)
         if let val = any as? Tr3ValScalar {
-            let num = CGFloat(val.num)
-            return num
+            return val.num
         } else if let num = any as? Float {
             return num
         } else {
