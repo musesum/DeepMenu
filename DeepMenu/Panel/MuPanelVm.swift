@@ -6,90 +6,114 @@ class MuPanelVm {
  
     var type: MuNodeType
     var axis: Axis
+    var corner: MuCorner
     var count: CGFloat
-    var margin = CGFloat(0) // overlap with a negative number
-    var axisSize = CGSize(width: 1, height: 1)
+    var spacing = CGFloat(0) // overlap with a negative number
+    var aspectSz = CGSize(width: 1, height: 1)
 
     init(type: MuNodeType,
          count: Int = 1,
-         axis: Axis) {
+         treeVm: MuTreeVm) {
 
         self.type = type
         self.count = CGFloat(max(count,1))
-        self.axis = axis
+        self.axis = treeVm.axis
+        self.corner = treeVm.corner
         setAspectFromType()
     }
 
     init(from: MuPanelVm) {
-        self.type   = from.type
-        self.margin = from.margin
-        self.axis   = from.axis
-        self.count  = from.count
+        self.type    = from.type
+        self.spacing = from.spacing
+        self.axis    = from.axis
+        self.corner  = from.corner
+        self.count   = from.count
         setAspectFromType()
     }
 
     func setAspectFromType() {
 
-
         func aspect(_ lo: CGFloat,_ hi: CGFloat) {
-            axisSize = axis == .vertical
+            aspectSz = axis == .vertical
             ? CGSize(width: lo, height: hi)
             : CGSize(width: hi, height: lo)
         }
 
         switch type {
-            case .none : aspect( 1.0, 1.0)
-            case .node : aspect( 1.0, 1.0)
-            case .val  : aspect( 1.0, 4.0)
-            case .vxy  : aspect( 4.0, 4.0)
-            case .tog  : aspect( 1.0, 1.5)
-            case .seg  : aspect( 1.0, 4.0)
-            case .tap  : aspect( 1.5, 1.5)
+            case .none : aspect(1.0, 1.0)
+            case .node : aspect(1.0, 1.0)
+            case .val  : aspect(1.0, 4.0)
+            case .vxy  : aspect(4.0, 4.0)
+            case .tog  : aspect(1.0, 1.5)
+            case .seg  : aspect(1.0, 4.0)
+            case .tap  : aspect(1.5, 1.5)
         }
     }
 
-
     // changed by type
-    var cornerRadius: CGFloat {
-        type.isLeaf
-        ? (Layout.diameter + Layout.spacing) / 2
-        : (Layout.diameter / 2)
-    }
-
-    var thumbRadius: CGFloat {
-        Layout.diameter/2 - 1
-    }
+    lazy var cornerRadius  : CGFloat = { (Layout.diameter/2 + Layout.padding ) }()
+    lazy var thumbRadius   : CGFloat = { Layout.diameter/2 - 1 }()
+    lazy var thumbDiameter : CGFloat = { thumbRadius*2 }()
 
     var runway: CGFloat {
-        axis == .vertical
-        ? inner.height - thumbRadius*2
-        : inner.width - thumbRadius*2
+        let result = axis == .vertical
+        ? inner.height - thumbDiameter
+        : inner.width - thumbDiameter
+        if type == .vxy {
+            log("runway", [result], terminator: " ")
+        }
+        return result
     }
 
+
     var inner: CGSize {
-        axisSize * Layout.diameter
+        let result = aspectSz * Layout.diameter
+        if type == .vxy {
+            log("inner", [result], terminator: " ")
+        }
+        return result
     }
 
     var outer: CGSize {
 
         let result: CGSize
-        let outerMargin = (2 * Layout.spacing)
+        let padpad = Layout.padding * 2
+        let outerDiameter = Layout.diameter + padpad
 
-        if type.isLeaf {
+        switch type {
 
-            result = inner + (
-                axis == .vertical
-                ? CGSize(width: outerMargin, height: Layout.titleHeight)
-                : CGSize(width: 0, height: outerMargin + Layout.titleHeight))
+            case .val, .seg, .tog, .tap:
 
-        } else {
-            let trough = Layout.diameter + outerMargin
-            let runway = (trough * count) + (margin * 2 * (count-1))
-            let width  = (axis == .vertical ? trough : runway)
-            let height = (axis == .vertical ? runway : trough)
-            result = CGSize(width: width, height: height)
+                result = inner + (
+                    axis == .vertical
+                    ? CGSize(width: padpad, height: outerDiameter)
+                    : CGSize(width: outerDiameter, height: padpad))
+
+            case .vxy: // header is always on top
+
+                result = inner + CGSize(width: padpad, height: outerDiameter)
+                log("outer", [result], terminator: " ")
+
+            case .none, .node:
+
+                let longer = (outerDiameter + spacing) * count
+                let width  = (axis == .vertical ? outerDiameter : longer)
+                let height = (axis == .vertical ? longer : outerDiameter)
+
+                result = CGSize(width: width, height: height)
         }
         return result
+    }
+    var titleSize: CGSize {
+
+        switch type {
+            case .vxy:
+                return CGSize(width:  inner.width,
+                              height: Layout.diameter - 8)
+           default:
+                return CGSize(width:  Layout.diameter - 8,
+                              height: Layout.diameter - 8)
+        }
     }
 
     func normalizeTouch(xy: CGPoint) -> CGPoint {
@@ -97,27 +121,26 @@ class MuPanelVm {
         let yMax = (inner.height - thumbRadius)
         let xRange = thumbRadius...xMax
         let yRange = thumbRadius...yMax
-        let xx = xy.x.clamped(to: xRange)
-        let yy = xy.y.clamped(to: yRange)
-        let xxx = (xx - thumbRadius) / runway
-        let yyy = (yy - thumbRadius) / runway
-        let result = CGPoint(x: xxx, y: yyy)
+        let xClamp = xy.x.clamped(to: xRange)
+        let yClamp = xy.y.clamped(to: yRange)
+        let xNormal = (xClamp - thumbRadius) / runway
+        let yNormal = (yClamp - thumbRadius) / runway
+        let result = CGPoint(x: xNormal, y: yNormal)
         return result
     }
+
     func normalizeTouch(v: CGFloat) -> CGFloat {
         if axis == .vertical {
             let yMax = (inner.height - thumbRadius)
-            let yRange = thumbRadius...yMax
-            let yy = v.clamped(to: yRange)
-            let yyy = (yy - thumbRadius) / runway
-            let result = CGFloat(yyy)
+            let yClamp = v.clamped(to: thumbRadius...yMax)
+            let yNormal = (yClamp - thumbRadius) / runway
+            let result = CGFloat(yNormal)
             return result
         } else {
             let xMax = (inner.width  - thumbRadius)
-            let xRange = thumbRadius...xMax
-            let xx = v.clamped(to: xRange)
-            let xxx = (xx - thumbRadius) / runway
-            let result = CGFloat(xxx)
+            let xClamp = v.clamped(to: thumbRadius...xMax)
+            let xNormal = (xClamp - thumbRadius) / runway
+            let result = CGFloat(xNormal)
             return result
         }
     }
@@ -126,17 +149,18 @@ class MuPanelVm {
         var result = bounds
         if (axis == .vertical) {
             if bounds.minY < 0 {
-                margin = bounds.minY/max(count,1)
+                spacing = bounds.minY/max(count,1)
                 result.size.height += bounds.minY
                 result.origin.y = 0
             }
         } else {
             if bounds.minX < 0 {
-                margin = bounds.minX/max(count,1)
+                spacing = bounds.minX/max(count,1)
                 result.size.width += bounds.minX
                 result.origin.x = 0
             }
         }
+        log("updateBounds", [result.size])
         return result
     }
 
@@ -145,7 +169,7 @@ class MuPanelVm {
                             y: center.y - outer.height/2,
                             width: outer.width,
                             height: outer.height)
-        // log("cob ",  [center, outer, result])
+        log("getBounds", [result.size])
         return result
     }
 }

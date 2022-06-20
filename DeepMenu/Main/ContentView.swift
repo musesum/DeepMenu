@@ -3,16 +3,15 @@
 import SwiftUI
 
 struct ContentView: View {
-
-    @GestureState private var touchXY: CGPoint = .zero
-                    let appSpace = AppSpace()
+    
+    let appSpace = AppSpace()
 
     var body: some View {
         // ContentView())
         ZStack(alignment: .bottomLeading) {
             BackView(space: appSpace)
-            MenuView(vm: SkyVm(corner: [.lower, .left], axis: .vertical))
-            MenuView(vm: SkyVm(corner: [.lower, .right], axis: .horizontal))
+            MenuView(menuVm: SkyVm(corner: [.lower, .left], axis: .vertical))
+            MenuView(menuVm: SkyVm(corner: [.lower, .right], axis: .horizontal))
 //            MenuView(vm: TestVm(corner: [.upper, .right]))
 //            MenuView(vm: TestVm(corner: [.upper, .left]))
 

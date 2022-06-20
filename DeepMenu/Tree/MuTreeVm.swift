@@ -8,13 +8,15 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     @Published var branchVms = [MuBranchVm]()
 
     var axis: Axis  // vertical or horizontal
+    var corner: MuCorner
     var level = CGFloat(1) // starting level for branches
     var offset = CGSize(width: 0, height: 0)
     var depthShown = 0 // levels of branches shown
     var rootVm: MuRootVm? // used to determine MuBranchVm hash value
 
-    init(axis: Axis) {
+    init(axis: Axis, corner: MuCorner) {
         self.axis = axis
+        self.corner = corner
     }
 
     func addBranchVms(_ branchVms: [MuBranchVm]) {

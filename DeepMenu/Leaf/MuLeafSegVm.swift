@@ -2,30 +2,21 @@
 
 import SwiftUI
 
-func scale(_ value: Float, fr: ClosedRange<Float>, to: ClosedRange<Float>) -> Float {
-    let val = Float(value)
-
-        let toSpan = to.upperBound - to.lowerBound // to
-        let frSpan = fr.upperBound - fr.lowerBound // from
-        let from01 = (val.clamped(to: fr) - fr.lowerBound) / frSpan
-        let scaled = (from01 * toSpan) + to.lowerBound
-        return scaled
-}
-
 /// segmented control
 class MuLeafSegVm: MuNodeVm {
 
     var thumb = CGFloat(0)
     var value: MuNodeValue?
     var range: ClosedRange<Float> = 0...1
-    lazy var count: CGFloat = { CGFloat(range.upperBound - range.lowerBound) }()
 
     var status: String {
         range.upperBound > 1
         ? String(format: "%.f", scale(Float(thumb), fr: 0...1, to: range))
         : String(format: "%.1f", thumb)
     }
-    
+
+    lazy var count: CGFloat = { CGFloat(range.upperBound - range.lowerBound) }()
+
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
           _ prevVm: MuNodeVm?,
@@ -60,13 +51,12 @@ class MuLeafSegVm: MuNodeVm {
 
     /// adjust branch and panel sizes for smaller segments
     func updatePanelSizes() {
-        guard let branchVm = branchVm else { return }
         let size = panelVm.axis == .vertical
         ? CGSize(width: 1, height: count.clamped(to: 2...4))
         : CGSize(width: count.clamped(to: 2...4), height: 1)
 
-        branchVm.panelVm.axisSize = size
-        panelVm.axisSize = size
+        branchVm.panelVm.aspectSz = size
+        panelVm.aspectSz = size
         branchVm.show = true // refresh view
     }
 
@@ -76,19 +66,21 @@ class MuLeafSegVm: MuNodeVm {
 
     /// ticks above and below nearest tick,
     /// but never on panel border or thumb border
-    lazy var ticks: [CGFloat] = {
-        var result = [CGFloat]()
+    lazy var ticks: [CGSize] = {
+        var result = [CGSize]()
         let count = range.upperBound - range.lowerBound
         if count < 1 { return [] }
         let span = 1/max(1,count)
+        let margin = Layout.diameter/2 - 2
         for index in stride(from: Float(0), through: 1, by: span) {
             let ofs = CGFloat(index) * panelVm.runway +  panelVm.thumbRadius
-            result.append( ofs)
+            let size = panelVm.axis == .vertical
+            ? CGSize(width: margin, height: ofs)
+            : CGSize(width: ofs, height: margin)
+            result.append (size)
         }
         return result
     }()
-
-
 
 }
 

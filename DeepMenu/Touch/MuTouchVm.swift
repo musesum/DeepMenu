@@ -51,7 +51,7 @@ class MuTouchVm: ObservableObject {
         guard let rootVm = rootVm else { return 0 }
         if rootVm.status == rootStatus,
            rootVm.corner.contains(.right) {
-            return -(2 * Layout.spacing)
+            return -(2 * Layout.padding)
         } else {
             return 0
         }

@@ -21,7 +21,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     let type: MuNodeType      /// node, val, vxy, seg, tog, tap
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
     let icon: String?         /// icon for this node (not implemented)
-    var branchVm: MuBranchVm? /// branch that this node is on
+    var branchVm: MuBranchVm /// branch that this node is on
     var nextBranchVm: MuBranchVm? /// branch this node generates
 
     var leafVm: MuNodeVm?     /// optional MuLeaf for editing value
@@ -33,7 +33,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
     init (_ type: MuNodeType,
           _ node: MuNode,
-          _ branchVm: MuBranchVm?,
+          _ branchVm: MuBranchVm,
           _ prevVm: MuNodeVm? = nil,
           icon: String? = nil) {
 
@@ -43,7 +43,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         self.prevVm = prevVm
         self.icon = icon
         self.panelVm = MuPanelVm(type: type,
-                                 axis: branchVm?.treeVm.axis ?? .vertical)
+                                 treeVm: branchVm.treeVm)
         prevVm?.nextBranchVm = branchVm
     }
     
@@ -54,8 +54,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
     /// spotlight self, parent, grand, etc. in branch
     func superSpotlight() {
-        if let branchVm = branchVm,
-           branchVm.nodeSpotVm != self {
+        if branchVm.nodeSpotVm != self {
 
             branchVm.nodeSpotVm?.spotlight = false
             branchVm.nodeSpotVm = self

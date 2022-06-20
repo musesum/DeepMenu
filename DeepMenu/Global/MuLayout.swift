@@ -4,12 +4,10 @@ import SwiftUI
 
 struct Layout {
 
-    static let titleHeight: CGFloat = 40
-
     static let diameter: CGFloat = 40
 
-    /// margin between nodes and branches
-    static let spacing: CGFloat = 4
+    /// padding between nodes and branches
+    static let padding: CGFloat = 4
 
     /// distance from center while inside node
     static let insideNode: CGFloat = 24

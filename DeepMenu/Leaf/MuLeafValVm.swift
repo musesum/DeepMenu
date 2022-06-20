@@ -46,7 +46,6 @@ class MuLeafValVm: MuNodeVm {
 extension MuLeafValVm: MuLeafProtocol {
 
     func touchLeaf(_ point: CGPoint) {
-
         if point != .zero {
             editing = true
             thumb = normalized(point)
@@ -55,6 +54,7 @@ extension MuLeafValVm: MuLeafProtocol {
             editing = false
         }
     }
+
     func updateLeaf(_ any: Any) {
         if let v = any as? Float {
             editing = true

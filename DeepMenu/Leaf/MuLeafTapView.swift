@@ -5,21 +5,51 @@ import SwiftUI
 struct MuLeafTapView: View {
 
     @ObservedObject var leafVm: MuLeafTapVm
-    @GestureState private var touchXY: CGPoint = .zero
     var panelVm: MuPanelVm { leafVm.panelVm }
-    var fillColor: Color { Layout.fillColor(leafVm.editing) }
-    var strokeColor: Color { Layout.strokeColor(leafVm.editing) }
-    var strokeWidth: CGFloat { Layout.strokeWidth(leafVm.editing) }
     
     var body: some View {
-        VStack {
-            Text(leafVm.status)
-                .scaledToFit()
-                .foregroundColor(Color.white)
-            ZStack {
-                GeometryReader { geo in
-                    MuPanelView(panelVm: panelVm, nodeVm: leafVm)
+        if panelVm.axis == .horizontal {
+            HStack {
+                if panelVm.corner.contains(.right) {
+                    MuLeafTitleView(leafVm: leafVm)
+                    MuLeafBodyView(leafVm: leafVm)
+                } else {
+                    MuLeafBodyView(leafVm: leafVm)
+                    MuLeafTitleView(leafVm: leafVm)
                 }
+            }
+        } else {
+            VStack {
+                MuLeafTitleView(leafVm: leafVm)
+                MuLeafBodyView(leafVm: leafVm)
+            }
+        }
+    }
+}
+
+private struct MuLeafTitleView: View {
+
+    @ObservedObject var leafVm: MuLeafTapVm
+    var panelVm: MuPanelVm { leafVm.panelVm }
+
+    var body: some View {
+        Text(leafVm.status)
+            .scaledToFit()
+            .foregroundColor(Color.white)
+            .frame(width: panelVm.titleSize.width,
+                   height: panelVm.titleSize.height)
+    }
+}
+
+private struct MuLeafBodyView: View {
+
+    @ObservedObject var leafVm: MuLeafTapVm
+    var panelVm: MuPanelVm { leafVm.panelVm }
+
+    var body: some View {
+        ZStack {
+            GeometryReader { geo in
+                MuPanelView(panelVm: panelVm, nodeVm: leafVm)
             }
         }
     }

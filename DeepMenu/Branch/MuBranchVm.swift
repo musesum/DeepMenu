@@ -38,7 +38,7 @@ class MuBranchVm: Identifiable, ObservableObject {
 
         self.panelVm = MuPanelVm(type: type,
                                  count: nodes.count,
-                                 axis: treeVm.axis) 
+                                 treeVm: treeVm)
         buildNodeVms(from: nodes,
                      type: type,
                      prevNodeVm: prevNodeVm)
@@ -81,7 +81,7 @@ class MuBranchVm: Identifiable, ObservableObject {
         guard let nodeSpotVm = nodeSpotVm else { return }
 
         if let leafVm = nodeSpotVm.leafVm {
-            leafVm.branchVm?.expandBranch()
+            leafVm.branchVm.expandBranch()
         }
         else if let leafType = nodeSpotVm.node.leafType() {
             

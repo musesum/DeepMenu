@@ -199,6 +199,12 @@ extension CGSize {
         let s = CGSize(width: ww, height: hh)
         return s
     }
+    public static func + (lhs: CGSize, rhs: CGFloat) -> CGSize {
+        let ww = lhs.width + rhs
+        let hh = lhs.height + rhs
+        let s = CGSize(width: ww, height: hh)
+        return s
+    }
 
     public static func / (lhs: CGSize, rhs: CGFloat) -> CGSize {
 
@@ -238,15 +244,11 @@ extension CGSize {
                       height: height.clamped(to: heightvalue) )
     }
 }
+extension CGSize: Hashable {
+    public func hash(into hasher: inout Hasher) {
 
-extension CGFloat {
-
-    public func value(_ min: CGFloat, _ max: CGFloat) -> CGFloat {
-        if      self < min { return min }
-        else if self > max { return max }
-        else                { return self }
-
+        hasher.combine(width*9999)
+        hasher.combine(height)
+        _ = hasher.finalize()
     }
 }
-
-

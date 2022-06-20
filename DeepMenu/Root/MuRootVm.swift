@@ -21,7 +21,7 @@ class MuRootVm: ObservableObject, Equatable {
 
         if self.nodeSpotVm != nodeSpotVm  {
             self.nodeSpotVm = nodeSpotVm
-            nodeSpotVm.branchVm?.refreshBranch(nodeSpotVm)
+            nodeSpotVm.branchVm.refreshBranch(nodeSpotVm)
         }
     }
 
@@ -53,7 +53,7 @@ class MuRootVm: ObservableObject, Equatable {
     func updateOffsets() {
 
         let idiom = UIDevice.current.userInterfaceIdiom
-        let margin = 2 * Layout.spacing
+        let margin = 2 * Layout.padding
         let x = (idiom == .pad ? margin : 0)
         let y = ( (corner.contains(.upper) && idiom == .phone) ||
                   (corner.contains(.lower) && idiom == .pad)) ? margin : 0
@@ -81,13 +81,13 @@ class MuRootVm: ObservableObject, Equatable {
     func cornerXY(in frame: CGRect) -> CGPoint {
 
         let idiom = UIDevice.current.userInterfaceIdiom
-        let margin = 2 * Layout.spacing
+        let margin = 2 * Layout.padding
         let x = (idiom == .pad ? margin : 0)
         let y = ((corner.contains(.upper) && idiom == .phone) ||
                   (corner.contains(.lower) && idiom == .pad))  ? margin : 0
         let w = frame.size.width
         let h = frame.size.height
-        let s = Layout.spacing
+        let s = Layout.padding
         let r = Layout.diameter / 2
 
         switch corner {
