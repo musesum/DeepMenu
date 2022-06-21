@@ -20,12 +20,12 @@ class MuLeafSegVm: MuLeafVm {
         node.leaves.append(self) // MuLeaf delegate for setting value
         value = node.value ?? prevVm?.node.value
         range = value?.getRange(named: type.name) ?? 0...1
-        thumb = normalizedValue
+        thumb = normalizeValue
         updatePanelSizes()
     }
 
     /// get current value and normalize 0...1 based on defined range
-    var normalizedValue: CGFloat {
+    var normalizeValue: CGFloat {
         let val = (value?.getAny(named: type.name) as? Float) ?? .zero
         return CGFloat(scale(val, fr: range, to: 0...1))
     }
@@ -74,6 +74,7 @@ class MuLeafSegVm: MuLeafVm {
     }()
 
 }
+// Model
 extension MuLeafSegVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
@@ -95,7 +96,7 @@ extension MuLeafSegVm: MuLeafModelProtocol {
         }
     }
 }
-
+// View
 extension MuLeafSegVm: MuLeafViewProtocol {
 
     override func valueText() -> String {
@@ -105,8 +106,8 @@ extension MuLeafSegVm: MuLeafViewProtocol {
     }
 
     override func thumbOffset() -> CGSize {
-        panelVm.axis == .vertical
-        ? CGSize(width: 0, height: thumb * panelVm.runway)
+        return panelVm.axis == .vertical
+        ? CGSize(width: 0, height: (1-thumb) * panelVm.runway)
         : CGSize(width: thumb * panelVm.runway, height: 0)
     }
 }

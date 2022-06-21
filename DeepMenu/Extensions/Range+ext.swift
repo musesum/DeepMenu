@@ -16,12 +16,13 @@ extension ClosedRange {
 
 }
 
-func scale(_ value: Float, fr: ClosedRange<Float>, to: ClosedRange<Float>) -> Float {
+func scale(_ value: Float, fr: ClosedRange<Float>, to: ClosedRange<Float>, invert: Bool = false) -> Float {
     let val = Float(value)
     
     let toSpan = to.upperBound - to.lowerBound // to
     let frSpan = fr.upperBound - fr.lowerBound // from
     let from01 = (val.clamped(to: fr) - fr.lowerBound) / frSpan
     let scaled = (from01 * toSpan) + to.lowerBound
-    return scaled
+
+    return invert ? 1-scaled : scaled
 }

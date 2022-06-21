@@ -19,7 +19,7 @@ class MuLeafTogVm: MuLeafVm {
         thumb = CGFloat(value?.getAny(named: type.name) as? Float ?? .zero)
     }
 }
-
+// Model
 extension MuLeafTogVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
@@ -42,7 +42,7 @@ extension MuLeafTogVm: MuLeafModelProtocol {
         }
     }
 }
-
+// View
 extension MuLeafTogVm: MuLeafViewProtocol {
 
     override func valueText() -> String {
@@ -51,7 +51,7 @@ extension MuLeafTogVm: MuLeafViewProtocol {
 
     override func thumbOffset() -> CGSize {
         return panelVm.axis == .vertical
-        ? CGSize(width: 1, height: thumb * panelVm.runway)
+        ? CGSize(width: 1, height: (1-thumb) * panelVm.runway)
         : CGSize(width: thumb * panelVm.runway, height: 1)
     }
 }

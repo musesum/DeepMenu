@@ -121,13 +121,14 @@ class MuPanelVm {
         return result
     }
 
+    /// convert touch coordinates to 0...1
     func normalizeTouch(v: CGFloat) -> CGFloat {
         if axis == .vertical {
             let yMax = (inner.height - thumbRadius)
             let yClamp = v.clamped(to: thumbRadius...yMax)
             let yNormal = (yClamp - thumbRadius) / runway
             let result = CGFloat(yNormal)
-            return result
+            return 1 - result // invert so that 0 is on bottom
         } else {
             let xMax = (inner.width  - thumbRadius)
             let xClamp = v.clamped(to: thumbRadius...xMax)

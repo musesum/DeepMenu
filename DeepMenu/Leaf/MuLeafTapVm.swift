@@ -17,7 +17,7 @@ class MuLeafTapVm: MuLeafVm {
         value = node.value ?? prevVm?.node.value
     }
 }
-
+// Model
 extension MuLeafTapVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
@@ -38,7 +38,7 @@ extension MuLeafTapVm: MuLeafModelProtocol {
         }
     }
 }
-
+// View
 extension MuLeafTapVm: MuLeafViewProtocol {
 
     override func valueText() -> String {

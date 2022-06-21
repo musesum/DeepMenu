@@ -19,7 +19,7 @@ class MuLeafVxyVm: MuLeafVm {
         thumb = value?.getPoint() ?? .zero
     }
 }
-
+// Model
 extension MuLeafVxyVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
@@ -40,7 +40,7 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
         }
     }
 }
-
+// View
 extension MuLeafVxyVm: MuLeafViewProtocol {
 
     override func valueText() -> String {

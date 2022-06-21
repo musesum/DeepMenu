@@ -19,30 +19,32 @@ class MuLeafValVm: MuLeafVm {
         node.leaves.append(self) // MuLeaf delegate for setting value
         value = node.value ?? prevVm?.node.value
         range = value?.getRange(named: type.name) ?? 0...1
-        thumb = normalizedValue
+        thumb = normalizeValue
     }
 
-    var normalizedValue: CGFloat {
+    var normalizeValue: CGFloat {
         let val = (value?.getAny(named: type.name) as? Float) ?? .zero
-        return CGFloat(scale(val, fr: range, to: 0...1))
+        let norm = scale(val, fr: range, to: 0...1)
+        return CGFloat(norm)
     }
 
     var scaled: Float {
         scale(Float(thumb), fr: 0...1, to: range)
     }
 
-    func normalized(_ point: CGPoint) -> CGFloat {
+    func normalizeTouch(_ point: CGPoint) -> CGFloat {
         let v = panelVm.axis == .vertical ? point.y : point.x
-        return panelVm.normalizeTouch(v: v)
+        let vv = panelVm.normalizeTouch(v: v)
+        return vv 
     }
 }
-
+// Model
 extension MuLeafValVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
         if point != .zero {
             editing = true
-            thumb = normalized(point)
+            thumb = normalizeTouch(point)
             value?.setAny(named: type.name, scaled)
         } else {
             editing = false
@@ -57,7 +59,7 @@ extension MuLeafValVm: MuLeafModelProtocol {
         }
     }
 }
-
+// View
 extension MuLeafValVm: MuLeafViewProtocol {
 
     override func valueText() -> String {
@@ -66,7 +68,7 @@ extension MuLeafValVm: MuLeafViewProtocol {
 
     override func thumbOffset() -> CGSize {
         return panelVm.axis == .vertical
-        ? CGSize(width: 0, height: thumb * panelVm.runway)
+        ? CGSize(width: 0, height: (1-thumb) * panelVm.runway)
         : CGSize(width: thumb * panelVm.runway, height: 0)
     }
 }
