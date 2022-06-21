@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-/// leaf Model setter protocol
+/// Leaf Model setter protocol
 public protocol MuLeafModelProtocol {
 
     /// update value from user gesture
@@ -12,7 +12,7 @@ public protocol MuLeafModelProtocol {
     func updateLeaf(_ point: Any)
 }
 
-/// leaf View protocol
+/// Leaf View protocol
 public protocol MuLeafViewProtocol {
 
     /// title for control value

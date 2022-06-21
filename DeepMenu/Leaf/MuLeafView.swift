@@ -1,14 +1,9 @@
-//
-//  MuLeafView.swift
-//  DeepMenu
-//
 //  Created by warren on 6/21/22.
-//
 
 import SwiftUI
 
+/// Generic layout of title and control based on axis
 struct MuLeafView<Content: View>: View {
-
     let leafVm: MuLeafVm
     let content: () -> Content
     var panelVm: MuPanelVm { leafVm.panelVm }
@@ -21,6 +16,8 @@ struct MuLeafView<Content: View>: View {
     var body: some View {
         if panelVm.axis == .horizontal {
             HStack {
+                // horizontal title is farthest away from root
+                // to allow control to be a bit more reachable
                 if panelVm.corner.contains(.left) {
                     MuLeafBodyView(leafVm, content)
                     MuLeafTitleView(leafVm)
@@ -31,6 +28,8 @@ struct MuLeafView<Content: View>: View {
             }
         } else {
             VStack {
+                // vertical title is always on top
+                // so that hand doesn't over value text
                 MuLeafTitleView(leafVm)
                 MuLeafBodyView(leafVm, content)
             }
@@ -38,6 +37,7 @@ struct MuLeafView<Content: View>: View {
     }
 }
 
+/// title showing position of control
 struct MuLeafTitleView: View {
 
     @ObservedObject var leafVm: MuLeafVm
@@ -56,6 +56,11 @@ struct MuLeafTitleView: View {
     }
 }
 
+/// Panel and closure(Content) for thumb of control
+///
+/// called by `MuLeaf*View` with only the control inside the panel
+/// passed through as a closure
+///
 struct MuLeafBodyView<Content: View>: View {
 
     @ObservedObject var leafVm: MuLeafVm

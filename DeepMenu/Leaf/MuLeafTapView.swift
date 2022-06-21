@@ -6,10 +6,16 @@ struct MuLeafTapView: View {
 
     @ObservedObject var leafVm: MuLeafTapVm
     var panelVm: MuPanelVm { leafVm.panelVm }
+    var fillColor: Color { Layout.strokeColor(leafVm.editing) }
 
     var body: some View {
         MuLeafView(leafVm) {
-            //TODO: Add grey/white flash here
+            RoundedRectangle(cornerRadius: panelVm.cornerRadius)
+                .fill(fillColor)
+                .frame(width:  panelVm.inner.width,
+                       height: panelVm.inner.height)
+                .animation(Layout.flashAnim, value: fillColor)
+                .allowsHitTesting(false)
         }
     }
 }
