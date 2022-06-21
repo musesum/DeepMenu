@@ -59,18 +59,12 @@ class MuPanelVm {
         let result = axis == .vertical
         ? inner.height - thumbDiameter
         : inner.width - thumbDiameter
-        if type == .vxy {
-            log("runway", [result], terminator: " ")
-        }
         return result
     }
 
 
     var inner: CGSize {
         let result = aspectSz * Layout.diameter
-        if type == .vxy {
-            log("inner", [result], terminator: " ")
-        }
         return result
     }
 
@@ -92,7 +86,6 @@ class MuPanelVm {
             case .vxy: // header is always on top
 
                 result = inner + CGSize(width: padpad, height: outerDiameter)
-                log("outer", [result], terminator: " ")
 
             case .none, .node:
 
@@ -107,7 +100,7 @@ class MuPanelVm {
     var titleSize: CGSize {
 
         switch type {
-            case .vxy:
+            case .vxy: // title is always on top
                 return CGSize(width:  inner.width,
                               height: Layout.diameter - 8)
            default:
@@ -160,7 +153,6 @@ class MuPanelVm {
                 result.origin.x = 0
             }
         }
-        log("updateBounds", [result.size])
         return result
     }
 
@@ -169,7 +161,6 @@ class MuPanelVm {
                             y: center.y - outer.height/2,
                             width: outer.width,
                             height: outer.height)
-        log("getBounds", [result.size])
         return result
     }
 }
