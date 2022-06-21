@@ -3,11 +3,10 @@
 import SwiftUI
 
 /// toggle control
-class MuLeafTogVm: MuNodeVm {
+class MuLeafTogVm: MuLeafVm {
 
     var thumb = CGFloat(0)
     var value: MuNodeValue?
-    var status: String { thumb == 1 ? "1" : "0" }
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -19,17 +18,11 @@ class MuLeafTogVm: MuNodeVm {
         value = node.value ?? prevVm?.node.value
         thumb = CGFloat(value?.getAny(named: type.name) as? Float ?? .zero)
     }
-
-    var offset: CGSize {
-        panelVm.axis == .vertical
-        ? CGSize(width: 1, height: thumb * panelVm.runway)
-        : CGSize(width: thumb * panelVm.runway, height: 1)
-    }
 }
 
-extension MuLeafTogVm: MuLeafProtocol {
+extension MuLeafTogVm: MuLeafModelProtocol {
 
-   func touchLeaf(_ point: CGPoint) {
+    func touchLeaf(_ point: CGPoint) {
 
         if !editing, point != .zero  {
             editing = true
@@ -38,13 +31,27 @@ extension MuLeafTogVm: MuLeafProtocol {
         } else if editing, point == .zero {
             editing = false
         }
-   }
+    }
+
     func updateLeaf(_ any: Any) {
+        
         if let v = any as? Float {
             editing = true
             thumb = (v < 1 ? 0 : 1)
             editing = false
         }
     }
+}
 
+extension MuLeafTogVm: MuLeafViewProtocol {
+
+    override func status() -> String {
+        return thumb == 1 ? "1" : "0"
+    }
+
+    override func offset() -> CGSize {
+        return panelVm.axis == .vertical
+        ? CGSize(width: 1, height: thumb * panelVm.runway)
+        : CGSize(width: thumb * panelVm.runway, height: 1)
+    }
 }

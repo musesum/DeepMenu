@@ -3,11 +3,11 @@
 import SwiftUI
 
 // 1d slider control
-class MuLeafValVm: MuNodeVm {
+class MuLeafValVm: MuLeafVm {
 
     var thumb = CGFloat(0)
     var value: MuNodeValue?
-    var status: String { String(format: "%.2f", scaled) }
+
     var range: ClosedRange<Float> = 0...1
 
     init (_ node: MuNode,
@@ -27,23 +27,17 @@ class MuLeafValVm: MuNodeVm {
         return CGFloat(scale(val, fr: range, to: 0...1))
     }
 
-    var offset: CGSize {
-        panelVm.axis == .vertical
-        ? CGSize(width: 0, height: thumb * panelVm.runway)
-        : CGSize(width: thumb * panelVm.runway, height: 0)
-    }
-
     var scaled: Float {
         scale(Float(thumb), fr: 0...1, to: range)
     }
+
     func normalized(_ point: CGPoint) -> CGFloat {
         let v = panelVm.axis == .vertical ? point.y : point.x
         return panelVm.normalizeTouch(v: v)
     }
-
 }
 
-extension MuLeafValVm: MuLeafProtocol {
+extension MuLeafValVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
         if point != .zero {
@@ -63,3 +57,17 @@ extension MuLeafValVm: MuLeafProtocol {
         }
     }
 }
+
+extension MuLeafValVm: MuLeafViewProtocol {
+
+    override func status() -> String {
+        return String(format: "%.2f", scaled)
+    }
+
+    override func offset() -> CGSize {
+        return panelVm.axis == .vertical
+        ? CGSize(width: 0, height: thumb * panelVm.runway)
+        : CGSize(width: thumb * panelVm.runway, height: 0)
+    }
+}
+

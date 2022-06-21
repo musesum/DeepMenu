@@ -3,17 +3,11 @@
 import SwiftUI
 
 /// segmented control
-class MuLeafSegVm: MuNodeVm {
+class MuLeafSegVm: MuLeafVm {
 
     var thumb = CGFloat(0)
     var value: MuNodeValue?
     var range: ClosedRange<Float> = 0...1
-
-    var status: String {
-        range.upperBound > 1
-        ? String(format: "%.f", scale(Float(thumb), fr: 0...1, to: range))
-        : String(format: "%.1f", thumb)
-    }
 
     lazy var count: CGFloat = { CGFloat(range.upperBound - range.lowerBound) }()
 
@@ -29,6 +23,7 @@ class MuLeafSegVm: MuNodeVm {
         thumb = normalizedValue
         updatePanelSizes()
     }
+
     /// get current value and normalize 0...1 based on defined range
     var normalizedValue: CGFloat {
         let val = (value?.getAny(named: type.name) as? Float) ?? .zero
@@ -43,11 +38,7 @@ class MuLeafSegVm: MuNodeVm {
     var scaled: Float {
         scale(Float(nearestTick), fr: 0...1, to: range)
     }
-    var offset: CGSize {
-        panelVm.axis == .vertical
-        ? CGSize(width: 0, height: thumb * panelVm.runway)
-        : CGSize(width: thumb * panelVm.runway, height: 0)
-    }
+
 
     /// adjust branch and panel sizes for smaller segments
     func updatePanelSizes() {
@@ -83,8 +74,7 @@ class MuLeafSegVm: MuNodeVm {
     }()
 
 }
-
-extension MuLeafSegVm: MuLeafProtocol {
+extension MuLeafSegVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
 
@@ -96,6 +86,7 @@ extension MuLeafSegVm: MuLeafProtocol {
             editing = false
         }
     }
+    
     func updateLeaf(_ any: Any) {
         if let v = any as? Float {
             editing = true
@@ -104,3 +95,19 @@ extension MuLeafSegVm: MuLeafProtocol {
         }
     }
 }
+
+extension MuLeafSegVm: MuLeafViewProtocol {
+
+    override func status() -> String {
+        range.upperBound > 1
+        ? String(format: "%.f", scale(Float(thumb), fr: 0...1, to: range))
+        : String(format: "%.1f", thumb)
+    }
+
+    override func offset() -> CGSize {
+        panelVm.axis == .vertical
+        ? CGSize(width: 0, height: thumb * panelVm.runway)
+        : CGSize(width: thumb * panelVm.runway, height: 0)
+    }
+}
+

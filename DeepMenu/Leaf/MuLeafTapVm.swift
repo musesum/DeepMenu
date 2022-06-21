@@ -3,10 +3,9 @@
 import SwiftUI
 
 /// tap control
-class MuLeafTapVm: MuNodeVm {
+class MuLeafTapVm: MuLeafVm {
 
     var value: MuNodeValue?
-    var status: String { editing ? "1" :  "0" }
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -17,13 +16,9 @@ class MuLeafTapVm: MuNodeVm {
         node.leaves.append(self) // MuLeaf delegate for setting value
         value = node.value ?? prevVm?.node.value
     }
-
-    var offset: CGSize {
-        CGSize(width: 0, height:  panelVm.runway)
-    }
 }
 
-extension MuLeafTapVm: MuLeafProtocol {
+extension MuLeafTapVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
 
@@ -41,5 +36,16 @@ extension MuLeafTapVm: MuLeafProtocol {
         Schedule(0.125) {
             self.editing = false
         }
+    }
+}
+
+extension MuLeafTapVm: MuLeafViewProtocol {
+
+    override func status() -> String {
+        return editing ? "1" :  "0"
+    }
+
+    override func offset() -> CGSize {
+        return CGSize(width: 0, height:  panelVm.runway)
     }
 }

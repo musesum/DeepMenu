@@ -3,14 +3,11 @@
 import SwiftUI
 
 /// 2d XY control
-class MuLeafVxyVm: MuNodeVm {
+class MuLeafVxyVm: MuLeafVm {
     
     var thumb: CGPoint = .zero
     var value: MuNodeValue?
 
-    var status: String { String(format: "x %.2f y %.2f",
-                                thumb.x, thumb.y, id) }
-    
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
           _ prevVm: MuNodeVm?,
@@ -21,14 +18,9 @@ class MuLeafVxyVm: MuNodeVm {
         value = node.value ?? prevVm?.node.value
         thumb = value?.getPoint() ?? .zero
     }
-
-    var offset: CGSize {
-        CGSize(width:  thumb.x * panelVm.runway,
-               height: thumb.y * panelVm.runway)
-    }
 }
 
-extension MuLeafVxyVm: MuLeafProtocol {
+extension MuLeafVxyVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
 
@@ -46,5 +38,17 @@ extension MuLeafVxyVm: MuLeafProtocol {
             thumb = p
             editing = false
         }
+    }
+}
+
+extension MuLeafVxyVm: MuLeafViewProtocol {
+
+    override func status() -> String {
+        return String(format: "x %.2f y %.2f", thumb.x, thumb.y, id)
+    }
+
+    override func offset() -> CGSize {
+        CGSize(width:  thumb.x * panelVm.runway,
+               height: thumb.y * panelVm.runway)
     }
 }

@@ -8,7 +8,7 @@ class MuNode: Identifiable, Equatable {
     var name: String
     var children = [MuNode]()
     var value: MuNodeValue?
-    var leaves = [MuLeafProtocol]()
+    var leaves = [MuLeafModelProtocol]()
 
     static func == (lhs: MuNode, rhs: MuNode) -> Bool {
         return lhs.id == rhs.id

@@ -15,12 +15,12 @@ struct MuPanelView: View {
         ZStack {
             RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                 .fill(Layout.panelFill)
-                .frame(width: panelVm.inner.width,
+                .frame(width:  panelVm.inner.width,
                        height: panelVm.inner.height)
             
             RoundedRectangle(cornerRadius: panelVm.cornerRadius)
                 .stroke(strokeColor, lineWidth: strokeWidth)
-                .frame(width: panelVm.inner.width,
+                .frame(width:  panelVm.inner.width,
                        height: panelVm.inner.height)
                 .animation(Layout.flashAnim, value: strokeColor)
                 .animation(Layout.flashAnim, value: strokeWidth)
