@@ -117,7 +117,7 @@ class MuPanelVm {
         let yClamp = xy.y.clamped(to: yRange)
         let xNormal = (xClamp - thumbRadius) / runway
         let yNormal = (yClamp - thumbRadius) / runway
-        let result = CGPoint(x: xNormal, y: yNormal)
+        let result = CGPoint(x: xNormal, y: (1-yNormal))
         return result
     }
 

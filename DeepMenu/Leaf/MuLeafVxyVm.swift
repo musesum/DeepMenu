@@ -49,6 +49,6 @@ extension MuLeafVxyVm: MuLeafViewProtocol {
 
     override func thumbOffset() -> CGSize {
         CGSize(width:  thumb.x * panelVm.runway,
-               height: thumb.y * panelVm.runway)
+               height: (1-thumb.y) * panelVm.runway)
     }
 }
