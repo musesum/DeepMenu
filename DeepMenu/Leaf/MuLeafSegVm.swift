@@ -98,13 +98,13 @@ extension MuLeafSegVm: MuLeafModelProtocol {
 
 extension MuLeafSegVm: MuLeafViewProtocol {
 
-    override func status() -> String {
+    override func valueText() -> String {
         range.upperBound > 1
         ? String(format: "%.f", scale(Float(thumb), fr: 0...1, to: range))
         : String(format: "%.1f", thumb)
     }
 
-    override func offset() -> CGSize {
+    override func thumbOffset() -> CGSize {
         panelVm.axis == .vertical
         ? CGSize(width: 0, height: thumb * panelVm.runway)
         : CGSize(width: thumb * panelVm.runway, height: 0)

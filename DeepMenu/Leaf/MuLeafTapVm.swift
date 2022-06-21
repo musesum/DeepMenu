@@ -41,11 +41,11 @@ extension MuLeafTapVm: MuLeafModelProtocol {
 
 extension MuLeafTapVm: MuLeafViewProtocol {
 
-    override func status() -> String {
+    override func valueText() -> String {
         return editing ? "1" :  "0"
     }
 
-    override func offset() -> CGSize {
+    override func thumbOffset() -> CGSize {
         return CGSize(width: 0, height:  panelVm.runway)
     }
 }

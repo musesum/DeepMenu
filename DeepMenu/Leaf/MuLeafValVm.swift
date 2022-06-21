@@ -60,11 +60,11 @@ extension MuLeafValVm: MuLeafModelProtocol {
 
 extension MuLeafValVm: MuLeafViewProtocol {
 
-    override func status() -> String {
+    override func valueText() -> String {
         return String(format: "%.2f", scaled)
     }
 
-    override func offset() -> CGSize {
+    override func thumbOffset() -> CGSize {
         return panelVm.axis == .vertical
         ? CGSize(width: 0, height: thumb * panelVm.runway)
         : CGSize(width: thumb * panelVm.runway, height: 0)

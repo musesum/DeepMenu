@@ -14,7 +14,7 @@ struct MuLeafTogView: View {
                 .fill(thumbFill)
                 .frame(width: panelVm.thumbDiameter,
                        height: panelVm.thumbDiameter)
-                .offset(leafVm.offset())
+                .offset(leafVm.thumbOffset())
                 .allowsHitTesting(false)
         }
     }

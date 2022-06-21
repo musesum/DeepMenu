@@ -20,7 +20,7 @@ struct MuLeafSegView: View {
                 .fill(.white)
                 .frame(width:  panelVm.thumbDiameter,
                        height: panelVm.thumbDiameter)
-                .offset(leafVm.offset())
+                .offset(leafVm.thumbOffset())
                 .allowsHitTesting(false)
         }
     }

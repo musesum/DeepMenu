@@ -43,11 +43,11 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
 
 extension MuLeafVxyVm: MuLeafViewProtocol {
 
-    override func status() -> String {
+    override func valueText() -> String {
         return String(format: "x %.2f y %.2f", thumb.x, thumb.y, id)
     }
 
-    override func offset() -> CGSize {
+    override func thumbOffset() -> CGSize {
         CGSize(width:  thumb.x * panelVm.runway,
                height: thumb.y * panelVm.runway)
     }
