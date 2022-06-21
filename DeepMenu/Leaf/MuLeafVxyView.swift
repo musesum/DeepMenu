@@ -35,18 +35,17 @@ private struct MuLeafBodyView: View {
     var panelVm: MuPanelVm { leafVm.panelVm }
 
     var body: some View {
-
-        ZStack {
-            GeometryReader { geo in
-                MuPanelView(panelVm: panelVm, nodeVm: leafVm)
-                Capsule()
-                    .fill(.white)
-                    .frame(width: panelVm.thumbDiameter,
-                           height: panelVm.thumbDiameter)
-                    .offset(leafVm.offset)
-                    .allowsHitTesting(false)
-            }
+        GeometryReader { geo in
+            MuPanelView(panelVm: panelVm, nodeVm: leafVm)
+            Capsule()
+                .fill(.white)
+                .frame(width: panelVm.thumbDiameter,
+                       height: panelVm.thumbDiameter)
+                .offset(leafVm.offset)
+                .allowsHitTesting(false)
         }
+        .frame(width: panelVm.inner.width,
+               height: panelVm.inner.height)
     }
 }
 

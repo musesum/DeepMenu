@@ -19,8 +19,8 @@ menu {
         }
     }
     speed (icon "icon.speed.png") {
-        fps (val 0..1 = 0.5, icon "icon.speed.png"  ) >> sky.main.fps
-        run (tog 1,          icon "icon.thumb.x.png") >> sky.main.run
+        fps (seg 0..60 = 60, icon "icon.speed.png"  ) >> sky.main.fps
+        run (tog 1,           icon "icon.thumb.x.png") >> sky.main.run
     }
     brush (icon "icon.cell.brush.png") {
         size  (val 0.5, icon "icon.pen.press.png") >> sky.draw.brush.size

@@ -62,7 +62,6 @@ class MuPanelVm {
         return result
     }
 
-
     var inner: CGSize {
         let result = aspectSz * Layout.diameter
         return result

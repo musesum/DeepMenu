@@ -37,9 +37,8 @@ private struct MuLeafTitleView: View {
             .scaledToFit()
             .minimumScaleFactor(0.01)
             .foregroundColor(Color.white)
-            .frame(width: panelVm.titleSize.width,
+            .frame(width:  panelVm.titleSize.width,
                    height: panelVm.titleSize.height)
-
     }
 }
 
@@ -50,24 +49,23 @@ private struct MuLeafBodyView: View {
     var ticks: [CGSize] { leafVm.ticks }
 
     var body: some View {
-
-        ZStack {
-            GeometryReader { geo in
-                MuPanelView(panelVm: panelVm, nodeVm: leafVm)
-                ForEach(ticks, id: \.self) {
-                    Capsule()
-                        .fill(.gray)
-                        .frame(width: 4, height: 4)
-                        .offset(CGSize(width: $0.width, height: $0.height))
-                        .allowsHitTesting(false)
-                }
+        GeometryReader { geo in
+            MuPanelView(panelVm: panelVm, nodeVm: leafVm)
+            ForEach(ticks, id: \.self) {
                 Capsule()
-                    .fill(.white)
-                    .frame(width:  panelVm.thumbDiameter,
-                           height: panelVm.thumbDiameter)
-                    .offset(leafVm.offset)
+                    .fill(.gray)
+                    .frame(width: 4, height: 4)
+                    .offset(CGSize(width: $0.width, height: $0.height))
                     .allowsHitTesting(false)
             }
+            Capsule()
+                .fill(.white)
+                .frame(width:  panelVm.thumbDiameter,
+                       height: panelVm.thumbDiameter)
+                .offset(leafVm.offset)
+                .allowsHitTesting(false)
         }
+        .frame(width: panelVm.inner.width,
+               height: panelVm.inner.height)
     }
 }

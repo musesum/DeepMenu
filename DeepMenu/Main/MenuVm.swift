@@ -10,8 +10,6 @@ class MenuVm {
     }
 }
 
-
-
 class SkyVm: MenuVm {
 
     static let Nodes = ExampleTr3Sky.skyNodes() // shared between instances
