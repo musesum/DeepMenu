@@ -5,7 +5,7 @@ import SwiftUI
 /// 2d XY control
 class MuLeafVxyVm: MuLeafVm {
     
-    var thumb: CGPoint = .zero
+    var thumb: CGPoint = .zero // normalized to 0...1
     var proto: MuNodeProtocol?
     var ranges = [String : ClosedRange<Float>]()
 
@@ -50,7 +50,7 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
             let x = expand(named: "x", thumb.x)
             let y = expand(named: "y", thumb.y)
 
-            proto?.setAnys([("x",x),("y", y)])
+            proto?.setAnys([("x", x),("y", y)])
 
         } else {
             editing = false

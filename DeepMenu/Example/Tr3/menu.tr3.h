@@ -6,8 +6,8 @@ menu {
             one   (tap, icon "icon.drop.gray")  >> sky.draw.fill(-1)
         }
         tile (icon "icon.shader.tile.png") {
-            mirror (vxy, x -1..1=0.5, y -1..1=0.5, icon "icon.shader.tile.png") >> shader.pipe.mirror
-            repeat (vxy, x -1..1=0.5, y -1..1=0.5, icon "icon.shader.tile.png") >> shader.pipe.repeat
+            mirror (vxy, x -1...1=0.5, y -1...1=0.5, icon "icon.shader.tile.png") >> shader.pipe.mirror
+            repeat (vxy, x -1...1=0.5, y -1...1=0.5, icon "icon.shader.tile.png") >> shader.pipe.repeat
         }
         scroll (icon "icon.cell.scroll.png") {
             shift (vxy, x 0.5, y 0.5, icon "icon.cell.scroll.png") >> shader.pipe.scroll
@@ -19,7 +19,7 @@ menu {
         }
     }
     speed (icon "icon.speed.png") {
-        fps (seg 0..60 = 60, icon "icon.speed.png"  ) >> sky.main.fps
+        fps (seg 0...60 = 60, icon "icon.speed.png"  ) >> sky.main.fps
         run (tog 1,           icon "icon.thumb.x.png") >> sky.main.run
     }
     brush (icon "icon.cell.brush.png") {
@@ -28,13 +28,13 @@ menu {
         tilt  (tog 1  , icon "icon.pen.tilt.png") >> sky.input.brush.tilt
     }
     cell {
-        fade  (val 2.0 .. 3.0 = 2.2     , icon "icon.cell.fade" ) >> shader.cell.fade
+        fade  (val 2.0 ... 3.0 = 2.2     , icon "icon.cell.fade" ) >> shader.cell.fade
         ave   (val 0.5     , icon "icon.cell.ave"  ) >> shader.cell.ave
         melt  (val 0.5     , icon "icon.cell.melt" ) >> shader.cell.melt
-        tunl  (seg 0..5 = 1, icon "icon.cell.time" ) >> shader.cell.tunl
-        zha   (seg 0..6 = 2, icon "icon.cell.zha"  ) >> shader.cell.zha
-        slide (seg 0..7 = 3, icon "icon.cell.slide") >> shader.cell.slide
-        fred  (seg 0..4 = 4, icon "icon.cell.fred" ) >> shader.cell.fred
+        tunl  (seg 0...5 = 1, icon "icon.cell.time" ) >> shader.cell.tunl
+        zha   (seg 0...6 = 2, icon "icon.cell.zha"  ) >> shader.cell.zha
+        slide (seg 0...7 = 3, icon "icon.cell.slide") >> shader.cell.slide
+        fred  (seg 0...4 = 4, icon "icon.cell.fred" ) >> shader.cell.fred
     }
     cam (icon "icon.camera.png") {
         snap  (tap  0, icon "icon.camera.png")

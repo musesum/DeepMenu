@@ -121,7 +121,7 @@ extension MuNodeTr3: MuNodeProtocol {
                 for leaf in child.leaves {
                     if let p = tr3.CGPointVal() {
 
-                        //TODO: get rid of CGPoint test? -- Would require returning all components and thus impacts the single name components, below. May become important in the future, with complex exprs, like a midi.input.note.on on(num 0..127, velo 0..127, chan 1..32, port 1..16, time 0)
+                        //TODO: get rid of CGPoint test? -- Would require returning all components and thus impacts the single name components, below. May become important in the future, with complex exprs, like a midi.input.note.on on(num 0...127, velo 0...127, chan 1...32, port 1...16, time 0)
 
                         leaf.updateLeaf(p)
                         

@@ -3,6 +3,7 @@
 import SwiftUI
 import Par
 
+/// exchange values with outside model
 public protocol MuNodeProtocol {
     
     func setPoint(_ point: CGPoint)
