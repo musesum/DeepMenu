@@ -40,7 +40,7 @@
 		8019DBFF271C8D5300420923 /* MuNodeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DBFE271C8D5200420923 /* MuNodeIconView.swift */; };
 		8019DC03271C8DDE00420923 /* MuNodeVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC02271C8DDD00420923 /* MuNodeVm.swift */; };
 		8019DC05271C901500420923 /* MuIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8019DC04271C901500420923 /* MuIdentity.swift */; };
-		801D15BF285296C900781062 /* MuNodeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801D15BE285296C900781062 /* MuNodeValue.swift */; };
+		801D15BF285296C900781062 /* MuNodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801D15BE285296C900781062 /* MuNodeProtocol.swift */; };
 		802346FA2717D7EE0006645B /* MuRootVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802346F92717D7EE0006645B /* MuRootVm.swift */; };
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		802C2B552856902500332BF7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 802C2B542856902500332BF7 /* OrderedCollections */; };
@@ -138,7 +138,7 @@
 		8019DBFE271C8D5200420923 /* MuNodeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeIconView.swift; sourceTree = "<group>"; };
 		8019DC02271C8DDD00420923 /* MuNodeVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeVm.swift; sourceTree = "<group>"; };
 		8019DC04271C901500420923 /* MuIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentity.swift; sourceTree = "<group>"; };
-		801D15BE285296C900781062 /* MuNodeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MuNodeValue.swift; path = /Users/warren/Dev/DeepMenu/DeepMenu/Node/MuNodeValue.swift; sourceTree = "<absolute>"; };
+		801D15BE285296C900781062 /* MuNodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MuNodeProtocol.swift; path = /Users/warren/Dev/DeepMenu/DeepMenu/Node/MuNodeProtocol.swift; sourceTree = "<absolute>"; };
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802346F92717D7EE0006645B /* MuRootVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuRootVm.swift; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
@@ -346,7 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				800E2A9C282568A1006AE6A1 /* MuNode.swift */,
-				801D15BE285296C900781062 /* MuNodeValue.swift */,
+				801D15BE285296C900781062 /* MuNodeProtocol.swift */,
 				800E2A9A2824DCA7006AE6A1 /* MuNodeTr3.swift */,
 				8019DC02271C8DDD00420923 /* MuNodeVm.swift */,
 				80B251DF2707563300E63DA3 /* MuNodeView.swift */,
@@ -651,7 +651,7 @@
 				80C43F4D274EE92E002B0B76 /* MuRootStatus.swift in Sources */,
 				80AE76A828622CF600B60D2C /* MuLeafVm.swift in Sources */,
 				8014B7CC2700DE3800691126 /* ContentView.swift in Sources */,
-				801D15BF285296C900781062 /* MuNodeValue.swift in Sources */,
+				801D15BF285296C900781062 /* MuNodeProtocol.swift in Sources */,
 				800D4AE9272B220700E71519 /* CG+ext.swift in Sources */,
 				8040EDF0282B039F0091F226 /* MuLeafTapView.swift in Sources */,
 				805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */,

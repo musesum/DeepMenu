@@ -5,7 +5,7 @@ import SwiftUI
 /// tap control
 class MuLeafTapVm: MuLeafVm {
 
-    var value: MuNodeValue?
+    var proto: MuNodeProtocol?
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -14,23 +14,21 @@ class MuLeafTapVm: MuLeafVm {
         
         super.init(.tap, node, branchVm, prevVm, icon: icon)
         node.leaves.append(self) // MuLeaf delegate for setting value
-        value = node.value ?? prevVm?.node.value
+        proto = node.proto ?? prevVm?.node.proto
     }
 }
 // Model
 extension MuLeafTapVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
-
         if point != .zero {
             editing = true
-            value?.setAny(named: type.name, CGFloat(1))
+            proto?.setAny(named: type.name, CGFloat(1))
         } else {
-            value?.setAny(named: type.name, CGFloat(0))
+            proto?.setAny(named: type.name, CGFloat(0))
             editing = false
         }
     }
-    
     func updateLeaf(_ any: Any) {
         editing = true
         Schedule(0.125) {
@@ -42,10 +40,9 @@ extension MuLeafTapVm: MuLeafModelProtocol {
 extension MuLeafTapVm: MuLeafViewProtocol {
 
     override func valueText() -> String {
-        return editing ? "1" :  "0"
+        editing ? "1" :  "0"
     }
-
     override func thumbOffset() -> CGSize {
-        return CGSize(width: 0, height:  panelVm.runway)
+        CGSize(width: 0, height:  panelVm.runway)
     }
 }

@@ -19,7 +19,7 @@ class MuNodeTr3: MuNode {
                    parent: parent)
 
         tr3.addClosure(getting)
-        value = self // setup delegate for MuValue protocol
+        proto = self // setup delegate for MuValue protocol
     }
     override func leafType() -> MuNodeType? {
         if let name = tr3.getName(in: MuNodeLeaves) {
@@ -28,39 +28,62 @@ class MuNodeTr3: MuNode {
         return nil
     }
 }
-extension MuNodeTr3: MuNodeValue {
+
+extension MuNodeTr3: MuNodeProtocol {
 
     func setPoint(_ point: CGPoint) {
         var options = Tr3SetOptions([.activate, .zero1])
         if caching { options.insert(.cache) }
-        tr3.setVal(point, options, Visitor(id))
+        tr3.setAny(point, options, Visitor(id))
     }
 
     func getPoint() -> CGPoint {
         return tr3.CGPointVal() ?? .zero
     }
 
-    func setAny(named: String, _ any: Any) {
+    func setAny(named: String,_ any: Any) {
 
         var options = Tr3SetOptions([.activate, .zero1])
         if caching { options.insert(.cache) }
-        tr3.setVal((named, any), options, Visitor(id)) //TODO: get Visitor(id) from caller
+        tr3.setAny((named,any), options, Visitor(id)) //TODO: get Visitor(id) from caller
     }
+    func setAnys(_ anys: [(String,Any)]) {
 
+        var options = Tr3SetOptions([.activate, .zero1])
+        if caching { options.insert(.cache) }
+        tr3.setAnys(anys, options, Visitor(id)) //TODO: get Visitor(id) from caller
+    }
     func getAny(named: String) -> Any? {
+
         let any = tr3.component(named: named)
+
         if let val = any as? Tr3ValScalar {
             return val.num
         } else if let num = any as? Float {
             return num
         } else {
-            return any
+            return nil
         }
     }
+    func getAnys(named: [String]) -> [(String,Any?)] {
 
+        var result = [(String,Any?)]()
+        let comps = tr3.components(named: named)
+        for (name, any) in comps {
+            if let val = any as? Tr3ValScalar {
+                result.append((name, val.num))
+            } else if let num = any as? Float {
+                result.append((name, num))
+            } else {
+                result.append((name, nil))
+            }
+        }
+        return result
+    }
     func getRange(named: String) -> ClosedRange<Float> {
-        
+
         let any = tr3.component(named: named)
+
         if let val = any as? Tr3ValScalar {
             return val.min...val.max
         } else if let val = tr3.val as? Tr3ValScalar {
@@ -68,6 +91,22 @@ extension MuNodeTr3: MuNodeValue {
         } else {
             return 0...1
         }
+    }
+    func getRanges(named: [String]) -> [(String,ClosedRange<Float>)] {
+
+        var result = [(String,ClosedRange<Float>)]()
+
+        let comps = tr3.components(named: named)
+        for (name, any) in comps {
+            if let val = any as? Tr3ValScalar {
+                result.append((name, val.min...val.max))
+            } else if let val = tr3.val as? Tr3ValScalar {
+                result.append((name, val.min...val.max))
+            } else {
+                result.append((name, 0...1))
+            }
+        }
+        return result
     }
 
     /// callback from tr3
@@ -81,7 +120,9 @@ extension MuNodeTr3: MuNodeValue {
             for child in children {
                 for leaf in child.leaves {
                     if let p = tr3.CGPointVal() {
-                        
+
+                        //TODO: get rid of CGPoint test? -- Would require returning all components and thus impacts the single name components, below. May become important in the future, with complex exprs, like a midi.input.note.on on(num 0..127, velo 0..127, chan 1..32, port 1..16, time 0)
+
                         leaf.updateLeaf(p)
                         
                     } else if let name = tr3.getName(in: MuNodeLeaves),

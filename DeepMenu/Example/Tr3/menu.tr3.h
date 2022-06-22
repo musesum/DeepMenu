@@ -6,8 +6,8 @@ menu {
             one   (tap, icon "icon.drop.gray")  >> sky.draw.fill(-1)
         }
         tile (icon "icon.shader.tile.png") {
-            mirror (vxy, x 0, y 0, icon "icon.shader.tile.png") >> shader.pipe.mirror
-            repeat (vxy, x 0, y 0, icon "icon.shader.tile.png") >> shader.pipe.repeat
+            mirror (vxy, x -1..1=0.5, y -1..1=0.5, icon "icon.shader.tile.png") >> shader.pipe.mirror
+            repeat (vxy, x -1..1=0.5, y -1..1=0.5, icon "icon.shader.tile.png") >> shader.pipe.repeat
         }
         scroll (icon "icon.cell.scroll.png") {
             shift (vxy, x 0.5, y 0.5, icon "icon.cell.scroll.png") >> shader.pipe.scroll

@@ -11,8 +11,8 @@ struct MuTouchView: View {
         GeometryReader() { geo in
             // home (root) icon
             if let homeNodeVm = touchVm.homeNodeVm {
+                
                 MuNodeView(nodeVm: homeNodeVm)
-
                     .frame(width: Layout.diameter, height: Layout.diameter)
                     .onAppear { touchVm.updateHome(geo.frame(in: .named("Space"))) }
                     .onChange(of: geo.frame(in: .named("Space"))) { touchVm.updateHome($0) }

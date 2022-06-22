@@ -6,7 +6,8 @@ import SwiftUI
 class MuLeafVxyVm: MuLeafVm {
     
     var thumb: CGPoint = .zero
-    var value: MuNodeValue?
+    var proto: MuNodeProtocol?
+    var ranges = [String : ClosedRange<Float>]()
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -15,8 +16,27 @@ class MuLeafVxyVm: MuLeafVm {
         
         super.init(.vxy, node, branchVm, prevVm, icon: icon)
         node.leaves.append(self)  // MuLeaf delegate for setting value
-        value = node.value ?? prevVm?.node.value
-        thumb = value?.getPoint() ?? .zero
+        proto = node.proto ?? prevVm?.node.proto
+
+        if let nameRanges = proto?.getRanges(named: ["x","y"]) {
+            for (name,range) in nameRanges {
+                ranges[name] = range
+            }
+        }
+        let x = normalizeNamed("x",ranges["x"])
+        let y = normalizeNamed("y",ranges["y"])
+        thumb = CGPoint(x: x, y: y)
+    }
+    func normalizeNamed(_ name: String, _ range: ClosedRange<Float>?) -> CGFloat {
+        let val = (proto?.getAny(named: name) as? Float) ?? .zero
+        let norm = scale(val, from: range ?? 0...1, to: 0...1)
+        return CGFloat(norm)
+    }
+    func expand(named: String, _ value: CGFloat) -> Float {
+
+        let range = ranges[named] ?? 0...1
+        let result = scale(Float(value), from: 0...1, to: range)
+        return result
     }
 }
 // Model
@@ -27,7 +47,11 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
         if point != .zero {
             editing = true
             thumb = panelVm.normalizeTouch(xy: point)
-            value?.setPoint(thumb)
+            let x = expand(named: "x", thumb.x)
+            let y = expand(named: "y", thumb.y)
+
+            proto?.setAnys([("x",x),("y", y)])
+
         } else {
             editing = false
         }
@@ -35,7 +59,9 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
     func updateLeaf(_ any: Any) {
         if let p = any as? CGPoint {
             editing = true
-            thumb = p
+            let x = scale(Float(p.x), from: ranges["x"] ?? 0...1, to: 0...1)
+            let y = scale(Float(p.y), from: ranges["y"] ?? 0...1, to: 0...1)
+            thumb = CGPoint(x: CGFloat(x), y: CGFloat(y))
             editing = false
         }
     }
@@ -44,9 +70,10 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
 extension MuLeafVxyVm: MuLeafViewProtocol {
 
     override func valueText() -> String {
-        return String(format: "x %.2f y %.2f", thumb.x, thumb.y, id)
+        String(format: "x %.2f y %.2f",
+               expand(named: "x", thumb.x),
+               expand(named: "y", thumb.y))
     }
-
     override func thumbOffset() -> CGSize {
         CGSize(width:  thumb.x * panelVm.runway,
                height: (1-thumb.y) * panelVm.runway)

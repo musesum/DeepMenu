@@ -2,10 +2,7 @@
 
 import SwiftUI
 
-/**
- Draggable clone of node withing a branch, which clips at border
- - note: Instead, move clones on space
- */
+/// Corner node which follows touch
 class MuTouchVm: ObservableObject {
 
     @Published var pointNow = CGPoint.zero    // current position
@@ -18,6 +15,7 @@ class MuTouchVm: ObservableObject {
 
     private var touchOfs = CGSize.zero // offset between rootNode and touchNow
     private var deltaOfs = CGSize.zero // offset between touch point and center in coord
+
     var pilotOfs: CGSize {
         switch rootVm?.status ?? .root {
             case .root:  return touchOfs
@@ -25,10 +23,6 @@ class MuTouchVm: ObservableObject {
             case .edit:  return .zero
             case .space: return deltaOfs
         }}
-
-
-    var touchBranch: MuBranchVm? // branch which captured DragGesture
-    var pointDelta = CGPoint.zero // touch starting position
 
     func setRoot(_ rootVm: MuRootVm) {
         guard let treeVm = rootVm.treeSpotVm else { return }
@@ -59,14 +53,13 @@ class MuTouchVm: ObservableObject {
 
     func updatePointNow( _ touchNow: CGPoint) {
         pointNow = touchNow
-        pointDelta = touchNow
         let homeCenter = homeNodeVm?.center ?? .zero
         touchOfs = CGSize(homeCenter - touchNow)
         touchOfs.width += rightSideOffset(for: .root)
         deltaOfs = .zero
     }
 
-    /**  via MuBranchView::@GestureState touchNow .onChange,
+    /** via MuBranchView::@GestureState touchNow .onChange,
      which also detects end when touchNow is reset to .zero
      */
     func touchUpdate(_ touchNow: CGPoint) {

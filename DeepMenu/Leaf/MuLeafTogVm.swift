@@ -6,7 +6,7 @@ import SwiftUI
 class MuLeafTogVm: MuLeafVm {
 
     var thumb = CGFloat(0)
-    var value: MuNodeValue?
+    var proto: MuNodeProtocol?
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -15,8 +15,8 @@ class MuLeafTogVm: MuLeafVm {
 
         super.init(.tog, node, branchVm, prevVm, icon: icon)
         node.leaves.append(self) 
-        value = node.value ?? prevVm?.node.value
-        thumb = CGFloat(value?.getAny(named: type.name) as? Float ?? .zero)
+        proto = node.proto ?? prevVm?.node.proto
+        thumb = CGFloat(proto?.getAny(named: type.name) as? Float ?? .zero)
     }
 }
 // Model
@@ -27,7 +27,7 @@ extension MuLeafTogVm: MuLeafModelProtocol {
         if !editing, point != .zero  {
             editing = true
             thumb = (thumb==1 ? 0 : 1)
-            value?.setAny(named: type.name, thumb)
+            proto?.setAny(named: type.name, thumb)
         } else if editing, point == .zero {
             editing = false
         }
@@ -46,11 +46,10 @@ extension MuLeafTogVm: MuLeafModelProtocol {
 extension MuLeafTogVm: MuLeafViewProtocol {
 
     override func valueText() -> String {
-        return thumb == 1 ? "1" : "0"
+        thumb == 1 ? "1" : "0"
     }
-
     override func thumbOffset() -> CGSize {
-        return panelVm.axis == .vertical
+        panelVm.axis == .vertical
         ? CGSize(width: 1, height: (1-thumb) * panelVm.runway)
         : CGSize(width: thumb * panelVm.runway, height: 1)
     }

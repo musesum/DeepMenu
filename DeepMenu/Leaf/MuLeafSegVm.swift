@@ -6,7 +6,7 @@ import SwiftUI
 class MuLeafSegVm: MuLeafVm {
 
     var thumb = CGFloat(0)
-    var value: MuNodeValue?
+    var proto: MuNodeProtocol?
     var range: ClosedRange<Float> = 0...1
 
     lazy var count: CGFloat = { CGFloat(range.upperBound - range.lowerBound) }()
@@ -18,16 +18,16 @@ class MuLeafSegVm: MuLeafVm {
 
         super.init(.seg, node, branchVm, prevVm, icon: icon)
         node.leaves.append(self) // MuLeaf delegate for setting value
-        value = node.value ?? prevVm?.node.value
-        range = value?.getRange(named: type.name) ?? 0...1
+        proto = node.proto ?? prevVm?.node.proto
+        range = proto?.getRange(named: type.name) ?? 0...1
         thumb = normalizeValue
         updatePanelSizes()
     }
 
     /// get current value and normalize 0...1 based on defined range
     var normalizeValue: CGFloat {
-        let val = (value?.getAny(named: type.name) as? Float) ?? .zero
-        return CGFloat(scale(val, fr: range, to: 0...1))
+        let val = (proto?.getAny(named: type.name) as? Float) ?? .zero
+        return CGFloat(scale(val, from: range, to: 0...1))
     }
     /// normalize point to 0...1 based on defined range
     func normalizedTouch(_ point: CGPoint) -> CGFloat {
@@ -36,7 +36,7 @@ class MuLeafSegVm: MuLeafVm {
     }
     /// scale up normalized to defined range
     var scaled: Float {
-        scale(Float(nearestTick), fr: 0...1, to: range)
+        scale(Float(nearestTick), from: 0...1, to: range)
     }
 
 
@@ -78,20 +78,18 @@ class MuLeafSegVm: MuLeafVm {
 extension MuLeafSegVm: MuLeafModelProtocol {
 
     func touchLeaf(_ point: CGPoint) {
-
         if point != .zero {
             editing = true
             thumb = normalizedTouch(point)
-            value?.setAny(named: type.name, scaled)
+            proto?.setAny(named: type.name, scaled)
         } else {
             editing = false
         }
     }
-    
     func updateLeaf(_ any: Any) {
         if let v = any as? Float {
             editing = true
-            thumb = CGFloat(scale(v, fr: range, to: 0...1))
+            thumb = CGFloat(scale(v, from: range, to: 0...1))
             editing = false
         }
     }
@@ -101,12 +99,11 @@ extension MuLeafSegVm: MuLeafViewProtocol {
 
     override func valueText() -> String {
         range.upperBound > 1
-        ? String(format: "%.f", scale(Float(thumb), fr: 0...1, to: range))
+        ? String(format: "%.f", scale(Float(thumb), from: 0...1, to: range))
         : String(format: "%.1f", thumb)
     }
-
     override func thumbOffset() -> CGSize {
-        return panelVm.axis == .vertical
+        panelVm.axis == .vertical
         ? CGSize(width: 0, height: (1-thumb) * panelVm.runway)
         : CGSize(width: thumb * panelVm.runway, height: 0)
     }
