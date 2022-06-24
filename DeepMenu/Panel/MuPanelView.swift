@@ -29,6 +29,7 @@ struct MuPanelView: View {
             .updating($touchXY) { (input, result, _) in
                 result = input.location })
         .onChange(of: touchXY) {
+            nodeVm.branchVm.treeVm.rootVm?.touchElement = .leaf
             for leaf in nodeVm.node.leaves {
                 leaf.touchLeaf($0)
             }

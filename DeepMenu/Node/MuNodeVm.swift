@@ -69,6 +69,17 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
                          y: fr.origin.y + fr.size.height/2)
     }
 
+    /// evenly space branches leading up to current branch's position
+    func refreshBranch() {
+
+        superSpotlight()
+
+        if type.isLeaf == true {
+            print("🍁")
+        }
+        branchVm.expandBranch()
+        branchVm.treeVm.refreshTree(branchVm)
+    }
 }
 extension MuNodeVm {
     

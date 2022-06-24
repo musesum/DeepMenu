@@ -16,6 +16,7 @@ class MuBranchVm: Identifiable, ObservableObject {
 
     var isRoot: Bool = false
     var bounds: CGRect = .zero
+    var boundsPad: CGRect = .zero /// extended bounds for capturing finger drag
     var level: CGFloat = 0     /// zIndex within sub/super branches
     var reverse = false        /// show in reverse order
 
@@ -63,20 +64,9 @@ class MuBranchVm: Identifiable, ObservableObject {
         }
     }
     
-    /// evenly space branches leading up to current branch's position
-    func refreshBranch(_ nodeNextVm: MuNodeVm?) {
-
-        nodeNextVm?.superSpotlight()
-
-        if nodeSpotVm?.type.isLeaf == true {
-            print("🍁")
-        }
-        expandBranch()
-        treeVm.refreshTree(self)
-    }
-
+   
     /// add a branch to selected node and follow next node
-    private func expandBranch() {
+    func expandBranch() {
 
         guard let nodeSpotVm = nodeSpotVm else { return }
 
@@ -110,15 +100,14 @@ class MuBranchVm: Identifiable, ObservableObject {
 
 
     /**
-     May be updated after init for root tree inside updateRoot
+     May be updated after init for root tree inside update Root
      */
     func updateTree(_ treeVm: MuTreeVm?) {
         guard let treeVm = treeVm else { return }
-
         self.treeVm = treeVm
-
         if let center = nodeSpotVm?.prevVm?.center {
             bounds = panelVm.getBounds(from: center)
+            boundsPad = bounds + Layout.padding
         }
     }
 
@@ -149,6 +138,7 @@ class MuBranchVm: Identifiable, ObservableObject {
     func updateBounds(_ from: CGRect) {
         if bounds != from {
             bounds = panelVm.updateBounds(from)
+            boundsPad = bounds + Layout.padding
             // log("∿" + title, from, bounds)
         }
     }

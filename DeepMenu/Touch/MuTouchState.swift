@@ -7,22 +7,22 @@ class MuTouchState {
     static let tapThreshold = TimeInterval(0.5) // tap time threshold
     private let speedThreshold = CGFloat(400) // test to skip branches
     private var timeBegin = TimeInterval(0) // starting time for tap candidate
-    private var timeLast = TimeInterval(0)  // time of last reported touch
+    private var timePrev = TimeInterval(0)  // previous time of reported touch
     private var timeEnded = TimeInterval(0) // ending time for tap candidate
-    private var timeBeginDelta = TimeInterval(0) // time elapsed since beginning
-    private var timeLastDelta = TimeInterval(0) // time elapsed since last interval
+    private var timeBeginΔ = TimeInterval(0) // time elapsed since beginning
+    private var timePrevΔ = TimeInterval(0) // time elapsed since last interval
 
     private var moveThreshold = CGFloat(5)  // move distance to reset tapCount
     private var pointBegin = CGPoint.zero   // where touch started
 
     var tapCount = 0  // number of taps
-    var pointNow = CGPoint.zero // current position of touch
     var isFast = false // move fast to skip branches
+    var pointNow = CGPoint.zero // current position of touch
 
-    private var pointLast = CGPoint.zero  // last reported touch while moving
+    private var pointPrev = CGPoint.zero  // last reported touch while moving
     private var touchSpeed = CGFloat.zero // speed while moving
-    private var pointBeginDelta = CGPoint.zero // pointNow - pointBegin
-    private var pointLastDelta = CGPoint.zero // pointNow - pointLast
+    private var pointBeginΔ = CGPoint.zero // pointNow - pointBegin
+    private var pointPrevΔ = CGPoint.zero // pointNow - pointLast
 
     var touching: Bool { return timeEnded > timeBegin }
 
@@ -34,13 +34,13 @@ class MuTouchState {
             tapCount = 0 // not a tap
         }
         timeBegin = timeNow
-        timeLast = timeNow
-        timeBeginDelta = 0
-        timeLastDelta = 0
+        timePrev = timeNow
+        timeBeginΔ = 0
+        timePrevΔ = 0
         pointBegin = pointNow
-        pointLast = pointNow
-        pointBeginDelta = .zero
-        pointLastDelta = .zero
+        pointPrev = pointNow
+        pointBeginΔ = .zero
+        pointPrevΔ = .zero
 
         log(time: 0, "🟢")
     }
@@ -48,17 +48,17 @@ class MuTouchState {
     private func updateTimePoint(_ point: CGPoint) {
 
         let timeNow = Date().timeIntervalSince1970
-        timeBeginDelta =  timeNow - timeBegin
-        timeLastDelta = timeNow - timeLast
-        timeLast = timeNow
+        timeBeginΔ =  timeNow - timeBegin
+        timePrevΔ = timeNow - timePrev
+        timePrev = timeNow
 
         pointNow = point
-        pointBeginDelta = point - pointBegin
-        pointLastDelta = pointLast - point
-        pointLast = point
+        pointBeginΔ = point - pointBegin
+        pointPrevΔ = pointPrev - point
+        pointPrev = point
 
-        let distance = pointLastDelta.distance(.zero)
-        let speed = CGFloat(distance/timeLastDelta)
+        let distance = pointPrevΔ.distance(.zero)
+        let speed = CGFloat(distance/timePrevΔ)
         isFast = speed > speedThreshold
        // if isFast { log("🏁", [speed], terminator: " ") }
     }
@@ -74,17 +74,17 @@ class MuTouchState {
     func ended(_ point: CGPoint) {
 
         updateTimePoint(point)
-        pointBeginDelta = point - pointLast
-        timeEnded = timeLast
-        timeBeginDelta = timeEnded - timeBegin
+        pointBeginΔ = point - pointPrev
+        timeEnded = timePrev
+        timeBeginΔ = timeEnded - timeBegin
         updateTapCount()
-        log(time: timeBeginDelta, "🔴")
+        log(time: timeBeginΔ, "🔴")
     }
 
     func updateTapCount() {
-        if timeBeginDelta < MuTouchState.tapThreshold {
+        if timeBeginΔ < MuTouchState.tapThreshold {
             tapCount += 1
-            log(time: timeBeginDelta, "🟣" + superScript(tapCount))
+            log(time: timeBeginΔ, "🟣" + superScript(tapCount))
         } else {
             tapCount = 0
         }

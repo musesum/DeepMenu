@@ -7,7 +7,6 @@ class MuLeafValVm: MuLeafVm {
 
     var thumb = CGFloat(0)
     var proto: MuNodeProtocol?
-
     var range: ClosedRange<Float> = 0...1
 
     init (_ node: MuNode,

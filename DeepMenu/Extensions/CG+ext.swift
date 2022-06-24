@@ -117,6 +117,15 @@ extension CGRect {
                        height: h * scale)
         return r
     }
+
+    public static func + (lhs: CGRect, rhs: CGFloat) -> CGRect {
+        let xx = lhs.origin.x - rhs
+        let yy = lhs.origin.y - rhs
+        let ww = lhs.width + rhs * 2
+        let hh = lhs.height + rhs * 2
+        let s = CGRect(x: xx, y: yy, width: ww, height: hh)
+        return s
+    }
 }
 
 extension CGPoint {

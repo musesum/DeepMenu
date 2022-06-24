@@ -9,8 +9,6 @@ class MuLeafSegVm: MuLeafVm {
     var proto: MuNodeProtocol?
     var range: ClosedRange<Float> = 0...1
 
-    lazy var count: CGFloat = { CGFloat(range.upperBound - range.lowerBound) }()
-
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
           _ prevVm: MuNodeVm?,
@@ -35,9 +33,11 @@ class MuLeafSegVm: MuLeafVm {
         return panelVm.normalizeTouch(v: v)
     }
     /// scale up normalized to defined range
-    var scaled: Float {
+    var expanded: Float {
         scale(Float(nearestTick), from: 0...1, to: range)
     }
+
+    lazy var count: CGFloat = { CGFloat(range.upperBound - range.lowerBound) }()
 
 
     /// adjust branch and panel sizes for smaller segments
@@ -59,12 +59,14 @@ class MuLeafSegVm: MuLeafVm {
     /// but never on panel border or thumb border
     lazy var ticks: [CGSize] = {
         var result = [CGSize]()
+        let runway = panelVm.runway
+        let radius = panelVm.thumbRadius
         let count = range.upperBound - range.lowerBound
         if count < 1 { return [] }
-        let span = 1/max(1,count)
+        let span = CGFloat(1/max(1,count))
         let margin = Layout.diameter/2 - 2
-        for index in stride(from: Float(0), through: 1, by: span) {
-            let ofs = CGFloat(index) * panelVm.runway +  panelVm.thumbRadius
+        for v in stride(from: 0, through: 1, by: span) {
+            let ofs = v * runway + radius
             let size = panelVm.axis == .vertical
             ? CGSize(width: margin, height: ofs)
             : CGSize(width: ofs, height: margin)
@@ -81,7 +83,7 @@ extension MuLeafSegVm: MuLeafModelProtocol {
         if point != .zero {
             editing = true
             thumb = normalizedTouch(point)
-            proto?.setAny(named: type.name, scaled)
+            proto?.setAny(named: type.name, expanded)
         } else {
             editing = false
         }

@@ -6,6 +6,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     static func == (lhs: MuTreeVm, rhs: MuTreeVm) -> Bool { return lhs.id == rhs.id }
 
     @Published var branchVms = [MuBranchVm]()
+    var branchSpot: MuBranchVm?
 
     var axis: Axis  // vertical or horizontal
     var corner: MuCorner
@@ -45,12 +46,27 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
      first place. So, allow a wider touch area to stay within
      that branch.
      */
+    func nearestTrunk(_ touchNow: CGPoint) -> MuBranchVm? {
+        if let firstBranch = branchVms.first,
+           firstBranch.show {
 
+            firstBranch.boundsPad.contains(touchNow)
+            return firstBranch
+        }
+        return nil
+    }
     func nearestBranch(_ touchNow: CGPoint) -> MuBranchVm? {
+
+        if let branchSpot = branchSpot,
+           branchSpot.boundsPad.contains(touchNow),
+           branchSpot.show {
+
+            return branchSpot
+        }
 
         for branchVm in branchVms {
             if branchVm.show == true,
-                branchVm.bounds.contains(touchNow) {
+                branchVm.boundsPad.contains(touchNow) {
                 return branchVm
             }
         }
@@ -85,21 +101,20 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
     func showBranches(depth depthNext: Int) {
 
-        var lag = TimeInterval(0)
+        //?? var lag = TimeInterval(0) //TODO: needs to be cancellable
         var newBranches = [MuBranchVm]()
 
-        logStart()
+        //logStart()
         if      depthShown < depthNext { expandBranches() }
         else if depthShown > depthNext { contractBranches() }
-        logFinish()
+        //logFinish()
 
         func expandBranches() {
             var countUp = 0
             for branch in branchVms {
                 if countUp < depthNext {
                     newBranches.append(branch)
-                    Schedule(lag) { branch.show = true }
-                    lag += Layout.lagStep
+                    branch.show = true //?? Schedule(lag) {  } lag += Layout.lagStep
                 } else {
                     branch.show = false
                 }
@@ -112,8 +127,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
             for branch in branchVms.reversed() {
                 if countDown > depthNext,
                    branch.show == true {
-                    Schedule(lag) { branch.show = false }
-                    lag += Layout.lagStep
+                    branch.show = false //?? Schedule(lag) {  } lag += Layout.lagStep
                 }
                 countDown -= 1
             }

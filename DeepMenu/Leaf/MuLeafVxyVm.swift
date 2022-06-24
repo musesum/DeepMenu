@@ -38,6 +38,30 @@ class MuLeafVxyVm: MuLeafVm {
         let result = scale(Float(value), from: 0...1, to: range)
         return result
     }
+
+    var nearestTick: CGPoint {
+        CGPoint(x: round(thumb.x * 2) / 2,
+                y: round(thumb.y * 2) / 2)
+    }
+
+    /// ticks above and below nearest tick,
+    /// but never on panel border or thumb border
+    lazy var ticks: [CGSize] = {
+        var result = [CGSize]()
+        let runway = self.panelVm.runway2
+        let radius = self.panelVm.thumbRadius
+        let span = CGFloat(0.5)
+        let margin = Layout.diameter/2 - 2
+        for w in stride(from: CGFloat(0), through: 1, by: span) {
+            for h in stride(from: CGFloat(0), through: 1, by: span) {
+
+                let tick = CGSize(width:  w * runway.x,
+                                  height: h * runway.y)
+                result.append(tick)
+            }
+        }
+        return result
+    }()
 }
 // Model
 extension MuLeafVxyVm: MuLeafModelProtocol {

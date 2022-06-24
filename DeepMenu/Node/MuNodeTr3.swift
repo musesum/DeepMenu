@@ -31,16 +31,6 @@ class MuNodeTr3: MuNode {
 
 extension MuNodeTr3: MuNodeProtocol {
 
-    func setPoint(_ point: CGPoint) {
-        var options = Tr3SetOptions([.activate, .zero1])
-        if caching { options.insert(.cache) }
-        tr3.setAny(point, options, Visitor(id))
-    }
-
-    func getPoint() -> CGPoint {
-        return tr3.CGPointVal() ?? .zero
-    }
-
     func setAny(named: String,_ any: Any) {
 
         var options = Tr3SetOptions([.activate, .zero1])

@@ -15,5 +15,6 @@ struct MenuView: View {
             .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
                 .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
             .onChange(of: touchXY) { menuVm.rootVm.touchVm.touchUpdate($0) }
+            //?? .defersSystemGestures(on: .vertical)
     }
 }

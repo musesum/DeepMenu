@@ -3,25 +3,37 @@
 // Created by warren 10/13/21.
 
 import SwiftUI
+import Tr3
 
 class MuRootVm: ObservableObject, Equatable {
     let id = MuIdentity.getId()
     static func == (lhs: MuRootVm, rhs: MuRootVm) -> Bool { return lhs.id == rhs.id }
 
-    var status = MuRootStatus.root {
+    /// what is the finger touching
+    var touchElement = MuElement.none {
         willSet {
-            if status != newValue {
+            if touchElement != newValue {
                 objectWillChange.send()
-                print(newValue.symbol, terminator: " ")
+            }
+        }
+    }
+    /// beginning touch snapshot of viewElements
+    var beginElements: Set<MuElement> = []
+
+    /// which elements are shown on View
+    var viewElements: Set<MuElement> = [.home, .trunks] {
+        willSet {
+            if viewElements != newValue {
+                log(":", [beginElements,"⟶",newValue], terminator: " ")
             }
         }
     }
 
     func updateChanged(nodeSpotVm: MuNodeVm) {
-
         if self.nodeSpotVm != nodeSpotVm  {
             self.nodeSpotVm = nodeSpotVm
-            nodeSpotVm.branchVm.refreshBranch(nodeSpotVm)
+            nodeSpotVm.refreshBranch()
+            nodeSpotVm.superSpotlight()
         }
     }
 
@@ -30,7 +42,6 @@ class MuRootVm: ObservableObject, Equatable {
     var treeVms = [MuTreeVm]()   /// vertical or horizontal stack of branches
     var treeSpotVm: MuTreeVm?    /// most recently used tree
     var nodeSpotVm: MuNodeVm?    /// current spotlight node
-    var touchState = MuTouchState() /// begin,moved,end state plus tap count
 
     init(_ corner: MuCorner, treeVms: [MuTreeVm]) {
 
@@ -48,7 +59,7 @@ class MuRootVm: ObservableObject, Equatable {
     /**
      Adjust tree offsets iPhone and iPad to avoid false positives, now that springboard adds a corner hotspot for launching the notes app. Also, adjust pilot offsets for home root and for flying.
 
-     The fly ring is bigger than the home ring, so the offsets are different. To test alignment, comment out the `.opacity(...)` statements in MuBranchView. The fly ring should come to home after dragDone and encircle the home ring.
+     The dragNode ring is bigger than the home ring, so the offsets are different. To test alignment, comment out the `.opacity(...)` statements in MuBranchView. The dragNode ring should come to home after dragDone and encircle the home ring.
      */
     func updateOffsets() {
 
@@ -84,7 +95,7 @@ class MuRootVm: ObservableObject, Equatable {
         let margin = 2 * Layout.padding
         let x = (idiom == .pad ? margin : 0)
         let y = ((corner.contains(.upper) && idiom == .phone) ||
-                  (corner.contains(.lower) && idiom == .pad))  ? margin : 0
+                 (corner.contains(.lower) && idiom == .pad))  ? margin : 0
         let w = frame.size.width
         let h = frame.size.height
         let s = Layout.padding
@@ -101,156 +112,172 @@ class MuRootVm: ObservableObject, Equatable {
 
     var lastLog = "" // compare to avoid duplicate log statements
 
-    var beginDepths: ClosedRange<Int> {
-        var maxDepth = 0
-        var minDepth = 99 // instead of Int.max for readable logs
-        for treeVm in treeVms {
-            let depth = treeVm.depthShown
-            maxDepth = max(maxDepth,depth)
-            minDepth = min(minDepth,depth)
-        }
-        return minDepth...maxDepth
-    }
-
-    /// touch began at first encountered branch
-    func begin( _ touchNow: CGPoint) {
-
-        touchState.begin(touchNow)
-        updateRoot()
-    }
-
-    // touch began at first encountered branch
-    func moved(_ touchNow: CGPoint) {
-
-        touchState.moved(touchNow)
-        if !touchState.isFast {
-            updateRoot()
-        }
-    }
-
-    func onSameNode(_ touchNow: CGPoint) -> MuNodeVm? {
-        // is hovering over same node as before
-        if let center = nodeSpotVm?.center,
-           center.distance(touchNow) < Layout.diameter {
-            return nodeSpotVm
-        }
-        return nil
-    }
-
-    func ended(_ touchNow: CGPoint) {
-
-        touchState.ended(touchNow)
-
-        // tapped on something
-        if touchState.tapCount > 0 {
-            // search branches and node within that branch
-            if let branchVm = treeSpotVm?.nearestBranch(touchNow),
-               let nodeVm = branchVm.findNearestNode(touchNow) {
-
-                branchVm.refreshBranch(nodeVm)
-                updateChanged(nodeSpotVm: nodeVm)
-            } else {
-                toggleBranches(lowestDepth: 0)
-            }
-            resetRootTimer(delay: 8)
-        }
-        status = .root
-    }
-
-    /// save time with going from depth 0 to depth 1
-    var toggleDepth01Time = TimeInterval(0)
-
-    func toggleBranches(lowestDepth: Int) {
-        // going from depth 0 -> 1
-        if lowestDepth == 1, beginDepths == 0...0 {
-            toggleDepth01Time = Date().timeIntervalSince1970
-        }
-        // skip going from 1 -> 0  if recently went from 0 -> 1
-        else if lowestDepth == 0 {
-            let deltaTime = Date().timeIntervalSince1970 - toggleDepth01Time
-            // already expanded from 0 to 1 at beginning of tap
-            if deltaTime < MuTouchState.tapThreshold {
-                return
-            }
-        }
-
-        let depth = (beginDepths == 1...1 ? lowestDepth : 1)
-        for treeVm in treeVms {
-            treeVm.showBranches(depth: depth)
-        }
+    func beginRoot(_ touchNow: CGPoint) {
+        beginElements = viewElements
+        updateRoot(touchNow)
     }
 
     /// [begin | moved] >> updateRoot
-    func updateRoot() {
+    func updateRoot(_ touchNow: CGPoint, taps: Int = 0) {
 
         resetRootTimer()
-        if let nodeVm = followTouch(touchState.pointNow)  {
-            nodeSpotVm = nodeVm
-            nodeSpotVm?.superSpotlight()
-        }
-        alignSpotWithTouch(touchState.pointNow)
-    }
 
-    private func followTouch(_ touchNow: CGPoint) -> MuNodeVm? {
-
-        // check current set of menus
-        if let treeNowVm = treeSpotVm,
-           let nearestBranch = treeNowVm.nearestBranch(touchNow),
-           let nearestNode = nearestBranch.findNearestNode(touchNow) {
-
-            updateChanged(nodeSpotVm: nearestNode)
-            status = .tree
-            return nearestNode
+        if        hoverNodeSpot() {
+        } else if tapHomeNode() {
+        } else if hoverHomeNode() {
+        } else if hoverTreeNow() {
+        } else if hoverTreeAlts() {
 
         } else {
-            // check other set of menus
-            for treeVm in treeVms {
-                if treeVm != treeSpotVm,
-                   let nearestBranch = treeVm.nearestBranch(touchNow),
-                   let nearestNode = nearestBranch.findNearestNode(touchNow) {
-
-                    updateChanged(nodeSpotVm: nearestNode)
-                    treeSpotVm?.showBranches(depth: 0)   // retract old tree
-                    treeSpotVm = treeVm                  // set new tree
-                    treeSpotVm?.showBranches(depth: 999) // expand new tree
-                    status = .tree
-                    return nearestNode
-                }
-            }
-        }
-        // hovering over root
-        let touchDelta = touchVm.pointHome.distance(touchNow)
-        if  touchDelta < Layout.insideNode {
-            if status != .root {
-                status = .root
-                toggleBranches(lowestDepth: 1)
-            } else {
-                status = .root
-            }
-            alignSpotWithTouch(touchNow)
-        }
-        else {
-            status = .space
+            touchElement = .space
             nodeSpotVm = nil
         }
-        return nil
-    }
 
-    /// either center flight icon on spotNode or track finger
+        alignSpotWithTouch(touchNow)
+
+        func hoverNodeSpot() -> Bool {
+            if let nodeSpotVm = nodeSpotVm,
+               nodeSpotVm.center.distance(touchNow) < Layout.insideNode {
+
+                touchElement = nodeSpotVm.type.isLeaf ? .leaf : .node
+                return true
+            }
+            return false
+        }
+
+        func hoverTreeNow() -> Bool {
+            // check current set of menus
+            if let treeNowVm = treeSpotVm,
+               let nearestBranch = treeNowVm.nearestBranch(touchNow),
+               let nearestNode = nearestBranch.findNearestNode(touchNow) {
+
+                updateChanged(nodeSpotVm: nearestNode)
+                if !viewElements.contains(.branch) {
+                    log("~", terminator: "")
+                    viewElements = [.home,.branch]
+                    touchElement = .branch
+                }
+                return true
+            }
+            return false
+        }
+        func hoverTreeAlts()-> Bool {
+            // hovering over hidden trunk of another tree?
+            for treeVm in treeVms {
+                if treeVm != treeSpotVm,
+                   let nearestTrunk = treeVm.nearestTrunk(touchNow),
+                   let nearestNode = nearestTrunk.findNearestNode(touchNow) {
+                    treeSpotVm = treeVm                  // set new tree
+
+                    for treeVm in treeVms {
+                        if treeVm == treeSpotVm {
+                            treeVm.showBranches(depth: 999)
+                        } else {
+                            treeVm.showBranches(depth: 0)
+                        }
+                    }
+                    updateChanged(nodeSpotVm: nearestNode)
+
+                    log("≈", terminator: "")
+                    viewElements = [.home,.branch]
+                    touchElement = .branch
+                    return true
+                }
+            }
+            return false
+        }
+        func tapHomeNode() -> Bool {
+            // hovering over root in corner?
+            if taps > 0 {
+                let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
+                if  homeIconΔ < Layout.insideNode {
+                    if beginElements.intersection([.branch,.trunks]).count > 0 {
+                        hideBranches()
+                    } else {
+                        showBranches()
+                    }
+                    touchElement = .none
+                    return true
+                }
+            }
+            return false
+        }
+        func hoverHomeNode() -> Bool {
+            // hovering over root in corner?
+            let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
+            if  homeIconΔ < Layout.insideNode,
+                touchElement != .home {
+
+                touchElement = .home
+                if viewElements.intersection([.branch,.trunks]).count > 0 {
+                    showTrunks()
+                } else {
+                    showBranches()
+                }
+                beginElements = viewElements
+                return true
+            }
+            return false
+        }
+        func showTrunks() {
+            if treeVms.count == 1 {
+                showSoloTree()
+            } else {
+                for treeVm in treeVms {
+                    treeVm.showBranches(depth: 1)
+                }
+                treeSpotVm = nil
+                log("+ᛘ", terminator: "")
+                viewElements = [.home, .trunks]
+            }
+        }
+        func showSoloTree() {
+            if let treeVm = treeVms.first {
+                treeSpotVm = treeVm
+                treeVm.showBranches(depth: 999)
+                log("+𐂷", terminator: "")
+                viewElements = [.home,.branch]
+            }
+        }
+        func showBranches() {
+            if let treeSpotVm = treeSpotVm {
+                for treeVm in treeVms {
+                    if treeVm == treeSpotVm {
+                        treeVm.showBranches(depth: 999)
+                    } else {
+                        treeVm.showBranches(depth: 0)
+                    }
+                    log("+𐂷", terminator: "")
+                    viewElements = [.home,.branch]
+                }
+            } else {
+                showTrunks()
+            }
+        }
+        func hideBranches() {
+            for treeVm in treeVms {
+                treeVm.showBranches(depth: 0)
+            }
+            treeSpotVm = nil
+            log("-𐂷", terminator: "")
+            viewElements = [.home]
+        }
+    }
+    /// either center dragNode icon on spotNode or track finger
     private func alignSpotWithTouch(_ touchNow: CGPoint) {
 
         guard let nodeSpotVm = nodeSpotVm else {
-            touchVm.updatePointNow(touchNow)
+            touchVm.updateDragIcon(touchNow)
             return
         }
         if nodeSpotVm.type.isLeaf {
             // return dragNode to homeNode
-            touchVm.pointNow = touchVm.pointHome
-            touchVm.updateDelta(.zero)
+            touchVm.dragIconXY = touchVm.homeIconXY
+            touchVm.updateSpotΔ(.zero)
         } else {
             // center dragNode to center of nodeSpot
-            let delta = nodeSpotVm.center - touchNow
-            touchVm.updateDelta(delta)
+            let spotΔ = nodeSpotVm.center - touchNow
+            touchVm.updateSpotΔ(spotΔ)
         }
     }
 
@@ -259,7 +286,7 @@ class MuRootVm: ObservableObject, Equatable {
 
     /// cancel timer that auto-tucks in branches
     func resetRootTimer(delay: TimeInterval = -1) {
-        #if false
+#if false
         rootTimer?.invalidate()
         
         if delay < 0 { return } // started dragging, so don't finish old one
@@ -268,11 +295,11 @@ class MuRootVm: ObservableObject, Equatable {
             for treeVm in treeVms {
                 treeVm.showBranches(depth: 0)
             }
-            status = .root
+            touchElement = .home
         }
         rootTimer = Timer.scheduledTimer(withTimeInterval: delay,
-                                        repeats: false,
-                                        block: resetting)
-        #endif
+                                         repeats: false,
+                                         block: resetting)
+#endif
     }
 }

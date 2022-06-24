@@ -5,26 +5,34 @@ import SwiftUI
 /// Corner node which follows touch
 class MuTouchVm: ObservableObject {
 
-    @Published var pointNow = CGPoint.zero    // current position
-    public var pointHome = CGPoint.zero  // starting position of touch
-    var alpha: CGFloat { (pointNow == pointHome) || (pointNow == .zero) ? 1 : 0 }
+    @Published var dragIconXY = CGPoint.zero    // current position
+    public var homeIconXY = CGPoint.zero  // starting position of touch
+    var alpha: CGFloat { (dragIconXY == homeIconXY) || (dragIconXY == .zero) ? 1 : 0 }
 
     var rootVm: MuRootVm?      //
     var homeNodeVm: MuNodeVm?  // fixed home node in corner in which to drag from
     var dragNodeVm: MuNodeVm?  // drag from home with duplicate node icon
+    var touchState = MuTouchState() /// begin,moved,end state plus tap count
 
-    private var touchOfs = CGSize.zero // offset between rootNode and touchNow
-    private var deltaOfs = CGSize.zero // offset between touch point and center in coord
+    private var homeNodeΔ = CGSize.zero // offset between rootNode and touchNow
+    private var spotNodeΔ = CGSize.zero // offset between touch point and center in coord
 
-    var pilotOfs: CGSize {
-        switch rootVm?.status ?? .root {
-            case .root:  return touchOfs
-            case .tree:  return deltaOfs
-            case .edit:  return .zero
-            case .space: return deltaOfs
-        }}
+    /// adjust hovering node icon during drag gesture
+    var dragΔ: CGSize {
+        switch rootVm?.touchElement ?? .home {
+            case .none   : return .zero
+            case .home   : return homeNodeΔ
+            case .trunks : return .zero
+            case .branch : return spotNodeΔ
+            case .node   : return spotNodeΔ
+            case .leaf   : return .zero
+            case .edit   : return .zero
+            case .space  : return .zero
+            case .edge   : return .zero
+        }
+    }
 
-    func setRoot(_ rootVm: MuRootVm) {
+    public func setRoot(_ rootVm: MuRootVm) {
         guard let treeVm = rootVm.treeSpotVm else { return }
         self.rootVm = rootVm
         let homeNode = MuNodeTest("⚫︎") //todo: replace with ??
@@ -38,26 +46,6 @@ class MuTouchVm: ObservableObject {
 
         branchVm.addNodeVm(homeNodeVm)
     }
-    
-
-    /// adjust offset for root on right side of canvas
-    func rightSideOffset(for rootStatus: MuRootStatus) -> CGFloat {
-        guard let rootVm = rootVm else { return 0 }
-        if rootVm.status == rootStatus,
-           rootVm.corner.contains(.right) {
-            return -(2 * Layout.padding)
-        } else {
-            return 0
-        }
-    }
-
-    func updatePointNow( _ touchNow: CGPoint) {
-        pointNow = touchNow
-        let homeCenter = homeNodeVm?.center ?? .zero
-        touchOfs = CGSize(homeCenter - touchNow)
-        touchOfs.width += rightSideOffset(for: .root)
-        deltaOfs = .zero
-    }
 
     /** via MuBranchView::@GestureState touchNow .onChange,
      which also detects end when touchNow is reset to .zero
@@ -70,23 +58,28 @@ class MuTouchVm: ObservableObject {
 
         func begin() {
             guard let homeNodeVm = homeNodeVm else { return }
-            updatePointNow(touchNow)
+            updateDragIcon(touchNow)
             dragNodeVm = homeNodeVm.copy()
-            rootVm?.begin(touchNow)  
-            log("touch", [touchNow], terminator: " ")
-            //log("root", [baseNodeVm.center], terminator: " ")
+            touchState.begin(touchNow)
+            rootVm?.beginRoot(touchNow)
+            // log("touch", [touchNow], terminator: " ")
         }
 
         func moved() {
-            pointNow = touchNow
-            rootVm?.moved(pointNow)
+            dragIconXY = touchNow
+            touchState.moved(touchNow)
+            if !touchState.isFast {
+                rootVm?.updateRoot(touchNow)
+            }
         }
 
         func ended() {
-            rootVm?.ended(pointNow) // touchNow is now .zero
-            pointNow = pointHome
-            deltaOfs = .zero
-            touchOfs = .zero
+            let lastPoint = touchState.pointNow
+            touchState.ended(touchNow)
+            rootVm?.updateRoot(lastPoint, taps: touchState.tapCount)
+            dragIconXY = homeIconXY
+            spotNodeΔ = .zero // no spotNode to align with
+            homeNodeΔ = .zero // go back to rootNode
 
             DispatchQueue.main.asyncAfter(deadline: .now() + Layout.animate) {
                 touchDone()
@@ -98,15 +91,34 @@ class MuTouchVm: ObservableObject {
         }
     }
 
-    func updateHome(_ fr: CGRect) {
-        pointHome = rootVm?.cornerXY(in: fr) ?? .zero
-        pointNow = pointHome
+    /// adjust offset for root on right side of canvas
+    func rightSideOffset(for rootStatus: MuElement) -> CGFloat {
+        guard let rootVm = rootVm else { return 0 }
+        if rootVm.touchElement == rootStatus,
+           rootVm.corner.contains(.right) {
+            return -(2 * Layout.padding)
+        } else {
+            return 0
+        }
+    }
+
+    func updateDragIcon( _ touchNow: CGPoint) {
+        dragIconXY = touchNow
+        let homeCenter = homeNodeVm?.center ?? .zero
+        homeNodeΔ = CGSize(homeCenter - touchNow)
+        homeNodeΔ.width += rightSideOffset(for: .home)
+        spotNodeΔ = .zero
+    }
+
+    func updateHomeIcon(_ fr: CGRect) {
+        homeIconXY = rootVm?.cornerXY(in: fr) ?? .zero
+        dragIconXY = homeIconXY
         // log("home: ", [pointNow])
     }
 
-    func updateDelta(_ pointDelta: CGPoint) {
-        deltaOfs = .zero + pointDelta
-        deltaOfs.width += rightSideOffset(for: .tree)
-         // log("Δ ", [pointNow, deltaOfs])
+    func updateSpotΔ(_ pointΔ: CGPoint) {
+        self.spotNodeΔ = CGSize(pointΔ)
+        self.spotNodeΔ.width += rightSideOffset(for: .branch)
+        // log("Δ ", [pointNow, deltaOfs])
     }
 }

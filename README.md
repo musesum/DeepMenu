@@ -106,15 +106,11 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
     - requires a manually enforced coding policy 
         
 ### SwiftLint violations - emphasis on columnwise alignment
-    
 + Column-wise comments on right side
- 
 + Finite State Machine columns for case statements
-
 + pros
   - Human Readable; catch mistakes
   - allow column-wise cursor to edit multiple rows at a time    
-
 + cons 
   - when refactoring, may need manual fixup
   - will not pass standard SwiftLint
@@ -139,23 +135,6 @@ DeepMenu follows a MVVM pattern (Model, View, View Model)
          name =
          longerName =
              
-##### Whitespace row after func (...)
- 
-+ separate spacer line after - easier to scan code for functions
-
-        func foo (...) {
-            
-            let whatever = something
-            ...
-    
-+ except for parameter cleanup - treated as part of entry point
-    
-        func foo(bar: Bar?) {
-            guard bar = bar else { return }
-            
-            let whatever = something
-            ...
-
 see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
         using typography for source code
          

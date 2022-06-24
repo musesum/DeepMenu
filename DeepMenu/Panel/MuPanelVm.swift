@@ -62,6 +62,12 @@ class MuPanelVm {
         return result
     }
 
+    lazy var runway2: CGPoint = {
+        CGPoint(x: inner.height - thumbDiameter,
+                y: inner.width - thumbDiameter)
+    }()
+
+
     var inner: CGSize {
         let result = aspectSz * Layout.diameter
         return result

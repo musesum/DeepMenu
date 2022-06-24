@@ -9,6 +9,7 @@ struct MuLeafSegView: View {
 
     var body: some View {
         MuLeafView(leafVm) {
+            // tick marks
             ForEach(leafVm.ticks, id: \.self) {
                 Capsule()
                     .fill(.gray)
@@ -16,6 +17,7 @@ struct MuLeafSegView: View {
                     .offset(CGSize(width: $0.width, height: $0.height))
                     .allowsHitTesting(false)
             }
+            // thumb dot
             Capsule()
                 .fill(.white)
                 .frame(width:  panelVm.thumbDiameter,

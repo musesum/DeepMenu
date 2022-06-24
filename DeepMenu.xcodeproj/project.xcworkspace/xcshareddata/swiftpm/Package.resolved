@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/Par.git",
       "state" : {
-        "revision" : "4467875ccdf340865d7b90f4f19d6d26e55d3292",
-        "version" : "0.2.30"
+        "revision" : "71141072e17c33491f854fe98cf4b748f0419bd7",
+        "version" : "0.2.31"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/Tr3",
       "state" : {
-        "revision" : "7e77f77fc745df25734852d54072cf027a37eb0b",
-        "version" : "0.2.30"
+        "revision" : "9a36235d5c5f443a24f7e10ce966891f2f27162c",
+        "version" : "0.2.31"
       }
     },
     {

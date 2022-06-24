@@ -5,20 +5,22 @@ import SwiftUI
 
 func log(_ title: String,
          format: String = "%.0f",
-         _ items: [Any],
+         _ items: [Any] = [],
          terminator: String = "\n") {
+
     var text = title
     for item in items {
         switch item {
-            case let v as CGFloat:  text += String(format: "(\(format)) ", v)
-            case let v as Float:    text += String(format: "(\(format)) ", v)
+            case let v as CGFloat : text += String(format: "(\(format)) ", v)
+            case let v as Float   : text += String(format: "(\(format)) ", v)
+            case let v as CGPoint : text += String(format: "∙(\(format), \(format)) ", v.x, v.y)
+            case let v as CGSize  : text += String(format: "∘(\(format), \(format)) ",
+                                                   v.width, v.height)
+            case let v as CGRect  : text += String(format: "◻︎(\(format),\(format); \(format),\(format)) ", v.origin.x, v.origin.y, v.size.width, v.size.height)
 
-            case let v as CGPoint: text += String(format: "∙(\(format), \(format)) ",
-                                                  v.x, v.y)
-            case let v as CGSize:  text += String(format: "∘(\(format), \(format)) ",
-                                                  v.width, v.height)
-            case let v as CGRect:  text += String(format: "◻︎(\(format),\(format); \(format),\(format)) ",
-                                                  v.origin.x, v.origin.y, v.size.width, v.size.height)
+            case let v as MuElement: text += "\(v.symbol)"
+            case let v as Set<MuElement>: text += "\(MuElement.symbols(v))"
+            case let v as String: text += v
 
             default: break
         }
@@ -26,6 +28,8 @@ func log(_ title: String,
     print(text, terminator: terminator)
 }
 
-func log(time: TimeInterval, _ symbol: String) {
+func log(time: TimeInterval,
+         _ symbol: String) {
+
     print(String(format: "\n%.2f \(symbol)", time), terminator: " ")
 }
