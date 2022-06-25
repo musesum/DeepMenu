@@ -67,7 +67,6 @@ class MuBranchVm: Identifiable, ObservableObject {
    
     /// add a branch to selected node and follow next node
     func expandBranch() {
-
         guard let nodeSpotVm = nodeSpotVm else { return }
 
         if let leafVm = nodeSpotVm.leafVm {
@@ -98,9 +97,18 @@ class MuBranchVm: Identifiable, ObservableObject {
         }
     }
 
+    func skipBranches() -> Bool {
+        if nodeSpotVm?.nextBranchVm?.nodeSpotVm != nil {
+            // log("👶", terminator: "")
+            return true
+        } else {
+            return false
+        }
 
-    /**
-     May be updated after init for root tree inside update Root
+    }
+
+/**
+ May be updated after init for root tree inside update Root
      */
     func updateTree(_ treeVm: MuTreeVm?) {
         guard let treeVm = treeVm else { return }

@@ -10,25 +10,27 @@ class MuRootVm: ObservableObject, Equatable {
     static func == (lhs: MuRootVm, rhs: MuRootVm) -> Bool { return lhs.id == rhs.id }
 
     /// what is the finger touching
-    var touchElement = MuElement.none {
-        willSet {
-            if touchElement != newValue {
-                objectWillChange.send()
-            }
-        }
-    }
-    /// beginning touch snapshot of viewElements
-    var beginElements: Set<MuElement> = []
+    @Published var touchElement = MuElement.none
 
     /// which elements are shown on View
     var viewElements: Set<MuElement> = [.home, .trunks] {
-        willSet {
-            if viewElements != newValue {
+        willSet { if viewElements != newValue {
                 log(":", [beginElements,"⟶",newValue], terminator: " ")
-            }
-        }
-    }
+            } } }
 
+    /// touchBegin snapshot of viewElements
+    /// to prevent touch ended from hiding elements that
+    /// were shown (revealed at beginning of touch
+    var beginElements: Set<MuElement> = []
+
+    var corner: MuCorner         /// corner where root begins, ex: `[south,west]`
+    let touchVm = MuTouchVm()    /// captures touch events to dispatch to this root
+    var treeVms = [MuTreeVm]()   /// vertical or horizontal stack of branches
+    var treeSpotVm: MuTreeVm?    /// most recently used tree
+
+    /// current spotlight node
+    var nodeSpotVm: MuNodeVm?
+                                 ///
     func updateChanged(nodeSpotVm: MuNodeVm) {
         if self.nodeSpotVm != nodeSpotVm  {
             self.nodeSpotVm = nodeSpotVm
@@ -36,12 +38,6 @@ class MuRootVm: ObservableObject, Equatable {
             nodeSpotVm.superSpotlight()
         }
     }
-
-    var corner: MuCorner         /// corner where root begins, ex: `[south,west]`
-    let touchVm = MuTouchVm()    /// captures touch events to dispatch to this root
-    var treeVms = [MuTreeVm]()   /// vertical or horizontal stack of branches
-    var treeSpotVm: MuTreeVm?    /// most recently used tree
-    var nodeSpotVm: MuNodeVm?    /// current spotlight node
 
     init(_ corner: MuCorner, treeVms: [MuTreeVm]) {
 
@@ -54,7 +50,6 @@ class MuRootVm: ObservableObject, Equatable {
         touchVm.setRoot(self)
         updateOffsets()
     }
-
 
     /**
      Adjust tree offsets iPhone and iPad to avoid false positives, now that springboard adds a corner hotspot for launching the notes app. Also, adjust pilot offsets for home root and for flying.
@@ -112,11 +107,16 @@ class MuRootVm: ObservableObject, Equatable {
 
     var lastLog = "" // compare to avoid duplicate log statements
 
-    func beginRoot(_ touchNow: CGPoint) {
+    func touchBegin(_ touchState: MuTouchState) {
         beginElements = viewElements
-        updateRoot(touchNow)
+        updateRoot(touchState.pointNow)
     }
-
+    func touchMoved(_ touchState: MuTouchState) {
+        updateRoot(touchState.pointNow)
+    }
+    func touchEnded(_ touchState: MuTouchState) {
+        updateRoot(touchState.pointNow, taps: touchState.tapCount)
+    }
     /// [begin | moved] >> updateRoot
     func updateRoot(_ touchNow: CGPoint, taps: Int = 0) {
 
@@ -152,6 +152,7 @@ class MuRootVm: ObservableObject, Equatable {
                let nearestNode = nearestBranch.findNearestNode(touchNow) {
 
                 updateChanged(nodeSpotVm: nearestNode)
+
                 if !viewElements.contains(.branch) {
                     log("~", terminator: "")
                     viewElements = [.home,.branch]
@@ -191,7 +192,7 @@ class MuRootVm: ObservableObject, Equatable {
             if taps > 0 {
                 let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
                 if  homeIconΔ < Layout.insideNode {
-                    if beginElements.intersection([.branch,.trunks]).count > 0 {
+                    if beginElements.intersection( [.branch,.trunks]).count > 0 {
                         hideBranches()
                     } else {
                         showBranches()
@@ -205,16 +206,16 @@ class MuRootVm: ObservableObject, Equatable {
         func hoverHomeNode() -> Bool {
             // hovering over root in corner?
             let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
-            if  homeIconΔ < Layout.insideNode,
-                touchElement != .home {
+            if  homeIconΔ < Layout.insideNode {
 
-                touchElement = .home
-                if viewElements.intersection([.branch,.trunks]).count > 0 {
-                    showTrunks()
-                } else {
-                    showBranches()
+                if touchElement != .home {
+                    touchElement = .home
+                    if viewElements.intersection( [.branch,.trunks]).count > 0 {
+                        showTrunks()
+                    } else {
+                        showBranches()
+                    }
                 }
-                beginElements = viewElements
                 return true
             }
             return false

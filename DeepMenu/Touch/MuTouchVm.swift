@@ -5,11 +5,14 @@ import SwiftUI
 /// Corner node which follows touch
 class MuTouchVm: ObservableObject {
 
-    @Published var dragIconXY = CGPoint.zero    // current position
-    public var homeIconXY = CGPoint.zero  // starting position of touch
-    var alpha: CGFloat { (dragIconXY == homeIconXY) || (dragIconXY == .zero) ? 1 : 0 }
+    @Published var dragIconXY = CGPoint.zero /// current position
+    public var homeIconXY = CGPoint.zero     /// starting position of touch
 
-    var rootVm: MuRootVm?      //
+    /// hide home icon while hovering elsewhere
+    var homeAlpha: CGFloat {
+        (dragIconXY == homeIconXY) || (dragIconXY == .zero) ? 1 : 0 }
+
+    var rootVm: MuRootVm?      // manages
     var homeNodeVm: MuNodeVm?  // fixed home node in corner in which to drag from
     var dragNodeVm: MuNodeVm?  // drag from home with duplicate node icon
     var touchState = MuTouchState() /// begin,moved,end state plus tap count
@@ -61,22 +64,28 @@ class MuTouchVm: ObservableObject {
             updateDragIcon(touchNow)
             dragNodeVm = homeNodeVm.copy()
             touchState.begin(touchNow)
-            rootVm?.beginRoot(touchNow)
+            rootVm?.touchBegin(touchState)
             // log("touch", [touchNow], terminator: " ")
         }
 
         func moved() {
             dragIconXY = touchNow
             touchState.moved(touchNow)
-            if !touchState.isFast {
-                rootVm?.updateRoot(touchNow)
+
+            if let rootVm = rootVm {
+
+                let skipBranches = rootVm.nodeSpotVm?.branchVm.skipBranches() ?? false
+                if touchState.isFast && skipBranches {
+                    // log("🏁", [touchState.speed], terminator: " ")
+                } else {
+                    rootVm.touchMoved(touchState)
+                }
             }
         }
 
         func ended() {
-            let lastPoint = touchState.pointNow
-            touchState.ended(touchNow)
-            rootVm?.updateRoot(lastPoint, taps: touchState.tapCount)
+            touchState.ended()
+            rootVm?.touchEnded(touchState)
             dragIconXY = homeIconXY
             spotNodeΔ = .zero // no spotNode to align with
             homeNodeΔ = .zero // go back to rootNode

@@ -17,7 +17,7 @@ struct MuTouchView: View {
                     .onAppear { touchVm.updateHomeIcon(geo.frame(in: .named("Space"))) }
                     .onChange(of: geo.frame(in: .named("Space"))) { touchVm.updateHomeIcon($0) }
                     .padding(Layout.padding)
-                    .opacity(touchVm.alpha + 0.1)
+                    .opacity(touchVm.homeAlpha + 0.1)
                     .position(touchVm.homeIconXY)
             }
 
@@ -27,10 +27,10 @@ struct MuTouchView: View {
                 MuNodeView(nodeVm: dragNodeVm)
                     .position(touchVm.dragIconXY)
                     .animation(.easeInOut(duration: Layout.animate), value: touchVm.dragIconXY)
-                    .opacity(1-touchVm.alpha)
+                    .opacity(1-touchVm.homeAlpha)
                     .offset(touchVm.dragΔ)
             }
         }
-        .animation(.easeInOut(duration: Layout.animate), value: touchVm.alpha)
+        .animation(.easeInOut(duration: Layout.animate), value: touchVm.homeAlpha)
     }
 }
