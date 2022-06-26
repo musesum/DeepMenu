@@ -23,14 +23,11 @@ class MuRootVm: ObservableObject, Equatable {
     /// were shown (revealed at beginning of touch
     var beginElements: Set<MuElement> = []
 
-    var corner: MuCorner         /// corner where root begins, ex: `[south,west]`
-    let touchVm = MuTouchVm()    /// captures touch events to dispatch to this root
-    var treeVms = [MuTreeVm]()   /// vertical or horizontal stack of branches
-    var treeSpotVm: MuTreeVm?    /// most recently used tree
-
-    /// current spotlight node
-    var nodeSpotVm: MuNodeVm?
-                                 ///
+    var corner: MuCorner        /// corner where root begins, ex: `[south,west]`
+    let touchVm = MuTouchVm()   /// captures touch events to dispatch to this root
+    var treeVms = [MuTreeVm]()  /// vertical or horizontal stack of branches
+    var treeSpotVm: MuTreeVm?   /// most recently used tree
+    var nodeSpotVm: MuNodeVm?   /// current spotlight node
     func updateChanged(nodeSpotVm: MuNodeVm) {
         if self.nodeSpotVm != nodeSpotVm  {
             self.nodeSpotVm = nodeSpotVm
@@ -105,8 +102,6 @@ class MuRootVm: ObservableObject, Equatable {
         }
     }
 
-    var lastLog = "" // compare to avoid duplicate log statements
-
     func touchBegin(_ touchState: MuTouchState) {
         beginElements = viewElements
         updateRoot(touchState.pointNow)
@@ -118,19 +113,14 @@ class MuRootVm: ObservableObject, Equatable {
         updateRoot(touchState.pointNow, taps: touchState.tapCount)
     }
     /// [begin | moved] >> updateRoot
-    func updateRoot(_ touchNow: CGPoint, taps: Int = 0) {
-
-        resetRootTimer()
+    private func updateRoot(_ touchNow: CGPoint, taps: Int = 0) {
 
         if        hoverNodeSpot() {
         } else if tapHomeNode() {
         } else if hoverHomeNode() {
         } else if hoverTreeNow() {
         } else if hoverTreeAlts() {
-
-        } else {
-            touchElement = .space
-            nodeSpotVm = nil
+        } else {  hoverSpace()
         }
 
         func hoverNodeSpot() -> Bool {
@@ -142,7 +132,39 @@ class MuRootVm: ObservableObject, Equatable {
             }
             return false
         }
+        func tapHomeNode() -> Bool {
+            // hovering over root in corner?
+            if taps > 0 {
+                let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
+                if  homeIconΔ < Layout.insideNode {
+                    if beginElements.intersection( [.branch,.trunks]).count > 0 {
+                        hideBranches()
+                    } else {
+                        showBranches()
+                    }
+                    touchElement = .none
+                    return true
+                }
+            }
+            return false
+        }
+        func hoverHomeNode() -> Bool {
+            // hovering over root in corner?
+            let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
+            if  homeIconΔ < Layout.insideNode {
 
+                if touchElement != .home {
+                    touchElement = .home
+                    if viewElements.intersection( [.branch,.trunks]).count > 0 {
+                        showTrunks()
+                    } else {
+                        showBranches()
+                    }
+                }
+                return true
+            }
+            return false
+        }
         func hoverTreeNow() -> Bool {
             // check current set of menus
             if let treeNowVm = treeSpotVm,
@@ -185,39 +207,13 @@ class MuRootVm: ObservableObject, Equatable {
             }
             return false
         }
-        func tapHomeNode() -> Bool {
-            // hovering over root in corner?
-            if taps > 0 {
-                let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
-                if  homeIconΔ < Layout.insideNode {
-                    if beginElements.intersection( [.branch,.trunks]).count > 0 {
-                        hideBranches()
-                    } else {
-                        showBranches()
-                    }
-                    touchElement = .none
-                    return true
-                }
-            }
-            return false
+        func hoverSpace() {
+            touchElement = .space
+            nodeSpotVm = nil
         }
-        func hoverHomeNode() -> Bool {
-            // hovering over root in corner?
-            let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
-            if  homeIconΔ < Layout.insideNode {
 
-                if touchElement != .home {
-                    touchElement = .home
-                    if viewElements.intersection( [.branch,.trunks]).count > 0 {
-                        showTrunks()
-                    } else {
-                        showBranches()
-                    }
-                }
-                return true
-            }
-            return false
-        }
+        //  show/hide -----------
+
         func showTrunks() {
             if treeVms.count == 1 {
                 showSoloTree()
@@ -261,27 +257,5 @@ class MuRootVm: ObservableObject, Equatable {
             log("-𐂷", terminator: "")
             viewElements = [.home]
         }
-    }
-
-    /// timer for auto-folding branches back into trees
-    var rootTimer: Timer?
-
-    /// cancel timer that auto-tucks in branches
-    func resetRootTimer(delay: TimeInterval = -1) {
-#if false
-        rootTimer?.invalidate()
-        
-        if delay < 0 { return } // started dragging, so don't finish old one
-
-        func resetting(_ timer: Timer) {
-            for treeVm in treeVms {
-                treeVm.showBranches(depth: 0)
-            }
-            touchElement = .home
-        }
-        rootTimer = Timer.scheduledTimer(withTimeInterval: delay,
-                                         repeats: false,
-                                         block: resetting)
-#endif
     }
 }

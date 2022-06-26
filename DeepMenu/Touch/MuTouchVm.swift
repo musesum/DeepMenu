@@ -12,14 +12,14 @@ class MuTouchVm: ObservableObject {
     var homeAlpha: CGFloat {
         (dragIconXY == homeIconXY) || (dragIconXY == .zero) ? 1 : 0 }
 
-    var rootVm: MuRootVm?      // manages
-    var homeNodeVm: MuNodeVm?  // fixed home node in corner in which to drag from
-    var dragNodeVm: MuNodeVm?  // drag from home with duplicate node icon
+    var rootVm: MuRootVm?
+    var homeNodeVm: MuNodeVm?  /// fixed home node in corner in which to drag from
+    var dragNodeVm: MuNodeVm?  /// drag from home with duplicate node icon
     var touchState = MuTouchState() /// begin,moved,end state plus tap count
 
-    private var homeNodeΔ = CGSize.zero // offset between rootNode and touchNow
-    private var spotNodeΔ = CGSize.zero // offset between touch point and center in coord
-    var dragNodeΔ: CGSize = .zero // weird kludge to compsate for right sight offset
+    private var homeNodeΔ = CGSize.zero /// offset between rootNode and touchNow
+    private var spotNodeΔ = CGSize.zero /// offset between touch point and center in coord
+    var dragNodeΔ: CGSize = .zero /// weird kludge to compsate for right sight offset
 
     public func setRoot(_ rootVm: MuRootVm) {
         guard let treeVm = rootVm.treeSpotVm else { return }
@@ -28,22 +28,17 @@ class MuTouchVm: ObservableObject {
 
         let branchVm = MuBranchVm.cached(treeVm: treeVm)
 
-        homeNodeVm = MuNodeVm(.node,
-                              homeNode,
-                              branchVm,
-                              icon: Layout.hoverRing)
+        homeNodeVm = MuNodeVm(.node, homeNode, branchVm, icon: Layout.hoverRing)
         branchVm.addNodeVm(homeNodeVm)
-        dragNodeVm = homeNodeVm?.copy()
 
+        dragNodeVm = homeNodeVm?.copy()
         if rootVm.corner.contains(.right) {
             let rightOffset: CGFloat = -(2 * Layout.padding)
             dragNodeΔ = CGSize(width: rightOffset, height: 0)
         }
     }
 
-    /** via MuBranchView::@GestureState touchNow .onChange,
-     which also detects end when touchNow is reset to .zero
-     */
+    /// via MuBranchView::@GestureState touchNow .onChange
     func touchUpdate(_ touchNow: CGPoint) {
 
         if !touchState.touching    { begin() }
@@ -61,7 +56,6 @@ class MuTouchVm: ObservableObject {
         func moved() {
             dragIconXY = touchNow
             touchState.moved(touchNow)
-
             if let rootVm = rootVm {
 
                 let skipBranches = rootVm.nodeSpotVm?.branchVm.skipBranches() ?? false
@@ -79,13 +73,10 @@ class MuTouchVm: ObservableObject {
             dragIconXY = homeIconXY
             spotNodeΔ = .zero // no spotNode to align with
             homeNodeΔ = .zero // go back to rootNode
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + Layout.animate) {
-                self.rootVm?.resetRootTimer(delay: 4)
-            }
         }
     }
 
+    /// updated on startup or change in screen orientaiton
     func updateHomeIcon(_ fr: CGRect) {
         homeIconXY = rootVm?.cornerXY(in: fr) ?? .zero
         dragIconXY = homeIconXY
@@ -104,10 +95,8 @@ class MuTouchVm: ObservableObject {
 
             dragIconXY = homeIconXY
 
-        } else if let spotCenter = rootVm.nodeSpotVm?.center {
-            dragIconXY = spotCenter
         } else {
-            dragIconXY = touchNow
+            dragIconXY =  rootVm.nodeSpotVm?.center ?? touchNow
         }
     }
 }
