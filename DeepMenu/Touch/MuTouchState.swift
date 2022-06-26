@@ -25,7 +25,7 @@ class MuTouchState {
     private var pointBeginΔ = CGPoint.zero // pointNow - pointBegin
     private var pointPrevΔ = CGPoint.zero // pointNow - pointLast
 
-    var touching: Bool { return timeEnded > timeBegin }
+    var touching: Bool { return timeBegin > timeEnded }
 
     func begin(_ pointNow: CGPoint) {
 

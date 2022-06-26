@@ -27,8 +27,9 @@ struct MuTouchView: View {
                 MuNodeView(nodeVm: dragNodeVm)
                     .position(touchVm.dragIconXY)
                     .animation(.easeInOut(duration: Layout.animate), value: touchVm.dragIconXY)
+                
                     .opacity(1-touchVm.homeAlpha)
-                    .offset(touchVm.dragΔ)
+                    .offset(touchVm.dragNodeΔ)
             }
         }
         .animation(.easeInOut(duration: Layout.animate), value: touchVm.homeAlpha)

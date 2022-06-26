@@ -19,21 +19,7 @@ class MuTouchVm: ObservableObject {
 
     private var homeNodeΔ = CGSize.zero // offset between rootNode and touchNow
     private var spotNodeΔ = CGSize.zero // offset between touch point and center in coord
-
-    /// adjust hovering node icon during drag gesture
-    var dragΔ: CGSize {
-        switch rootVm?.touchElement ?? .home {
-            case .none   : return .zero
-            case .home   : return homeNodeΔ
-            case .trunks : return .zero
-            case .branch : return spotNodeΔ
-            case .node   : return spotNodeΔ
-            case .leaf   : return .zero
-            case .edit   : return .zero
-            case .space  : return .zero
-            case .edge   : return .zero
-        }
-    }
+    var dragNodeΔ: CGSize = .zero // weird kludge to compsate for right sight offset
 
     public func setRoot(_ rootVm: MuRootVm) {
         guard let treeVm = rootVm.treeSpotVm else { return }
@@ -46,8 +32,13 @@ class MuTouchVm: ObservableObject {
                               homeNode,
                               branchVm,
                               icon: Layout.hoverRing)
-
         branchVm.addNodeVm(homeNodeVm)
+        dragNodeVm = homeNodeVm?.copy()
+
+        if rootVm.corner.contains(.right) {
+            let rightOffset: CGFloat = -(2 * Layout.padding)
+            dragNodeΔ = CGSize(width: rightOffset, height: 0)
+        }
     }
 
     /** via MuBranchView::@GestureState touchNow .onChange,
@@ -55,14 +46,13 @@ class MuTouchVm: ObservableObject {
      */
     func touchUpdate(_ touchNow: CGPoint) {
 
-        if      touchNow == .zero { ended() }
-        else if dragNodeVm == nil { begin() }
-        else                      { moved() }
+        if !touchState.touching    { begin() }
+        else if touchNow == .zero  { ended() }
+        else                       { moved() }
+
+        alignSpotWithTouch(touchNow)
 
         func begin() {
-            guard let homeNodeVm = homeNodeVm else { return }
-            updateDragIcon(touchNow)
-            dragNodeVm = homeNodeVm.copy()
             touchState.begin(touchNow)
             rootVm?.touchBegin(touchState)
             // log("touch", [touchNow], terminator: " ")
@@ -91,32 +81,9 @@ class MuTouchVm: ObservableObject {
             homeNodeΔ = .zero // go back to rootNode
 
             DispatchQueue.main.asyncAfter(deadline: .now() + Layout.animate) {
-                touchDone()
+                self.rootVm?.resetRootTimer(delay: 4)
             }
         }
-        func touchDone() {
-            rootVm?.resetRootTimer(delay: 4)
-            dragNodeVm = nil
-        }
-    }
-
-    /// adjust offset for root on right side of canvas
-    func rightSideOffset(for rootStatus: MuElement) -> CGFloat {
-        guard let rootVm = rootVm else { return 0 }
-        if rootVm.touchElement == rootStatus,
-           rootVm.corner.contains(.right) {
-            return -(2 * Layout.padding)
-        } else {
-            return 0
-        }
-    }
-
-    func updateDragIcon( _ touchNow: CGPoint) {
-        dragIconXY = touchNow
-        let homeCenter = homeNodeVm?.center ?? .zero
-        homeNodeΔ = CGSize(homeCenter - touchNow)
-        homeNodeΔ.width += rightSideOffset(for: .home)
-        spotNodeΔ = .zero
     }
 
     func updateHomeIcon(_ fr: CGRect) {
@@ -124,10 +91,23 @@ class MuTouchVm: ObservableObject {
         dragIconXY = homeIconXY
         // log("home: ", [pointNow])
     }
+    
+    /// either center dragNode icon on spotNode or track finger
+    func alignSpotWithTouch(_ touchNow: CGPoint) {
 
-    func updateSpotΔ(_ pointΔ: CGPoint) {
-        self.spotNodeΔ = CGSize(pointΔ)
-        self.spotNodeΔ.width += rightSideOffset(for: .branch)
-        // log("Δ ", [pointNow, deltaOfs])
+        guard let rootVm = rootVm else {
+            return dragIconXY = touchNow
+        }
+        if !touchState.touching ||
+            rootVm.touchElement == .home ||
+            rootVm.nodeSpotVm?.type.isLeaf ?? false {
+
+            dragIconXY = homeIconXY
+
+        } else if let spotCenter = rootVm.nodeSpotVm?.center {
+            dragIconXY = spotCenter
+        } else {
+            dragIconXY = touchNow
+        }
     }
 }

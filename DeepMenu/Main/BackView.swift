@@ -15,7 +15,7 @@ struct BackView: View {
     @ObservedObject var space: AppSpace
     
     var body: some View {
-        GeometryReader { geo in
+        GeometryReader { _ in
             Rectangle()
                 .foregroundColor(space.backgroundColor)
                 .ignoresSafeArea(.all, edges: .all)

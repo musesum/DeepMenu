@@ -133,8 +133,6 @@ class MuRootVm: ObservableObject, Equatable {
             nodeSpotVm = nil
         }
 
-        alignSpotWithTouch(touchNow)
-
         func hoverNodeSpot() -> Bool {
             if let nodeSpotVm = nodeSpotVm,
                nodeSpotVm.center.distance(touchNow) < Layout.insideNode {
@@ -262,23 +260,6 @@ class MuRootVm: ObservableObject, Equatable {
             treeSpotVm = nil
             log("-𐂷", terminator: "")
             viewElements = [.home]
-        }
-    }
-    /// either center dragNode icon on spotNode or track finger
-    private func alignSpotWithTouch(_ touchNow: CGPoint) {
-
-        guard let nodeSpotVm = nodeSpotVm else {
-            touchVm.updateDragIcon(touchNow)
-            return
-        }
-        if nodeSpotVm.type.isLeaf {
-            // return dragNode to homeNode
-            touchVm.dragIconXY = touchVm.homeIconXY
-            touchVm.updateSpotΔ(.zero)
-        } else {
-            // center dragNode to center of nodeSpot
-            let spotΔ = nodeSpotVm.center - touchNow
-            touchVm.updateSpotΔ(spotΔ)
         }
     }
 

@@ -12,7 +12,7 @@ struct Layout {
     /// distance from center while inside node
     static let insideNode: CGFloat = 24
 
-    static let animate = CGFloat(0.33)
+    static let animate = CGFloat(0.25)
     static let hoverRing = "icon.ring.roygbiv"
     static let lagStep = TimeInterval(1.0/32.0) // sixteenth of a second
     static let panelFill = Color(white: 0.01, opacity: 0.5)
