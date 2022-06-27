@@ -33,6 +33,12 @@ struct Layout {
                      : Color(white: 0.4, opacity: 0.80))
         return color
     }
+    static func tapColor(_ high: Bool) -> Color {
+        let color = (high
+                     ? Color(white: 1.0, opacity: 0.80)
+                     : Color(white: 0.6, opacity: 0.80))
+        return color
+    }
     static func thumbColor(_ thumb: CGFloat) -> Color {
         let color = (thumb > 0
                      ? Color(white: 1.0, opacity: 1.00)

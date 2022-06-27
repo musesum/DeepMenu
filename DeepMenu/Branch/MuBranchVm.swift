@@ -6,6 +6,7 @@ import SwiftUI
 class MuBranchVm: Identifiable, ObservableObject {
     let id = MuIdentity.getId()
     static func == (lhs: MuBranchVm, rhs: MuBranchVm) -> Bool { lhs.id == rhs.id }
+    static func == (lhs: MuBranchVm, rhs: MuBranchVm?) -> Bool { lhs.id == (rhs?.id ?? -1) }
 
     @Published var show = true
 

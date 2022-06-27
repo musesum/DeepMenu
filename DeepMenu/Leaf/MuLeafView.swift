@@ -73,7 +73,7 @@ struct MuLeafBodyView<Content: View>: View {
     }
     var body: some View {
         GeometryReader { geo in
-            MuPanelView(panelVm: panelVm, nodeVm: leafVm)
+            MuPanelView(leafVm: leafVm)
             content() // custom control thumb is here
         }
         .frame(width: panelVm.inner.width,

@@ -56,6 +56,7 @@ class MuTouchVm: ObservableObject {
         func moved() {
             dragIconXY = touchNow
             touchState.moved(touchNow)
+
             if let rootVm = rootVm {
 
                 let skipBranches = rootVm.nodeSpotVm?.branchVm.skipBranches() ?? false

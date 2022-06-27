@@ -63,10 +63,10 @@ class MuLeafSegVm: MuLeafVm {
         let radius = panelVm.thumbRadius
         let count = range.upperBound - range.lowerBound
         if count < 1 { return [] }
-        let span = CGFloat(1/max(1,count))
+        let span = (1/max(1,count))
         let margin = Layout.diameter/2 - 2
-        for v in stride(from: 0, through: 1, by: span) {
-            let ofs = v * runway + radius
+        for v in stride(from: 0, through: Float(1), by: span) {
+            let ofs = CGFloat(v) * runway + radius
             let size = panelVm.axis == .vertical
             ? CGSize(width: margin, height: ofs)
             : CGSize(width: ofs, height: margin)

@@ -6,6 +6,7 @@ class MuTouchState {
 
     static let tapThreshold = TimeInterval(0.5) // tap time threshold
     private let speedThreshold = CGFloat(400) // test to skip branches
+    
     private var timeBegin = TimeInterval(0) // starting time for tap candidate
     private var timePrev = TimeInterval(0)  // previous time of reported touch
     private var timeEnded = TimeInterval(0) // ending time for tap candidate

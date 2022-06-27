@@ -67,9 +67,11 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         for branchVm in branchVms {
             if branchVm.show == true,
                 branchVm.boundsPad.contains(touchNow) {
+                branchSpot = branchVm
                 return branchVm
             }
         }
+        branchSpot = nil
         return nil
     }
 

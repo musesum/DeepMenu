@@ -73,10 +73,6 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     func refreshBranch() {
 
         superSpotlight()
-
-        if type.isLeaf == true {
-            print("🍁")
-        }
         branchVm.expandBranch()
         branchVm.treeVm.refreshTree(branchVm)
     }

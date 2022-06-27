@@ -103,7 +103,6 @@ class MuPanelVm {
         return result
     }
     var titleSize: CGSize {
-
         switch type {
             case .vxy: // title is always on top
                 return CGSize(width:  inner.width,

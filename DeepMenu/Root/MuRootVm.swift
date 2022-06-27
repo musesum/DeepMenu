@@ -115,14 +115,24 @@ class MuRootVm: ObservableObject, Equatable {
     /// [begin | moved] >> updateRoot
     private func updateRoot(_ touchNow: CGPoint, taps: Int = 0) {
 
-        if        hoverNodeSpot() {
+        if        editLeafNode() {
+        } else if hoverNodeSpot() {
         } else if tapHomeNode() {
         } else if hoverHomeNode() {
         } else if hoverTreeNow() {
         } else if hoverTreeAlts() {
         } else {  hoverSpace()
         }
-
+        func editLeafNode() -> Bool {
+            if nodeSpotVm?.type.isLeaf ?? false {
+                //??touchElement = .leaf
+                if let nodeVm = nodeSpotVm as? MuLeafVm {
+                    log("🍁",[touchNow], terminator: " ")
+                }
+                return false
+            }
+            return false 
+        }
         func hoverNodeSpot() -> Bool {
             if let nodeSpotVm = nodeSpotVm,
                nodeSpotVm.center.distance(touchNow) < Layout.insideNode {

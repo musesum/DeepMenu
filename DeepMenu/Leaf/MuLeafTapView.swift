@@ -6,7 +6,7 @@ struct MuLeafTapView: View {
 
     @ObservedObject var leafVm: MuLeafTapVm
     var panelVm: MuPanelVm { leafVm.panelVm }
-    var fillColor: Color { Layout.strokeColor(leafVm.editing) }
+    var fillColor: Color { Layout.tapColor(leafVm.editing) }
 
     var body: some View {
         MuLeafView(leafVm) {

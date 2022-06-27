@@ -135,10 +135,20 @@ extension CGPoint {
                         y: lhs.y - rhs.y)
         return p
     }
+    public static func - (lhs: CGPoint, rhs: CGSize) -> CGPoint {
+        let p = CGPoint(x: lhs.x - rhs.width,
+                        y: lhs.y - rhs.height)
+        return p
+    }
 
     public static func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         let p = CGPoint(x: lhs.x + rhs.x,
                         y: lhs.y + rhs.y)
+        return p
+    }
+    public static func + (lhs: CGPoint, rhs: CGSize) -> CGPoint {
+        let p = CGPoint(x: lhs.x + rhs.width,
+                        y: lhs.y + rhs.height)
         return p
     }
     public static func / (lhs: CGPoint, rhs: CGFloat) -> CGPoint {

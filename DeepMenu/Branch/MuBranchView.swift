@@ -10,11 +10,13 @@ struct MuBranchView: View {
 
     var opacity: CGFloat { branchVm.show ? 1 : 0 }
     var panelVm: MuPanelVm { branchVm.panelVm }
+    var spotlight: Bool
 
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                MuBranchPanelView(panelVm: panelVm)
+                MuBranchPanelView(panelVm: panelVm,
+                                  spotlight: spotlight)
 
                 let reverse = (panelVm.axis == .vertical
                                ? rootVm.corner.contains(.lower) ? true : false
