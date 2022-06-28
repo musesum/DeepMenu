@@ -4,15 +4,15 @@ import Foundation
 
 enum MuElement: String  {
     
-    case none   // starting point before showing 
-    case home   // only root node showing
-    case branch // branches expanded for one tree, hovering
-    case trunks // only first branch of multiple trees
-    case node   // over a specific node
-    case leaf   // dragable header for leaf
-    case edit   // editing area inside a leaf
-    case space  // hovering over canvas
-    case edge   // unsafe area to expand accordian
+    case none   /// starting point before showing
+    case home   /// only root node showing
+    case branch /// branches expanded for one tree, hovering
+    case trunks /// only first branch of multiple trees
+    case node   /// over a specific node
+    case leaf   /// dragable header for leaf
+    case edit   /// editing area inside a leaf
+    case space  /// hovering over canvas
+    case edge   /// unsafe area to expand accordian
     
     public var symbol: String {
         switch self {

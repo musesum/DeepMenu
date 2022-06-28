@@ -6,7 +6,7 @@ import SwiftUI
 public protocol MuLeafModelProtocol {
 
     /// update value from user gesture
-    func touchLeaf(_ point: CGPoint)
+    func touchLeaf(_ touchState: MuTouchState)
 
     /// update value from another model
     func updateLeaf(_ point: Any)
@@ -37,11 +37,15 @@ class MuLeafVm: MuNodeVm {
         return .zero
     }
 
+    /// bounds for control surface, used to determin if touch is inside control area
     var runwayBounds = CGRect.zero
+
+    /// updated by View after auto-layout
     func updateRunwayBounds(_ bounds: CGRect) {
         runwayBounds = bounds
         // log("runwayBounds", [runwayBounds], terminator: " ")
     }
+    /// does control surface contain point
     override func contains(_ point: CGPoint) -> Bool {
         return runwayBounds.contains(point)
     }

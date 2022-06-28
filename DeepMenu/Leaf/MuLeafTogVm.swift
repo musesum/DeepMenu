@@ -22,13 +22,12 @@ class MuLeafTogVm: MuLeafVm {
 // Model
 extension MuLeafTogVm: MuLeafModelProtocol {
 
-    func touchLeaf(_ point: CGPoint) {
-
-        if !editing, point != .zero  {
+    func touchLeaf(_ touchState: MuTouchState) {
+        if !editing, touchState.phase == .begin  {
             editing = true
             thumb = (thumb==1 ? 0 : 1)
             proto?.setAny(named: type.name, thumb)
-        } else if editing, point == .zero {
+        } else if editing,  touchState.phase == .ended {
             editing = false
         }
     }

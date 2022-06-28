@@ -82,10 +82,11 @@ class MuLeafSegVm: MuLeafVm {
 // Model
 extension MuLeafSegVm: MuLeafModelProtocol {
 
-    func touchLeaf(_ point: CGPoint) {
-        if point != .zero {
+    func touchLeaf(_ touchState: MuTouchState) {
+        if touchState.phase != .ended {
             editing = true
-            thumb = normalizedTouch(point)
+            let touchDelta = touchState.pointNow - runwayBounds.origin
+            thumb = normalizedTouch(touchDelta)
             proto?.setAny(named: type.name, expanded)
         } else {
             editing = false

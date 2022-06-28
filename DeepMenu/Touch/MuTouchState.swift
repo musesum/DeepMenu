@@ -2,9 +2,9 @@
 
 import SwiftUI
 
-public enum Phase { case none, begin, moved, ended }
+public enum MuTouchPhase { case none, begin, moved, ended }
 
-class MuTouchState {
+public class MuTouchState {
 
     static let tapThreshold = TimeInterval(0.5) // tap time threshold
     private let speedThreshold = CGFloat(400) // test to skip branches
@@ -22,7 +22,7 @@ class MuTouchState {
     var isFast = false // move fast to skip branches
     var pointNow = CGPoint.zero // current position of touch
     var speed = CGFloat.zero
-    var phase = Phase.none
+    var phase = MuTouchPhase.none
 
     private var pointPrev = CGPoint.zero  // last reported touch while moving
     private var touchSpeed = CGFloat.zero // speed while moving

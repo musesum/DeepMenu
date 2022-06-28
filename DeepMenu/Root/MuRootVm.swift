@@ -12,15 +12,14 @@ class MuRootVm: ObservableObject, Equatable {
     /// what is the finger touching
     @Published var touchElement = MuElement.none
 
-    /// which elements are shown on View
+    /// which menu elements are shown on View
     var viewElements: Set<MuElement> = [.home, .trunks] {
         willSet { if viewElements != newValue {
                 log(":", [beginElements,"⟶",newValue], terminator: " ")
             } } }
 
-    /// touchBegin snapshot of viewElements
-    /// to prevent touch ended from hiding elements that
-    /// were shown (revealed at beginning of touch
+    /// touchBegin snapshot of viewElements, to prevent
+    /// touchEnded hiding elements show  during touchBegin
     var beginElements: Set<MuElement> = []
 
     var corner: MuCorner        /// corner where root begins, ex: `[south,west]`
@@ -126,7 +125,6 @@ class MuRootVm: ObservableObject, Equatable {
         let taps = touchState.tapCount
 
         log(touchElement.symbol, terminator: "")
-        
         if        editLeafNode() {
         } else if hoverNodeSpot() {
         } else if tapHomeNode() {
@@ -134,28 +132,17 @@ class MuRootVm: ObservableObject, Equatable {
         } else if hoverTreeNow() {
         } else if hoverTreeAlts() {
         } else {  hoverSpace() }
+        log(touchElement.symbol, terminator: " ")
 
         func editLeafNode() -> Bool {
 
             if let leafVm = nodeSpotVm as? MuLeafVm {
 
-                func updateLeaf() {
-                    let touchDelta = touchState.pointNow -  leafVm.runwayBounds.origin
-                    for leaf in leafVm.node.leaves {
-                        leaf.touchLeaf(touchDelta)
-                    }
-                }
                 if leafVm.runwayBounds.contains(touchState.pointNow) {
                     if (touchElement == .edit || touchState.phase == .begin) {
-                        // begin touch inside control runway
-                        touchElement = .edit
-                        // leaf spotlight on if not ended
-                        leafVm.spotlight = touchState.phase != .ended
-                        // branch spotlight off
-                        leafVm.branchVm.treeVm.branchSpot = nil
-                        updateLeaf()
+                        updateLeaf(leafVm)
                     }
-                    return true
+                                        return true
                 } else if leafVm.branchVm.bounds.contains(touchNow),
                           touchElement != .edit {
                     // begin touch on title section to possibly stack branches
@@ -164,11 +151,10 @@ class MuRootVm: ObservableObject, Equatable {
                     leafVm.spotlight = false
                     // set spotlight on
                     leafVm.branchVm.treeVm.branchSpot = leafVm.branchVm
-                    return true
+                                        return true
                 } else if touchElement == .edit  {
-
-                    updateLeaf()
-                    return true
+                    updateLeaf(leafVm)
+                                        return true
                 }
             }
             return false
@@ -177,7 +163,7 @@ class MuRootVm: ObservableObject, Equatable {
             if let nodeSpotVm = nodeSpotVm,
                nodeSpotVm.center.distance(touchNow) < Layout.insideNode {
                     touchElement = .node
-                return true
+                                return true
             }
             return false
         }
@@ -192,7 +178,7 @@ class MuRootVm: ObservableObject, Equatable {
                         showBranches()
                     }
                     touchElement = .none
-                    return true
+                                        return true
                 }
             }
             return false
@@ -206,9 +192,9 @@ class MuRootVm: ObservableObject, Equatable {
                     touchElement = .home
                     if viewElements.intersection( [.branch,.trunks]).count > 0 {
                         showTrunks()
-                    } else {
+                                            } else {
                         showBranches()
-                    }
+                                            }
                 }
                 return true
             }
@@ -228,20 +214,20 @@ class MuRootVm: ObservableObject, Equatable {
 
                         if leafVm.contains(touchNow) {
                             // touch directly inside leaf Runway triggers edit
-                            touchElement = .edit
-                        }
+                            updateLeaf(leafVm)
+                                                    }
                     } else if !viewElements.contains(.branch) {
                         log("~", terminator: "")
                         viewElements = [.home,.branch]
                         touchElement = .branch
-                    }
+                                            }
                     return true
                 } else if let nearestLeafVm = nearestBranch.findNearestLeaf(touchNow) {
                     // special case where not touching on leaf runway but is touching headline
                     if touchState.phase == .begin {
                         updateChanged(nodeSpotVm: nearestLeafVm)
                         touchElement = .leaf
-                        return true
+                                                return true
                     }
                 }
             }
@@ -278,6 +264,21 @@ class MuRootVm: ObservableObject, Equatable {
         }
 
         //  show/hide -----------
+
+        func updateLeaf(_ leafVm: MuLeafVm) {
+
+            if touchElement != .edit {
+                // begin touch inside control runway
+                touchElement = .edit
+                // leaf spotlight on if not ended
+                leafVm.spotlight = touchState.phase != .ended
+                // branch spotlight off
+                leafVm.branchVm.treeVm.branchSpot = nil
+            }
+            for leaf in leafVm.node.leaves {
+                leaf.touchLeaf(touchState)
+            }
+        }
 
         func showTrunks() {
             if treeVms.count == 1 {

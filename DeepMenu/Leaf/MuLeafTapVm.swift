@@ -20,11 +20,11 @@ class MuLeafTapVm: MuLeafVm {
 // Model
 extension MuLeafTapVm: MuLeafModelProtocol {
 
-    func touchLeaf(_ point: CGPoint) {
-        if point != .zero {
+    func touchLeaf(_ touchState: MuTouchState) {
+        if touchState.phase == .begin {
             editing = true
             proto?.setAny(named: type.name, CGFloat(1))
-        } else {
+        } else if touchState.phase == .ended {
             proto?.setAny(named: type.name, CGFloat(0))
             editing = false
         }

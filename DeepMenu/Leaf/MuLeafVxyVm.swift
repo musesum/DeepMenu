@@ -66,11 +66,12 @@ class MuLeafVxyVm: MuLeafVm {
 // Model
 extension MuLeafVxyVm: MuLeafModelProtocol {
 
-    func touchLeaf(_ point: CGPoint) {
+    func touchLeaf(_ touchState: MuTouchState) {
 
-        if point != .zero {
+        if touchState.phase != .ended {
             editing = true
-            thumb = panelVm.normalizeTouch(xy: point)
+            let touchDelta = touchState.pointNow - runwayBounds.origin
+            thumb = panelVm.normalizeTouch(xy: touchDelta)
             let x = expand(named: "x", thumb.x)
             let y = expand(named: "y", thumb.y)
 
