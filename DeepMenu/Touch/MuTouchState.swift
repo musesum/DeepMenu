@@ -2,11 +2,13 @@
 
 import SwiftUI
 
+public enum Phase { case none, begin, moved, ended }
+
 class MuTouchState {
 
     static let tapThreshold = TimeInterval(0.5) // tap time threshold
     private let speedThreshold = CGFloat(400) // test to skip branches
-    
+
     private var timeBegin = TimeInterval(0) // starting time for tap candidate
     private var timePrev = TimeInterval(0)  // previous time of reported touch
     private var timeEnded = TimeInterval(0) // ending time for tap candidate
@@ -20,6 +22,7 @@ class MuTouchState {
     var isFast = false // move fast to skip branches
     var pointNow = CGPoint.zero // current position of touch
     var speed = CGFloat.zero
+    var phase = Phase.none
 
     private var pointPrev = CGPoint.zero  // last reported touch while moving
     private var touchSpeed = CGFloat.zero // speed while moving
@@ -29,7 +32,7 @@ class MuTouchState {
     var touching: Bool { return timeBegin > timeEnded }
 
     func begin(_ pointNow: CGPoint) {
-
+        phase = .begin
         self.pointNow = pointNow
         let timeNow = Date().timeIntervalSince1970
         if (timeNow - timeEnded) > MuTouchState.tapThreshold {
@@ -65,7 +68,7 @@ class MuTouchState {
     }
 
     func moved(_ point: CGPoint) {
-
+        phase = .moved
         updateTimePoint(point)
         if point.distance(pointBegin) > moveThreshold {
             tapCount = 0
@@ -73,7 +76,7 @@ class MuTouchState {
     }
 
     func ended() {
-
+        phase = .ended
         updateTimePoint(pointNow)
         pointBeginΔ = pointNow - pointPrev
         timeEnded = timePrev

@@ -126,10 +126,11 @@ class MuBranchVm: Identifiable, ObservableObject {
         nodeVms.append(nodeVm)
     }
 
+
     func findNearestNode(_ touchNow: CGPoint) -> MuNodeVm? {
 
         // is hovering over same node as before
-        if (nodeSpotVm?.center.distance(touchNow) ?? .infinity) < Layout.diameter {
+        if nodeSpotVm?.contains(touchNow) ?? false {
             return nodeSpotVm
         }
         for nodeVm in nodeVms {
@@ -143,12 +144,34 @@ class MuBranchVm: Identifiable, ObservableObject {
         }
         return nil
     }
+    
+    /// check touch point is inside a leaf's branch
+    ///
+    ///  - note: already checked inclide a leaf's runway
+    ///  so expand check to inlude the title area
+    func findNearestLeaf(_ touchNow: CGPoint) -> MuLeafVm? {
+
+        // is hovering over same node as before
+        if let leafVm = nodeSpotVm as? MuLeafVm,
+           leafVm.branchVm.bounds.contains(touchNow) {
+            return leafVm
+        }
+        for nodeVm in nodeVms {
+            if let leafVm = nodeVm as? MuLeafVm,
+               leafVm.branchVm.bounds.contains(touchNow) {
+                nodeSpotVm = leafVm
+                nodeSpotVm?.spotlight = true
+                leafVm.superSpotlight()
+                return leafVm
+            }
+        }
+        return nil
+    }
 
     func updateBounds(_ from: CGRect) {
         if bounds != from {
             bounds = panelVm.updateBounds(from)
             boundsPad = bounds + Layout.padding
-            // log("∿" + title, from, bounds)
         }
     }
 }

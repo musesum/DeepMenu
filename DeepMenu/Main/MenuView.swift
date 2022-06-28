@@ -11,8 +11,8 @@ struct MenuView: View {
     var body: some View {
 
         MuRootView().environmentObject(menuVm.rootVm)
-            .coordinateSpace(name: "Space")
-            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Space"))
+            .coordinateSpace(name: "Canvas")
+            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Canvas"))
                 .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })
             .onChange(of: touchXY) { menuVm.rootVm.touchVm.touchUpdate($0) }
             //?? .defersSystemGestures(on: .vertical)

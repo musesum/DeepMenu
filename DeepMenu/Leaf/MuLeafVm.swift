@@ -36,4 +36,13 @@ class MuLeafVm: MuNodeVm {
         print("*** override MuLeafVmoffset")
         return .zero
     }
+
+    var runwayBounds = CGRect.zero
+    func updateRunwayBounds(_ bounds: CGRect) {
+        runwayBounds = bounds
+        // log("runwayBounds", [runwayBounds], terminator: " ")
+    }
+    override func contains(_ point: CGPoint) -> Bool {
+        return runwayBounds.contains(point)
+    }
 }

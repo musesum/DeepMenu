@@ -67,7 +67,7 @@ struct MuLeafBodyView<Content: View>: View {
     let content: () -> Content
     var panelVm: MuPanelVm { leafVm.panelVm }
 
-    init(_ leafVm: MuLeafVm,_  content:  @escaping () -> Content) {
+    init(_ leafVm: MuLeafVm,_  content: @escaping ()->Content) {
         self.leafVm = leafVm
         self.content = content
     }
@@ -75,9 +75,12 @@ struct MuLeafBodyView<Content: View>: View {
         GeometryReader { geo in
             MuPanelView(leafVm: leafVm)
             content() // custom control thumb is here
+                .onAppear { leafVm.updateRunwayBounds(geo.frame(in: .named("Canvas"))) }
+                .onChange(of: geo.frame(in: .named("Canvas"))) { leafVm.updateRunwayBounds($0) }
         }
         .frame(width: panelVm.inner.width,
                height: panelVm.inner.height)
+
     }
 }
 

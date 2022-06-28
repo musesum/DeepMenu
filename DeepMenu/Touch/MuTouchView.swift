@@ -14,8 +14,8 @@ struct MuTouchView: View {
                 
                 MuNodeView(nodeVm: homeNodeVm)
                     .frame(width: Layout.diameter, height: Layout.diameter)
-                    .onAppear { touchVm.updateHomeIcon(geo.frame(in: .named("Space"))) }
-                    .onChange(of: geo.frame(in: .named("Space"))) { touchVm.updateHomeIcon($0) }
+                    .onAppear { touchVm.updateHomeIcon(geo.frame(in: .named("Canvas"))) }
+                    .onChange(of: geo.frame(in: .named("Canvas"))) { touchVm.updateHomeIcon($0) }
                     .padding(Layout.padding)
                     .opacity(touchVm.homeAlpha + 0.1)
                     .position(touchVm.homeIconXY)

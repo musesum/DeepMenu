@@ -66,8 +66,8 @@ extension MuLeafValVm: MuLeafViewProtocol {
     }
     override func thumbOffset() -> CGSize {
         panelVm.axis == .vertical
-        ? CGSize(width: 0, height: (1-thumb) * panelVm.runway)
-        : CGSize(width: thumb * panelVm.runway, height: 0)
+        ? CGSize(width: 1, height: (1-thumb) * panelVm.runway)
+        : CGSize(width: thumb * panelVm.runway, height: 1)
     }
 }
 

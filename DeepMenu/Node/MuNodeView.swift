@@ -25,8 +25,8 @@ struct MuNodeView: View {
                         }
                 }
             }
-            .onChange(of: geo.frame(in: .named("Space"))) { nodeVm.updateCenter($0) }
-            .onAppear { nodeVm.updateCenter(geo.frame(in: .named("Space"))) }
+            .onChange(of: geo.frame(in: .named("Canvas"))) { nodeVm.updateCenter($0) }
+            .onAppear { nodeVm.updateCenter(geo.frame(in: .named("Canvas"))) }
         }
         .frame(width: panelVm.inner.width, height: panelVm.inner.height)
         .padding(Layout.padding)

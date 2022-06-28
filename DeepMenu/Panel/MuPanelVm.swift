@@ -46,12 +46,12 @@ class MuPanelVm {
             case .vxy  : aspect(4.0, 4.0)
             case .tog  : aspect(1.0, 1.5)
             case .seg  : aspect(1.0, 4.0)
-            case .tap  : aspect(1.5, 1.5)
+            case .tap  : aspect(1.25, 1.25)
         }
     }
 
     // changed by type
-    lazy var cornerRadius  : CGFloat = { (Layout.diameter/2 + Layout.padding ) }()
+    lazy var cornerRadius  : CGFloat = { (Layout.diameter/2 + Layout.padding) }()
     lazy var thumbRadius   : CGFloat = { Layout.diameter/2 - 1 }()
     lazy var thumbDiameter : CGFloat = { thumbRadius*2 }()
 
@@ -62,11 +62,10 @@ class MuPanelVm {
         return result
     }
 
-    lazy var runway2: CGPoint = {
+    lazy var runwayXY: CGPoint = {
         CGPoint(x: inner.height - thumbDiameter,
                 y: inner.width - thumbDiameter)
     }()
-
 
     var inner: CGSize {
         let result = aspectSz * Layout.diameter
@@ -110,6 +109,20 @@ class MuPanelVm {
            default:
                 return CGSize(width:  Layout.diameter - 8,
                               height: Layout.diameter - 8)
+        }
+    }
+
+    var innerOffset: CGSize {
+        if type == .vxy || axis == .vertical {
+            return CGSize(width: Layout.padding,
+                          height: titleSize.height+Layout.padding*2)
+        }
+        if corner.contains(.left) {
+            return CGSize(width: Layout.padding*2,
+                          height: Layout.padding*2)
+        } else {
+            return CGSize(width: titleSize.width,
+                          height: Layout.padding)
         }
     }
 
@@ -158,6 +171,7 @@ class MuPanelVm {
                 result.origin.x = 0
             }
         }
+        //?? log("bounds", [bounds,result], terminator: " ")
         return result
     }
 

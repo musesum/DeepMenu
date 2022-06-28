@@ -29,14 +29,18 @@ struct Layout {
 
     static func strokeColor(_ high: Bool) -> Color {
         let color = (high
-                     ? Color(white: 0.6, opacity: 0.80)
-                     : Color(white: 0.4, opacity: 0.80))
+                     ? Color(white: 1.0, opacity: 0.8)
+                     : Color(white: 0.5, opacity: 0.4))
         return color
     }
+    static func strokeWidth(_ high: Bool) -> CGFloat {
+        return(high ? 1.5 : 1.0)
+    }
+
     static func tapColor(_ high: Bool) -> Color {
         let color = (high
-                     ? Color(white: 1.0, opacity: 0.80)
-                     : Color(white: 0.6, opacity: 0.80))
+                     ? Color(white: 1.0, opacity: 0.8)
+                     : Color(white: 0.6, opacity: 0.8))
         return color
     }
     static func thumbColor(_ thumb: CGFloat) -> Color {
@@ -46,7 +50,5 @@ struct Layout {
         return color
     }
 
-    static func strokeWidth(_ high: Bool) -> CGFloat {
-        return(high ? 2.0 : 1.0)
-    }
+
 }

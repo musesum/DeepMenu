@@ -29,7 +29,6 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     var panelVm: MuPanelVm
 
     var center = CGPoint.zero /// current position
-    
 
     init (_ type: MuNodeType,
           _ node: MuNode,
@@ -67,6 +66,10 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     func updateCenter(_ fr: CGRect) {
         center = CGPoint(x: fr.origin.x + fr.size.width/2,
                          y: fr.origin.y + fr.size.height/2)
+    }
+
+    func contains(_ point: CGPoint) -> Bool {
+        center.distance(point) < Layout.diameter
     }
 
     /// evenly space branches leading up to current branch's position

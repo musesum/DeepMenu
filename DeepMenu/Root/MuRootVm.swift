@@ -104,46 +104,85 @@ class MuRootVm: ObservableObject, Equatable {
 
     func touchBegin(_ touchState: MuTouchState) {
         beginElements = viewElements
-        updateRoot(touchState.pointNow)
+        updateRoot(touchState)
     }
     func touchMoved(_ touchState: MuTouchState) {
-        updateRoot(touchState.pointNow)
+        updateRoot(touchState)
     }
     func touchEnded(_ touchState: MuTouchState) {
-        updateRoot(touchState.pointNow, taps: touchState.tapCount)
+        updateRoot(touchState)
+
+        /// turn off spotlight for leaf after edit
+        if let nodeSpotVm = nodeSpotVm,
+           nodeSpotVm.type.isLeaf {
+            nodeSpotVm.spotlight = false
+        }
+        treeSpotVm?.branchSpot = nil
+        touchElement = .none
     }
     /// [begin | moved] >> updateRoot
-    private func updateRoot(_ touchNow: CGPoint, taps: Int = 0) {
+    private func updateRoot(_ touchState: MuTouchState) {
+        let touchNow = touchState.pointNow
+        let taps = touchState.tapCount
 
+        log(touchElement.symbol, terminator: "")
+        
         if        editLeafNode() {
         } else if hoverNodeSpot() {
         } else if tapHomeNode() {
         } else if hoverHomeNode() {
         } else if hoverTreeNow() {
         } else if hoverTreeAlts() {
-        } else {  hoverSpace()
-        }
+        } else {  hoverSpace() }
+
         func editLeafNode() -> Bool {
-            if nodeSpotVm?.type.isLeaf ?? false {
-                //??touchElement = .leaf
-                if let nodeVm = nodeSpotVm as? MuLeafVm {
-                    log("🍁",[touchNow], terminator: " ")
+
+            if let leafVm = nodeSpotVm as? MuLeafVm {
+
+                func updateLeaf() {
+                    let touchDelta = touchState.pointNow -  leafVm.runwayBounds.origin
+                    for leaf in leafVm.node.leaves {
+                        leaf.touchLeaf(touchDelta)
+                    }
                 }
-                return false
+                if leafVm.runwayBounds.contains(touchState.pointNow) {
+                    if (touchElement == .edit || touchState.phase == .begin) {
+                        // begin touch inside control runway
+                        touchElement = .edit
+                        // leaf spotlight on if not ended
+                        leafVm.spotlight = touchState.phase != .ended
+                        // branch spotlight off
+                        leafVm.branchVm.treeVm.branchSpot = nil
+                        updateLeaf()
+                    }
+                    return true
+                } else if leafVm.branchVm.bounds.contains(touchNow),
+                          touchElement != .edit {
+                    // begin touch on title section to possibly stack branches
+                    touchElement = .leaf
+                    // leaf spotlight off
+                    leafVm.spotlight = false
+                    // set spotlight on
+                    leafVm.branchVm.treeVm.branchSpot = leafVm.branchVm
+                    return true
+                } else if touchElement == .edit  {
+
+                    updateLeaf()
+                    return true
+                }
             }
-            return false 
+            return false
         }
         func hoverNodeSpot() -> Bool {
             if let nodeSpotVm = nodeSpotVm,
                nodeSpotVm.center.distance(touchNow) < Layout.insideNode {
-
-                touchElement = nodeSpotVm.type.isLeaf ? .leaf : .node
+                    touchElement = .node
                 return true
             }
             return false
         }
         func tapHomeNode() -> Bool {
-            // hovering over root in corner?
+            // tapping on homeNode in corner?
             if taps > 0 {
                 let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
                 if  homeIconΔ < Layout.insideNode {
@@ -159,7 +198,7 @@ class MuRootVm: ObservableObject, Equatable {
             return false
         }
         func hoverHomeNode() -> Bool {
-            // hovering over root in corner?
+            // hovering over homeNode in corner?
             let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
             if  homeIconΔ < Layout.insideNode {
 
@@ -178,17 +217,33 @@ class MuRootVm: ObservableObject, Equatable {
         func hoverTreeNow() -> Bool {
             // check current set of menus
             if let treeNowVm = treeSpotVm,
-               let nearestBranch = treeNowVm.nearestBranch(touchNow),
-               let nearestNode = nearestBranch.findNearestNode(touchNow) {
+               let nearestBranch = treeNowVm.nearestBranch(touchNow) {
 
-                updateChanged(nodeSpotVm: nearestNode)
+                if let nearestNodeVm = nearestBranch.findNearestNode(touchNow) {
 
-                if !viewElements.contains(.branch) {
-                    log("~", terminator: "")
-                    viewElements = [.home,.branch]
-                    touchElement = .branch
+                    updateChanged(nodeSpotVm: nearestNodeVm)
+
+                    if touchState.phase == .begin,
+                       let leafVm = nodeSpotVm as? MuLeafVm {
+
+                        if leafVm.contains(touchNow) {
+                            // touch directly inside leaf Runway triggers edit
+                            touchElement = .edit
+                        }
+                    } else if !viewElements.contains(.branch) {
+                        log("~", terminator: "")
+                        viewElements = [.home,.branch]
+                        touchElement = .branch
+                    }
+                    return true
+                } else if let nearestLeafVm = nearestBranch.findNearestLeaf(touchNow) {
+                    // special case where not touching on leaf runway but is touching headline
+                    if touchState.phase == .begin {
+                        updateChanged(nodeSpotVm: nearestLeafVm)
+                        touchElement = .leaf
+                        return true
+                    }
                 }
-                return true
             }
             return false
         }

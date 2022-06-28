@@ -58,6 +58,7 @@ class MuLeafSegVm: MuLeafVm {
     /// ticks above and below nearest tick,
     /// but never on panel border or thumb border
     lazy var ticks: [CGSize] = {
+
         var result = [CGSize]()
         let runway = panelVm.runway
         let radius = panelVm.thumbRadius
@@ -65,7 +66,9 @@ class MuLeafSegVm: MuLeafVm {
         if count < 1 { return [] }
         let span = (1/max(1,count))
         let margin = Layout.diameter/2 - 2
+
         for v in stride(from: 0, through: Float(1), by: span) {
+
             let ofs = CGFloat(v) * runway + radius
             let size = panelVm.axis == .vertical
             ? CGSize(width: margin, height: ofs)
@@ -74,8 +77,8 @@ class MuLeafSegVm: MuLeafVm {
         }
         return result
     }()
-
 }
+
 // Model
 extension MuLeafSegVm: MuLeafModelProtocol {
 
@@ -106,8 +109,8 @@ extension MuLeafSegVm: MuLeafViewProtocol {
     }
     override func thumbOffset() -> CGSize {
         panelVm.axis == .vertical
-        ? CGSize(width: 0, height: (1-thumb) * panelVm.runway)
-        : CGSize(width: thumb * panelVm.runway, height: 0)
+        ? CGSize(width: 1, height: (1-thumb) * panelVm.runway)
+        : CGSize(width: thumb * panelVm.runway, height: 1)
     }
 }
 

@@ -48,7 +48,7 @@ class MuLeafVxyVm: MuLeafVm {
     /// but never on panel border or thumb border
     lazy var ticks: [CGSize] = {
         var result = [CGSize]()
-        let runway = self.panelVm.runway2
+        let runway = self.panelVm.runwayXY
         let radius = self.panelVm.thumbRadius
         let span = CGFloat(0.5)
         let margin = Layout.diameter/2 - 2
