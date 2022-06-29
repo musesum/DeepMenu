@@ -2,18 +2,17 @@
 
 import SwiftUI
 
-/// Leaf Model setter protocol
-public protocol MuLeafModelProtocol {
+/// MuLeaf* Model and View  protocols
+public protocol MuLeafProxy {
 
-    /// update value from user gesture
+    /// update value from user touch gesture
     func touchLeaf(_ touchState: MuTouchState)
 
-    /// update value from another model
+    /// update from model, not touch gesture
     func updateLeaf(_ point: Any)
-}
 
-/// Leaf View protocol
-public protocol MuLeafViewProtocol {
+    /// refresh View from current thumb
+    func updateView()
 
     /// title for control value
     func valueText() -> String

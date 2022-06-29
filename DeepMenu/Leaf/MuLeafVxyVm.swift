@@ -15,7 +15,7 @@ class MuLeafVxyVm: MuLeafVm {
           icon: String = "") {
         
         super.init(.vxy, node, branchVm, prevVm, icon: icon)
-        node.leaves.append(self)  // MuLeaf delegate for setting value
+        node.proxies.append(self)  // MuLeaf delegate for setting value
         proto = node.proto ?? prevVm?.node.proto
 
         if let nameRanges = proto?.getRanges(named: ["x","y"]) {
@@ -65,6 +65,8 @@ class MuLeafVxyVm: MuLeafVm {
         }
         return result
     }()
+
+    /// normalized thumb radius
     lazy var thumbRadius: CGFloat = {
         Layout.diameter / max(runwayBounds.height,runwayBounds.width) / 2
     }()
@@ -73,9 +75,10 @@ class MuLeafVxyVm: MuLeafVm {
     /// So, determing delta from center at touchState.begin
     var thumbBeginΔ = CGPoint.zero
 }
-// Model
-extension MuLeafVxyVm: MuLeafModelProtocol {
 
+extension MuLeafVxyVm: MuLeafProxy {
+
+    /// user touch gesture inside runway
     func touchLeaf(_ touchState: MuTouchState) {
 
         if touchState.tapCount == 1 {
@@ -105,7 +108,7 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
         func touchThumbNext() {
             if !runwayBounds.contains(touchState.pointNow) {
                 // slowly erode thumbBegin∆ when out of bounds
-                thumbBeginΔ = thumbBeginΔ * 0.95
+                thumbBeginΔ = thumbBeginΔ * 0.85
             }
             let touchDelta = touchState.pointNow - runwayBounds.origin
             thumb = panelVm.normalizeTouch(xy: touchDelta) + thumbBeginΔ
@@ -118,12 +121,7 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
             thumbBeginΔ = touchedInsideThumb ? thumbPrev - thumbNext : .zero
             thumb = thumbNext + thumbBeginΔ
         }
-        /// expand normalized thumb to View coordinates and update outside model
-        func updateView() {
-            let x = expand(named: "x", thumb.x)
-            let y = expand(named: "y", thumb.y)
-            proto?.setAnys([("x", x),("y", y)])
-        }
+
         /// double touch will align thumb to center, corners or sides.
         func quantizeThumb(_ point: CGPoint) -> CGPoint {
             let x = round(point.x * 2) / 2
@@ -131,6 +129,8 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
             return CGPoint(x: x, y: y)
         }
     }
+
+    /// update from model - not touch
     func updateLeaf(_ any: Any) {
         if let p = any as? CGPoint {
             editing = true
@@ -140,10 +140,15 @@ extension MuLeafVxyVm: MuLeafModelProtocol {
             editing = false
         }
     }
-}
-// View
-extension MuLeafVxyVm: MuLeafViewProtocol {
 
+    // View -----------------------
+
+    /// expand normalized thumb to View coordinates and update outside model
+    func updateView() {
+        let x = expand(named: "x", thumb.x)
+        let y = expand(named: "y", thumb.y)
+        proto?.setAnys([("x", x),("y", y)])
+    }
     override func valueText() -> String {
         String(format: "x %.2f y %.2f",
                expand(named: "x", thumb.x),

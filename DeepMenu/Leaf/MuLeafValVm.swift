@@ -15,7 +15,7 @@ class MuLeafValVm: MuLeafVm {
           icon: String = "") {
         
         super.init(.val, node, branchVm, prevVm, icon: icon)
-        node.leaves.append(self) // MuLeaf delegate for setting value
+        node.proxies.append(self) // MuLeaf delegate for setting value
         proto = node.proto ?? prevVm?.node.proto
         range = proto?.getRange(named: type.name) ?? 0...1
         thumb = normalizeNamed(type.name)
@@ -36,18 +36,51 @@ class MuLeafValVm: MuLeafVm {
         let vv = panelVm.normalizeTouch(v: v)
         return vv 
     }
-}
-// Model
-extension MuLeafValVm: MuLeafModelProtocol {
 
+    /// normalized thumb radius
+    lazy var thumbRadius: CGFloat = {
+        Layout.diameter / max(runwayBounds.height,runwayBounds.width) / 2
+    }()
+
+    /// touchBegin inside thumb will Not move thumb.
+    /// So, determing delta from center at touchState.begin
+    var thumbBeginΔ = CGFloat.zero
+}
+
+// Model
+extension MuLeafValVm: MuLeafProxy {
+
+    /// user touch gesture inside runway
     func touchLeaf(_ touchState: MuTouchState) {
-        if touchState.phase != .ended {
+
+        if touchState.phase == .begin {
+            touchThumbBegin()
+            updateView()
             editing = true
-            let touchDelta = touchState.pointNow - runwayBounds.origin
-            thumb = normalizeTouch(touchDelta)
-            proto?.setAny(named: type.name, expanded)
+        } else if touchState.phase != .ended {
+            touchThumbNext()
+            updateView()
+            editing = true
         } else {
             editing = false
+        }
+
+        /// user touched control, translate to normalized thumb (0...1)
+        func touchThumbNext() {
+            if !runwayBounds.contains(touchState.pointNow) {
+                // slowly erode thumbBegin∆ when out of bounds
+                thumbBeginΔ = thumbBeginΔ * 0.85
+            }
+            let touchDelta = touchState.pointNow - runwayBounds.origin
+            thumb = normalizeTouch(touchDelta) + thumbBeginΔ
+        }
+        func touchThumbBegin() {
+            let thumbPrev = thumb
+            let touchDelta = touchState.pointNow - runwayBounds.origin
+            let thumbNext = normalizeTouch(touchDelta)
+            let touchedInsideThumb = abs(thumbNext.distance(to: thumbPrev)) < thumbRadius
+            thumbBeginΔ = touchedInsideThumb ? thumbPrev - thumbNext : .zero
+            thumb = thumbNext + thumbBeginΔ
         }
     }
 
@@ -58,10 +91,12 @@ extension MuLeafValVm: MuLeafModelProtocol {
             editing = false
         }
     }
-}
-// View
-extension MuLeafValVm: MuLeafViewProtocol {
+    // View
 
+    /// expand normalized thumb to View coordinates and update outside model
+    func updateView() {
+        proto?.setAny(named: type.name, expanded)
+    }
     override func valueText() -> String {
         String(format: "%.2f", expanded)
     }

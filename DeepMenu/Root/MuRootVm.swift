@@ -275,8 +275,8 @@ class MuRootVm: ObservableObject, Equatable {
                 // branch spotlight off
                 leafVm.branchVm.treeVm.branchSpot = nil
             }
-            for leaf in leafVm.node.leaves {
-                leaf.touchLeaf(touchState)
+            for proxy in leafVm.node.proxies {
+                proxy.touchLeaf(touchState)
             }
         }
 

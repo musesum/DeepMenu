@@ -14,19 +14,19 @@ class MuLeafTogVm: MuLeafVm {
           icon: String = "") {
 
         super.init(.tog, node, branchVm, prevVm, icon: icon)
-        node.leaves.append(self) 
+        node.proxies.append(self) 
         proto = node.proto ?? prevVm?.node.proto
         thumb = CGFloat(proto?.getAny(named: type.name) as? Float ?? .zero)
     }
 }
 // Model
-extension MuLeafTogVm: MuLeafModelProtocol {
+extension MuLeafTogVm: MuLeafProxy {
 
     func touchLeaf(_ touchState: MuTouchState) {
         if !editing, touchState.phase == .begin  {
-            editing = true
             thumb = (thumb==1 ? 0 : 1)
-            proto?.setAny(named: type.name, thumb)
+            updateView()
+            editing = true
         } else if editing,  touchState.phase == .ended {
             editing = false
         }
@@ -40,10 +40,12 @@ extension MuLeafTogVm: MuLeafModelProtocol {
             editing = false
         }
     }
-}
-// View
-extension MuLeafTogVm: MuLeafViewProtocol {
 
+    // View -----------------------
+    
+    func updateView() {
+        proto?.setAny(named: type.name, thumb)
+    }
     override func valueText() -> String {
         thumb == 1 ? "1" : "0"
     }

@@ -108,12 +108,12 @@ extension MuNodeTr3: MuNodeProtocol {
             //TODO: visitor.newVisit(id) {
             
             for child in children {
-                for leaf in child.leaves {
+                for proxy in child.proxies {
                     if let p = tr3.CGPointVal() {
 
                         //TODO: get rid of CGPoint test? -- Would require returning all components and thus impacts the single name components, below. May become important in the future, with complex exprs, like a midi.input.note.on on(num 0...127, velo 0...127, chan 1...32, port 1...16, time 0)
 
-                        leaf.updateLeaf(p)
+                        proxy.updateLeaf(p)
                         
                     } else if let name = tr3.getName(in: MuNodeLeaves),
                               let any = tr3.component(named: name) {
@@ -121,10 +121,10 @@ extension MuNodeTr3: MuNodeProtocol {
                         if let val = any as? Tr3ValScalar {
 
                             let num = val.num
-                            leaf.updateLeaf(num)
+                            proxy.updateLeaf(num)
                             
                         } else {
-                            leaf.updateLeaf(any)
+                            proxy.updateLeaf(any)
                         }
                     }
                 }

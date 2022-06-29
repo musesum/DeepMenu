@@ -6,6 +6,7 @@ import SwiftUI
 class MuLeafTapVm: MuLeafVm {
 
     var proto: MuNodeProtocol?
+    var thumb = CGFloat.zero
 
     init (_ node: MuNode,
           _ branchVm: MuBranchVm,
@@ -13,19 +14,21 @@ class MuLeafTapVm: MuLeafVm {
           icon: String = "") {
         
         super.init(.tap, node, branchVm, prevVm, icon: icon)
-        node.leaves.append(self) // MuLeaf delegate for setting value
+        node.proxies.append(self) // MuLeaf delegate for setting value
         proto = node.proto ?? prevVm?.node.proto
     }
 }
 // Model
-extension MuLeafTapVm: MuLeafModelProtocol {
+extension MuLeafTapVm: MuLeafProxy {
 
     func touchLeaf(_ touchState: MuTouchState) {
         if touchState.phase == .begin {
+            thumb = 1
+            updateView()
             editing = true
-            proto?.setAny(named: type.name, CGFloat(1))
         } else if touchState.phase == .ended {
-            proto?.setAny(named: type.name, CGFloat(0))
+            thumb = 0
+            updateView()
             editing = false
         }
     }
@@ -35,10 +38,12 @@ extension MuLeafTapVm: MuLeafModelProtocol {
             self.editing = false
         }
     }
-}
-// View
-extension MuLeafTapVm: MuLeafViewProtocol {
 
+    // View ----------------
+
+    func updateView() {
+        proto?.setAny(named: type.name, thumb)
+    }
     override func valueText() -> String {
         editing ? "1" :  "0"
     }
