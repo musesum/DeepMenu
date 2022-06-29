@@ -21,7 +21,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
     let type: MuNodeType      /// node, val, vxy, seg, tog, tap
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
     let icon: String?         /// icon for this node (not implemented)
-    var branchVm: MuBranchVm /// branch that this node is on
+    var branchVm: MuBranchVm  /// branch that this node is on
     var nextBranchVm: MuBranchVm? /// branch this node generates
 
     var leafVm: MuNodeVm?     /// optional MuLeaf for editing value

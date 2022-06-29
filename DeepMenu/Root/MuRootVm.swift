@@ -124,7 +124,7 @@ class MuRootVm: ObservableObject, Equatable {
         let touchNow = touchState.pointNow
         let taps = touchState.tapCount
 
-        log(touchElement.symbol, terminator: "")
+        //log(touchElement.symbol, terminator: "")
         if        editLeafNode() {
         } else if hoverNodeSpot() {
         } else if tapHomeNode() {
@@ -142,7 +142,7 @@ class MuRootVm: ObservableObject, Equatable {
                     if (touchElement == .edit || touchState.phase == .begin) {
                         updateLeaf(leafVm)
                     }
-                                        return true
+                    return true
                 } else if leafVm.branchVm.bounds.contains(touchNow),
                           touchElement != .edit {
                     // begin touch on title section to possibly stack branches
@@ -151,10 +151,10 @@ class MuRootVm: ObservableObject, Equatable {
                     leafVm.spotlight = false
                     // set spotlight on
                     leafVm.branchVm.treeVm.branchSpot = leafVm.branchVm
-                                        return true
+                    return true
                 } else if touchElement == .edit  {
                     updateLeaf(leafVm)
-                                        return true
+                    return true
                 }
             }
             return false
@@ -163,7 +163,7 @@ class MuRootVm: ObservableObject, Equatable {
             if let nodeSpotVm = nodeSpotVm,
                nodeSpotVm.center.distance(touchNow) < Layout.insideNode {
                     touchElement = .node
-                                return true
+                return true
             }
             return false
         }
@@ -178,7 +178,7 @@ class MuRootVm: ObservableObject, Equatable {
                         showBranches()
                     }
                     touchElement = .none
-                                        return true
+                    return true
                 }
             }
             return false
@@ -192,9 +192,9 @@ class MuRootVm: ObservableObject, Equatable {
                     touchElement = .home
                     if viewElements.intersection( [.branch,.trunks]).count > 0 {
                         showTrunks()
-                                            } else {
+                    } else {
                         showBranches()
-                                            }
+                    }
                 }
                 return true
             }
@@ -215,19 +215,19 @@ class MuRootVm: ObservableObject, Equatable {
                         if leafVm.contains(touchNow) {
                             // touch directly inside leaf Runway triggers edit
                             updateLeaf(leafVm)
-                                                    }
+                        }
                     } else if !viewElements.contains(.branch) {
                         log("~", terminator: "")
                         viewElements = [.home,.branch]
                         touchElement = .branch
-                                            }
+                    }
                     return true
                 } else if let nearestLeafVm = nearestBranch.findNearestLeaf(touchNow) {
                     // special case where not touching on leaf runway but is touching headline
                     if touchState.phase == .begin {
                         updateChanged(nodeSpotVm: nearestLeafVm)
                         touchElement = .leaf
-                                                return true
+                        return true
                     }
                 }
             }

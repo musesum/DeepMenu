@@ -5,7 +5,7 @@ import SwiftUI
 /// 2d XY control
 class MuLeafVxyVm: MuLeafVm {
     
-    var thumb: CGPoint = .zero // normalized to 0...1
+    var thumb: CGPoint = .zero /// normalized to 0...1
     var proto: MuNodeProtocol?
     var ranges = [String : ClosedRange<Float>]()
 
@@ -39,6 +39,9 @@ class MuLeafVxyVm: MuLeafVm {
         return result
     }
 
+    /// Tick marks for double touch alignments
+    /// shown at center, corner, and sides.
+    /// So: NW, N, NE, E, SE, S, SW, W, Center
     var nearestTick: CGPoint {
         CGPoint(x: round(thumb.x * 2) / 2,
                 y: round(thumb.y * 2) / 2)
@@ -62,23 +65,70 @@ class MuLeafVxyVm: MuLeafVm {
         }
         return result
     }()
+    lazy var thumbRadius: CGFloat = {
+        Layout.diameter / max(runwayBounds.height,runwayBounds.width) / 2
+    }()
+
+    /// touchBegin inside thumb will Not move thumb.
+    /// So, determing delta from center at touchState.begin
+    var thumbBeginΔ = CGPoint.zero
 }
 // Model
 extension MuLeafVxyVm: MuLeafModelProtocol {
 
     func touchLeaf(_ touchState: MuTouchState) {
 
-        if touchState.phase != .ended {
+        if touchState.tapCount == 1 {
+            tapThumb()
+            updateView()
             editing = true
-            let touchDelta = touchState.pointNow - runwayBounds.origin
-            thumb = panelVm.normalizeTouch(xy: touchDelta)
-            let x = expand(named: "x", thumb.x)
-            let y = expand(named: "y", thumb.y)
-
-            proto?.setAnys([("x", x),("y", y)])
-
+        } else if touchState.phase == .begin {
+            touchThumbBegin()
+            updateView()
+            editing = true
+        } else if touchState.phase != .ended {
+            touchThumbNext()
+            updateView()
+            editing = true
         } else {
             editing = false
+        }
+
+        func tapThumb() {
+            let touchDelta = touchState.pointNow - runwayBounds.origin
+            let thumbPrior = panelVm.normalizeTouch(xy: touchDelta)
+            thumb = quantizeThumb(thumbPrior)
+            thumbBeginΔ = thumb - thumbPrior
+        }
+
+        /// user touched control, translate to normalized thumb (0...1)
+        func touchThumbNext() {
+            if !runwayBounds.contains(touchState.pointNow) {
+                // slowly erode thumbBegin∆ when out of bounds
+                thumbBeginΔ = thumbBeginΔ * 0.95
+            }
+            let touchDelta = touchState.pointNow - runwayBounds.origin
+            thumb = panelVm.normalizeTouch(xy: touchDelta) + thumbBeginΔ
+        }
+        func touchThumbBegin() {
+            let thumbPrev = thumb
+            let touchDelta = touchState.pointNow - runwayBounds.origin
+            let thumbNext = panelVm.normalizeTouch(xy: touchDelta)
+            let touchedInsideThumb = thumbNext.distance(thumbPrev) < thumbRadius
+            thumbBeginΔ = touchedInsideThumb ? thumbPrev - thumbNext : .zero
+            thumb = thumbNext + thumbBeginΔ
+        }
+        /// expand normalized thumb to View coordinates and update outside model
+        func updateView() {
+            let x = expand(named: "x", thumb.x)
+            let y = expand(named: "y", thumb.y)
+            proto?.setAnys([("x", x),("y", y)])
+        }
+        /// double touch will align thumb to center, corners or sides.
+        func quantizeThumb(_ point: CGPoint) -> CGPoint {
+            let x = round(point.x * 2) / 2
+            let y = round(point.y * 2) / 2
+            return CGPoint(x: x, y: y)
         }
     }
     func updateLeaf(_ any: Any) {
