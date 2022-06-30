@@ -5,10 +5,10 @@ import Foundation
 enum MuElement: String  {
     
     case none   /// starting point before showing
-    case home   /// only root node showing
-    case branch /// branches expanded for one tree, hovering
+    case root   /// starting node hosting 1 or more trees
+    case branch /// branches expanded for one tree
     case trunks /// only first branch of multiple trees
-    case node   /// over a specific node
+    case node   /// hovering over a specific node
     case leaf   /// dragable header for leaf
     case edit   /// editing area inside a leaf
     case space  /// hovering over canvas
@@ -17,7 +17,7 @@ enum MuElement: String  {
     public var symbol: String {
         switch self {
             case .none   : return "⋄"
-            case .home   : return "⌂"
+            case .root   : return "√"
             case .trunks : return "ᛘ"
             case .branch : return "𐂷"
             case .node   : return "￮"
@@ -30,7 +30,7 @@ enum MuElement: String  {
     public var description: String {
         switch self {
             case .none   : return "none"
-            case .home   : return "home"
+            case .root   : return "root"
             case .trunks : return "trunks"
             case .branch : return "branch"
             case .node   : return "node"

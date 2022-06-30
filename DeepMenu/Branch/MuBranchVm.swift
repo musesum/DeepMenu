@@ -189,7 +189,7 @@ extension MuBranchVm {
         func nextHash() -> Int {
             var hasher = Hasher()
             hasher.combine(prevNodeVm?.hashValue ?? 0)
-            hasher.combine(treeVm.rootVm?.corner.rawValue ?? 0)
+            hasher.combine(treeVm.corner.rawValue)
             hasher.combine(type.icon)
             let hash = hasher.finalize()
             return hash

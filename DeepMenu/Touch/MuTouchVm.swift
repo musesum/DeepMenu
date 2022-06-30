@@ -6,32 +6,30 @@ import SwiftUI
 class MuTouchVm: ObservableObject {
 
     @Published var dragIconXY = CGPoint.zero /// current position
-    public var homeIconXY = CGPoint.zero     /// starting position of touch
+    public var rootIconXY = CGPoint.zero     /// starting position of touch
 
-    /// hide home icon while hovering elsewhere
-    var homeAlpha: CGFloat {
-        (dragIconXY == homeIconXY) || (dragIconXY == .zero) ? 1 : 0 }
+    /// hide root icon while hovering elsewhere
+    var rootAlpha: CGFloat {
+        (dragIconXY == rootIconXY) || (dragIconXY == .zero) ? 1 : 0 }
 
     var rootVm: MuRootVm?
-    var homeNodeVm: MuNodeVm?  /// fixed home node in corner in which to drag from
-    var dragNodeVm: MuNodeVm?  /// drag from home with duplicate node icon
+    var rootNodeVm: MuNodeVm?  /// fixed root node in corner in which to drag from
+    var dragNodeVm: MuNodeVm?  /// drag from root with duplicate node icon
     var touchState = MuTouchState() /// begin,moved,end state plus tap count
 
-    private var homeNodeΔ = CGSize.zero /// offset between rootNode and touchNow
+    private var rootNodeΔ = CGSize.zero /// offset between rootNode and touchNow
     private var spotNodeΔ = CGSize.zero /// offset between touch point and center in coord
     var dragNodeΔ: CGSize = .zero /// weird kludge to compsate for right sight offset
 
     public func setRoot(_ rootVm: MuRootVm) {
         guard let treeVm = rootVm.treeSpotVm else { return }
         self.rootVm = rootVm
-        let homeNode = MuNodeTest("⚫︎") //todo: replace with ??
-
+        let testNode = MuNodeTest("⚫︎") //todo: replace with ??
         let branchVm = MuBranchVm.cached(treeVm: treeVm)
+        rootNodeVm = MuNodeVm(.node, testNode, branchVm, icon: Layout.hoverRing)
+        branchVm.addNodeVm(rootNodeVm)
 
-        homeNodeVm = MuNodeVm(.node, homeNode, branchVm, icon: Layout.hoverRing)
-        branchVm.addNodeVm(homeNodeVm)
-
-        dragNodeVm = homeNodeVm?.copy()
+        dragNodeVm = rootNodeVm?.copy()
         if rootVm.corner.contains(.right) {
             let rightOffset: CGFloat = -(2 * Layout.padding)
             dragNodeΔ = CGSize(width: rightOffset, height: 0)
@@ -71,17 +69,17 @@ class MuTouchVm: ObservableObject {
         func ended() {
             touchState.ended()
             rootVm?.touchEnded(touchState)
-            dragIconXY = homeIconXY
+            dragIconXY = rootIconXY
             spotNodeΔ = .zero // no spotNode to align with
-            homeNodeΔ = .zero // go back to rootNode
+            rootNodeΔ = .zero // go back to rootNode
         }
     }
 
-    /// updated on startup or change in screen orientaiton
-    func updateHomeIcon(_ fr: CGRect) {
-        homeIconXY = rootVm?.cornerXY(in: fr) ?? .zero
-        dragIconXY = homeIconXY
-        // log("home: ", [pointNow])
+    /// updated on startup or change in screen orientation
+    func updateRootIcon(_ fr: CGRect) {
+        rootIconXY = rootVm?.cornerXY(in: fr) ?? .zero
+        dragIconXY = rootIconXY
+        // log("root: ", [pointNow])
     }
     
     /// either center dragNode icon on spotNode or track finger
@@ -91,10 +89,10 @@ class MuTouchVm: ObservableObject {
             return dragIconXY = touchNow
         }
         if !touchState.touching ||
-            rootVm.touchElement == .home ||
+            rootVm.touchElement == .root ||
             rootVm.nodeSpotVm?.type.isLeaf ?? false {
 
-            dragIconXY = homeIconXY
+            dragIconXY = rootIconXY
 
         } else {
             dragIconXY =  rootVm.nodeSpotVm?.center ?? touchNow

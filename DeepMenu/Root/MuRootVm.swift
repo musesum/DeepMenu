@@ -13,7 +13,7 @@ class MuRootVm: ObservableObject, Equatable {
     @Published var touchElement = MuElement.none
 
     /// which menu elements are shown on View
-    var viewElements: Set<MuElement> = [.home, .trunks] {
+    var viewElements: Set<MuElement> = [.root, .trunks] {
         willSet { if viewElements != newValue {
                 log(":", [beginElements,"⟶",newValue], terminator: " ")
             } } }
@@ -39,18 +39,13 @@ class MuRootVm: ObservableObject, Equatable {
 
         self.corner = corner
         self.treeVms = treeVms
-        for treeVm in treeVms {
-            treeVm.rootVm = self
-        }
         treeSpotVm = treeVms.first
         touchVm.setRoot(self)
         updateOffsets()
     }
 
     /**
-     Adjust tree offsets iPhone and iPad to avoid false positives, now that springboard adds a corner hotspot for launching the notes app. Also, adjust pilot offsets for home root and for flying.
-
-     The dragNode ring is bigger than the home ring, so the offsets are different. To test alignment, comment out the `.opacity(...)` statements in MuBranchView. The dragNode ring should come to home after dragDone and encircle the home ring.
+     Adjust tree offsets iPhone and iPad to avoid false positives, now that springboard adds a corner hotspot for launching the notes app. Also, adjust pilot offsets for root and for flying.
      */
     func updateOffsets() {
 
@@ -76,7 +71,7 @@ class MuRootVm: ObservableObject, Equatable {
         }
 
         for treeVm in treeVms {
-            treeVm.offset = (treeVm.axis == .horizontal ? hOfs : vOfs)
+            treeVm.treeOffset = (treeVm.axis == .horizontal ? hOfs : vOfs)
         }
     }
 
@@ -127,12 +122,12 @@ class MuRootVm: ObservableObject, Equatable {
         //log(touchElement.symbol, terminator: "")
         if        editLeafNode() {
         } else if hoverNodeSpot() {
-        } else if tapHomeNode() {
-        } else if hoverHomeNode() {
+        } else if tapRootNode() {
+        } else if hoverRootNode() {
         } else if hoverTreeNow() {
         } else if hoverTreeAlts() {
         } else {  hoverSpace() }
-        log(touchElement.symbol, terminator: " ")
+        //log(touchElement.symbol, terminator: " ")
 
         func editLeafNode() -> Bool {
 
@@ -145,12 +140,7 @@ class MuRootVm: ObservableObject, Equatable {
                     return true
                 } else if leafVm.branchVm.bounds.contains(touchNow),
                           touchElement != .edit {
-                    // begin touch on title section to possibly stack branches
-                    touchElement = .leaf
-                    // leaf spotlight off
-                    leafVm.spotlight = false
-                    // set spotlight on
-                    leafVm.branchVm.treeVm.branchSpot = leafVm.branchVm
+                   stackBranches(leafVm)
                     return true
                 } else if touchElement == .edit  {
                     updateLeaf(leafVm)
@@ -159,19 +149,20 @@ class MuRootVm: ObservableObject, Equatable {
             }
             return false
         }
+
         func hoverNodeSpot() -> Bool {
             if let nodeSpotVm = nodeSpotVm,
                nodeSpotVm.center.distance(touchNow) < Layout.insideNode {
-                    touchElement = .node
+                touchElement = .node
                 return true
             }
             return false
         }
-        func tapHomeNode() -> Bool {
-            // tapping on homeNode in corner?
+        func tapRootNode() -> Bool {
+            // tapping on rootNode in corner?
             if taps > 0 {
-                let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
-                if  homeIconΔ < Layout.insideNode {
+                let rootIconΔ = touchVm.rootIconXY.distance(touchNow)
+                if  rootIconΔ < Layout.insideNode {
                     if beginElements.intersection( [.branch,.trunks]).count > 0 {
                         hideBranches()
                     } else {
@@ -183,13 +174,13 @@ class MuRootVm: ObservableObject, Equatable {
             }
             return false
         }
-        func hoverHomeNode() -> Bool {
-            // hovering over homeNode in corner?
-            let homeIconΔ = touchVm.homeIconXY.distance(touchNow)
-            if  homeIconΔ < Layout.insideNode {
+        func hoverRootNode() -> Bool {
+            // hovering over rootNode in corner?
+            let rootIconΔ = touchVm.rootIconXY.distance(touchNow)
+            if  rootIconΔ < Layout.insideNode {
 
-                if touchElement != .home {
-                    touchElement = .home
+                if touchElement != .root {
+                    touchElement = .root
                     if viewElements.intersection( [.branch,.trunks]).count > 0 {
                         showTrunks()
                     } else {
@@ -218,7 +209,7 @@ class MuRootVm: ObservableObject, Equatable {
                         }
                     } else if !viewElements.contains(.branch) {
                         log("~", terminator: "")
-                        viewElements = [.home,.branch]
+                        viewElements = [.root,.branch]
                         touchElement = .branch
                     }
                     return true
@@ -251,7 +242,7 @@ class MuRootVm: ObservableObject, Equatable {
                     updateChanged(nodeSpotVm: nearestNode)
 
                     log("≈", terminator: "")
-                    viewElements = [.home,.branch]
+                    viewElements = [.root,.branch]
                     touchElement = .branch
                     return true
                 }
@@ -263,7 +254,20 @@ class MuRootVm: ObservableObject, Equatable {
             nodeSpotVm = nil
         }
 
-        //  show/hide -----------
+        //  show/hide/stack -----------
+
+        func stackBranches(_ leafVm: MuLeafVm) {
+            // begin touch on title section to possibly stack branches
+            touchElement = .leaf
+            // leaf spotlight off
+            leafVm.spotlight = false
+            // set spotlight on
+            leafVm.branchVm.treeVm.branchSpot = leafVm.branchVm
+            log("stack", [touchState.pointBeginΔ], terminator: " ")
+            if let treeSpotVm = treeSpotVm {
+                treeSpotVm.stackBranches(touchState.pointBeginΔ)
+            }
+        }
 
         func updateLeaf(_ leafVm: MuLeafVm) {
 
@@ -289,7 +293,7 @@ class MuRootVm: ObservableObject, Equatable {
                 }
                 treeSpotVm = nil
                 log("+ᛘ", terminator: "")
-                viewElements = [.home, .trunks]
+                viewElements = [.root, .trunks]
             }
         }
         func showSoloTree() {
@@ -297,7 +301,7 @@ class MuRootVm: ObservableObject, Equatable {
                 treeSpotVm = treeVm
                 treeVm.showBranches(depth: 999)
                 log("+𐂷", terminator: "")
-                viewElements = [.home,.branch]
+                viewElements = [.root,.branch]
             }
         }
         func showBranches() {
@@ -309,7 +313,7 @@ class MuRootVm: ObservableObject, Equatable {
                         treeVm.showBranches(depth: 0)
                     }
                     log("+𐂷", terminator: "")
-                    viewElements = [.home,.branch]
+                    viewElements = [.root,.branch]
                 }
             } else {
                 showTrunks()
@@ -321,7 +325,7 @@ class MuRootVm: ObservableObject, Equatable {
             }
             treeSpotVm = nil
             log("-𐂷", terminator: "")
-            viewElements = [.home]
+            viewElements = [.root]
         }
     }
 }

@@ -19,7 +19,7 @@ struct MuTreeView: View {
                         .zIndex($0.level)
                 }
             }
-            .offset(treeVm.offset)
+            .offset(treeVm.treeOffset)
         } else {
             HStack(alignment: rootVm.corner.contains(.upper) ? .top : .bottom) {
                 ForEach(rootVm.corner.contains(.right)
@@ -30,7 +30,7 @@ struct MuTreeView: View {
                         .zIndex($0.level)
                 }
             }
-            .offset(treeVm.offset)
+            .offset(treeVm.treeOffset)
         }
     }
 }

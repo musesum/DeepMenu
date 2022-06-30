@@ -71,8 +71,8 @@ class MuLeafVxyVm: MuLeafVm {
         Layout.diameter / max(runwayBounds.height,runwayBounds.width) / 2
     }()
 
-    /// touchBegin inside thumb will Not move thumb.
-    /// So, determing delta from center at touchState.begin
+    /// touchBegin inside thumb will probably be off-center.
+    /// To avoid a sudden jump, thumbBeginΔ adds an offset.
     var thumbBeginΔ = CGPoint.zero
 }
 
@@ -81,14 +81,17 @@ extension MuLeafVxyVm: MuLeafProxy {
     /// user touch gesture inside runway
     func touchLeaf(_ touchState: MuTouchState) {
 
-        if touchState.tapCount == 1 {
-            tapThumb()
-            updateView()
-            editing = true
-        } else if touchState.phase == .begin {
-            touchThumbBegin()
-            updateView()
-            editing = true
+        if touchState.phase == .begin {
+
+            if touchState.touchCount == 1 {
+                tapThumb()
+                updateView()
+                editing = true
+            } else {
+                touchThumbBegin()
+                updateView()
+                editing = true
+            }
         } else if touchState.phase != .ended {
             touchThumbNext()
             updateView()

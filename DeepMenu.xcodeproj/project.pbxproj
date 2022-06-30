@@ -55,6 +55,7 @@
 		805B0EDF2748216700004A85 /* Comparable+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B0EDE2748216700004A85 /* Comparable+ext.swift */; };
 		80631DFD277141780071AF93 /* MuPanelVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFC277141780071AF93 /* MuPanelVm.swift */; };
 		80631E002772428E0071AF93 /* MuNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80631DFF2772428E0071AF93 /* MuNodeType.swift */; };
+		8065FEA9286E02DC0095003D /* Components.png in Resources */ = {isa = PBXBuildFile; fileRef = 8065FEA8286E02DC0095003D /* Components.png */; };
 		8068A435284BED3E007256DA /* MenuVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8068A434284BED3E007256DA /* MenuVm.swift */; };
 		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
 		80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB128170880005FCE1A /* ExampleTr3Sky.swift */; };
@@ -62,7 +63,6 @@
 		80731CE8281715F3005FCE1A /* sky.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCF281715C0005FCE1A /* sky.tr3.h */; };
 		80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCD281715C0005FCE1A /* midi.tr3.h */; };
 		80731CEB2819BBF1005FCE1A /* menu.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CEA28187A45005FCE1A /* menu.tr3.h */; };
-		807C5A9328493B9A0027863A /* Components.png in Resources */ = {isa = PBXBuildFile; fileRef = 807C5A9228493B9A0027863A /* Components.png */; };
 		8087FC87280771CF00572436 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* PathView.swift */; };
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
 		80A9B63D272F3B9B00355445 /* MuTouchVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuTouchVm.swift */; };
@@ -154,13 +154,13 @@
 		805B0EDE2748216700004A85 /* Comparable+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ext.swift"; sourceTree = "<group>"; };
 		80631DFC277141780071AF93 /* MuPanelVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPanelVm.swift; sourceTree = "<group>"; };
 		80631DFF2772428E0071AF93 /* MuNodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeType.swift; sourceTree = "<group>"; };
+		8065FEA8286E02DC0095003D /* Components.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Components.png; sourceTree = "<group>"; };
 		8068A434284BED3E007256DA /* MenuVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVm.swift; sourceTree = "<group>"; };
 		80731CB128170880005FCE1A /* ExampleTr3Sky.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTr3Sky.swift; sourceTree = "<group>"; };
 		80731CB528170D9A005FCE1A /* SkyTr3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyTr3.swift; sourceTree = "<group>"; };
 		80731CCD281715C0005FCE1A /* midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = midi.tr3.h; sourceTree = "<group>"; };
 		80731CCF281715C0005FCE1A /* sky.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.tr3.h; sourceTree = "<group>"; };
 		80731CEA28187A45005FCE1A /* menu.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menu.tr3.h; sourceTree = "<group>"; };
-		807C5A9228493B9A0027863A /* Components.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Components.png; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		809D126A275B26CA0091D252 /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
@@ -261,8 +261,8 @@
 			children = (
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,
-				807C5A9228493B9A0027863A /* Components.png */,
 				8047EB27284C681900A8EC2A /* Interaction.png */,
+				8065FEA8286E02DC0095003D /* Components.png */,
 				8014B7C82700DE3800691126 /* DeepMenu */,
 				8014B7D92700DE3A00691126 /* DeepMenuTests */,
 				8014B7E32700DE3A00691126 /* DeepMenuUITests */,
@@ -594,12 +594,12 @@
 				800E2A99281DB8AA006AE6A1 /* shader.tr3.h in Resources */,
 				80731CEB2819BBF1005FCE1A /* menu.tr3.h in Resources */,
 				8047EB28284C681900A8EC2A /* Interaction.png in Resources */,
+				8065FEA9286E02DC0095003D /* Components.png in Resources */,
 				80731CE8281715F3005FCE1A /* sky.tr3.h in Resources */,
 				80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */,
 				57A0A26527BF15AA00B5598B /* config.yml in Resources */,
 				802AEDA527BD8486003325C9 /* README.md in Resources */,
 				8014B7D12700DE3A00691126 /* Preview Assets.xcassets in Resources */,
-				807C5A9328493B9A0027863A /* Components.png in Resources */,
 				8014B7CE2700DE3A00691126 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

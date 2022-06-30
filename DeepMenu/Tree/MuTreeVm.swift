@@ -7,13 +7,14 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
     @Published var branchVms = [MuBranchVm]()
     var branchSpot: MuBranchVm?
-
-    var axis: Axis  // vertical or horizontal
+    var axis: Axis
     var corner: MuCorner
-    var level = CGFloat(1) // starting level for branches
-    var offset = CGSize(width: 0, height: 0)
-    var depthShown = 0 // levels of branches shown
-    var rootVm: MuRootVm? // used to determine MuBranchVm hash value
+
+    var treeOffset = CGSize.zero
+    var stackOffset = CGFloat.zero
+
+    private var level = CGFloat(1) // starting level for branches
+    private var depthShown = 0 // levels of branches shown
 
     init(axis: Axis, corner: MuCorner) {
         self.axis = axis
@@ -103,20 +104,19 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
     func showBranches(depth depthNext: Int) {
 
-        //?? var lag = TimeInterval(0) //TODO: needs to be cancellable
         var newBranches = [MuBranchVm]()
 
-        //logStart()
+        logStart()
         if      depthShown < depthNext { expandBranches() }
         else if depthShown > depthNext { contractBranches() }
-        //logFinish()
+        logFinish()
 
         func expandBranches() {
             var countUp = 0
             for branch in branchVms {
                 if countUp < depthNext {
                     newBranches.append(branch)
-                    branch.show = true //?? Schedule(lag) {  } lag += Layout.lagStep
+                    branch.show = true
                 } else {
                     branch.show = false
                 }
@@ -129,7 +129,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
             for branch in branchVms.reversed() {
                 if countDown > depthNext,
                    branch.show == true {
-                    branch.show = false //?? Schedule(lag) {  } lag += Layout.lagStep
+                    branch.show = false
                 }
                 countDown -= 1
             }
@@ -144,6 +144,11 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         func logFinish() {
             print (depthShown, terminator: " ")
         }
+    }
+
+    func stackBranches(_ pointΔ: CGPoint) {
+        stackOffset = axis == .vertical ? pointΔ.x : pointΔ.y
+
     }
 
 }

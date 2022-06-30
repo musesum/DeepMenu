@@ -3,6 +3,7 @@
 import SwiftUI
 
 struct MuBranchPanelView: View {
+    
     var panelVm: MuPanelVm
     let spotlight: Bool
     var strokeColor: Color { spotlight ? .gray : .clear }
