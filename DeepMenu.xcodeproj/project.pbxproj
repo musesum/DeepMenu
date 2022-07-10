@@ -44,6 +44,7 @@
 		802346FA2717D7EE0006645B /* MuRootVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802346F92717D7EE0006645B /* MuRootVm.swift */; };
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		802C2B552856902500332BF7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 802C2B542856902500332BF7 /* OrderedCollections */; };
+		803A5D60287B2E62005C9A09 /* Set+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803A5D5F287B2E62005C9A09 /* Set+ext.swift */; };
 		8040EDEA282B03390091F226 /* MuLeafSegView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE6282B03390091F226 /* MuLeafSegView.swift */; };
 		8040EDEB282B03390091F226 /* MuLeafSegVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE7282B03390091F226 /* MuLeafSegVm.swift */; };
 		8040EDEC282B03390091F226 /* MuLeafTogVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8040EDE8282B03390091F226 /* MuLeafTogVm.swift */; };
@@ -143,6 +144,7 @@
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802346F92717D7EE0006645B /* MuRootVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuRootVm.swift; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		803A5D5F287B2E62005C9A09 /* Set+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+ext.swift"; sourceTree = "<group>"; };
 		8040EDE6282B03390091F226 /* MuLeafSegView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafSegView.swift; sourceTree = "<group>"; };
 		8040EDE7282B03390091F226 /* MuLeafSegVm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafSegVm.swift; sourceTree = "<group>"; };
 		8040EDE8282B03390091F226 /* MuLeafTogVm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuLeafTogVm.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				8019DBF8271BEEED00420923 /* String+ext.swift */,
 				805B0EDE2748216700004A85 /* Comparable+ext.swift */,
 				809E6D8928749D68001C8617 /* SwiftUI+ext.swift */,
+				803A5D5F287B2E62005C9A09 /* Set+ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -628,6 +631,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				803A5D60287B2E62005C9A09 /* Set+ext.swift in Sources */,
 				80135A07272C71EA00BCDE27 /* MuTreeView.swift in Sources */,
 				8019DBFB271C8CEC00420923 /* MuNodeTest.swift in Sources */,
 				80135A0B272C728700BCDE27 /* CanvasView.swift in Sources */,

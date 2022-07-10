@@ -125,17 +125,16 @@ class MuRootVm: ObservableObject, Equatable {
         switch touchElement {
             case .shift: return shiftBranches()
             case .edit:  return editLeaf()
+            case .sky:   return hoverSpace()
             default:     break
         }
 
-        if        hoverLeafNode() {
-        } else if hoverNodeSpot() {
-        } else if tapRootNode() {
-        } else if hoverRootNode() {
-        } else if hoverTreeNow() {
-        } else if hoverTreeAlts() {
-        } else {  hoverSpace() }
-        //log(touchElement.symbol, terminator: " ")
+        if        hoverLeafNode() { // editing leaf or shifting branch
+        } else if hoverNodeSpot() { // is over the same branch node
+        } else if hoverRootNode() { // is tapping or over the root (home) node
+        } else if hoverTreeNow()  { // shifted to new node on same tree
+        } else if hoverTreeAlts() { // shifted to space reserved for alternate tree
+        } else {  hoverSpace()    } // hovering over canvas, plus future UIKit drawing
 
         func hoverLeafNode() -> Bool {
             if touchState.phase == .begin,
@@ -163,34 +162,19 @@ class MuRootVm: ObservableObject, Equatable {
             }
             return false
         }
-        func tapRootNode() -> Bool {
-            // tapping on rootNode in corner?
-            if taps > 0 {
-                let rootIconΔ = touchVm.rootIconXY.distance(touchNow)
-                if  rootIconΔ < Layout.insideNode {
-                    if beginElements.intersection( [.branch,.trunks]).count > 0 {
-                        hideBranches()
-                    } else {
-                        showBranches()
-                    }
-                    touchElement = .none
-                    return true
-                }
-            }
-            return false
-        }
         func hoverRootNode() -> Bool {
-            // hovering over rootNode in corner?
-            let rootIconΔ = touchVm.rootIconXY.distance(touchNow)
-            if  rootIconΔ < Layout.insideNode {
-
-                if touchElement != .root {
+            let isOverRootNode = touchVm.rootIconXY.distance(touchNow) < Layout.insideNode
+            if  isOverRootNode {
+                if taps > 0 {
+                    touchElement = .none
+                    let wasShown = beginElements.hasAny([.branch,.trunks])
+                    if  wasShown { hideBranches() }
+                    else         { showBranches() }
+                } else if touchElement != .root {
                     touchElement = .root
-                    if viewElements.intersection( [.branch,.trunks]).count > 0 {
-                        showTrunks()
-                    } else {
-                        showBranches()
-                    }
+                    let isShowing = viewElements.hasAny([.branch,.trunks])
+                    if  isShowing { showTrunks() }
+                    else          { showBranches() }
                 }
                 return true
             }
@@ -255,8 +239,14 @@ class MuRootVm: ObservableObject, Equatable {
             return false
         }
         func hoverSpace() {
-            touchElement = .space
-            nodeSpotVm = nil
+            if touchElement == .sky {
+                // future reference for UIKit compatibility drawing canvas
+            } else {
+                touchElement = (touchState.phase == .begin
+                                ? .sky // UIKit canvas
+                                : .space) // SwiftUI menu mode
+                nodeSpotVm = nil
+            }
         }
 
         //  show/hide/stack -----------

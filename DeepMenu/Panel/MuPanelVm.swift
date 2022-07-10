@@ -8,7 +8,7 @@ class MuPanelVm {
     var axis: Axis
     var corner: MuCorner
     var count: CGFloat
-    var spacing = CGFloat(0) // overlap with a negative number
+    var spacing = CGFloat(0) /// overlap with a negative number
     var aspectSz = CGSize(width: 1, height: 1) /// multiplier aspect ratio
 
     init(type: MuNodeType,
