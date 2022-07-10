@@ -151,7 +151,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
         log("\ntreeShifting", [treeShifting, "root", rootVm.touchVm.rootIconXY])
         for branchVm in branchVms {
-            branchVm.shiftBranch()
+            branchVm.shiftBranch() 
         }
 
         /// constrain shifting only towards root's corner

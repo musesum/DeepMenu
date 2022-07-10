@@ -34,9 +34,9 @@ struct MuBranchView: View {
             .onChange(of: geo.frame(in: .named("Canvas"))) { branchVm.updateBounds($0) }
         }
         .frame(width: panelVm.outer.width, height: panelVm.outer.height)
+        .offset(branchVm.branchShift)
         .opacity(opacity * branchVm.branchOpacity)
         .animation(.easeInOut(duration: Layout.animate/2), value: opacity)
-        .offset(branchVm.branchShift)
         //.onTapGesture { } // allow scrolling
     }
 }

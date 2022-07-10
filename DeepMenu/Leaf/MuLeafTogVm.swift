@@ -16,7 +16,7 @@ class MuLeafTogVm: MuLeafVm {
         super.init(.tog, node, branchVm, prevVm, icon: icon)
         node.proxies.append(self) 
         proto = node.proto ?? prevVm?.node.proto
-        thumb = CGFloat(proto?.getAny(named: type.name) as? Float ?? .zero)
+        thumb = CGFloat(proto?.getAny(named: nodeType.name) as? Float ?? .zero)
     }
 }
 // Model
@@ -44,7 +44,7 @@ extension MuLeafTogVm: MuLeafProxy {
     // View -----------------------
     
     func updateView() {
-        proto?.setAny(named: type.name, thumb)
+        proto?.setAny(named: nodeType.name, thumb)
     }
     override func valueText() -> String {
         thumb == 1 ? "1" : "0"

@@ -92,7 +92,7 @@ class MuTouchVm: ObservableObject {
         }
         if !touchState.touching ||
             rootVm.touchElement == .root ||
-            rootVm.nodeSpotVm?.type.isLeaf ?? false {
+            rootVm.nodeSpotVm?.nodeType.isLeaf ?? false {
 
             dragIconXY = rootIconXY
 

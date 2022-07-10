@@ -4,18 +4,18 @@ import SwiftUI
 
 class MuPanelVm {
  
-    var type: MuNodeType
+    var nodeType: MuNodeType
     var axis: Axis
     var corner: MuCorner
     var count: CGFloat
     var spacing = CGFloat(0) /// overlap with a negative number
     var aspectSz = CGSize(width: 1, height: 1) /// multiplier aspect ratio
 
-    init(type: MuNodeType,
+    init(nodeType: MuNodeType,
          count: Int = 1,
          treeVm: MuTreeVm) {
 
-        self.type = type
+        self.nodeType = nodeType
         self.count = CGFloat(max(count,1))
         self.axis = treeVm.axis
         self.corner = treeVm.corner
@@ -23,7 +23,7 @@ class MuPanelVm {
     }
 
     init(from: MuPanelVm) {
-        self.type    = from.type
+        self.nodeType = from.nodeType
         self.spacing = from.spacing
         self.axis    = from.axis
         self.corner  = from.corner
@@ -39,7 +39,7 @@ class MuPanelVm {
             : CGSize(width: hi, height: lo)
         }
 
-        switch type {
+        switch nodeType {
             case .none : aspect(1.0, 1.0)
             case .node : aspect(1.0, 1.0)
             case .val  : aspect(1.0, 4.0)
@@ -78,7 +78,7 @@ class MuPanelVm {
         let padpad = Layout.padding * 2
         let outerDiameter = Layout.diameter + padpad
 
-        switch type {
+        switch nodeType {
 
             case .val, .seg, .tog, .tap:
 
@@ -102,7 +102,7 @@ class MuPanelVm {
         return result
     }
     var titleSize: CGSize {
-        switch type {
+        switch nodeType {
             case .vxy: // title is always on top
                 return CGSize(width:  inner.width,
                               height: Layout.diameter - 8)
@@ -113,7 +113,7 @@ class MuPanelVm {
     }
 
     var innerOffset: CGSize {
-        if type == .vxy || axis == .vertical {
+        if nodeType == .vxy || axis == .vertical {
             return CGSize(width: Layout.padding,
                           height: titleSize.height+Layout.padding*2)
         }

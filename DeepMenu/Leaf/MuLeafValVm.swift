@@ -17,8 +17,8 @@ class MuLeafValVm: MuLeafVm {
         super.init(.val, node, branchVm, prevVm, icon: icon)
         node.proxies.append(self) // MuLeaf delegate for setting value
         proto = node.proto ?? prevVm?.node.proto
-        range = proto?.getRange(named: type.name) ?? 0...1
-        thumb = normalizeNamed(type.name)
+        range = proto?.getRange(named: nodeType.name) ?? 0...1
+        thumb = normalizeNamed(nodeType.name)
     }
 
     func normalizeNamed(_ name: String) -> CGFloat {
@@ -95,7 +95,7 @@ extension MuLeafValVm: MuLeafProxy {
 
     /// expand normalized thumb to View coordinates and update outside model
     func updateView() {
-        proto?.setAny(named: type.name, expanded)
+        proto?.setAny(named: nodeType.name, expanded)
     }
     override func valueText() -> String {
         String(format: "%.2f", expanded)

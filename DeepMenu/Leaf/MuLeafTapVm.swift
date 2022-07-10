@@ -42,7 +42,7 @@ extension MuLeafTapVm: MuLeafProxy {
     // View ----------------
 
     func updateView() {
-        proto?.setAny(named: type.name, thumb)
+        proto?.setAny(named: nodeType.name, thumb)
     }
     override func valueText() -> String {
         editing ? "1" :  "0"

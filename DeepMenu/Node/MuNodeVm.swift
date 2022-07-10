@@ -18,7 +18,7 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
         }
     }
 
-    let type: MuNodeType      /// node, val, vxy, seg, tog, tap
+    let nodeType: MuNodeType  /// node, val, vxy, seg, tog, tap
     let node: MuNode          /// each model MuNode maybe on several MuNodeVm's
     let icon: String?         /// icon for this node (not implemented)
     var branchVm: MuBranchVm  /// branch that this node is on
@@ -30,24 +30,24 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 
     var center = CGPoint.zero /// current position
 
-    init (_ type: MuNodeType,
+    init (_ nodeType: MuNodeType,
           _ node: MuNode,
           _ branchVm: MuBranchVm,
           _ prevVm: MuNodeVm? = nil,
           icon: String? = nil) {
 
-        self.type = type
+        self.nodeType = nodeType
         self.node = node
         self.branchVm = branchVm
         self.prevVm = prevVm
         self.icon = icon
-        self.panelVm = MuPanelVm(type: type,
+        self.panelVm = MuPanelVm(nodeType: nodeType,
                                  treeVm: branchVm.treeVm)
         prevVm?.nextBranchVm = branchVm
     }
     
     func copy() -> MuNodeVm {
-        let nodeVm = MuNodeVm(panelVm.type, node, branchVm, self, icon: icon)
+        let nodeVm = MuNodeVm(panelVm.nodeType, node, branchVm, self, icon: icon)
         return nodeVm
     }
 
@@ -82,19 +82,19 @@ class MuNodeVm: Identifiable, Equatable, ObservableObject {
 }
 extension MuNodeVm {
     
-    static func cached(_ type: MuNodeType,
+    static func cached(_ nodeType: MuNodeType,
                        _ node: MuNode,
                        _ branchVm: MuBranchVm,
                        _ prevVm: MuNodeVm? = nil,
                        icon: String = "") -> MuNodeVm {
 
-        switch type {
+        switch nodeType {
             case .val: return MuLeafValVm(node, branchVm, prevVm)
             case .vxy: return MuLeafVxyVm(node, branchVm, prevVm)
             case .tog: return MuLeafTogVm(node, branchVm, prevVm)
             case .tap: return MuLeafTapVm(node, branchVm, prevVm)
             case .seg: return MuLeafSegVm(node, branchVm, prevVm)
-            default:   return MuNodeVm(type, node, branchVm, prevVm)
+            default:   return MuNodeVm(nodeType, node, branchVm, prevVm)
         }
     }
 }

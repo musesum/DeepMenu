@@ -110,7 +110,7 @@ class MuRootVm: ObservableObject, Equatable {
 
         /// turn off spotlight for leaf after edit
         if let nodeSpotVm = nodeSpotVm,
-           nodeSpotVm.type.isLeaf {
+           nodeSpotVm.nodeType.isLeaf {
             nodeSpotVm.spotlight = false
         }
         treeSpotVm?.branchSpotVm = nil

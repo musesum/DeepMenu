@@ -17,14 +17,14 @@ class MuLeafSegVm: MuLeafVm {
         super.init(.seg, node, branchVm, prevVm, icon: icon)
         node.proxies.append(self) // MuLeaf delegate for setting value
         proto = node.proto ?? prevVm?.node.proto
-        range = proto?.getRange(named: type.name) ?? 0...1
+        range = proto?.getRange(named: nodeType.name) ?? 0...1
         thumb = normalizeValue
         updatePanelSizes()
     }
 
     /// get current value and normalize 0...1 based on defined range
     var normalizeValue: CGFloat {
-        let val = (proto?.getAny(named: type.name) as? Float) ?? .zero
+        let val = (proto?.getAny(named: nodeType.name) as? Float) ?? .zero
         return CGFloat(scale(val, from: range, to: 0...1))
     }
     /// normalize point to 0...1 based on defined range
@@ -136,7 +136,7 @@ extension MuLeafSegVm: MuLeafProxy {
 
     /// expand normalized thumb to View coordinates and update outside model
     func updateView() {
-        proto?.setAny(named: type.name, expanded)
+        proto?.setAny(named: nodeType.name, expanded)
     }
     override func valueText() -> String {
         range.upperBound > 1

@@ -14,6 +14,7 @@ class MuBranchVm: Identifiable, ObservableObject {
     var nodeSpotVm: MuNodeVm?  /// current node, nodeSpotVm.branchVm is next branch
     var panelVm: MuPanelVm     /// background + stroke model for BranchView
 
+    var branchPrev: MuBranchVm?
     var boundsNow: CGRect = .zero /// current bounds after shifting
     var boundsPad: CGRect = .zero /// extended bounds for capturing finger drag
     var level: CGFloat = 0        /// zIndex within sub/super branches
@@ -26,7 +27,8 @@ class MuBranchVm: Identifiable, ObservableObject {
 
     init(nodes: [MuNode] = [],
          treeVm: MuTreeVm,
-         type: MuNodeType = .node,
+         branchPrev: MuBranchVm? = nil,
+         nodeType: MuNodeType = .node,
          prevNodeVm: MuNodeVm? = nil,
          level: CGFloat = 0) {
 
@@ -34,24 +36,24 @@ class MuBranchVm: Identifiable, ObservableObject {
         self.treeVm = treeVm
         self.level = level
 
-        self.panelVm = MuPanelVm(type: type,
+        self.panelVm = MuPanelVm(nodeType: nodeType,
                                  count: nodes.count,
                                  treeVm: treeVm)
         buildNodeVms(from: nodes,
-                     type: type,
+                     nodeType: nodeType,
                      prevNodeVm: prevNodeVm)
 
         updateTree(treeVm)
     }
 
     private func buildNodeVms(from nodes: [MuNode],
-                              type: MuNodeType,
+                              nodeType: MuNodeType,
                               prevNodeVm: MuNodeVm?) {
 
         for node in nodes {
-            let nodeVm = MuNodeVm.cached(type, node, self, prevNodeVm)
+            let nodeVm = MuNodeVm.cached(nodeType, node, self, prevNodeVm)
             nodeVms.append(nodeVm)
-            if nodeVm.type.isLeaf {
+            if nodeVm.nodeType.isLeaf {
                 prevNodeVm?.leafVm = nodeVm // is leaf of previous (parent) node
                 nodeSpotVm = nodeVm
             }
@@ -77,7 +79,8 @@ class MuBranchVm: Identifiable, ObservableObject {
             let _ = MuBranchVm
                 .cached(nodes: [leafNode],
                         treeVm: treeVm,
-                        type: leafType,
+                        branchPrev: self,
+                        nodeType: leafType,
                         prevNodeVm: nodeSpotVm,
                         level: level + 1)
         }
@@ -86,7 +89,8 @@ class MuBranchVm: Identifiable, ObservableObject {
             let newBranchVm = MuBranchVm
                 .cached(nodes: nodeSpotVm.node.children,
                         treeVm: treeVm,
-                        type: .node,
+                        branchPrev: self,
+                        nodeType: .node,
                         prevNodeVm: nodeSpotVm,
                         level: level+1)
             newBranchVm.expandBranch()
@@ -192,20 +196,14 @@ class MuBranchVm: Identifiable, ObservableObject {
     }
 
     func shiftBranch() {
-        if let rootVm = treeVm.rootVm {
-            shiftBranch(treeVm.treeShifting, rootVm)
-        }
-    }
-    func shiftBranch(_ treeShifting: CGSize,
-                     _ rootVm: MuRootVm) {
-        if boundsNow == .zero {
-            return
-        }
+
+        let treeShifting = treeVm.treeShifting
+        if boundsNow == .zero { return }
         if boundStart == .zero { updateShiftRange() }
         branchShift = treeShifting.clamped(to: shiftRange)
         let clampDelta = branchShift-treeShifting
 
-        if nodeVms.first?.type.isLeaf ?? false {
+        if nodeVms.first?.nodeType.isLeaf ?? false {
             branchOpacity = 1 // always show leaves
         } else {
             let ww = abs(clampDelta.width) / boundStart.width
@@ -229,7 +227,8 @@ extension MuBranchVm {
     
     static func cached(nodes: [MuNode] = [],
                        treeVm: MuTreeVm,
-                       type: MuNodeType = .node,
+                       branchPrev: MuBranchVm? = nil,
+                       nodeType: MuNodeType = .node,
                        prevNodeVm: MuNodeVm? = nil,
                        level: CGFloat = 0) -> MuBranchVm {
 
@@ -238,7 +237,7 @@ extension MuBranchVm {
             var hasher = Hasher()
             hasher.combine(prevNodeVm?.hashValue ?? 0)
             hasher.combine(treeVm.corner.rawValue)
-            hasher.combine(type.icon)
+            hasher.combine(nodeType.icon)
             let hash = hasher.finalize()
             return hash
         }
@@ -251,7 +250,8 @@ extension MuBranchVm {
         let newBranch = MuBranchVm(
             nodes: nodes,
             treeVm: treeVm,
-            type: type,
+            branchPrev: branchPrev,
+            nodeType: nodeType,
             prevNodeVm: prevNodeVm,
             level: level)
 
