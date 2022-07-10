@@ -26,7 +26,6 @@ class SkyVm: MenuVm {
 
 class TestVm: MenuVm {
 
-
     init(corner: MuCorner) {
 
         let letterTreeVm = MuTreeVm(axis: .vertical, corner: corner)

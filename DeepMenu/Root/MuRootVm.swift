@@ -31,7 +31,6 @@ class MuRootVm: ObservableObject, Equatable {
         if self.nodeSpotVm != nodeSpotVm  {
             self.nodeSpotVm = nodeSpotVm
             nodeSpotVm.refreshBranch()
-            nodeSpotVm.superSpotlight()
         }
     }
 
@@ -42,6 +41,9 @@ class MuRootVm: ObservableObject, Equatable {
         treeSpotVm = treeVms.first
         touchVm.setRoot(self)
         updateOffsets()
+        for treeVm in treeVms {
+            treeVm.rootVm = self
+        }
     }
 
     /**
@@ -114,13 +116,19 @@ class MuRootVm: ObservableObject, Equatable {
         treeSpotVm?.branchSpot = nil
         touchElement = .none
     }
-    /// [begin | moved] >> updateRoot
+
     private func updateRoot(_ touchState: MuTouchState) {
         let touchNow = touchState.pointNow
         let taps = touchState.tapCount
 
-        //log(touchElement.symbol, terminator: "")
-        if        editLeafNode() {
+        // stay exclusively on .leaf or .edit mode
+        switch touchElement {
+            case .shift: return shiftBranches()
+            case .edit:  return editLeaf()
+            default:     break
+        }
+
+        if        hoverLeafNode() {
         } else if hoverNodeSpot() {
         } else if tapRootNode() {
         } else if hoverRootNode() {
@@ -129,21 +137,18 @@ class MuRootVm: ObservableObject, Equatable {
         } else {  hoverSpace() }
         //log(touchElement.symbol, terminator: " ")
 
-        func editLeafNode() -> Bool {
-
-            if let leafVm = nodeSpotVm as? MuLeafVm {
+        func hoverLeafNode() -> Bool {
+            if touchState.phase == .begin,
+               let leafVm = nodeSpotVm as? MuLeafVm {
 
                 if leafVm.runwayBounds.contains(touchState.pointNow) {
-                    if (touchElement == .edit || touchState.phase == .begin) {
-                        updateLeaf(leafVm)
-                    }
+                    // inside runway
+                    editLeaf()
                     return true
-                } else if leafVm.branchVm.bounds.contains(touchNow),
-                          touchElement != .edit {
-                   stackBranches(leafVm)
-                    return true
-                } else if touchElement == .edit  {
-                    updateLeaf(leafVm)
+
+                } else if leafVm.branchVm.boundsNow.contains(touchNow) {
+                    // inside branch containing runway
+                    shiftBranches()
                     return true
                 }
             }
@@ -193,8 +198,8 @@ class MuRootVm: ObservableObject, Equatable {
         }
         func hoverTreeNow() -> Bool {
             // check current set of menus
-            if let treeNowVm = treeSpotVm,
-               let nearestBranch = treeNowVm.nearestBranch(touchNow) {
+            guard let treeSpotVm = treeSpotVm else { return false }
+            if let nearestBranch = treeSpotVm.nearestBranch(touchNow) {
 
                 if let nearestNodeVm = nearestBranch.findNearestNode(touchNow) {
 
@@ -205,7 +210,7 @@ class MuRootVm: ObservableObject, Equatable {
 
                         if leafVm.contains(touchNow) {
                             // touch directly inside leaf Runway triggers edit
-                            updateLeaf(leafVm)
+                            editLeaf()
                         }
                     } else if !viewElements.contains(.branch) {
                         log("~", terminator: "")
@@ -217,7 +222,7 @@ class MuRootVm: ObservableObject, Equatable {
                     // special case where not touching on leaf runway but is touching headline
                     if touchState.phase == .begin {
                         updateChanged(nodeSpotVm: nearestLeafVm)
-                        touchElement = .leaf
+                        touchElement = .shift
                         return true
                     }
                 }
@@ -256,21 +261,20 @@ class MuRootVm: ObservableObject, Equatable {
 
         //  show/hide/stack -----------
 
-        func stackBranches(_ leafVm: MuLeafVm) {
+        func shiftBranches() {
+            guard let leafVm = nodeSpotVm as? MuLeafVm else { return }
             // begin touch on title section to possibly stack branches
-            touchElement = .leaf
+            touchElement = .shift
             // leaf spotlight off
             leafVm.spotlight = false
             // set spotlight on
             leafVm.branchVm.treeVm.branchSpot = leafVm.branchVm
-            log("stack", [touchState.pointBeginΔ], terminator: " ")
-            if let treeSpotVm = treeSpotVm {
-                treeSpotVm.stackBranches(touchState.pointBeginΔ)
-            }
+
+            treeSpotVm?.shiftTree(self, touchState)
         }
 
-        func updateLeaf(_ leafVm: MuLeafVm) {
-
+        func editLeaf() {
+            guard let leafVm = nodeSpotVm as? MuLeafVm else { return }
             if touchElement != .edit {
                 // begin touch inside control runway
                 touchElement = .edit

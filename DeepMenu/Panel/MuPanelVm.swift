@@ -9,7 +9,7 @@ class MuPanelVm {
     var corner: MuCorner
     var count: CGFloat
     var spacing = CGFloat(0) // overlap with a negative number
-    var aspectSz = CGSize(width: 1, height: 1)
+    var aspectSz = CGSize(width: 1, height: 1) /// multiplier aspect ratio
 
     init(type: MuNodeType,
          count: Int = 1,
@@ -51,9 +51,9 @@ class MuPanelVm {
     }
 
     // changed by type
-    lazy var cornerRadius  : CGFloat = { (Layout.diameter/2 + Layout.padding) }()
-    lazy var thumbRadius   : CGFloat = { Layout.diameter/2 - 1 }()
-    lazy var thumbDiameter : CGFloat = { thumbRadius*2 }()
+    lazy var cornerRadius  : CGFloat = { (Layout.radius + Layout.padding) }()
+    lazy var thumbRadius   : CGFloat = { Layout.radius - 1 }()
+    lazy var thumbDiameter : CGFloat = { thumbRadius * 2 }()
 
     var runway: CGFloat {
         let result = axis == .vertical
@@ -171,7 +171,6 @@ class MuPanelVm {
                 result.origin.x = 0
             }
         }
-        //?? log("bounds", [bounds,result], terminator: " ")
         return result
     }
 

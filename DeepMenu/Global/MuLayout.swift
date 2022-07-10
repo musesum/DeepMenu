@@ -5,7 +5,7 @@ import SwiftUI
 struct Layout {
 
     static let diameter: CGFloat = 40
-
+    static let radius: CGFloat = 20
     /// padding between nodes and branches
     static let padding: CGFloat = 4
 

@@ -10,6 +10,8 @@ import Foundation
 import QuartzCore
 import UIKit
 
+public typealias RangeXY = (ClosedRange<CGFloat>, ClosedRange<CGFloat>)
+
 extension CGRect {
 
     public func horizontal() -> Bool {
@@ -118,11 +120,28 @@ extension CGRect {
         return r
     }
 
-    public static func + (lhs: CGRect, rhs: CGFloat) -> CGRect {
-        let xx = lhs.origin.x - rhs
-        let yy = lhs.origin.y - rhs
-        let ww = lhs.width + rhs * 2
-        let hh = lhs.height + rhs * 2
+    public func pad (_ pad: CGFloat) -> CGRect {
+        let xx = origin.x - pad
+        let yy = origin.y - pad
+        let ww = width + pad * 2
+        let hh = height + pad * 2
+        let s = CGRect(x: xx, y: yy, width: ww, height: hh)
+        return s
+    }
+
+    public static func + (lhs: CGRect, rhs: CGPoint) -> CGRect {
+        let xx = lhs.origin.x + rhs.x
+        let yy = lhs.origin.y + rhs.y
+        let ww = lhs.width
+        let hh = lhs.height
+        let s = CGRect(x: xx, y: yy, width: ww, height: hh)
+        return s
+    }
+    public static func - (lhs: CGRect, rhs: CGPoint) -> CGRect {
+        let xx = lhs.origin.x + rhs.x
+        let yy = lhs.origin.y + rhs.y
+        let ww = lhs.width
+        let hh = lhs.height
         let s = CGRect(x: xx, y: yy, width: ww, height: hh)
         return s
     }
@@ -197,6 +216,11 @@ extension CGPoint {
     public func string(_ format: String = "%2.0f,%-2.0f") -> String {
         return String(format: format, x, y) // touch delta
     }
+    public init(_ size: CGSize) {
+        self.init()
+        x = size.width
+        y = size.height
+    }
 }
 
 extension CGSize {
@@ -259,8 +283,20 @@ extension CGSize {
 
     public func clamp(_ widthvalue: ClosedRange<CGFloat>,
                       _ heightvalue: ClosedRange<CGFloat>) -> CGSize {
+        
         return CGSize(width:  width.clamped(to: widthvalue),
                       height: height.clamped(to: heightvalue) )
+    }
+    /// fit smaller self's smaller rect inside to's rect
+    /// may overlay lower right edges, but not upper left
+    public func clamped(to: RangeXY) -> CGSize {
+        let (xClamp,yClamp) = to
+
+        let ww = self.width.clamped(to: xClamp)
+        let hh = self.height.clamped(to: yClamp)
+
+        let size = CGSize(width: ww, height: hh)
+        return size
     }
 }
 extension CGSize: Hashable {

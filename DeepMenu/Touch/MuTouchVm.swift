@@ -6,7 +6,7 @@ import SwiftUI
 class MuTouchVm: ObservableObject {
 
     @Published var dragIconXY = CGPoint.zero /// current position
-    public var rootIconXY = CGPoint.zero     /// starting position of touch
+    public var rootIconXY = CGPoint.zero     /// fixed positino of root icon
 
     /// hide root icon while hovering elsewhere
     var rootAlpha: CGFloat {
@@ -57,9 +57,11 @@ class MuTouchVm: ObservableObject {
 
             if let rootVm = rootVm {
 
-                let skipBranches = rootVm.nodeSpotVm?.branchVm.skipBranches() ?? false
-                if touchState.isFast && skipBranches {
-                    // log("🏁", [touchState.speed], terminator: " ")
+                if touchState.isFast,
+                   // has a child branch to skip
+                   rootVm.nodeSpotVm?.nextBranchVm?.nodeSpotVm != nil
+                {
+                    log("🏁", terminator: " ")
                 } else {
                     rootVm.touchMoved(touchState)
                 }
@@ -73,13 +75,14 @@ class MuTouchVm: ObservableObject {
             spotNodeΔ = .zero // no spotNode to align with
             rootNodeΔ = .zero // go back to rootNode
         }
+
     }
 
     /// updated on startup or change in screen orientation
-    func updateRootIcon(_ fr: CGRect) {
-        rootIconXY = rootVm?.cornerXY(in: fr) ?? .zero
+    func updateRootIcon(_ from: CGRect) {
+        rootIconXY = rootVm?.cornerXY(in: from) ?? .zero
         dragIconXY = rootIconXY
-        // log("root: ", [pointNow])
+        //log("*** rootIconXY: ", [from,rootIconXY])
     }
     
     /// either center dragNode icon on spotNode or track finger

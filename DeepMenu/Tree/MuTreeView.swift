@@ -11,9 +11,11 @@ struct MuTreeView: View {
         
         if treeVm.axis == .horizontal {
             VStack(alignment: rootVm.corner.contains(.left) ? .leading : .trailing) {
+
                 ForEach(rootVm.corner.contains(.lower)
                         ? treeVm.branchVms.reversed()
-                        : treeVm.branchVms, id: \.id) {
+                        : treeVm.branchVms) {
+
                     MuBranchView(branchVm: $0,
                                  spotlight: $0 == treeVm.branchSpot)
                         .zIndex($0.level)
@@ -22,9 +24,11 @@ struct MuTreeView: View {
             .offset(treeVm.treeOffset)
         } else {
             HStack(alignment: rootVm.corner.contains(.upper) ? .top : .bottom) {
+
                 ForEach(rootVm.corner.contains(.right)
                         ? treeVm.branchVms.reversed()
-                        : treeVm.branchVms, id: \.id) {
+                        : treeVm.branchVms) {
+                    
                     MuBranchView(branchVm: $0,
                                  spotlight: $0 == treeVm.branchSpot)
                         .zIndex($0.level)

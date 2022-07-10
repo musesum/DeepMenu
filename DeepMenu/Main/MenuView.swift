@@ -10,7 +10,8 @@ struct MenuView: View {
 
     var body: some View {
 
-        MuRootView().environmentObject(menuVm.rootVm)
+        MuRootView()
+            .environmentObject(menuVm.rootVm)
             .coordinateSpace(name: "Canvas")
             .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("Canvas"))
                 .updating($touchXY) { (value, touchXY, _) in touchXY = value.location })

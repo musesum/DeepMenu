@@ -34,8 +34,9 @@ class MuTreeViewTests: XCTestCase {
         var vStackView = try treeView.inspect().view(MuTreeView.self).vStack()
         XCTAssertEqual(HorizontalAlignment.trailing, try vStackView.alignment())
 
-        let horizontalLowerLeftLimb = MuTreeVm(branches: [horizontalBranch], root: rootLowerLeft)
-        treeView = MuTreeView(treeVm: horizontalLowerLeftLimb).environmentObject(rootLowerLeft)
+        let horizontalLowerLeftLimb = MuTreeVm(branches: [horizontalBranch],
+                                               root: rootLowerLeft)
+        treeView = MuTreeView(treeVm: horizontalLowerLeftLimb) .environmentObject(rootLowerLeft)
         vStackView = try treeView.inspect().view(MuTreeView.self).vStack()
         XCTAssertEqual(HorizontalAlignment.leading, try vStackView.alignment())
     }

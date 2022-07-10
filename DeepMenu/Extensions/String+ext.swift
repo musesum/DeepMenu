@@ -7,6 +7,9 @@ extension String {
     subscript(idx: Int) -> String {
         String(self[index(startIndex, offsetBy: idx)])
     }
+    func pad(_ len: Int) -> String {
+        padding(toLength: len, withPad: " ", startingAt: 0)
+    }
 }
 func superScript(_ num: Int) -> String {
     var s = ""

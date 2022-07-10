@@ -24,7 +24,7 @@
 		800E2A9D282568A1006AE6A1 /* MuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800E2A9C282568A1006AE6A1 /* MuNode.swift */; };
 		80135A07272C71EA00BCDE27 /* MuTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A06272C71EA00BCDE27 /* MuTreeView.swift */; };
 		80135A09272C724E00BCDE27 /* MuTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A08272C724E00BCDE27 /* MuTouchView.swift */; };
-		80135A0B272C728700BCDE27 /* BackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A0A272C728700BCDE27 /* BackView.swift */; };
+		80135A0B272C728700BCDE27 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A0A272C728700BCDE27 /* CanvasView.swift */; };
 		8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7C92700DE3800691126 /* DeepMenuApp.swift */; };
 		8014B7CC2700DE3800691126 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7CB2700DE3800691126 /* ContentView.swift */; };
 		8014B7CE2700DE3A00691126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8014B7CD2700DE3A00691126 /* Assets.xcassets */; };
@@ -65,6 +65,7 @@
 		80731CEB2819BBF1005FCE1A /* menu.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CEA28187A45005FCE1A /* menu.tr3.h */; };
 		8087FC87280771CF00572436 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* PathView.swift */; };
 		809D126B275B26CA0091D252 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D126A275B26CA0091D252 /* Delay.swift */; };
+		809E6D8A28749D68001C8617 /* SwiftUI+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E6D8928749D68001C8617 /* SwiftUI+ext.swift */; };
 		80A9B63D272F3B9B00355445 /* MuTouchVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63C272F3B9B00355445 /* MuTouchVm.swift */; };
 		80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B63F272F7CAD00355445 /* MuLayout.swift */; };
 		80AE76A828622CF600B60D2C /* MuLeafVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE76A728622CF600B60D2C /* MuLeafVm.swift */; };
@@ -118,7 +119,7 @@
 		800E2A9C282568A1006AE6A1 /* MuNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNode.swift; sourceTree = "<group>"; };
 		80135A06272C71EA00BCDE27 /* MuTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTreeView.swift; sourceTree = "<group>"; };
 		80135A08272C724E00BCDE27 /* MuTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouchView.swift; sourceTree = "<group>"; };
-		80135A0A272C728700BCDE27 /* BackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackView.swift; sourceTree = "<group>"; };
+		80135A0A272C728700BCDE27 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		8014B7C62700DE3800691126 /* DeepMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeepMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8014B7C92700DE3800691126 /* DeepMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepMenuApp.swift; sourceTree = "<group>"; };
 		8014B7CB2700DE3800691126 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -164,6 +165,7 @@
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		809D126A275B26CA0091D252 /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
+		809E6D8928749D68001C8617 /* SwiftUI+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+ext.swift"; sourceTree = "<group>"; };
 		80A9B63C272F3B9B00355445 /* MuTouchVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTouchVm.swift; sourceTree = "<group>"; };
 		80A9B63F272F7CAD00355445 /* MuLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLayout.swift; sourceTree = "<group>"; };
 		80AE76A728622CF600B60D2C /* MuLeafVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuLeafVm.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				80B8EE862790A08500149AA3 /* Range+ext.swift */,
 				8019DBF8271BEEED00420923 /* String+ext.swift */,
 				805B0EDE2748216700004A85 /* Comparable+ext.swift */,
+				809E6D8928749D68001C8617 /* SwiftUI+ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -452,12 +455,12 @@
 		80A7B5A6271B1883005ECF59 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */,
+				80135A0A272C728700BCDE27 /* CanvasView.swift */,
+				80F695C32854D8EA0077BF93 /* MenuView.swift */,
 				8014B7CB2700DE3800691126 /* ContentView.swift */,
+				80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */,
 				8087FC86280771CF00572436 /* PathView.swift */,
 				8014B7C92700DE3800691126 /* DeepMenuApp.swift */,
-				80135A0A272C728700BCDE27 /* BackView.swift */,
-				80F695C32854D8EA0077BF93 /* MenuView.swift */,
 				8068A434284BED3E007256DA /* MenuVm.swift */,
 			);
 			path = Main;
@@ -627,7 +630,7 @@
 			files = (
 				80135A07272C71EA00BCDE27 /* MuTreeView.swift in Sources */,
 				8019DBFB271C8CEC00420923 /* MuNodeTest.swift in Sources */,
-				80135A0B272C728700BCDE27 /* BackView.swift in Sources */,
+				80135A0B272C728700BCDE27 /* CanvasView.swift in Sources */,
 				8040EDEA282B03390091F226 /* MuLeafSegView.swift in Sources */,
 				80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */,
 				80135A09272C724E00BCDE27 /* MuTouchView.swift in Sources */,
@@ -666,6 +669,7 @@
 				80A9B640272F7CAD00355445 /* MuLayout.swift in Sources */,
 				800E2A9B2824DCA7006AE6A1 /* MuNodeTr3.swift in Sources */,
 				809D126B275B26CA0091D252 /* Delay.swift in Sources */,
+				809E6D8A28749D68001C8617 /* SwiftUI+ext.swift in Sources */,
 				800E2A9D282568A1006AE6A1 /* MuNode.swift in Sources */,
 				8040EDEB282B03390091F226 /* MuLeafSegVm.swift in Sources */,
 				57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */,

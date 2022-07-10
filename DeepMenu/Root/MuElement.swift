@@ -9,7 +9,7 @@ enum MuElement: String  {
     case branch /// branches expanded for one tree
     case trunks /// only first branch of multiple trees
     case node   /// hovering over a specific node
-    case leaf   /// dragable header for leaf
+    case shift  /// shifting branches by dragging header for leaf
     case edit   /// editing area inside a leaf
     case space  /// hovering over canvas
     case edge   /// unsafe area to expand accordian
@@ -21,7 +21,7 @@ enum MuElement: String  {
             case .trunks : return "ᛘ"
             case .branch : return "𐂷"
             case .node   : return "￮"
-            case .leaf   : return "⚘"
+            case .shift  : return "⊪"
             case .edit   : return "✎"
             case .space  : return "⬚"
             case .edge   : return "⫼"
@@ -34,7 +34,7 @@ enum MuElement: String  {
             case .trunks : return "trunks"
             case .branch : return "branch"
             case .node   : return "node"
-            case .leaf   : return "leaf"
+            case .shift  : return "shift"
             case .edit   : return "edit"
             case .space  : return "space"
             case .edge   : return "edge"

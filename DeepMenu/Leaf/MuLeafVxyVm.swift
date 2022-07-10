@@ -54,7 +54,7 @@ class MuLeafVxyVm: MuLeafVm {
         let runway = self.panelVm.runwayXY
         let radius = self.panelVm.thumbRadius
         let span = CGFloat(0.5)
-        let margin = Layout.diameter/2 - 2
+        let margin = Layout.radius - 2
         for w in stride(from: CGFloat(0), through: 1, by: span) {
             for h in stride(from: CGFloat(0), through: 1, by: span) {
 
