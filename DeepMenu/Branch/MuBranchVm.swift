@@ -116,7 +116,7 @@ class MuBranchVm: Identifiable, ObservableObject {
         }
         for nodeVm in nodeVms {
             let distance = nodeVm.center.distance(touchNow)
-            log("D",[distance], terminator: " ")
+            // log("D",[distance], terminator: " ")
             if distance < Layout.diameter {
                 nodeSpotVm?.spotlight = false
                 nodeSpotVm = nodeVm

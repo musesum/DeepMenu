@@ -10,7 +10,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     var treeShifted = CGSize.zero
 
     var rootVm: MuRootVm?
-    var branchSpot: MuBranchVm?
+    var branchSpotVm: MuBranchVm?
     var axis: Axis
     var corner: MuCorner
 
@@ -43,9 +43,11 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
     }
     func nearestBranch(_ touchNow: CGPoint) -> MuBranchVm? {
 
-        if let branchSpot = branchSpot,
+        let opacityThreshold = 0.6
+
+        if let branchSpot = branchSpotVm,
            branchSpot.boundsPad.contains(touchNow),
-           branchSpot.branchOpacity > 0.8,
+           branchSpot.branchOpacity > opacityThreshold,
            branchSpot.show {
 
             return branchSpot
@@ -53,13 +55,13 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
         for branchVm in branchVms {
             if branchVm.show == true,
-               branchVm.branchOpacity > 0.9,
+               branchVm.branchOpacity > opacityThreshold,
                 branchVm.boundsPad.contains(touchNow) {
-                branchSpot = branchVm
+                branchSpotVm = branchVm
                 return branchVm
             }
         }
-        branchSpot = nil
+        branchSpotVm = nil
         return nil
     }
 
@@ -94,10 +96,10 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
         var newBranches = [MuBranchVm]()
 
-        logStart()
+        // clogStart()
         if      depthShown < depthNext { expandBranches() }
         else if depthShown > depthNext { contractBranches() }
-        logFinish()
+        // logFinish()
 
         func expandBranches() {
             var countUp = 0
@@ -149,27 +151,28 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
         log("\ntreeShifting", [treeShifting, "root", rootVm.touchVm.rootIconXY])
         for branchVm in branchVms {
-            branchVm.shiftBranch(treeShifting, rootVm)
+            branchVm.shiftBranch()
         }
 
-        /// limit shifting towards corner
+        /// constrain shifting only towards root's corner
         func shiftConstrained() -> CGSize {
             let beginΔ = touchState.pointBeginΔ
             let beginLimit =  (axis == .vertical
                                ? CGSize(width:  beginΔ.x, height: 0)
                                : CGSize(width: 0, height: beginΔ.y) )
-            var shiftLimit = treeShifted + beginLimit
+
+            var constrain = treeShifted + beginLimit
 
             if axis == .vertical {
-                shiftLimit.width =  (corner.contains(.left)
-                                     ? min(0,shiftLimit.width)
-                                     : max(0,shiftLimit.width))
+                constrain.width =  (corner.contains(.left)
+                                     ? min(0,constrain.width)
+                                     : max(0,constrain.width))
             } else { // .horizontal
-                shiftLimit.height = (corner.contains(.upper)
-                                     ? min(0, shiftLimit.height)
-                                     : max(0, shiftLimit.height))
+                constrain.height = (corner.contains(.upper)
+                                     ? min(0, constrain.height)
+                                     : max(0, constrain.height))
             }
-            return shiftLimit
+            return constrain
         }
     }
 }

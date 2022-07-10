@@ -113,7 +113,7 @@ class MuRootVm: ObservableObject, Equatable {
            nodeSpotVm.type.isLeaf {
             nodeSpotVm.spotlight = false
         }
-        treeSpotVm?.branchSpot = nil
+        treeSpotVm?.branchSpotVm = nil
         touchElement = .none
     }
 
@@ -258,7 +258,7 @@ class MuRootVm: ObservableObject, Equatable {
             // leaf spotlight off
             leafVm.spotlight = false
             // set spotlight on
-            leafVm.branchVm.treeVm.branchSpot = leafVm.branchVm
+            leafVm.branchVm.treeVm.branchSpotVm = leafVm.branchVm
 
             treeSpotVm?.shiftTree(self, touchState)
         }
@@ -271,7 +271,7 @@ class MuRootVm: ObservableObject, Equatable {
                 // leaf spotlight on if not ended
                 leafVm.spotlight = touchState.phase != .ended
                 // branch spotlight off
-                leafVm.branchVm.treeVm.branchSpot = nil
+                leafVm.branchVm.treeVm.branchSpotVm = nil
             }
             for proxy in leafVm.node.proxies {
                 proxy.touchLeaf(touchState)

@@ -17,7 +17,7 @@ struct MuTreeView: View {
                         : treeVm.branchVms) {
 
                     MuBranchView(branchVm: $0,
-                                 spotlight: $0 == treeVm.branchSpot)
+                                 spotlight: $0 == treeVm.branchSpotVm)
                         .zIndex($0.level)
                 }
             }
@@ -30,7 +30,7 @@ struct MuTreeView: View {
                         : treeVm.branchVms) {
                     
                     MuBranchView(branchVm: $0,
-                                 spotlight: $0 == treeVm.branchSpot)
+                                 spotlight: $0 == treeVm.branchSpotVm)
                         .zIndex($0.level)
                 }
             }
