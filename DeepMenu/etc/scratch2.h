@@ -1,12 +1,12 @@
-// Deep Muse - Components
+0.00 🟢  canvas  ~:〈ᛘ√〉⟶〈𐂷√〉
+fill…color       (-52…0 0…0)   (-92…0 0…0)    now▭(56,605; 48,192)  prev∘(96, 432)         outer∘(48, 192)
+plane…one        (-108…0 0…0)  (-140…0 0…0)   now▭(112,653; 48,144) prev∘(144, 576)        outer∘(48, 144)
+✎plane…✎plane    (-164…0 0…0)  (-188…0 0…0)   now▭(168,589; 48,208) prev∘(192, 784)        outer∘(48, 208)
+0.88 🛑
+0.00 🟢  canvas.fill.plane.✎plane
+treeShifting∘(0, 0) root∙(24, 821)
+canvas…cam       (0…0 0…0)     (-44…0 0…0)    now▭(0,557; 48,240)   prev∘(48, 240)         outer∘(48, 240)
+fill…color       (-52…0 0…0)   (-92…0 0…0)    now▭(56,605; 48,192)  prev∘(96, 432)         outer∘(48, 192)
+plane…one        (-108…0 0…0)  (-140…0 0…0)   now▭(112,653; 48,144) prev∘(144, 576)        outer∘(48, 144)
+✎plane…✎plane    (-164…0 0…0)  (-188…0 0…0)   now▭(168,589; 48,208) prev∘(192, 784)        outer∘(48, 208)
 
-Input {
-    Camera { Face, SegmentedObject,  Handpose }
-    Media  { Album_Cover, Templates }
-    Device {Touch, Accelerometer, Gyro, Compass }
-    Microphone
-    AudioKit { Midi, TouchOSC }
-    Network { Bonjour, SharePlay, WebRTC }
-}
-Output { Video,  Audio }
-File { Local, Cloud, Social }

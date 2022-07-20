@@ -15,6 +15,7 @@ class MuBranchVm: Identifiable, ObservableObject {
     var panelVm: MuPanelVm     /// background + stroke model for BranchView
 
     var branchPrev: MuBranchVm?
+    var boundsPrior: CGSize = .zero
     var boundsNow: CGRect = .zero /// current bounds after shifting
     var boundsPad: CGRect = .zero /// extended bounds for capturing finger drag
     var level: CGFloat = 0        /// zIndex within sub/super branches
@@ -34,6 +35,7 @@ class MuBranchVm: Identifiable, ObservableObject {
 
         self.nodeVms = []
         self.treeVm = treeVm
+        self.branchPrev = branchPrev
         self.level = level
 
         self.panelVm = MuPanelVm(nodeType: nodeType,
@@ -163,10 +165,11 @@ class MuBranchVm: Identifiable, ObservableObject {
         }
         if boundStart == .zero {
             updateShiftRange()
+
         }
     }
     private var boundStart: CGRect = .zero
-    var branchShift: CGSize = .zero
+    @Published var branchShift: CGSize = .zero //??
     var branchOpacity: CGFloat = 1
     private var shiftRange: RangeXY = (0...1, 0...1)
 
@@ -175,31 +178,44 @@ class MuBranchVm: Identifiable, ObservableObject {
 
         boundStart = boundsNow - CGPoint(treeVm.treeShifting)
 
+        let boundsPriorSize = branchPrev?.boundsPrior ?? .zero
+        let boundsPrevSize = branchPrev?.boundStart.size ?? .zero
+        let priorPadding = branchPrev == nil ? 0 : Layout.padding * 2
+
+        boundsPrior = boundsPriorSize + boundsPrevSize + priorPadding
+
         let rxy = touchVm.rootIconXY
         let rx = rxy.x - Layout.radius
         let ry = rxy.y - Layout.radius
-        let rw = Layout.diameter
-        let rh = Layout.diameter
 
-        let bx = boundStart.origin.x
-        let by = boundStart.origin.y
-        let bw = boundStart.size.width
-        let bh = boundStart.size.height
+        let pw = boundsPrior.width
+        let ph = boundsPrior.height
 
         shiftRange = (treeVm.axis == .vertical
                       ? (treeVm.corner.contains(.left)
-                         ? (min(0, rx-bx)...0, 0...0)
-                         : (0...max(0, rx-bx + rw-bw), 0...0))
+                         ? (min(0, rx-pw)...0, 0...0)
+                         : (0...max(0, pw), 0...0))
                       : (treeVm.corner.contains(.upper)
-                         ? (0...0, min(0,ry-by)...0)
-                         : (0...0, 0...max(0, ry-by + rh-bh))))
+                         ? (0...0, min(0,ry-ph)...0)
+                         : (0...0, 0...max(0, ph))))
+        shiftBranch() //??
+        logBounds()
+    }
+
+    func logBounds() {
+        log(title.pad(17), [shiftRange], length: 30)
+        log("now", [boundsNow], length: 22)
+        log("prior", [boundsPrior], length: 17)
+        log("shift", [branchShift], length: 15)
+        log("opacity",format: "%.2f", [branchOpacity])
+        //log("outer", [panelVm.outer], length: 16)
+        //log("level", [level])
     }
 
     func shiftBranch() {
 
         let treeShifting = treeVm.treeShifting
         if boundsNow == .zero { return }
-        if boundStart == .zero { updateShiftRange() }
         branchShift = treeShifting.clamped(to: shiftRange)
         let clampDelta = branchShift-treeShifting
 
@@ -210,13 +226,7 @@ class MuBranchVm: Identifiable, ObservableObject {
             let hh = abs(clampDelta.height) / boundStart.height
             branchOpacity = min(1-ww,1-hh)
         }
-
-        log(title.pad(17), [shiftRange], length: 32)
-        log("branch", [boundsNow], length: 25)
-        //log("level", [level], terminator: " ")
-        log("branchShift", [branchShift], length: 22)
-        log("clampDelta", [clampDelta], length: 21)
-        log("opacity",format: "%.2f", [branchOpacity])
+       logBounds()
     }
     
 }

@@ -135,12 +135,12 @@ class MuRootVm: ObservableObject, Equatable {
         } else if hoverTreeNow()  { // shifted to new node on same tree
         } else if hoverTreeAlts() { // shifted to space reserved for alternate tree
         } else {  hoverSpace()    } // hovering over canvas, plus future UIKit drawing
-
+        log(touchElement.symbol, terminator: "")
         func hoverLeafNode() -> Bool {
             if touchState.phase == .begin,
                let leafVm = nodeSpotVm as? MuLeafVm {
 
-                if leafVm.runwayBounds.contains(touchState.pointNow) {
+                if leafVm.runwayBounds.contains(touchNow) {
                     // inside runway
                     editLeaf()
                     return true
@@ -188,20 +188,15 @@ class MuRootVm: ObservableObject, Equatable {
                 if let nearestNodeVm = nearestBranch.findNearestNode(touchNow) {
 
                     updateChanged(nodeSpotVm: nearestNodeVm)
-
-                    if touchState.phase == .begin,
-                       let leafVm = nodeSpotVm as? MuLeafVm {
-
-                        if leafVm.contains(touchNow) {
-                            // touch directly inside leaf Runway triggers edit
-                            editLeaf()
-                        }
+                    if hoverLeafNode() {
+                        // already set touchElement
                     } else if !viewElements.contains(.branch) {
                         log("~", terminator: "")
                         viewElements = [.root,.branch]
                         touchElement = .branch
                     }
                     return true
+                    
                 } else if let nearestLeafVm = nearestBranch.findNearestLeaf(touchNow) {
                     // special case where not touching on leaf runway but is touching headline
                     if touchState.phase == .begin {

@@ -81,9 +81,8 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
         var newBranches = [MuBranchVm]()
         while branchVm != nil {
             if let b = branchVm {
-                
                 b.show = true
-                logName(b.nodeSpotVm?.node.name)
+                //?? logName(b.nodeSpotVm?.node.name)
                 newBranches.append(b)
                 branchVm = b.nodeSpotVm?.nextBranchVm
             }
@@ -96,7 +95,7 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
         var newBranches = [MuBranchVm]()
 
-        // clogStart()
+        // logStart()
         if      depthShown < depthNext { expandBranches() }
         else if depthShown > depthNext { contractBranches() }
         // logFinish()
@@ -165,8 +164,8 @@ class MuTreeVm: Identifiable, Equatable, ObservableObject {
 
             if axis == .vertical {
                 constrain.width =  (corner.contains(.left)
-                                     ? min(0,constrain.width)
-                                     : max(0,constrain.width))
+                                     ? min(0, constrain.width)
+                                     : max(0, constrain.width))
             } else { // .horizontal
                 constrain.height = (corner.contains(.upper)
                                      ? min(0, constrain.height)

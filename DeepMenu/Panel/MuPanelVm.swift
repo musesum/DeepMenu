@@ -112,20 +112,6 @@ class MuPanelVm {
         }
     }
 
-    var innerOffset: CGSize {
-        if nodeType == .vxy || axis == .vertical {
-            return CGSize(width: Layout.padding,
-                          height: titleSize.height+Layout.padding*2)
-        }
-        if corner.contains(.left) {
-            return CGSize(width: Layout.padding*2,
-                          height: Layout.padding*2)
-        } else {
-            return CGSize(width: titleSize.width,
-                          height: Layout.padding)
-        }
-    }
-
     func normalizeTouch(xy: CGPoint) -> CGPoint {
         let xMax = (inner.width  - thumbRadius)
         let yMax = (inner.height - thumbRadius)
