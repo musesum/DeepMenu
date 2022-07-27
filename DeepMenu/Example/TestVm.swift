@@ -1,15 +1,12 @@
-//  Created by warren on 6/4/22.
+//
+//  TestVm.swift
+//  DeepMenu
+//
+//  Created by warren on 7/27/22.
+//
 
 import SwiftUI
 import MuMenu
-
-class MenuVm {
-    var rootVm: MuRootVm
-    init(_ rootVm: MuRootVm) {
-        self.rootVm = rootVm
-    }
-}
-
 
 class TestVm: MenuVm {
 

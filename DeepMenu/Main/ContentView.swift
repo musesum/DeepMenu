@@ -1,6 +1,7 @@
 // Created 9/26/21.
 
 import SwiftUI
+import MuMenu
 
 struct ContentView: View {
     
@@ -10,9 +11,9 @@ struct ContentView: View {
             CanvasView()
             MenuView(menuVm: SkyVm(corner: [.lower, .left], axis: .vertical))
             MenuView(menuVm: SkyVm(corner: [.lower, .right], axis: .vertical))
-            MenuView(menuVm: SkyVm(corner: [.upper, .left], axis: .horizontal))
-            MenuView(menuVm: SkyVm(corner: [.upper, .right], axis: .horizontal))
-
+            
+            //MenuView(menuVm: SkyVm(corner: [.upper, .left], axis: .horizontal))
+            //MenuView(menuVm: SkyVm(corner: [.upper, .right], axis: .horizontal))
             //MenuView(menuVm: SkyVm(corner: [.lower, .right], axis: .vertical))
             //MenuView(menuVm: SkyVm(corner: [.upper, .right], axis: .horizontal))
             //MenuView(menuVm: TestVm(corner: [.upper, .left]))
