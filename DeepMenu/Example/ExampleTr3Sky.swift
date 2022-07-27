@@ -2,6 +2,7 @@
 
 import Foundation
 import Tr3
+import MuMenu
 
 enum ExampleTr3Sky {
 

@@ -1,7 +1,7 @@
 //  Created by warren on 6/4/22.
 
 import SwiftUI
-
+import MuMenu
 
 class MenuVm {
     var rootVm: MuRootVm

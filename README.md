@@ -162,8 +162,6 @@ see [Baeker & Marcus](https://dl.acm.org/doi/pdf/10.1145/800045.801621)
 + Leaf 
   - Tr3 Callback & persist
   - Drag leaf to Sky
-+ Touch 
-  - finger latency to hop across Branches
 + Devices 
   - Synchonize Vms
   - iPad Mac layout

@@ -3,6 +3,7 @@
 import Foundation
 
 import SwiftUI
+import MuMenu
 
 class CanvasVm: ObservableObject {
     static let shared = CanvasVm() //TODO: Unused
