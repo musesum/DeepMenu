@@ -16,8 +16,9 @@ public class MuNodeTr3: MuNode {
          parent: MuNode? = nil) {
 
         self.tr3 = tr3
+
         super.init(name: tr3.name,
-                   icon: tr3.component(named: "icon") as? String ?? "",
+                   icon: MuNodeTr3.makeTr3Icon(tr3),
                    parent: parent)
 
         tr3.addClosure(getting) // update node value closuer
@@ -28,6 +29,22 @@ public class MuNodeTr3: MuNode {
             return  MuNodeType(rawValue: name)
         }
         return nil
+    }
+
+    static func makeTr3Icon(_ tr3: Tr3) -> MuIcon {
+        let components = tr3.components(named: ["symbol", "image", "abbrv", "cursor"])
+        for (key,value) in components {
+            if let value = value as? String {
+                switch key {
+                    case "symbol": return MuIcon(.symbol, named: value)
+                    case "image" : return MuIcon(.image,  named: value)
+                    case "abbrv" : return MuIcon(.abbrv,  named: value)
+                    case "cursor": return MuIcon(.cursor, named: value)
+                    default: continue
+                }
+            }
+        }
+        return MuIcon(.none, named: "")
     }
 }
 
