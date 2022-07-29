@@ -17,9 +17,10 @@ public class MuNodeTr3: MuNode {
 
         self.tr3 = tr3
         super.init(name: tr3.name,
+                   icon: tr3.component(named: "icon") as? String ?? "",
                    parent: parent)
 
-        tr3.addClosure(getting)
+        tr3.addClosure(getting) // update node value closuer
         proto = self // setup delegate for MuValue protocol
     }
     public override func leafType() -> MuNodeType? {

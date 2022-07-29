@@ -1,5 +1,8 @@
 # Deep Menu 
 
+### Interaction
+![Diagram](../Resouces/Interaction.png)
+
 see README.md for MuMenu
 
 #### Use cases 

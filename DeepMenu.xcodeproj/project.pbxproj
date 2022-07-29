@@ -27,6 +27,7 @@
 		802C2B552856902500332BF7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 802C2B542856902500332BF7 /* OrderedCollections */; };
 		80542DF72891EF80001F2650 /* SkyVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80542DF62891EF80001F2650 /* SkyVm.swift */; };
 		80542DFB2891EFF5001F2650 /* TestVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80542DFA2891EFF5001F2650 /* TestVm.swift */; };
+		80542E042892F421001F2650 /* Sky.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80542E032892F421001F2650 /* Sky.xcassets */; };
 		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
 		80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB128170880005FCE1A /* ExampleTr3Sky.swift */; };
 		80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB528170D9A005FCE1A /* SkyTr3.swift */; };
@@ -84,6 +85,9 @@
 		80542DF52891EE89001F2650 /* MuMenu */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenu; path = ../MuMenu; sourceTree = "<group>"; };
 		80542DF62891EF80001F2650 /* SkyVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyVm.swift; sourceTree = "<group>"; };
 		80542DFA2891EFF5001F2650 /* TestVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVm.swift; sourceTree = "<group>"; };
+		80542E002892F3C3001F2650 /* Interaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interaction.png; sourceTree = "<group>"; };
+		80542E032892F421001F2650 /* Sky.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Sky.xcassets; sourceTree = "<group>"; };
+		80542E0528930E33001F2650 /* Tr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Tr3; path = ../Tr3; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		80731CB128170880005FCE1A /* ExampleTr3Sky.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTr3Sky.swift; sourceTree = "<group>"; };
 		80731CB528170D9A005FCE1A /* SkyTr3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyTr3.swift; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				80542DF52891EE89001F2650 /* MuMenu */,
+				80542E0528930E33001F2650 /* Tr3 */,
+				80542DFE2892F3C3001F2650 /* Resouces */,
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,
 				8014B7C82700DE3800691126 /* DeepMenu */,
@@ -224,10 +230,19 @@
 		80542DFC2891F15B001F2650 /* Sky */ = {
 			isa = PBXGroup;
 			children = (
+				80542E032892F421001F2650 /* Sky.xcassets */,
 				80731CB528170D9A005FCE1A /* SkyTr3.swift */,
 				80542DF62891EF80001F2650 /* SkyVm.swift */,
 			);
 			path = Sky;
+			sourceTree = "<group>";
+		};
+		80542DFE2892F3C3001F2650 /* Resouces */ = {
+			isa = PBXGroup;
+			children = (
+				80542E002892F3C3001F2650 /* Interaction.png */,
+			);
+			path = Resouces;
 			sourceTree = "<group>";
 		};
 		80631E012778FAFA0071AF93 /* etc */ = {
@@ -406,6 +421,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80542E042892F421001F2650 /* Sky.xcassets in Resources */,
 				800E2A99281DB8AA006AE6A1 /* shader.tr3.h in Resources */,
 				80731CEB2819BBF1005FCE1A /* menu.tr3.h in Resources */,
 				80731CE8281715F3005FCE1A /* sky.tr3.h in Resources */,
