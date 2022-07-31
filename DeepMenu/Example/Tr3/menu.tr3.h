@@ -30,9 +30,9 @@ menu {
         ave   (val 0.5    , image "icon.cell.ave"  ) >> shader.cell.ave
         melt  (val 0.5    , image "icon.cell.melt" ) >> shader.cell.melt
         tunl  (seg 0…5=1  , image "icon.cell.tunl" ) >> shader.cell.tunl
-        zha   (seg 0…6=2  , image "icon.cell.zha"  ) >> shader.cell.zha
+        //zha   (seg 0…6=2  , image "icon.cell.zha"  ) >> shader.cell.zha
         slide (seg 0…7=3  , image "icon.cell.slide") >> shader.cell.slide
-        fred  (seg 0…4=4  , image "icon.cell.fred" ) >> shader.cell.fred
+        //fred  (seg 0…4=4  , image "icon.cell.fred" ) >> shader.cell.fred
     }
     cam (symbol "camera") {
         snap  (tap  0, symbol "camera.shutter.button")
