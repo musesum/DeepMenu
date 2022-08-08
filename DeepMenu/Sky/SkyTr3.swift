@@ -1,6 +1,5 @@
 import UIKit
 import Tr3
-import Par
 
 class SkyTr3: NSObject {
     

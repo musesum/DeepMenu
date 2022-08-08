@@ -2,7 +2,7 @@
 
 import SwiftUI
 import MuMenu
-import Tr3
+import Tr3 // version from 0.2.32
 import Par
 
 /// shared between 1 or more MuNodeVm

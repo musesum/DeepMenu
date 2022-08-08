@@ -1,44 +1,86 @@
-menu {
+menu.view {
     canvas (symbol "photo.artframe") {
-
         tile (image "icon.shader.tile.png") {
-            mirror (vxy, x -1…1, y -1…1, symbol "arrowtriangle.left.and.line.vertical.and.arrowtriangle.right") >> shader.pipe.mirror
-            repeat (vxy, x -1…1, y -1…1, symbol "rectangle.grid.2x2" ) >> shader.pipe.repeat
+            mirror (symbol "arrowtriangle.left.and.line.vertical.and.arrowtriangle.right")
+            repeat (symbol "rectangle.grid.2x2" )
         }
         scroll (image "icon.cell.scroll.png") {
-            shift (vxy, x 0.5, y 0.5, image "icon.cell.scroll") >> shader.pipe.scroll
-            tilt  (tog 0, image "icon.pen.tilt") // brushTilt
+            shift (image "icon.cell.scroll")
+            tilt  (image "icon.pen.tilt")
         }
         color(image "icon.pal.main") {
-            fade  (val 0, symbol "slider.horizontal.below.rectangle")
-            plane (val 0, symbol "square.3.layers.3d.down.right")
-            zero  (tap, symbol "drop") >> sky.draw.fill(0)
-            one   (tap, symbol "drop.fill")  >> sky.draw.fill(-1)
+            fade  (symbol "slider.horizontal.below.rectangle")
+            plane (symbol "square.3.layers.3d.down.right")
+            zero  (symbol "drop")
+            one   (symbol "drop.fill")
         }
         speed (image "icon.speed") {
-            fps (seg 0…60=60, symbol "speedometer" ) >> sky.main.fps
-            run (tog 1      , symbol "goforward") >> sky.main.run
+            fps (symbol "speedometer")
+            run (symbol "goforward")
         }
     }
     brush (symbol "paintbrush.pointed") {
-        size  (val 0.5, symbol "circle.circle") >> sky.draw.brush.size
-        press (tog 1  , image "icon.pen.press") >> sky.draw.brush.press
-        tilt  (tog 1  , symbol "angle") >> sky.input.brush.tilt
+        size  (symbol "circle.circle")
+        press (image "icon.pen.press")
+        tilt  (symbol "angle")
     }
     cell (symbol "circle.grid.3x3") {
-        fade  (val 2…3=2.2, image "icon.cell.fade" ) >> shader.cell.fade
-        ave   (val 0.5    , image "icon.cell.ave"  ) >> shader.cell.ave
-        melt  (val 0.5    , image "icon.cell.melt" ) >> shader.cell.melt
-        tunl  (seg 0…5=1  , image "icon.cell.tunl" ) >> shader.cell.tunl
-        //zha   (seg 0…6=2  , image "icon.cell.zha"  ) >> shader.cell.zha
-        slide (seg 0…7=3  , image "icon.cell.slide") >> shader.cell.slide
-        //fred  (seg 0…4=4  , image "icon.cell.fred" ) >> shader.cell.fred
+        fade  (image "icon.cell.fade" )
+        ave   (image "icon.cell.ave"  )
+        melt  (image "icon.cell.melt" )
+        tunl  (image "icon.cell.tunl" )
+        zha   (image "icon.cell.zha"  )
+        slide (image "icon.cell.slide")
+        fred  (image "icon.cell.fred" )
     }
     cam (symbol "camera") {
-        snap  (tap  0, symbol "camera.shutter.button")
-        fake  (tog  0, symbol "face.dashed")
-        real  (tog  1, symbol "face.smiling")
-        face  (tog  1, symbol "arrow.triangle.2.circlepath.camera") >> shader.pipe.camera.flip
-        xfade (val .5, symbol "slider.horizontal.below.rectangle")
+        snap  (symbol "camera.shutter.button")
+        fake  (symbol "face.dashed")
+        real  (symbol "face.smiling")
+        face  (symbol "arrow.triangle.2.circlepath.camera")
+        xfade (symbol "slider.horizontal.below.rectangle")
+    }
+}
+menu.model {
+    canvas {
+        tile  {
+            mirror (vxy, x -1…1, y -1…1) >> shader.pipe.render.mirror
+            repeat (vxy, x -1…1, y -1…1) >> shader.pipe.render.repeat
+        }
+        scroll {
+            shift (vxy, x 0…1 = 0.5, y 0…1 = 0.5) >> shader.pipe.scroll
+            tilt  (tog 0…1 = 0                  ) >> shader.pipe.scroll.tilt
+        }
+        color {
+            fade  (val 0…1 = 0) <> sky.color.xfade
+            plane (val 0…1 = 0) >> shader.pipe.color.bitplane
+            zero  (tap 0…1 = 0) >> sky.draw.fill(0)
+            one   (tap 0…1 = 0) >> sky.draw.fill(-1)
+        }
+        speed {
+            fps (seg 0…60 = 60) >> sky.main.fps
+            run (tog 0…1  = 1 ) >> sky.main.run
+        }
+    }
+    brush {
+        size  (val 0…1 = 0.5) >> sky.draw.brush.size
+        press (tog 0…1 = 1  ) >> sky.draw.brush.press
+        tilt  (tog 0…1 = 1  ) >> sky.input.brush.tilt
+    }
+    cell {
+        fade  (val 2…3 = 2.2) >> shader.cell.fade
+        ave   (val 0…1 = 0.5) >> shader.cell.ave
+        melt  (val 0…1 = 0.5) >> shader.cell.melt
+        tunl  (seg 0…5 = 1  ) >> shader.cell.tunl
+        zha   (seg 0…6 = 2  ) >> shader.cell.zha
+        slide (seg 0…7 = 3  ) >> shader.cell.slide
+        fred  (seg 0…4 = 4  ) >> shader.cell.fred
+    }
+    cam {
+        snap  (tap 0…1 = 0  )
+        fake  (tog 0…1 = 0  ) >> shader.camix.on
+        real  (tog 0…1 = 1  ) >> shader.camera.on
+        face  (tog 0…1 = 1  ) >> shader.pipe.camera.flip
+        xfade (val 0…1 = 0.5) <> sky.color.xfade
     }
 }
