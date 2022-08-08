@@ -25,8 +25,11 @@ public class MuNodeTr3: MuNode {
         proto = self // setup delegate for MuValue protocol
     }
     public override func leafType() -> MuNodeType? {
+        
         if let name = tr3.getName(in: MuNodeLeaves) {
             return  MuNodeType(rawValue: name)
+        } else if tr3.contains(names: ["x","y"]) {
+            return MuNodeType.vxy
         }
         return nil
     }

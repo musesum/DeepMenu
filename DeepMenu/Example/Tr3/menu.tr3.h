@@ -44,12 +44,17 @@ menu.view {
 menu.model {
     canvas {
         tile  {
-            mirror (vxy, x -1…1, y -1…1) >> shader.pipe.render.mirror
-            repeat (vxy, x -1…1, y -1…1) >> shader.pipe.render.repeat
+            mirror (x -1…1,
+                    y -1…1) >> shader.pipe.render.mirror
+            
+            repeat (x -1…1,
+                    y -1…1) >> shader.pipe.render.repeat
         }
         scroll {
-            shift (vxy, x 0…1 = 0.5, y 0…1 = 0.5) >> shader.pipe.scroll
-            tilt  (tog 0…1 = 0                  ) >> shader.pipe.scroll.tilt
+            shift (x 0…1 = 0.5,
+                   y 0…1 = 0.5) >> shader.pipe.scroll
+
+            tilt  (tog 0…1 = 0) >> shader.pipe.scroll.tilt
         }
         color {
             fade  (val 0…1 = 0) <> sky.color.xfade
