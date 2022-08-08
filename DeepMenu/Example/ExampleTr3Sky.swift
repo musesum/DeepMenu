@@ -66,6 +66,7 @@ enum ExampleTr3Sky {
         for child in viewTr3.children {
             if let nodeTr3 = findTr3Node(child) as? MuNodeTr3 {
                 nodeTr3.icon = MuNodeTr3.makeTr3Icon(child)
+                mergeTr3(child, nodeTr3)
             }
         }
 
