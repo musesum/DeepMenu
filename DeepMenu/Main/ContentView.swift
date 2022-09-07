@@ -2,6 +2,7 @@
 
 import SwiftUI
 import MuMenu
+import MuMenuSky
 
 struct ContentView: View {
     
@@ -9,13 +10,13 @@ struct ContentView: View {
         // ContentView())
         ZStack(alignment: .bottomLeading) {
             CanvasView()
-            MenuView(menuVm: SkyVm(corner: [.lower, .left], axis: .vertical))
-            MenuView(menuVm: SkyVm(corner: [.lower, .right], axis: .vertical))
+            MenuView(menuVm: MenuSkyVm(corner: [.lower, .left], axis: .vertical, rootTr3: nil))
+            MenuView(menuVm: MenuSkyVm(corner: [.lower, .right], axis: .vertical, rootTr3: nil))
             
-            //MenuView(menuVm: SkyVm(corner: [.upper, .left], axis: .horizontal))
-            //MenuView(menuVm: SkyVm(corner: [.upper, .right], axis: .horizontal))
-            //MenuView(menuVm: SkyVm(corner: [.lower, .right], axis: .vertical))
-            //MenuView(menuVm: SkyVm(corner: [.upper, .right], axis: .horizontal))
+            //MenuView(menuVm: MenuSkyVm(corner: [.upper, .left], axis: .horizontal))
+            //MenuView(menuVm: MenuSkyVm(corner: [.upper, .right], axis: .horizontal))
+            //MenuView(menuVm: MenuSkyVm(corner: [.lower, .right], axis: .vertical))
+            //MenuView(menuVm: MenuSkyVm(corner: [.upper, .right],n axis: .horizontal))
             //MenuView(menuVm: TestVm(corner: [.upper, .left]))
             //MenuView(menuVm: TestVm(corner: [.upper, .right]))
         }

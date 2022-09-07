@@ -14,7 +14,6 @@
 		57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26727C015F600B5598B /* MuIdentityTests.swift */; };
 		57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029427C142FC00203F63 /* ExampleNodeModels.swift */; };
 		57F3029827C4389B00203F63 /* MuPodModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029727C4389B00203F63 /* MuPodModelTests.swift */; };
-		800E2A99281DB8AA006AE6A1 /* shader.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80CBDA14281D90BF008CB97A /* shader.tr3.h */; };
 		80135A0B272C728700BCDE27 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A0A272C728700BCDE27 /* CanvasView.swift */; };
 		8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7C92700DE3800691126 /* DeepMenuApp.swift */; };
 		8014B7CC2700DE3800691126 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7CB2700DE3800691126 /* ContentView.swift */; };
@@ -23,21 +22,14 @@
 		8014B7DB2700DE3A00691126 /* DeepMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7DA2700DE3A00691126 /* DeepMenuTests.swift */; };
 		8014B7E52700DE3A00691126 /* DeepMenuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7E42700DE3A00691126 /* DeepMenuUITests.swift */; };
 		8014B7E72700DE3A00691126 /* DeepMenuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7E62700DE3A00691126 /* DeepMenuUITestsLaunchTests.swift */; };
+		8017908F28A215040013F48A /* MuMenuSky in Frameworks */ = {isa = PBXBuildFile; productRef = 8017908E28A215040013F48A /* MuMenuSky */; };
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		802C2B552856902500332BF7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 802C2B542856902500332BF7 /* OrderedCollections */; };
-		80542DF72891EF80001F2650 /* SkyVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80542DF62891EF80001F2650 /* SkyVm.swift */; };
 		80542DFB2891EFF5001F2650 /* TestVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80542DFA2891EFF5001F2650 /* TestVm.swift */; };
-		80542E042892F421001F2650 /* Sky.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80542E032892F421001F2650 /* Sky.xcassets */; };
+		80639E4A28AC512100FA05EA /* MuMenuSky in Resources */ = {isa = PBXBuildFile; fileRef = 80E6B53228A47F6D00CDC6DA /* MuMenuSky */; };
 		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
-		80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB128170880005FCE1A /* ExampleTr3Sky.swift */; };
-		80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731CB528170D9A005FCE1A /* SkyTr3.swift */; };
-		80731CE8281715F3005FCE1A /* sky.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCF281715C0005FCE1A /* sky.tr3.h */; };
-		80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CCD281715C0005FCE1A /* midi.tr3.h */; };
-		80731CEB2819BBF1005FCE1A /* menu.tr3.h in Resources */ = {isa = PBXBuildFile; fileRef = 80731CEA28187A45005FCE1A /* menu.tr3.h */; };
 		8087FC87280771CF00572436 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* PathView.swift */; };
-		8096E08F28A1BAAE00EE2967 /* Tr3 in Resources */ = {isa = PBXBuildFile; fileRef = 8096E08E28A1BAAE00EE2967 /* Tr3 */; };
 		80BDD7C728919C0100C6E2BF /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80BDD7C628919C0100C6E2BF /* MuMenu */; };
-		80BE0DE428909C9700DCCE58 /* MuNodeTr3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BE0DE328909C9700DCCE58 /* MuNodeTr3.swift */; };
 		80CBDA11281CABF3008CB97A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80CBDA10281CABF3008CB97A /* Tr3 */; };
 		80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */; };
 		80F23D6028906658003AC055 /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80F23D5F28906658003AC055 /* MuMenu */; };
@@ -84,22 +76,14 @@
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		80542DF52891EE89001F2650 /* MuMenu */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenu; path = ../MuMenu; sourceTree = "<group>"; };
-		80542DF62891EF80001F2650 /* SkyVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyVm.swift; sourceTree = "<group>"; };
 		80542DFA2891EFF5001F2650 /* TestVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVm.swift; sourceTree = "<group>"; };
 		80542E002892F3C3001F2650 /* Interaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interaction.png; sourceTree = "<group>"; };
-		80542E032892F421001F2650 /* Sky.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Sky.xcassets; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
-		80731CB128170880005FCE1A /* ExampleTr3Sky.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTr3Sky.swift; sourceTree = "<group>"; };
-		80731CB528170D9A005FCE1A /* SkyTr3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyTr3.swift; sourceTree = "<group>"; };
-		80731CCD281715C0005FCE1A /* midi.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = midi.tr3.h; sourceTree = "<group>"; };
-		80731CCF281715C0005FCE1A /* sky.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.tr3.h; sourceTree = "<group>"; };
-		80731CEA28187A45005FCE1A /* menu.tr3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menu.tr3.h; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		8096E08E28A1BAAE00EE2967 /* Tr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Tr3; path = ../Tr3/Tr3; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		80BE0DE328909C9700DCCE58 /* MuNodeTr3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuNodeTr3.swift; sourceTree = "<group>"; };
-		80CBDA14281D90BF008CB97A /* shader.tr3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.tr3.h; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
+		80E6B53228A47F6D00CDC6DA /* MuMenuSky */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenuSky; path = ../MuMenuSky; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +93,7 @@
 			files = (
 				80CBDA11281CABF3008CB97A /* Tr3 in Frameworks */,
 				80BDD7C728919C0100C6E2BF /* MuMenu in Frameworks */,
+				8017908F28A215040013F48A /* MuMenuSky in Frameworks */,
 				80731CB0281706DD005FCE1A /* Tr3 in Frameworks */,
 				802C2B552856902500332BF7 /* OrderedCollections in Frameworks */,
 			);
@@ -162,6 +147,7 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
+				80E6B53228A47F6D00CDC6DA /* MuMenuSky */,
 				8096E08E28A1BAAE00EE2967 /* Tr3 */,
 				80542DF52891EE89001F2650 /* MuMenu */,
 				80542DFE2892F3C3001F2650 /* Resouces */,
@@ -188,7 +174,6 @@
 		8014B7C82700DE3800691126 /* DeepMenu */ = {
 			isa = PBXGroup;
 			children = (
-				80542DFC2891F15B001F2650 /* Sky */,
 				8087FC882808760800572436 /* Example */,
 				80A7B5A6271B1883005ECF59 /* Main */,
 				80631E012778FAFA0071AF93 /* etc */,
@@ -228,16 +213,6 @@
 			path = DeepMenuUITests;
 			sourceTree = "<group>";
 		};
-		80542DFC2891F15B001F2650 /* Sky */ = {
-			isa = PBXGroup;
-			children = (
-				80542E032892F421001F2650 /* Sky.xcassets */,
-				80731CB528170D9A005FCE1A /* SkyTr3.swift */,
-				80542DF62891EF80001F2650 /* SkyVm.swift */,
-			);
-			path = Sky;
-			sourceTree = "<group>";
-		};
 		80542DFE2892F3C3001F2650 /* Resouces */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,25 +231,11 @@
 			path = etc;
 			sourceTree = "<group>";
 		};
-		80731CD0281715D9005FCE1A /* Tr3 */ = {
-			isa = PBXGroup;
-			children = (
-				80BE0DE328909C9700DCCE58 /* MuNodeTr3.swift */,
-				80731CEA28187A45005FCE1A /* menu.tr3.h */,
-				80731CCF281715C0005FCE1A /* sky.tr3.h */,
-				80CBDA14281D90BF008CB97A /* shader.tr3.h */,
-				80731CCD281715C0005FCE1A /* midi.tr3.h */,
-			);
-			path = Tr3;
-			sourceTree = "<group>";
-		};
 		8087FC882808760800572436 /* Example */ = {
 			isa = PBXGroup;
 			children = (
 				80542DFA2891EFF5001F2650 /* TestVm.swift */,
 				57F3029427C142FC00203F63 /* ExampleNodeModels.swift */,
-				80731CB128170880005FCE1A /* ExampleTr3Sky.swift */,
-				80731CD0281715D9005FCE1A /* Tr3 */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -319,6 +280,7 @@
 				80CBDA10281CABF3008CB97A /* Tr3 */,
 				802C2B542856902500332BF7 /* OrderedCollections */,
 				80BDD7C628919C0100C6E2BF /* MuMenu */,
+				8017908E28A215040013F48A /* MuMenuSky */,
 			);
 			productName = DeepMenu;
 			productReference = 8014B7C62700DE3800691126 /* DeepMenu.app */;
@@ -405,6 +367,7 @@
 				80CBDA0F281CABF3008CB97A /* XCRemoteSwiftPackageReference "Tr3" */,
 				802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				80BDD7C528919C0100C6E2BF /* XCRemoteSwiftPackageReference "MuMenu" */,
+				8017908D28A215040013F48A /* XCRemoteSwiftPackageReference "MuMenuSky" */,
 			);
 			productRefGroup = 8014B7C72700DE3800691126 /* Products */;
 			projectDirPath = "";
@@ -422,13 +385,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80542E042892F421001F2650 /* Sky.xcassets in Resources */,
-				800E2A99281DB8AA006AE6A1 /* shader.tr3.h in Resources */,
-				80731CEB2819BBF1005FCE1A /* menu.tr3.h in Resources */,
-				80731CE8281715F3005FCE1A /* sky.tr3.h in Resources */,
-				80731CE9281715F3005FCE1A /* midi.tr3.h in Resources */,
+				80639E4A28AC512100FA05EA /* MuMenuSky in Resources */,
 				57A0A26527BF15AA00B5598B /* config.yml in Resources */,
-				8096E08F28A1BAAE00EE2967 /* Tr3 in Resources */,
 				802AEDA527BD8486003325C9 /* README.md in Resources */,
 				8014B7D12700DE3A00691126 /* Preview Assets.xcassets in Resources */,
 				8014B7CE2700DE3A00691126 /* Assets.xcassets in Resources */,
@@ -457,14 +415,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				80135A0B272C728700BCDE27 /* CanvasView.swift in Sources */,
-				80731CB228170880005FCE1A /* ExampleTr3Sky.swift in Sources */,
-				80542DF72891EF80001F2650 /* SkyVm.swift in Sources */,
 				8087FC87280771CF00572436 /* PathView.swift in Sources */,
 				80542DFB2891EFF5001F2650 /* TestVm.swift in Sources */,
-				80731CB628170D9A005FCE1A /* SkyTr3.swift in Sources */,
 				8014B7CC2700DE3800691126 /* ContentView.swift in Sources */,
 				8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */,
-				80BE0DE428909C9700DCCE58 /* MuNodeTr3.swift in Sources */,
 				57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */,
 				80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */,
 			);
@@ -841,6 +795,14 @@
 				minimumVersion = 0.9.1;
 			};
 		};
+		8017908D28A215040013F48A /* XCRemoteSwiftPackageReference "MuMenuSky" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/musesum/MuMenuSky";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -880,6 +842,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
+		};
+		8017908E28A215040013F48A /* MuMenuSky */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8017908D28A215040013F48A /* XCRemoteSwiftPackageReference "MuMenuSky" */;
+			productName = MuMenuSky;
 		};
 		802C2B542856902500332BF7 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;

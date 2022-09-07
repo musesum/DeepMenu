@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "musky",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuSky.git",
+      "state" : {
+        "revision" : "490c852477bf0be6e8be3d94d82237ed0a9f1b36",
+        "version" : "0.0.4"
+      }
+    },
+    {
       "identity" : "par",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/Par.git",
@@ -14,17 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "48254824bb4248676bf7ce56014ff57b142b77eb",
-        "version" : "1.0.2"
-      }
-    },
-    {
-      "identity" : "tr3",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/Tr3",
-      "state" : {
-        "revision" : "478243326887c0eec52f4bc38dca9c2b2bc86c13",
-        "version" : "0.2.32"
+        "revision" : "f504716c27d2e5d4144fa4794b12129301d17729",
+        "version" : "1.0.3"
       }
     },
     {
