@@ -14,7 +14,6 @@
 		57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26727C015F600B5598B /* MuIdentityTests.swift */; };
 		57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029427C142FC00203F63 /* ExampleNodeModels.swift */; };
 		57F3029827C4389B00203F63 /* MuPodModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029727C4389B00203F63 /* MuPodModelTests.swift */; };
-		80135A0B272C728700BCDE27 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80135A0A272C728700BCDE27 /* CanvasView.swift */; };
 		8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7C92700DE3800691126 /* DeepMenuApp.swift */; };
 		8014B7CC2700DE3800691126 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7CB2700DE3800691126 /* ContentView.swift */; };
 		8014B7CE2700DE3A00691126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8014B7CD2700DE3A00691126 /* Assets.xcassets */; };
@@ -61,8 +60,6 @@
 		57F3029427C142FC00203F63 /* ExampleNodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNodeModels.swift; sourceTree = "<group>"; };
 		57F3029727C4389B00203F63 /* MuPodModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodModelTests.swift; sourceTree = "<group>"; };
 		800619692791D984005960FF /* scratch2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch2.h; sourceTree = "<group>"; };
-		800D31D628CA699000687FEB /* MuSky */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuSky; path = ../MuSky; sourceTree = "<group>"; };
-		80135A0A272C728700BCDE27 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		8014B7C62700DE3800691126 /* DeepMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeepMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8014B7C92700DE3800691126 /* DeepMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepMenuApp.swift; sourceTree = "<group>"; };
 		8014B7CB2700DE3800691126 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,8 +78,9 @@
 		80542E002892F3C3001F2650 /* Interaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interaction.png; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
-		8096E08E28A1BAAE00EE2967 /* Tr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Tr3; path = ../Tr3/Tr3; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		80B221E928CFC63F0075B6A8 /* Tr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Tr3; path = ../Tr3; sourceTree = "<group>"; };
+		80C2075228CFAA0D00804EA8 /* MuSkyTr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuSkyTr3; path = ../MuSkyTr3; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
 		80E6B53228A47F6D00CDC6DA /* MuMenuSky */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenuSky; path = ../MuMenuSky; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,9 +146,9 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
-				800D31D628CA699000687FEB /* MuSky */,
+				80B221E928CFC63F0075B6A8 /* Tr3 */,
+				80C2075228CFAA0D00804EA8 /* MuSkyTr3 */,
 				80E6B53228A47F6D00CDC6DA /* MuMenuSky */,
-				8096E08E28A1BAAE00EE2967 /* Tr3 */,
 				80542DF52891EE89001F2650 /* MuMenu */,
 				80542DFE2892F3C3001F2650 /* Resouces */,
 				57A0A26427BF15AA00B5598B /* config.yml */,
@@ -245,7 +243,6 @@
 		80A7B5A6271B1883005ECF59 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				80135A0A272C728700BCDE27 /* CanvasView.swift */,
 				8014B7CB2700DE3800691126 /* ContentView.swift */,
 				80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */,
 				8087FC86280771CF00572436 /* PathView.swift */,
@@ -416,7 +413,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80135A0B272C728700BCDE27 /* CanvasView.swift in Sources */,
 				8087FC87280771CF00572436 /* PathView.swift in Sources */,
 				80542DFB2891EFF5001F2650 /* TestVm.swift in Sources */,
 				8014B7CC2700DE3800691126 /* ContentView.swift in Sources */,
