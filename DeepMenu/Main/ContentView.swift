@@ -18,11 +18,11 @@ struct ContentView: View {
                 .foregroundColor(.gray)
                 .ignoresSafeArea(.all, edges: .all)
 
-            // add touch handler
-            TouchRepresentable([leftVm.rootVm.touchVm, rightVm.rootVm.touchVm])
+            // to add UIKit touch handler, will need a ViewController
+            // TouchRepresentable([leftVm.rootVm.touchVm, rightVm.rootVm.touchVm])
             // Menus without drag
-            MenuView(menuVm: leftVm)
-            MenuView(menuVm: rightVm)
+            MenuDragView(menuVm: leftVm)
+            MenuDragView(menuVm: rightVm)
         }
         .statusBar(hidden: true)
     }
