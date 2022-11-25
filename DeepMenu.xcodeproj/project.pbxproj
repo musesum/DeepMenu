@@ -60,6 +60,7 @@
 		57F3029427C142FC00203F63 /* ExampleNodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNodeModels.swift; sourceTree = "<group>"; };
 		57F3029727C4389B00203F63 /* MuPodModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodModelTests.swift; sourceTree = "<group>"; };
 		800619692791D984005960FF /* scratch2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch2.h; sourceTree = "<group>"; };
+		800AD4BF2930835A00DC0F84 /* MuSkyTr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuSkyTr3; path = ../MuSkyTr3; sourceTree = "<group>"; };
 		8014B7C62700DE3800691126 /* DeepMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeepMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8014B7C92700DE3800691126 /* DeepMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepMenuApp.swift; sourceTree = "<group>"; };
 		8014B7CB2700DE3800691126 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		80B221E928CFC63F0075B6A8 /* Tr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Tr3; path = ../Tr3; sourceTree = "<group>"; };
-		80C2075228CFAA0D00804EA8 /* MuSkyTr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuSkyTr3; path = ../MuSkyTr3; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
 		80E6B53228A47F6D00CDC6DA /* MuMenuSky */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenuSky; path = ../MuMenuSky; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,8 +146,8 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
+				800AD4BF2930835A00DC0F84 /* MuSkyTr3 */,
 				80B221E928CFC63F0075B6A8 /* Tr3 */,
-				80C2075228CFAA0D00804EA8 /* MuSkyTr3 */,
 				80E6B53228A47F6D00CDC6DA /* MuMenuSky */,
 				80542DF52891EE89001F2650 /* MuMenu */,
 				80542DFE2892F3C3001F2650 /* Resouces */,
