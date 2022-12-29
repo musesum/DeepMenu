@@ -10,8 +10,9 @@ struct ContentView: View {
     var body: some View {
 
         let rootTr3 = TestSkyTr3.shared.root
-        let leftVm  = MenuSkyVm([.lower, .left],  .vertical, rootTr3)
-        let rightVm = MenuSkyVm([.lower, .right], .vertical, rootTr3)
+        let rootNode = MuTr3Node(rootTr3)
+        let leftVm  = MenuSkyVm([.lower, .left],  .vertical, rootNode)
+        let rightVm = MenuSkyVm([.lower, .right], .vertical, rootNode)
 
         ZStack(alignment: .bottomLeading) {
             Rectangle()
