@@ -8,18 +8,18 @@ enum ExampleNodeModels {
     /**
      Create a mock calendar
      */
-    static func calendarNodes(parent: MuNodeTest? = nil,
-                             _ level: Int = 0) -> [MuNodeTest] {
-        let nodes = [MuNodeTest]()
+    static func calendarNodes(parent: MuCornerNode? = nil,
+                             _ level: Int = 0) -> [MuCornerNode] {
+        let nodes = [MuCornerNode]()
         //TODO: setup random points in timeline
         return nodes
     }
 
     /**
-     Create a stochastic tree of `MuNodeTest`s
+     Create a stochastic tree of `MuCornerNode`s
      */
-    static func letteredNodes(parent: MuNodeTest? = nil, _ level: Int = 0) -> [MuNodeTest] {
-        var nodes = [MuNodeTest]()
+    static func letteredNodes(parent: MuCornerNode? = nil, _ level: Int = 0) -> [MuCornerNode] {
+        var nodes = [MuCornerNode]()
         let AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let az = "abcdefghijklmnopqrstuvwxyz"
         let hex = "0123456789ABCDEF"
@@ -36,7 +36,7 @@ enum ExampleNodeModels {
         for i in 0 ..< max {
             let name = names[i]
             let nodeType: MuNodeType = (level == values.count - 1 ? .vxy : .node)
-            let nodeModel = MuNodeTest(name, type: nodeType, parent: parent)
+            let nodeModel = MuCornerNode(name, type: nodeType, parent: parent)
             let children = ExampleNodeModels.letteredNodes(parent: nodeModel, level + 1)
             nodeModel.children = children
             nodes.append(nodeModel)
@@ -51,17 +51,17 @@ enum ExampleNodeModels {
      - Parameters:
        - count: The number of nodes per level (the same for all levels).
        - numLevels: How many sub-node levels, including the initial one.
-       - parent: The parent MuNodeTest for this level .... TODO: not clear what parent means (supervisor? super? parent?)
-     - Returns: An array of number-styled MuNodeTests
+       - parent: The parent MuCornerNode for this level .... TODO: not clear what parent means (supervisor? super? parent?)
+     - Returns: An array of number-styled MuCornerNodes
      */
-    static func numberedNodes(_ count: Int, numLevels: Int = 0, parent: MuNodeTest? = nil) -> [MuNodeTest] {
-        var nodes = [MuNodeTest]()
+    static func numberedNodes(_ count: Int, numLevels: Int = 0, parent: MuCornerNode? = nil) -> [MuCornerNode] {
+        var nodes = [MuCornerNode]()
 
         if numLevels > 0 {
 
             for i in 1 ... count {
                 let name = String(i)
-                let nodeModel = MuNodeTest(name, parent: parent)
+                let nodeModel = MuCornerNode(name, parent: parent)
                 let children = ExampleNodeModels.numberedNodes(count, numLevels: numLevels - 1, parent: nodeModel)
                 nodeModel.children = children
                 nodes.append(nodeModel)

@@ -20,7 +20,7 @@ class MuNodeModelTests: XCTestCase {
     }
 
     func testInit_withOnlyName() throws {
-        let sut = MuNodeTest("TEST")
+        let sut = MuCornerNode("TEST")
         XCTAssertEqual("TEST", sut.name)
         XCTAssertEqual(.node, sut.nodeType)
         XCTAssertEqual("TEST", sut.title)
@@ -28,7 +28,7 @@ class MuNodeModelTests: XCTestCase {
 
     func testInit_withSelectionCallback() throws {
         var callbackRan = false
-        let sut = MuNodeTest("TEST") { _ in callbackRan = true }
+        let sut = MuCornerNode("TEST") { _ in callbackRan = true }
         XCTAssertEqual("TEST", sut.name)
         XCTAssertEqual(MuNodeType.node, sut.nodeType)
         XCTAssertEqual("TEST", sut.title)
@@ -38,8 +38,8 @@ class MuNodeModelTests: XCTestCase {
     }
 
     func test_addChild() throws {
-        let sut = MuNodeTest("Parent")
-        let child = MuNodeTest("Child")
+        let sut = MuCornerNode("Parent")
+        let child = MuCornerNode("Child")
         
         sut.addChild(child)
 

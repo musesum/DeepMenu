@@ -36,7 +36,7 @@ struct TouchRepresentable: UIViewRepresentable {
 
     init(_ touchVms: [MuTouchVm]) {
         self.touchVms = touchVms
-        touchView.touchVms.append(contentsOf: touchVms)
+        TouchMenu.touchVms.append(contentsOf: touchVms)
     }
     public func makeUIView(context: Context) -> TouchView {
         return touchView
@@ -44,57 +44,4 @@ struct TouchRepresentable: UIViewRepresentable {
     public func updateUIView(_ uiView: TouchView, context: Context) {
         print("🔶", terminator: " ")
     }
-}
-
-class TouchView: UIView, UIGestureRecognizerDelegate {
-
-    static let shared = TouchView()
-    var touchKey = [String: MuTouchVm]()
-    var touchVms = [MuTouchVm]()
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    init() {
-        super.init(frame: UIScreen.main.bounds)
-        isMultipleTouchEnabled = true
-    }
-
-    // MARK: - Touches
-
-    func updateTouches(_ touches: Set<UITouch>, _ event: UIEvent?) {
-        
-        for touch in touches {
-
-            let touchXY = ((touch.phase == .ended ||
-                            touch.phase == .cancelled)
-                           ? .zero
-                           : touch.preciseLocation(in: nil))
-
-            let key = String(format: "%p", touch)
-
-            if let touchVm = touchKey[key] {
-
-                touchVm.touchMenuUpdate(touchXY)
-
-            } else {
-
-                for touchVm in touchVms {
-                    if  touchVm.hitTest(touchXY) {
-
-                        touchVm.touchMenuUpdate(touchXY)
-                        touchKey[key] = touchVm
-                        break
-                    }
-                }
-            }
-        }
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { updateTouches(touches, event) }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) { updateTouches(touches, event) }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) { updateTouches(touches, event) }
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) { updateTouches(touches, event) }
-
 }
