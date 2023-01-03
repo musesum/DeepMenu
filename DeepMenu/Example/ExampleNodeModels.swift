@@ -35,7 +35,7 @@ enum ExampleNodeModels {
 
         for i in 0 ..< max {
             let name = names[i]
-            let nodeType: MuNodeType = (level == values.count - 1 ? .vxy : .node)
+            let nodeType: MuMenuType = (level == values.count - 1 ? .vxy : .node)
             let nodeModel = MuCornerNode(name, type: nodeType, parent: parent)
             let children = ExampleNodeModels.letteredNodes(parent: nodeModel, level + 1)
             nodeModel.children = children

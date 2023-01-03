@@ -27,7 +27,6 @@
 		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
 		8087FC87280771CF00572436 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* PathView.swift */; };
 		80B12F0629504C8500C7E336 /* TouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B12F0529504C8500C7E336 /* TouchView.swift */; };
-		80B12F0829504D4300C7E336 /* TouchMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B12F0729504D4300C7E336 /* TouchMenu.swift */; };
 		80B12F0A2950528400C7E336 /* TouchView+Peers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B12F092950528300C7E336 /* TouchView+Peers.swift */; };
 		80BDD7C728919C0100C6E2BF /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80BDD7C628919C0100C6E2BF /* MuMenu */; };
 		80CBDA11281CABF3008CB97A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80CBDA10281CABF3008CB97A /* Tr3 */; };
@@ -421,7 +420,6 @@
 			files = (
 				80B12F0A2950528400C7E336 /* TouchView+Peers.swift in Sources */,
 				8087FC87280771CF00572436 /* PathView.swift in Sources */,
-				80B12F0829504D4300C7E336 /* TouchMenu.swift in Sources */,
 				8014B7CC2700DE3800691126 /* ContentView.swift in Sources */,
 				8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */,
 				57F3029527C142FC00203F63 /* ExampleNodeModels.swift in Sources */,
