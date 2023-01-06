@@ -83,7 +83,6 @@
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		80B12F0529504C8500C7E336 /* TouchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchView.swift; sourceTree = "<group>"; };
-		80B12F0729504D4300C7E336 /* TouchMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchMenu.swift; sourceTree = "<group>"; };
 		80B12F092950528300C7E336 /* TouchView+Peers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TouchView+Peers.swift"; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -246,7 +245,6 @@
 		80A7B5A6271B1883005ECF59 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				80B12F0729504D4300C7E336 /* TouchMenu.swift */,
 				80B12F0529504C8500C7E336 /* TouchView.swift */,
 				80B12F092950528300C7E336 /* TouchView+Peers.swift */,
 				8014B7CB2700DE3800691126 /* ContentView.swift */,

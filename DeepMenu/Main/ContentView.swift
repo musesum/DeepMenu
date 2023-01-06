@@ -11,20 +11,21 @@ struct ContentView: View {
 
         let rootTr3 = TestSkyTr3.shared.root
         let rootNode = MuTr3Node(rootTr3)
-        let leftVm  = MenuSkyVm([.lower, .left],  [(rootNode, .vertical)])
-        let rightVm = MenuSkyVm([.lower, .right], [(rootNode, .vertical)])
+        let leftVm  = MenuSkyVm([.lower, .left],  [(rootNode, .vertical),
+                                                   (rootNode, .horizontal)])
+        //let rightVm = MenuSkyVm([.lower, .left], [(rootNode, .vertical)])
         
 
         ZStack(alignment: .bottomLeading) {
             Rectangle()
-                .foregroundColor(.gray)
+                .foregroundColor(.init(uiColor: .darkGray))
                 .ignoresSafeArea(.all, edges: .all)
 
             // to add UIKit touch handler, will need a ViewController
             // TouchRepresentable([leftVm.rootVm.touchVm, rightVm.rootVm.touchVm])
             // Menus without drag
             MenuDragView(menuVm: leftVm)
-            MenuDragView(menuVm: rightVm)
+            //MenuDragView(menuVm: rightVm)
         }
         .statusBar(hidden: true)
     }
