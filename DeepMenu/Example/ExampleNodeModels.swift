@@ -2,15 +2,16 @@
 
 import Foundation
 import MuMenu
+import SwiftUI
 
 enum ExampleNodeModels {
 
     /**
      Create a mock calendar
      */
-    static func calendarNodes(parent: MuCornerNode? = nil,
-                             _ level: Int = 0) -> [MuCornerNode] {
-        let nodes = [MuCornerNode]()
+    static func calendarNodes(parent: MuNodeVm? = nil,
+                             _ level: Int = 0) -> [MuNode] {
+        let nodes = [MuNode]()
         //TODO: setup random points in timeline
         return nodes
     }
@@ -18,8 +19,8 @@ enum ExampleNodeModels {
     /**
      Create a stochastic tree of `MuCornerNode`s
      */
-    static func letteredNodes(parent: MuCornerNode? = nil, _ level: Int = 0) -> [MuCornerNode] {
-        var nodes = [MuCornerNode]()
+    static func letteredNodes(parent: MuNode? = nil, _ level: Int = 0) -> [MuNode] {
+        var nodes = [MuNode]()
         let AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let az = "abcdefghijklmnopqrstuvwxyz"
         let hex = "0123456789ABCDEF"
@@ -32,11 +33,13 @@ enum ExampleNodeModels {
                                : hex)
         let value = values[level]
         let max: Int = Int.random(in: value)
+        let icon =  MuIcon(.cursor, named: "icon.ring.roygbiv")
 
         for i in 0 ..< max {
             let name = names[i]
-            let nodeType: MuMenuType = (level == values.count - 1 ? .vxy : .node)
-            let nodeModel = MuCornerNode(name, type: nodeType, parent: parent)
+
+            //let nodeType: MuMenuType = (level == values.count - 1 ? .vxy : .node)
+            let nodeModel = MuNode(name: name, icon: icon)
             let children = ExampleNodeModels.letteredNodes(parent: nodeModel, level + 1)
             nodeModel.children = children
             nodes.append(nodeModel)
@@ -54,14 +57,17 @@ enum ExampleNodeModels {
        - parent: The parent MuCornerNode for this level .... TODO: not clear what parent means (supervisor? super? parent?)
      - Returns: An array of number-styled MuCornerNodes
      */
-    static func numberedNodes(_ count: Int, numLevels: Int = 0, parent: MuCornerNode? = nil) -> [MuCornerNode] {
-        var nodes = [MuCornerNode]()
+    static func numberedNodes(_ count: Int,
+                              numLevels: Int = 0,
+                              parent: MuNode? = nil) -> [MuNode] {
+        var nodes = [MuNode]()
+        let icon =  MuIcon(.cursor, named: "icon.ring.roygbiv")
 
         if numLevels > 0 {
 
             for i in 1 ... count {
                 let name = String(i)
-                let nodeModel = MuCornerNode(name, parent: parent)
+                let nodeModel = MuNode(name: name, icon: icon, parent: parent)
                 let children = ExampleNodeModels.numberedNodes(count, numLevels: numLevels - 1, parent: nodeModel)
                 nodeModel.children = children
                 nodes.append(nodeModel)

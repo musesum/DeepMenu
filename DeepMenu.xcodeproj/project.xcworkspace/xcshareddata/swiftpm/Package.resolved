@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "MuMenuSky",
+        "repositoryURL": "https://github.com/musesum/MuMenuSky",
+        "state": {
+          "branch": "main",
+          "revision": "25369c90e9ab571998176408e7de9de52e6f126e",
+          "version": null
+        }
+      },
+      {
         "package": "swift-collections",
         "repositoryURL": "https://github.com/apple/swift-collections.git",
         "state": {
