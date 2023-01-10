@@ -12,8 +12,8 @@ extension TouchView: PeersControllerDelegate {
                          viaStream: Bool) {
 
         let decoder = JSONDecoder()
-        if let item = try? decoder.decode(MenuRemoteItem.self, from: data) {
-            TouchMenuRemote.remoteItem(item)
+        if let item = try? decoder.decode(MenuItem.self, from: data) {
+            TouchMenu.remoteItem(item)
             return
         }
     }

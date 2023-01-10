@@ -39,7 +39,9 @@ struct TouchRepresentable: UIViewRepresentable {
 
     init(_ touchVms: [MuTouchVm]) {
         self.touchVms = touchVms
-        TouchMenu.touchVms.append(contentsOf: touchVms)
+        for touchVm in touchVms {
+            CornerTouchVm[touchVm.corner.rawValue] = touchVm
+        }
     }
     public func makeUIView(context: Context) -> TouchView {
         return touchView
