@@ -3,14 +3,14 @@ import UIKit
 import SwiftUI
 import MuMenu
 import MuMenuSky
-import MuSkyTr3
+import MuSkyFlo
 
 struct ContentView: View {
 
     var body: some View {
 
-        let rootTr3 = TestSkyTr3.shared.root
-        let rootNode = MuTr3Node(rootTr3)
+        let rootFlo = TestSkyFlo.shared.root
+        let rootNode = MuFloNode(rootFlo)
         let leftVm  = MenuSkyVm([.lower, .left],  [(rootNode, .vertical),
                                                    (rootNode, .horizontal)])
         //let rightVm = MenuSkyVm([.lower, .left], [(rootNode, .vertical)])

@@ -24,15 +24,11 @@
 		8017908F28A215040013F48A /* MuMenuSky in Frameworks */ = {isa = PBXBuildFile; productRef = 8017908E28A215040013F48A /* MuMenuSky */; };
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		802C2B552856902500332BF7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 802C2B542856902500332BF7 /* OrderedCollections */; };
-		80731CB0281706DD005FCE1A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80731CAF281706DD005FCE1A /* Tr3 */; };
 		8087FC87280771CF00572436 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* PathView.swift */; };
 		80B12F0629504C8500C7E336 /* TouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B12F0529504C8500C7E336 /* TouchView.swift */; };
 		80B12F0A2950528400C7E336 /* TouchView+Peers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B12F092950528300C7E336 /* TouchView+Peers.swift */; };
 		80BDD7C728919C0100C6E2BF /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80BDD7C628919C0100C6E2BF /* MuMenu */; };
-		80CBDA11281CABF3008CB97A /* Tr3 in Frameworks */ = {isa = PBXBuildFile; productRef = 80CBDA10281CABF3008CB97A /* Tr3 */; };
 		80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */; };
-		80F23D6028906658003AC055 /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80F23D5F28906658003AC055 /* MuMenu */; };
-		80F23D6228906662003AC055 /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80F23D6128906662003AC055 /* MuMenu */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,13 +67,14 @@
 		8014B7E42700DE3A00691126 /* DeepMenuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepMenuUITests.swift; sourceTree = "<group>"; };
 		8014B7E62700DE3A00691126 /* DeepMenuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepMenuUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8014B7F52700E7C400691126 /* DeepMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeepMenu.entitlements; sourceTree = "<group>"; };
+		8016A47F298B562E00F3208C /* MuSkyFlo */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuSkyFlo; path = ../Packages/MuSkyFlo; sourceTree = "<group>"; };
+		8016A480298B562E00F3208C /* MuMenu */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenu; path = ../Packages/MuMenu; sourceTree = "<group>"; };
+		8016A481298B562E00F3208C /* MuTime */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuTime; path = ../Packages/MuTime; sourceTree = "<group>"; };
+		8016A482298B562F00F3208C /* MuMenuSky */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenuSky; path = ../Packages/MuMenuSky; sourceTree = "<group>"; };
+		8016A483298B562F00F3208C /* MuPar */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuPar; path = ../Packages/MuPar; sourceTree = "<group>"; };
+		8016A484298B563000F3208C /* MuFlo */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuFlo; path = ../Packages/MuFlo; sourceTree = "<group>"; };
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
-		8052B8F2294A994600E70750 /* MuMenuSky */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenuSky; path = ../Packages/MuMenuSky; sourceTree = "<group>"; };
-		8052B8F3294A994A00E70750 /* MuMenu */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenu; path = ../Packages/MuMenu; sourceTree = "<group>"; };
-		8052B8F4294A994E00E70750 /* MuSkyTr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuSkyTr3; path = ../Packages/MuSkyTr3; sourceTree = "<group>"; };
-		8052B8F5294A995100E70750 /* Par */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Par; path = ../Packages/Par; sourceTree = "<group>"; };
-		8052B8F6294A995300E70750 /* Tr3 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Tr3; path = ../Packages/Tr3; sourceTree = "<group>"; };
 		80542E002892F3C3001F2650 /* Interaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interaction.png; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
@@ -92,10 +89,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80CBDA11281CABF3008CB97A /* Tr3 in Frameworks */,
 				80BDD7C728919C0100C6E2BF /* MuMenu in Frameworks */,
 				8017908F28A215040013F48A /* MuMenuSky in Frameworks */,
-				80731CB0281706DD005FCE1A /* Tr3 in Frameworks */,
 				802C2B552856902500332BF7 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,7 +100,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				57A0A26127BED18A00B5598B /* ViewInspector in Frameworks */,
-				80F23D6028906658003AC055 /* MuMenu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +107,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80F23D6228906662003AC055 /* MuMenu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,11 +141,12 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
-				8052B8F6294A995300E70750 /* Tr3 */,
-				8052B8F5294A995100E70750 /* Par */,
-				8052B8F4294A994E00E70750 /* MuSkyTr3 */,
-				8052B8F3294A994A00E70750 /* MuMenu */,
-				8052B8F2294A994600E70750 /* MuMenuSky */,
+				8016A484298B563000F3208C /* MuFlo */,
+				8016A480298B562E00F3208C /* MuMenu */,
+				8016A482298B562F00F3208C /* MuMenuSky */,
+				8016A483298B562F00F3208C /* MuPar */,
+				8016A47F298B562E00F3208C /* MuSkyFlo */,
+				8016A481298B562E00F3208C /* MuTime */,
 				80542DFE2892F3C3001F2650 /* Resouces */,
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,
@@ -279,8 +273,6 @@
 			);
 			name = DeepMenu;
 			packageProductDependencies = (
-				80731CAF281706DD005FCE1A /* Tr3 */,
-				80CBDA10281CABF3008CB97A /* Tr3 */,
 				802C2B542856902500332BF7 /* OrderedCollections */,
 				80BDD7C628919C0100C6E2BF /* MuMenu */,
 				8017908E28A215040013F48A /* MuMenuSky */,
@@ -305,7 +297,6 @@
 			name = DeepMenuTests;
 			packageProductDependencies = (
 				57A0A26027BED18A00B5598B /* ViewInspector */,
-				80F23D5F28906658003AC055 /* MuMenu */,
 			);
 			productName = DeepMenuTests;
 			productReference = 8014B7D62700DE3A00691126 /* DeepMenuTests.xctest */;
@@ -326,7 +317,6 @@
 			);
 			name = DeepMenuUITests;
 			packageProductDependencies = (
-				80F23D6128906662003AC055 /* MuMenu */,
 			);
 			productName = DeepMenuUITests;
 			productReference = 8014B7E02700DE3A00691126 /* DeepMenuUITests.xctest */;
@@ -366,8 +356,6 @@
 			mainGroup = 8014B7BD2700DE3800691126;
 			packageReferences = (
 				57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */,
-				80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */,
-				80CBDA0F281CABF3008CB97A /* XCRemoteSwiftPackageReference "Tr3" */,
 				802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				80BDD7C528919C0100C6E2BF /* XCRemoteSwiftPackageReference "MuMenu" */,
 				8017908D28A215040013F48A /* XCRemoteSwiftPackageReference "MuMenuSky" */,
@@ -813,28 +801,12 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/musesum/Tr3";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.9;
-			};
-		};
 		80BDD7C528919C0100C6E2BF /* XCRemoteSwiftPackageReference "MuMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/musesum/MuMenu";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.1.1;
-			};
-		};
-		80CBDA0F281CABF3008CB97A /* XCRemoteSwiftPackageReference "Tr3" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/musesum/Tr3";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -855,27 +827,9 @@
 			package = 802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
 		};
-		80731CAF281706DD005FCE1A /* Tr3 */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */;
-			productName = Tr3;
-		};
 		80BDD7C628919C0100C6E2BF /* MuMenu */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80BDD7C528919C0100C6E2BF /* XCRemoteSwiftPackageReference "MuMenu" */;
-			productName = MuMenu;
-		};
-		80CBDA10281CABF3008CB97A /* Tr3 */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 80731CAE281706DD005FCE1A /* XCRemoteSwiftPackageReference "Tr3" */;
-			productName = Tr3;
-		};
-		80F23D5F28906658003AC055 /* MuMenu */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MuMenu;
-		};
-		80F23D6128906662003AC055 /* MuMenu */ = {
-			isa = XCSwiftPackageProductDependency;
 			productName = MuMenu;
 		};
 /* End XCSwiftPackageProductDependency section */

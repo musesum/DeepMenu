@@ -23,10 +23,10 @@ see README.md for MuMenu
   - Transparent while editing leaf
   - Horizontal Test
 + Node
-  - Callback to Tr3 example
+  - Callback to Flo example
   - Show icons 
 + Leaf 
-  - Tr3 Callback & persist
+  - Flo Callback & persist
   - Drag leaf to Sky
 + Devices 
   - Synchonize Vms
@@ -45,10 +45,10 @@ see README.md for MuMenu
 + MuseSky integration
   - curate icon list
   - Sky as UIKit compatible view
-  - replace Tr3Thumb.package
-  - replace panel.*.tr3.h
-  - refactor sky.tr3.h
-  - refactor shader.tr3.h
-  - refactor midi.tr3.h
+  - replace FloThumb.package
+  - replace panel.*.flo.h
+  - refactor sky.flo.h
+  - refactor shader.flo.h
+  - refactor midi.flo.h
   - control from Apple Watch
             
