@@ -18,7 +18,7 @@ struct ContentView: View {
 
         ZStack(alignment: .bottomLeading) {
             Rectangle()
-                .foregroundColor(.init(uiColor: .darkGray))
+                .foregroundColor(.init(uiColor: .black))
                 .ignoresSafeArea(.all, edges: .all)
 
             // to add UIKit touch handler, will need a ViewController

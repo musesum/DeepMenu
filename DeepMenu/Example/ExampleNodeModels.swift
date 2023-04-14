@@ -33,7 +33,7 @@ enum ExampleNodeModels {
                                : hex)
         let value = values[level]
         let max: Int = Int.random(in: value)
-        let icon =  MuIcon(.cursor, named: "icon.ring.roygbiv")
+        let icon =  MuIcon(.cursor, "icon.ring.roygbiv", .none)
 
         for i in 0 ..< max {
             let name = names[i]
@@ -61,7 +61,7 @@ enum ExampleNodeModels {
                               numLevels: Int = 0,
                               parent: MuNode? = nil) -> [MuNode] {
         var nodes = [MuNode]()
-        let icon =  MuIcon(.cursor, named: "icon.ring.roygbiv")
+        let icon =  MuIcon(.cursor, "icon.ring.roygbiv", .none)
 
         if numLevels > 0 {
 
