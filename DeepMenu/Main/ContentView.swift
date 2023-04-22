@@ -11,10 +11,8 @@ struct ContentView: View {
 
         let rootFlo = TestSkyFlo.shared.root
         let rootNode = MuFloNode(rootFlo)
-        let leftVm  = MenuSkyVm([.lower, .left],  [(rootNode, .vertical),
-                                                   (rootNode, .horizontal)])
-        //let rightVm = MenuSkyVm([.lower, .left], [(rootNode, .vertical)])
-        
+        let leftVm  = MenuVm([.lower, .left],  [(rootNode, .vertical),
+                                                (rootNode, .horizontal)])
 
         ZStack(alignment: .bottomLeading) {
             Rectangle()
@@ -35,7 +33,7 @@ struct TouchRepresentable: UIViewRepresentable {
 
     typealias Context = UIViewRepresentableContext<TouchRepresentable>
     var touchVms: [MuTouchVm]
-    var touchView = TouchView.shared
+    var touchView = TouchView() 
 
     init(_ touchVms: [MuTouchVm]) {
         self.touchVms = touchVms
