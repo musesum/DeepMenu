@@ -2,6 +2,7 @@
 import UIKit
 import SwiftUI
 import MuMenu
+import MuFlo
 import MuMenuSky
 import MuSkyFlo
 
@@ -16,7 +17,7 @@ struct ContentView: View {
 
         ZStack(alignment: .bottomLeading) {
             Rectangle()
-                .foregroundColor(.init(uiColor: .black))
+                .foregroundColor(.init(uiColor: .clear))
                 .ignoresSafeArea(.all, edges: .all)
 
             // to add UIKit touch handler, will need a ViewController
@@ -29,13 +30,23 @@ struct ContentView: View {
     }
 }
 
+#if os(iOS)
 struct TouchRepresentable: UIViewRepresentable {
 
     typealias Context = UIViewRepresentableContext<TouchRepresentable>
     var touchVms: [MuTouchVm]
-    var touchView = TouchView() 
+    var root: Flo
+    var touchDraw: TouchDraw
+    var touchView: TouchView
 
     init(_ touchVms: [MuTouchVm]) {
+        let root = Flo("root")
+        let size = CGSize(width: 1920, height: 1280)
+        let touchDraw = TouchDraw(root,size)
+        let touchView = TouchView(touchDraw)
+        self.root = root
+        self.touchDraw = touchDraw
+        self.touchView = touchView
         self.touchVms = touchVms
         for touchVm in touchVms {
             CornerTouchVm[touchVm.corner.rawValue] = touchVm
@@ -48,3 +59,4 @@ struct TouchRepresentable: UIViewRepresentable {
         print("🔶", terminator: " ")
     }
 }
+#endif
