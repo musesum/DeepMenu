@@ -36,18 +36,17 @@ struct TouchRepresentable: UIViewRepresentable {
     typealias Context = UIViewRepresentableContext<TouchRepresentable>
     var touchVms: [MuTouchVm]
     var root: Flo
-    var touchDraw: TouchDraw
+    var touchFlo: TouchFlo
     var touchView: TouchView
 
     init(_ touchVms: [MuTouchVm]) {
-        let root = Flo("root")
-        let size = CGSize(width: 1920, height: 1280)
-        let touchDraw = TouchDraw(root,size)
-        let touchView = TouchView(touchDraw)
-        self.root = root
-        self.touchDraw = touchDraw
+        let touchFlo = TouchFlo()
+        let touchView = TouchView(CGRect(x: 0, y: 0, width: 1920, height: 1280))
+        self.root = Flo("root")
+        self.touchFlo = touchFlo
         self.touchView = touchView
         self.touchVms = touchVms
+        touchFlo.parseRoot(root)
         for touchVm in touchVms {
             CornerTouchVm[touchVm.corner.rawValue] = touchVm
         }
