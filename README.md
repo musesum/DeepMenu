@@ -3,9 +3,7 @@
 ### Interaction
 ![Diagram](/Resouces/Interaction.png)
 
-### Purpose
-
-#### Deep Menu packages
+### Packages
 
 + MuMenu - a namespace tree that warps realtime control
 + MuFlo - a functional dataflow graph that wraps closures
@@ -13,15 +11,15 @@
 + MuMenuSky - a helper to load the MuSkyFlo fmenu
 + MuPeer - synchonize MuFlo state (and manus) accross devices
 
-#### Use cases 
+### Use cases 
 
 + DeepMuse - test Deepmuse menu without the shaders and canvas
-+ visionOS - eyetracking and handpose testings
++ visionOS - eyetracking and handpose testing 
 + Touch.AI - base gesture tracking for a future device
 
 ## Design 
 
-### Quesitons
+### Questions
 
 How to navigate through thousands of apps containing millions of nodes?
 
@@ -42,3 +40,4 @@ One final tributary was a conversation with David Huffman. He invented Huffman c
 So, what if you were to create a Huffman codec for gesture cost? Instead of letters or words, you are compressing your path through a menu? That menu could span millions of concepts and values. And through analytics, capture your journey through that namespace. What you would wind up with is a personal corpus. And then: what if you were to apply transformers to that corpus? What you'd have is a way of anticipating where you'd want to go next. In a sense, a kind of Huffman tree for your personal intent.
 
 Deep Menu is exploring those questions. Starting with a toy visual music synthesizer. The nice thing about using a toy, at first, is that if something goes wrong, nobody gets hurt. In fact, they might be intrigued.
+
