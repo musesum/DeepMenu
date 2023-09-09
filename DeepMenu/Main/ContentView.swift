@@ -6,6 +6,8 @@ import MuFlo
 import MuMenuSky
 import MuSkyFlo
 
+var MenuUsesDrag = true
+
 struct ContentView: View {
 
     var body: some View {
@@ -19,12 +21,11 @@ struct ContentView: View {
             Rectangle()
                 .foregroundColor(.init(uiColor: .clear))
                 .ignoresSafeArea(.all, edges: .all)
-
-            // to add UIKit touch handler, will need a ViewController
-            // TouchRepresentable([leftVm.rootVm.touchVm, rightVm.rootVm.touchVm])
-            // Menus without drag
-            MenuDragView(menuVm: leftVm)
-            //MenuDragView(menuVm: rightVm)
+            if MenuUsesDrag {
+                MenuDragView(menuVm: leftVm)
+            } else {
+                //TouchRepresentable([leftVm.rootVm.touchVm])
+            }
         }
         .statusBar(hidden: true)
     }
@@ -36,17 +37,14 @@ struct TouchRepresentable: UIViewRepresentable {
     typealias Context = UIViewRepresentableContext<TouchRepresentable>
     var touchVms: [MuTouchVm]
     var root: Flo
-    var touchFlo: TouchFlo
     var touchView: TouchView
 
     init(_ touchVms: [MuTouchVm]) {
-        let touchFlo = TouchFlo()
+
         let touchView = TouchView(CGRect(x: 0, y: 0, width: 1920, height: 1280))
         self.root = Flo("root")
-        self.touchFlo = touchFlo
         self.touchView = touchView
         self.touchVms = touchVms
-        touchFlo.parseRoot(root)
         for touchVm in touchVms {
             CornerTouchVm[touchVm.corner.rawValue] = touchVm
         }

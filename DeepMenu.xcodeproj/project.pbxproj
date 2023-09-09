@@ -24,7 +24,7 @@
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		802C2B552856902500332BF7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 802C2B542856902500332BF7 /* OrderedCollections */; };
 		8087FC87280771CF00572436 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* PathView.swift */; };
-		80BDD7C728919C0100C6E2BF /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80BDD7C628919C0100C6E2BF /* MuMenu */; };
+		80BE50892AAD18D200DBF8E6 /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80BE50882AAD18D200DBF8E6 /* MuMenu */; };
 		80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +70,7 @@
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		80BE508A2AAD1BE900DBF8E6 /* MuMenu */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenu; path = ../Packages/MuMenu; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,8 +79,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80BDD7C728919C0100C6E2BF /* MuMenu in Frameworks */,
 				8017908F28A215040013F48A /* MuMenuSky in Frameworks */,
+				80BE50892AAD18D200DBF8E6 /* MuMenu in Frameworks */,
 				802C2B552856902500332BF7 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +131,7 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
+				80BE508A2AAD1BE900DBF8E6 /* MuMenu */,
 				80542DFE2892F3C3001F2650 /* Resouces */,
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,
@@ -255,8 +257,8 @@
 			name = DeepMenu;
 			packageProductDependencies = (
 				802C2B542856902500332BF7 /* OrderedCollections */,
-				80BDD7C628919C0100C6E2BF /* MuMenu */,
 				8017908E28A215040013F48A /* MuMenuSky */,
+				80BE50882AAD18D200DBF8E6 /* MuMenu */,
 			);
 			productName = DeepMenu;
 			productReference = 8014B7C62700DE3800691126 /* DeepMenu.app */;
@@ -338,8 +340,8 @@
 			packageReferences = (
 				57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */,
 				802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */,
-				80BDD7C528919C0100C6E2BF /* XCRemoteSwiftPackageReference "MuMenu" */,
 				8017908D28A215040013F48A /* XCRemoteSwiftPackageReference "MuMenuSky" */,
+				80BE50872AAD18D200DBF8E6 /* XCRemoteSwiftPackageReference "MuMenu" */,
 			);
 			productRefGroup = 8014B7C72700DE3800691126 /* Products */;
 			projectDirPath = "";
@@ -785,12 +787,12 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		80BDD7C528919C0100C6E2BF /* XCRemoteSwiftPackageReference "MuMenu" */ = {
+		80BE50872AAD18D200DBF8E6 /* XCRemoteSwiftPackageReference "MuMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/musesum/MuMenu";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.1;
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -811,9 +813,9 @@
 			package = 802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
 		};
-		80BDD7C628919C0100C6E2BF /* MuMenu */ = {
+		80BE50882AAD18D200DBF8E6 /* MuMenu */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 80BDD7C528919C0100C6E2BF /* XCRemoteSwiftPackageReference "MuMenu" */;
+			package = 80BE50872AAD18D200DBF8E6 /* XCRemoteSwiftPackageReference "MuMenu" */;
 			productName = MuMenu;
 		};
 /* End XCSwiftPackageProductDependency section */
