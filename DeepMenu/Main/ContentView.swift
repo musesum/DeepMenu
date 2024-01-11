@@ -9,51 +9,54 @@ import MuSkyFlo
 var MenuUsesDrag = true
 
 struct ContentView: View {
+    static let shared = ContentView()
 
     var body: some View {
 
         let rootFlo = TestSkyFlo.shared.root
-        let rootNode = MuFloNode(rootFlo)
+        let rootNode = FloNode(rootFlo)
         let leftVm  = MenuVm([.lower, .left],  [(rootNode, .vertical),
                                                 (rootNode, .horizontal)])
 
         ZStack(alignment: .bottomLeading) {
             Rectangle()
                 .foregroundColor(.init(uiColor: .clear))
+                .background(Color(white: 0.3))
                 .ignoresSafeArea(.all, edges: .all)
             if MenuUsesDrag {
                 MenuDragView(menuVm: leftVm)
             } else {
-                //TouchRepresentable([leftVm.rootVm.touchVm])
+                TouchRepresentable([leftVm.rootVm.touchVm])
             }
         }
+        #if os(visionOS)
+        .glassBackgroundEffect()
+        #endif
         .statusBar(hidden: true)
     }
 }
 
-#if os(iOS)
 struct TouchRepresentable: UIViewRepresentable {
 
     typealias Context = UIViewRepresentableContext<TouchRepresentable>
-    var touchVms: [MuTouchVm]
+    var touchVms: [TouchVm]
     var root: Flo
-    var touchView: TouchView
+    var touchesView: TouchesView
 
-    init(_ touchVms: [MuTouchVm]) {
+    init(_ touchVms: [TouchVm]) {
 
-        let touchView = TouchView(CGRect(x: 0, y: 0, width: 1920, height: 1280))
+        let touchesView = TouchesView(CGRect(x: 0, y: 0, width: 1920, height: 1280))
         self.root = Flo("root")
-        self.touchView = touchView
+        self.touchesView = touchesView
         self.touchVms = touchVms
         for touchVm in touchVms {
             CornerTouchVm[touchVm.corner.rawValue] = touchVm
         }
     }
-    public func makeUIView(context: Context) -> TouchView {
-        return touchView
+    public func makeUIView(context: Context) -> TouchesView {
+        return touchesView
     }
-    public func updateUIView(_ uiView: TouchView, context: Context) {
+    public func updateUIView(_ uiView: TouchesView, context: Context) {
         print("🔶", terminator: " ")
     }
 }
-#endif

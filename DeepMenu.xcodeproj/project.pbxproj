@@ -66,11 +66,12 @@
 		8014B7F52700E7C400691126 /* DeepMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeepMenu.entitlements; sourceTree = "<group>"; };
 		802346F52714C4000006645B /* View+animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+animation.swift"; sourceTree = "<group>"; };
 		802AEDA427BD8486003325C9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		8035021C2B4F177C00FE1E9A /* MuVision */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuVision; path = ../Packages/MuVision; sourceTree = "<group>"; };
+		8035021D2B4F17BB00FE1E9A /* MuMetal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMetal; path = ../Packages/MuMetal; sourceTree = "<group>"; };
 		80542E002892F3C3001F2650 /* Interaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interaction.png; sourceTree = "<group>"; };
 		805B0EDD274736C700004A85 /* scratch1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch1.h; sourceTree = "<group>"; };
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		80BE508A2AAD1BE900DBF8E6 /* MuMenu */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenu; path = ../Packages/MuMenu; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,7 +132,8 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
-				80BE508A2AAD1BE900DBF8E6 /* MuMenu */,
+				8035021D2B4F17BB00FE1E9A /* MuMetal */,
+				8035021C2B4F177C00FE1E9A /* MuVision */,
 				80542DFE2892F3C3001F2650 /* Resouces */,
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,

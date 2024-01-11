@@ -6,7 +6,16 @@
       "location" : "https://github.com/musesum/MuFlo.git",
       "state" : {
         "branch" : "main",
-        "revision" : "2f36d2825d6bca4deb282e9a8c18702f2ce366d1"
+        "revision" : "21b2876cfe8eef597453df4b1a314d2e575c3e4b"
+      }
+    },
+    {
+      "identity" : "mumenu",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuMenu",
+      "state" : {
+        "branch" : "main",
+        "revision" : "53e3c8cb90a5b906a8f3c032d342f9c1de074bf4"
       }
     },
     {
@@ -15,16 +24,7 @@
       "location" : "https://github.com/musesum/MuMenuSky",
       "state" : {
         "branch" : "main",
-        "revision" : "fe110868eeca6edf078754ef7b88b40e2a809e6b"
-      }
-    },
-    {
-      "identity" : "mumetal",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuMetal.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "57d846662b7ff2b30a4ae26a9126cf4521126c42"
+        "revision" : "ebc47f1aee675ff895e6a200bb168c7196e4890b"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/musesum/MuSkyFlo.git",
       "state" : {
         "branch" : "main",
-        "revision" : "340affb49e060eaf9f51a6915d04044ffeea8dee"
+        "revision" : "2493abbcade9f336dc26b52787cd4769ca57fd79"
       }
     },
     {

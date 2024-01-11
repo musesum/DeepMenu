@@ -7,7 +7,9 @@ import SwiftUI
  Setup `SceneDelegate` to use `HostingController` to remove annoying taskbar.
 */
 class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+    func application(_ application: UIApplication, 
+                     configurationForConnecting connectingSceneSession: UISceneSession,
+                     options: UIScene.ConnectionOptions) -> UISceneConfiguration {
 
         let config = UISceneConfiguration(name: "MainScene", sessionRole: .windowApplication)
         config.delegateClass = SceneDelegate.self
@@ -24,8 +26,7 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
         /// setup `HostingController` here:
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let rootView = ContentView()
-            let hostingController = HostingController(rootView: rootView)
+            let hostingController = HostingController(rootView: ContentView.shared)
             window.rootViewController = hostingController
             self.window = window
             window.makeKeyAndVisible()
