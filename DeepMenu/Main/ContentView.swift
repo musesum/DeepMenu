@@ -21,12 +21,12 @@ struct ContentView: View {
         ZStack(alignment: .bottomLeading) {
             Rectangle()
                 .foregroundColor(.init(uiColor: .clear))
-                .background(Color(white: 0.3))
+                .background(Color(white: 0.0))
                 .ignoresSafeArea(.all, edges: .all)
             if MenuUsesDrag {
                 MenuDragView(menuVm: leftVm)
             } else {
-                TouchRepresentable([leftVm.rootVm.touchVm])
+                TouchRepresentable([leftVm.rootVm.cornerVm])
             }
         }
         #if os(visionOS)
@@ -39,18 +39,18 @@ struct ContentView: View {
 struct TouchRepresentable: UIViewRepresentable {
 
     typealias Context = UIViewRepresentableContext<TouchRepresentable>
-    var touchVms: [TouchVm]
+    var cornerVms: [CornerVm]
     var root: Flo
     var touchesView: TouchesView
 
-    init(_ touchVms: [TouchVm]) {
+    init(_ cornerVms: [CornerVm]) {
 
-        let touchesView = TouchesView(CGRect(x: 0, y: 0, width: 1920, height: 1280))
+        let touchesView = TouchesView(CGRect(x: 0, y: 0, width: 1920, height: 1280)) //????? 
         self.root = Flo("root")
         self.touchesView = touchesView
-        self.touchVms = touchVms
-        for touchVm in touchVms {
-            CornerTouchVm[touchVm.corner.rawValue] = touchVm
+        self.cornerVms = cornerVms
+        for cornerVm in cornerVms {
+            CornerOpVm[cornerVm.corner.rawValue] = cornerVm
         }
     }
     public func makeUIView(context: Context) -> TouchesView {

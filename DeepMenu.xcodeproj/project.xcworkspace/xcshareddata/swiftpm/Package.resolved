@@ -1,51 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "muflo",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuFlo.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "21b2876cfe8eef597453df4b1a314d2e575c3e4b"
-      }
-    },
-    {
-      "identity" : "mumenu",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuMenu",
-      "state" : {
-        "branch" : "main",
-        "revision" : "53e3c8cb90a5b906a8f3c032d342f9c1de074bf4"
-      }
-    },
-    {
-      "identity" : "mumenusky",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuMenuSky",
-      "state" : {
-        "branch" : "main",
-        "revision" : "ebc47f1aee675ff895e6a200bb168c7196e4890b"
-      }
-    },
-    {
-      "identity" : "mupeer",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuPeer.git",
-      "state" : {
-        "revision" : "dfd053d91ec059e552c74d5fb419d89dbbdd6587",
-        "version" : "0.23.818"
-      }
-    },
-    {
-      "identity" : "muskyflo",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuSkyFlo.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "2493abbcade9f336dc26b52787cd4769ca57fd79"
-      }
-    },
-    {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
