@@ -1,12 +1,67 @@
 {
+  "originHash" : "e6987def8715d2adc5c9387adf55f6b228c1b02e7a5e201723248f706efb4330",
   "pins" : [
     {
-      "identity" : "muextensions",
+      "identity" : "muflo",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuExtensions.git",
+      "location" : "https://github.com/musesum/MuFlo.git",
       "state" : {
         "branch" : "main",
-        "revision" : "df22a3673baa4f47f4d89d6e99197509e3f9449c"
+        "revision" : "95101714d4b3fde4a4d6ece82bb3e0c33429f6dc"
+      }
+    },
+    {
+      "identity" : "muhand",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuHand.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "0974192034bf604300aaa81952a7f1cd9dc2f0eb"
+      }
+    },
+    {
+      "identity" : "mumenu",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuMenu",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2720c763783c7f034e64bd10c084f4b2a1e102e9"
+      }
+    },
+    {
+      "identity" : "mumetal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuMetal.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "33c907d59aaf18d9bc09f721c77cdec57a0729dd"
+      }
+    },
+    {
+      "identity" : "mupeer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuPeer.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "df618f847b73160dc4e9ebf21176c44caece878e"
+      }
+    },
+    {
+      "identity" : "musky",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuSky",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e3da753bfe9979be19733fb3089f64ba2b284dca"
+      }
+    },
+    {
+      "identity" : "muvision",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuVision.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d504b2e1af4084f0e2e7daa66d336a02bd734262"
       }
     },
     {
@@ -42,9 +97,9 @@
       "location" : "https://github.com/weichsel/ZIPFoundation.git",
       "state" : {
         "branch" : "development",
-        "revision" : "55ef1939d8d3a5e9b42c09ce6b725b80509aae13"
+        "revision" : "02b6abe5f6eef7e3cbd5f247c5cc24e246efcfe0"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

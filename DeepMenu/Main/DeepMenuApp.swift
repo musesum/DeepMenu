@@ -6,7 +6,6 @@ import ARKit
 import CompositorServices
 import MuVision
 
-
 @main
 struct app: App {
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate

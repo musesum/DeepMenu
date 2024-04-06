@@ -3,20 +3,29 @@ import UIKit
 import SwiftUI
 import MuMenu
 import MuFlo
-import MuMenuSky
-import MuSkyFlo
+import MuSky
 
 var MenuUsesDrag = true
+
+class DeepMenuVm {
+    let menuVm: MenuVm
+
+    init() {
+        let rootFlo = SkyFlo.shared.root
+        let floNode = FloNode(rootFlo)
+        let cornerFlo = CornerFlo(floNode, .vertical, "model_", "model", "left")
+        self.menuVm = MenuVm([.lower, .left], [cornerFlo])
+    }
+}
+
 
 struct ContentView: View {
     static let shared = ContentView()
 
+    let deepMenuVm = DeepMenuVm()
+
     var body: some View {
 
-        let rootFlo = TestSkyFlo.shared.root
-        let rootNode = FloNode(rootFlo)
-        let leftVm  = MenuVm([.lower, .left],  [(rootNode, .vertical),
-                                                (rootNode, .horizontal)])
 
         ZStack(alignment: .bottomLeading) {
             Rectangle()
@@ -24,9 +33,9 @@ struct ContentView: View {
                 .background(Color(white: 0.0))
                 .ignoresSafeArea(.all, edges: .all)
             if MenuUsesDrag {
-                MenuDragView(menuVm: leftVm)
+                MenuDragView(menuVm: deepMenuVm.menuVm)
             } else {
-                TouchRepresentable([leftVm.rootVm.cornerVm])
+                TouchRepresentable([deepMenuVm.menuVm.rootVm.cornerVm])
             }
         }
         #if os(visionOS)

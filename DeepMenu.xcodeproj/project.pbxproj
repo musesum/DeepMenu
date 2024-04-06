@@ -20,9 +20,9 @@
 		8014B7DB2700DE3A00691126 /* DeepMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7DA2700DE3A00691126 /* DeepMenuTests.swift */; };
 		8014B7E52700DE3A00691126 /* DeepMenuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7E42700DE3A00691126 /* DeepMenuUITests.swift */; };
 		8014B7E72700DE3A00691126 /* DeepMenuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7E62700DE3A00691126 /* DeepMenuUITestsLaunchTests.swift */; };
-		8017908F28A215040013F48A /* MuMenuSky in Frameworks */ = {isa = PBXBuildFile; productRef = 8017908E28A215040013F48A /* MuMenuSky */; };
 		802AEDA527BD8486003325C9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 802AEDA427BD8486003325C9 /* README.md */; };
 		802C2B552856902500332BF7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 802C2B542856902500332BF7 /* OrderedCollections */; };
+		80481D602BC1F5AC00AED325 /* MuSky in Frameworks */ = {isa = PBXBuildFile; productRef = 80481D5F2BC1F5AC00AED325 /* MuSky */; };
 		8087FC87280771CF00572436 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* PathView.swift */; };
 		80BE50892AAD18D200DBF8E6 /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80BE50882AAD18D200DBF8E6 /* MuMenu */; };
 		80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */; };
@@ -71,13 +71,6 @@
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
-		80E581A02B6810FC00590CCB /* MuPeer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuPeer; path = ../Packages/MuPeer; sourceTree = "<group>"; };
-		80E581A12B6810FC00590CCB /* MuMenuSky */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenuSky; path = ../Packages/MuMenuSky; sourceTree = "<group>"; };
-		80E581A22B6810FC00590CCB /* MuMetal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMetal; path = ../Packages/MuMetal; sourceTree = "<group>"; };
-		80E581A32B6810FC00590CCB /* MuFlo */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuFlo; path = ../Packages/MuFlo; sourceTree = "<group>"; };
-		80E581A42B6810FC00590CCB /* MuMenu */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuMenu; path = ../Packages/MuMenu; sourceTree = "<group>"; };
-		80E581A52B68110300590CCB /* MuSkyFlo */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuSkyFlo; path = ../Packages/MuSkyFlo; sourceTree = "<group>"; };
-		80E581A62B68110B00590CCB /* MuVision */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MuVision; path = ../Packages/MuVision; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8017908F28A215040013F48A /* MuMenuSky in Frameworks */,
+				80481D602BC1F5AC00AED325 /* MuSky in Frameworks */,
 				80BE50892AAD18D200DBF8E6 /* MuMenu in Frameworks */,
 				802C2B552856902500332BF7 /* OrderedCollections in Frameworks */,
 			);
@@ -137,13 +130,6 @@
 		8014B7BD2700DE3800691126 = {
 			isa = PBXGroup;
 			children = (
-				80E581A62B68110B00590CCB /* MuVision */,
-				80E581A52B68110300590CCB /* MuSkyFlo */,
-				80E581A32B6810FC00590CCB /* MuFlo */,
-				80E581A42B6810FC00590CCB /* MuMenu */,
-				80E581A12B6810FC00590CCB /* MuMenuSky */,
-				80E581A22B6810FC00590CCB /* MuMetal */,
-				80E581A02B6810FC00590CCB /* MuPeer */,
 				80542DFE2892F3C3001F2650 /* Resouces */,
 				57A0A26427BF15AA00B5598B /* config.yml */,
 				802AEDA427BD8486003325C9 /* README.md */,
@@ -269,8 +255,8 @@
 			name = DeepMenu;
 			packageProductDependencies = (
 				802C2B542856902500332BF7 /* OrderedCollections */,
-				8017908E28A215040013F48A /* MuMenuSky */,
 				80BE50882AAD18D200DBF8E6 /* MuMenu */,
+				80481D5F2BC1F5AC00AED325 /* MuSky */,
 			);
 			productName = DeepMenu;
 			productReference = 8014B7C62700DE3800691126 /* DeepMenu.app */;
@@ -352,8 +338,8 @@
 			packageReferences = (
 				57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */,
 				802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */,
-				8017908D28A215040013F48A /* XCRemoteSwiftPackageReference "MuMenuSky" */,
 				80BE50872AAD18D200DBF8E6 /* XCRemoteSwiftPackageReference "MuMenu" */,
+				80E8A2C92BC1F369009D7253 /* XCRemoteSwiftPackageReference "MuSky" */,
 			);
 			productRefGroup = 8014B7C72700DE3800691126 /* Products */;
 			projectDirPath = "";
@@ -785,14 +771,6 @@
 				minimumVersion = 0.9.1;
 			};
 		};
-		8017908D28A215040013F48A /* XCRemoteSwiftPackageReference "MuMenuSky" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/musesum/MuMenuSky";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -809,6 +787,14 @@
 				kind = branch;
 			};
 		};
+		80E8A2C92BC1F369009D7253 /* XCRemoteSwiftPackageReference "MuSky" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/musesum/MuSky";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -817,15 +803,15 @@
 			package = 57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
 		};
-		8017908E28A215040013F48A /* MuMenuSky */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8017908D28A215040013F48A /* XCRemoteSwiftPackageReference "MuMenuSky" */;
-			productName = MuMenuSky;
-		};
 		802C2B542856902500332BF7 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		80481D5F2BC1F5AC00AED325 /* MuSky */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80E8A2C92BC1F369009D7253 /* XCRemoteSwiftPackageReference "MuSky" */;
+			productName = MuSky;
 		};
 		80BE50882AAD18D200DBF8E6 /* MuMenu */ = {
 			isa = XCSwiftPackageProductDependency;
