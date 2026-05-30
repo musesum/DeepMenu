@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		12FE05A89E9FDD0F98205DEA /* sky.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 1F79433DBCC6AA4F9FB48E5F /* sky.flo.h */; };
+		130BEBC1543165EB6C566C6C /* hand.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = A96DA9AEE8B9B32DC9F6BCC1 /* hand.flo.h */; };
+		1A295F061F33EC96E6586E35 /* MuPeers in Frameworks */ = {isa = PBXBuildFile; productRef = 0817A3D615458839A2063DA4 /* MuPeers */; };
+		3911D42A22041ACC2FBE83AE /* brush.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 56D62E04EE42986FEF8B9E16 /* brush.flo.h */; };
+		3B071024E3BF28A2CFB41B5D /* plato.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 49B4BE848AF735A2FDAC8E19 /* plato.flo.h */; };
+		567FCD0ECD060C42832C565B /* more.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = A88E4462C00F0E530ABE5531 /* more.flo.h */; };
+		62F3EE721B8A955E15FC94BD /* cell.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = CDA75A27274887FA7CFF522D /* cell.flo.h */; };
+		7136A9A6D6B8724469E01B32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AB2CE441B3F30669EDAC81 /* ContentView.swift */; };
+		78CBAA6CBFE8EE330C8B7F8A /* draw.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 6E50327A9ABBC7D8388AC0D7 /* draw.flo.h */; };
+		8D0FA7BFD4C8AB085DCA1B82 /* MuFlo in Frameworks */ = {isa = PBXBuildFile; productRef = 5AF25C9E236A98FEE9123DB2 /* MuFlo */; };
+		8D66C2FC14F35D3187462B2D /* camera.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = A6B1EF3306D1EA928228D926 /* camera.flo.h */; };
+		9115E7D85E63D8FCAD17931E /* midi.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = B5861ADA7E86B0BE5A9C9C3C /* midi.flo.h */; };
+		B118840C8AD933C012E440BE /* chat.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 4CCF18BE3A8B2A98EF08D6D4 /* chat.flo.h */; };
+		BA08EFD43339E891B651FC78 /* canvas.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = A8B5BC6B77D32C7B9CDC7180 /* canvas.flo.h */; };
+		BC622C8B3A4597291149C1B1 /* pipe.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 736A66FED651BE34872AADEA /* pipe.flo.h */; };
+		BCA04C45FC2A6917545389B6 /* Sky.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BE369D5337EB5FDB907F6F5 /* Sky.xcassets */; };
+		CA45A8122751BE4747D0147C /* tape.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 8A6BAAFE8B97AA39A05F5DC6 /* tape.flo.h */; };
+		D7CC7F798DE5CCA3137B24F5 /* DeepWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A4B657ED96C55673C6CD1 /* DeepWatchApp.swift */; };
+		F0EA95EC0CCB1427C4B7C369 /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = D941CB6B9E99B9A889CFD0ED /* MuMenu */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0737EE8966708CB0BAF056D4 /* MuFlo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MuFlo; path = ../../Deep/Mu/MuFlo; sourceTree = SOURCE_ROOT; };
+		0F11A682B2FABAC9F7DF4135 /* DeepWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeepWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F79433DBCC6AA4F9FB48E5F /* sky.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.flo.h; sourceTree = "<group>"; };
+		49B4BE848AF735A2FDAC8E19 /* plato.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plato.flo.h; sourceTree = "<group>"; };
+		4CCF18BE3A8B2A98EF08D6D4 /* chat.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chat.flo.h; sourceTree = "<group>"; };
+		56D62E04EE42986FEF8B9E16 /* brush.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = brush.flo.h; sourceTree = "<group>"; };
+		5BE369D5337EB5FDB907F6F5 /* Sky.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Sky.xcassets; sourceTree = "<group>"; };
+		6E50327A9ABBC7D8388AC0D7 /* draw.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = draw.flo.h; sourceTree = "<group>"; };
+		736A66FED651BE34872AADEA /* pipe.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pipe.flo.h; sourceTree = "<group>"; };
+		8A6BAAFE8B97AA39A05F5DC6 /* tape.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tape.flo.h; sourceTree = "<group>"; };
+		8D6AF28C9FF697DE121FDD9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		94CD91BDFA9360E3BA54B08F /* MuMenu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MuMenu; path = ../../Deep/Mu/MuMenu; sourceTree = SOURCE_ROOT; };
+		989A4B657ED96C55673C6CD1 /* DeepWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepWatchApp.swift; sourceTree = "<group>"; };
+		A6AB2CE441B3F30669EDAC81 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A6B1EF3306D1EA928228D926 /* camera.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera.flo.h; sourceTree = "<group>"; };
+		A88E4462C00F0E530ABE5531 /* more.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = more.flo.h; sourceTree = "<group>"; };
+		A8B5BC6B77D32C7B9CDC7180 /* canvas.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = canvas.flo.h; sourceTree = "<group>"; };
+		A96DA9AEE8B9B32DC9F6BCC1 /* hand.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hand.flo.h; sourceTree = "<group>"; };
+		B5861ADA7E86B0BE5A9C9C3C /* midi.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = midi.flo.h; sourceTree = "<group>"; };
+		BD702ADFA867529A8853EEC1 /* MuPeers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MuPeers; path = ../../Deep/Mu/MuPeers; sourceTree = SOURCE_ROOT; };
+		CDA75A27274887FA7CFF522D /* cell.flo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cell.flo.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E6E5ABF19AA8D8DC206B5756 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0EA95EC0CCB1427C4B7C369 /* MuMenu in Frameworks */,
+				8D0FA7BFD4C8AB085DCA1B82 /* MuFlo in Frameworks */,
+				1A295F061F33EC96E6586E35 /* MuPeers in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		123F789056B8D6CEF38C5113 /* DeepWatch */ = {
+			isa = PBXGroup;
+			children = (
+				A6AB2CE441B3F30669EDAC81 /* ContentView.swift */,
+				989A4B657ED96C55673C6CD1 /* DeepWatchApp.swift */,
+				8D6AF28C9FF697DE121FDD9B /* Info.plist */,
+				5BE369D5337EB5FDB907F6F5 /* Sky.xcassets */,
+				60006260AC3EC441A5759430 /* Resources */,
+			);
+			path = DeepWatch;
+			sourceTree = "<group>";
+		};
+		60006260AC3EC441A5759430 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				56D62E04EE42986FEF8B9E16 /* brush.flo.h */,
+				A6B1EF3306D1EA928228D926 /* camera.flo.h */,
+				A8B5BC6B77D32C7B9CDC7180 /* canvas.flo.h */,
+				CDA75A27274887FA7CFF522D /* cell.flo.h */,
+				4CCF18BE3A8B2A98EF08D6D4 /* chat.flo.h */,
+				6E50327A9ABBC7D8388AC0D7 /* draw.flo.h */,
+				A96DA9AEE8B9B32DC9F6BCC1 /* hand.flo.h */,
+				B5861ADA7E86B0BE5A9C9C3C /* midi.flo.h */,
+				A88E4462C00F0E530ABE5531 /* more.flo.h */,
+				736A66FED651BE34872AADEA /* pipe.flo.h */,
+				49B4BE848AF735A2FDAC8E19 /* plato.flo.h */,
+				1F79433DBCC6AA4F9FB48E5F /* sky.flo.h */,
+				8A6BAAFE8B97AA39A05F5DC6 /* tape.flo.h */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7523CB359CE81ED3091B2A3C /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				0737EE8966708CB0BAF056D4 /* MuFlo */,
+				94CD91BDFA9360E3BA54B08F /* MuMenu */,
+				BD702ADFA867529A8853EEC1 /* MuPeers */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		8E287E88478C7441D5F5A21E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0F11A682B2FABAC9F7DF4135 /* DeepWatch.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA7F33B48E85A9ED3FC98A3B = {
+			isa = PBXGroup;
+			children = (
+				123F789056B8D6CEF38C5113 /* DeepWatch */,
+				7523CB359CE81ED3091B2A3C /* Packages */,
+				8E287E88478C7441D5F5A21E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		87CEE43C4518E122C8CEC299 /* DeepWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2256E09A331EC61FC6822FF /* Build configuration list for PBXNativeTarget "DeepWatch" */;
+			buildPhases = (
+				220814F51EB06DB1F9BEBB50 /* Sources */,
+				4CB617C9ED5F6B7EA72D9713 /* Resources */,
+				E6E5ABF19AA8D8DC206B5756 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeepWatch;
+			packageProductDependencies = (
+				D941CB6B9E99B9A889CFD0ED /* MuMenu */,
+				5AF25C9E236A98FEE9123DB2 /* MuFlo */,
+				0817A3D615458839A2063DA4 /* MuPeers */,
+			);
+			productName = DeepWatch;
+			productReference = 0F11A682B2FABAC9F7DF4135 /* DeepWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F5F6A12D5822DDF5D388A4FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					87CEE43C4518E122C8CEC299 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 054B8096D492BCE1E26061CF /* Build configuration list for PBXProject "DeepWatch" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = AA7F33B48E85A9ED3FC98A3B;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				163A64EBC536510EED649982 /* XCLocalSwiftPackageReference "../../Deep/Mu/MuFlo" */,
+				907F8281EF4EFBA64787E39B /* XCLocalSwiftPackageReference "../../Deep/Mu/MuMenu" */,
+				76BE63D10D475C1C6D24731C /* XCLocalSwiftPackageReference "../../Deep/Mu/MuPeers" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8E287E88478C7441D5F5A21E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				87CEE43C4518E122C8CEC299 /* DeepWatch */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4CB617C9ED5F6B7EA72D9713 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA04C45FC2A6917545389B6 /* Sky.xcassets in Resources */,
+				3911D42A22041ACC2FBE83AE /* brush.flo.h in Resources */,
+				8D66C2FC14F35D3187462B2D /* camera.flo.h in Resources */,
+				BA08EFD43339E891B651FC78 /* canvas.flo.h in Resources */,
+				62F3EE721B8A955E15FC94BD /* cell.flo.h in Resources */,
+				B118840C8AD933C012E440BE /* chat.flo.h in Resources */,
+				78CBAA6CBFE8EE330C8B7F8A /* draw.flo.h in Resources */,
+				130BEBC1543165EB6C566C6C /* hand.flo.h in Resources */,
+				9115E7D85E63D8FCAD17931E /* midi.flo.h in Resources */,
+				567FCD0ECD060C42832C565B /* more.flo.h in Resources */,
+				BC622C8B3A4597291149C1B1 /* pipe.flo.h in Resources */,
+				3B071024E3BF28A2CFB41B5D /* plato.flo.h in Resources */,
+				12FE05A89E9FDD0F98205DEA /* sky.flo.h in Resources */,
+				CA45A8122751BE4747D0147C /* tape.flo.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		220814F51EB06DB1F9BEBB50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7136A9A6D6B8724469E01B32 /* ContentView.swift in Sources */,
+				D7CC7F798DE5CCA3137B24F5 /* DeepWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0FB06BD521E887405F8462B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		8A31FF5808216F1EB57B98B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		9FA039C9F0EED2F627E0D1F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9AVP5GX45R;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DeepWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deepmuse.DeepWatch;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		C3D6D6177AB892E3C002042C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9AVP5GX45R;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DeepWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deepmuse.DeepWatch;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		054B8096D492BCE1E26061CF /* Build configuration list for PBXProject "DeepWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FB06BD521E887405F8462B6 /* Debug */,
+				8A31FF5808216F1EB57B98B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A2256E09A331EC61FC6822FF /* Build configuration list for PBXNativeTarget "DeepWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FA039C9F0EED2F627E0D1F6 /* Debug */,
+				C3D6D6177AB892E3C002042C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		163A64EBC536510EED649982 /* XCLocalSwiftPackageReference "../../Deep/Mu/MuFlo" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Deep/Mu/MuFlo;
+		};
+		76BE63D10D475C1C6D24731C /* XCLocalSwiftPackageReference "../../Deep/Mu/MuPeers" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Deep/Mu/MuPeers;
+		};
+		907F8281EF4EFBA64787E39B /* XCLocalSwiftPackageReference "../../Deep/Mu/MuMenu" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Deep/Mu/MuMenu;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0817A3D615458839A2063DA4 /* MuPeers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MuPeers;
+		};
+		5AF25C9E236A98FEE9123DB2 /* MuFlo */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MuFlo;
+		};
+		D941CB6B9E99B9A889CFD0ED /* MuMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MuMenu;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F5F6A12D5822DDF5D388A4FD /* Project object */;
+}

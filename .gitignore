@@ -9,6 +9,9 @@
 build/
 DerivedData/
 
+## Local Mu packages populated by SetupMuPackages.sh
+/Mu/
+
 ## Various settings
 *.pbxuser
 !default.pbxuser

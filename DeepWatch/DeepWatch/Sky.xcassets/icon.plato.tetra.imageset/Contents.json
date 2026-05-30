@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icon.tetra.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

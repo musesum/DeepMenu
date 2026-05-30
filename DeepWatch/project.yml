@@ -1,0 +1,64 @@
+name: DeepWatch
+options:
+  bundleIdPrefix: com.deepmuse
+  createIntermediateGroups: true
+  deploymentTarget:
+    watchOS: "26.0"
+
+packages:
+  MuMenu:
+    path: ../../Deep/Mu/MuMenu
+  MuFlo:
+    path: ../../Deep/Mu/MuFlo
+  MuPeers:
+    path: ../../Deep/Mu/MuPeers
+
+targets:
+  DeepWatch:
+    type: application
+    platform: watchOS
+    sources:
+      - path: DeepWatch
+        excludes:
+          - "Resources/**"
+      - path: DeepWatch/Resources
+        buildPhase: resources
+    dependencies:
+      - package: MuMenu
+      - package: MuFlo
+      - package: MuPeers
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: NO
+        SWIFT_VERSION: "6.0"
+        PRODUCT_BUNDLE_IDENTIFIER: com.deepmuse.DeepWatch
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        WATCHOS_DEPLOYMENT_TARGET: "26.0"
+        TARGETED_DEVICE_FAMILY: "4"
+        ASSETCATALOG_COMPILER_APPICON_NAME: "AppIcon"
+    info:
+      path: DeepWatch/Info.plist
+      properties:
+        WKApplication: true
+        WKWatchOnly: true
+        NSBonjourServices:
+          - _deepmuse-peer._tcp
+          - _deepmuse-peer._udp
+        NSLocalNetworkUsageDescription: DeepWatch syncs control changes with your iPhone over the local network.
+
+schemes:
+  DeepWatch:
+    build:
+      targets:
+        DeepWatch: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Release
+    archive:
+      config: Release
+    analyze:
+      config: Debug

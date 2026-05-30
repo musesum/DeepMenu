@@ -7,12 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0244934E78265202D2BD4928 /* draw.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 699D584FE40ECDA6375444DB /* draw.flo.h */; };
+		0B0A535952BC4F325FC05E20 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845381A91B4820DCFABE5EB /* ContentView.swift */; };
+		1664FFF50DDD5050AE6BD3E2 /* chat.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 1AC9B6306B030AE474640B7D /* chat.flo.h */; };
+		1802760B1DD9443031DF4507 /* canvas.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 40D0783A6741182FFF6963C9 /* canvas.flo.h */; };
+		20DEA81E71C696FB2C761BD2 /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = E8B7E783E587E8A7539BB2DE /* MuMenu */; };
+		23CF46F20E895C396C754D3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D1785EDB1986CF57FCE8DD /* Foundation.framework */; };
+		48678C153CCD5A1AF40F6011 /* plato.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = D7E81821BBCA3062228351BF /* plato.flo.h */; };
+		522CA86EABF7882787C28910 /* cell.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 81B616CA7D289172F67FD07C /* cell.flo.h */; };
 		57A0A23827BDAFAE00B5598B /* MuTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A23727BDAFAE00B5598B /* MuTreeTests.swift */; };
 		57A0A26127BED18A00B5598B /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 57A0A26027BED18A00B5598B /* ViewInspector */; };
 		57A0A26327BED1E900B5598B /* MuTreeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26227BED1E900B5598B /* MuTreeViewTests.swift */; };
 		57A0A26527BF15AA00B5598B /* config.yml in Resources */ = {isa = PBXBuildFile; fileRef = 57A0A26427BF15AA00B5598B /* config.yml */; };
 		57A0A26827C015F600B5598B /* MuIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0A26727C015F600B5598B /* MuIdentityTests.swift */; };
 		57F3029827C4389B00203F63 /* MuPodModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3029727C4389B00203F63 /* MuPodModelTests.swift */; };
+		6D5971CCFC5DE6F2A5B4CCFE /* Sky.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ADCF39EA093B9F147CF434F /* Sky.xcassets */; };
+		742A024FCD88E7F38B213852 /* tape.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 58978F49A29417BAA84407E1 /* tape.flo.h */; };
+		7C2AD7E45094FC3C9149228E /* sky.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 339F7596AEC8E1A373F11AFA /* sky.flo.h */; };
 		8014B7CA2700DE3800691126 /* DeepMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7C92700DE3800691126 /* DeepMenuApp.swift */; };
 		8014B7CC2700DE3800691126 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8014B7CB2700DE3800691126 /* ContentView.swift */; };
 		8014B7CE2700DE3A00691126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8014B7CD2700DE3A00691126 /* Assets.xcassets */; };
@@ -26,6 +37,16 @@
 		8087FC87280771CF00572436 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087FC86280771CF00572436 /* PathView.swift */; };
 		80BE50892AAD18D200DBF8E6 /* MuMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 80BE50882AAD18D200DBF8E6 /* MuMenu */; };
 		80E3D6112708D8C4001ABBCD /* AppSceneDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */; };
+		8812585F2B944FB94010F18A /* MuPeers in Frameworks */ = {isa = PBXBuildFile; productRef = 32458543FF2E43CB02EE5065 /* MuPeers */; };
+		884724CA24E6BCEA6C9BE721 /* DeepMenuWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 59C597B5A049F0D13BEDB16E /* DeepMenuWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		88B22C981D390C4E18F48280 /* DeepWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE41BD782ECF0E5AC0D9E2A /* DeepWatchApp.swift */; };
+		920377E841DEC1D16E788DC7 /* MuFlo in Frameworks */ = {isa = PBXBuildFile; productRef = 544BE2DF5ED295F7FA30D7F5 /* MuFlo */; };
+		99C43E8C50FC95D1F8E66B8C /* hand.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = CCDC2FE739B9C6602AE7547F /* hand.flo.h */; };
+		B7CA24C0BE8DEE78403B9804 /* camera.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 1CB675EC235F4AECBA547BDE /* camera.flo.h */; };
+		CAE9B81D6594B462B8985DDE /* more.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = C2CB717A3BE51BE2A198DF69 /* more.flo.h */; };
+		E6E3D1B481270116BE1195E7 /* brush.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 698FF43941A8E4908316ECC6 /* brush.flo.h */; };
+		E7D210DE0217C142F33AACA9 /* midi.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 6B43B7D96EE1BED4356C8FDE /* midi.flo.h */; };
+		F77DF7501F55EE1B28CC7F63 /* pipe.flo.h in Resources */ = {isa = PBXBuildFile; fileRef = 915D0DC5229A49A2D5516529 /* pipe.flo.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,15 +64,48 @@
 			remoteGlobalIDString = 8014B7C52700DE3800691126;
 			remoteInfo = DeepMenu;
 		};
+		D4EC4B399723D7163478D266 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8014B7BE2700DE3800691126 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E543CD552D4D09138C6E9FFC;
+			remoteInfo = DeepMenuWatch;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C576D0C45B232BCF4F0F454C /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				884724CA24E6BCEA6C9BE721 /* DeepMenuWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		09D1785EDB1986CF57FCE8DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		1AC9B6306B030AE474640B7D /* chat.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = chat.flo.h; path = Resources/chat.flo.h; sourceTree = "<group>"; };
+		1CB675EC235F4AECBA547BDE /* camera.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = camera.flo.h; path = Resources/camera.flo.h; sourceTree = "<group>"; };
+		339F7596AEC8E1A373F11AFA /* sky.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = sky.flo.h; path = Resources/sky.flo.h; sourceTree = "<group>"; };
+		40D0783A6741182FFF6963C9 /* canvas.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = canvas.flo.h; path = Resources/canvas.flo.h; sourceTree = "<group>"; };
+		4ADCF39EA093B9F147CF434F /* Sky.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Sky.xcassets; sourceTree = "<group>"; };
 		57A0A23727BDAFAE00B5598B /* MuTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTreeTests.swift; sourceTree = "<group>"; };
 		57A0A26227BED1E900B5598B /* MuTreeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuTreeViewTests.swift; sourceTree = "<group>"; };
 		57A0A26427BF15AA00B5598B /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = config.yml; path = .circleci/config.yml; sourceTree = "<group>"; };
 		57A0A26727C015F600B5598B /* MuIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuIdentityTests.swift; sourceTree = "<group>"; };
 		57F3029427C142FC00203F63 /* ExampleNodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNodeModels.swift; sourceTree = "<group>"; };
 		57F3029727C4389B00203F63 /* MuPodModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuPodModelTests.swift; sourceTree = "<group>"; };
+		58978F49A29417BAA84407E1 /* tape.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = tape.flo.h; path = Resources/tape.flo.h; sourceTree = "<group>"; };
+		59C597B5A049F0D13BEDB16E /* DeepMenuWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeepMenuWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		698FF43941A8E4908316ECC6 /* brush.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = brush.flo.h; path = Resources/brush.flo.h; sourceTree = "<group>"; };
+		699D584FE40ECDA6375444DB /* draw.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = draw.flo.h; path = Resources/draw.flo.h; sourceTree = "<group>"; };
+		6B43B7D96EE1BED4356C8FDE /* midi.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = midi.flo.h; path = Resources/midi.flo.h; sourceTree = "<group>"; };
+		7845381A91B4820DCFABE5EB /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		800619692791D984005960FF /* scratch2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scratch2.h; sourceTree = "<group>"; };
 		8014B7C62700DE3800691126 /* DeepMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeepMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8014B7C92700DE3800691126 /* DeepMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepMenuApp.swift; sourceTree = "<group>"; };
@@ -71,9 +125,26 @@
 		8087FC86280771CF00572436 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		809703C82708C08700CD246D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		80E3D60C2708D694001ABBCD /* AppSceneDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegates.swift; sourceTree = "<group>"; };
+		81B616CA7D289172F67FD07C /* cell.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cell.flo.h; path = Resources/cell.flo.h; sourceTree = "<group>"; };
+		915D0DC5229A49A2D5516529 /* pipe.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pipe.flo.h; path = Resources/pipe.flo.h; sourceTree = "<group>"; };
+		9DE41BD782ECF0E5AC0D9E2A /* DeepWatchApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeepWatchApp.swift; sourceTree = "<group>"; };
+		C2CB717A3BE51BE2A198DF69 /* more.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = more.flo.h; path = Resources/more.flo.h; sourceTree = "<group>"; };
+		CCDC2FE739B9C6602AE7547F /* hand.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hand.flo.h; path = Resources/hand.flo.h; sourceTree = "<group>"; };
+		D7E81821BBCA3062228351BF /* plato.flo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = plato.flo.h; path = Resources/plato.flo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		765844B6C86B9C32340BFC3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23CF46F20E895C396C754D3A /* Foundation.framework in Frameworks */,
+				20DEA81E71C696FB2C761BD2 /* MuMenu in Frameworks */,
+				920377E841DEC1D16E788DC7 /* MuFlo in Frameworks */,
+				8812585F2B944FB94010F18A /* MuPeers in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8014B7C32700DE3800691126 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -138,6 +209,7 @@
 				8014B7E32700DE3A00691126 /* DeepMenuUITests */,
 				8014B7C72700DE3800691126 /* Products */,
 				80F23D5C2890663C003AC055 /* Frameworks */,
+				97A37CA061583026E01A76C0 /* DeepWatch */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,6 +219,7 @@
 				8014B7C62700DE3800691126 /* DeepMenu.app */,
 				8014B7D62700DE3A00691126 /* DeepMenuTests.xctest */,
 				8014B7E02700DE3A00691126 /* DeepMenuUITests.xctest */,
+				59C597B5A049F0D13BEDB16E /* DeepMenuWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -233,8 +306,49 @@
 		80F23D5C2890663C003AC055 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BCE4842DF01C6FF7F425A2E2 /* watchOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		97A37CA061583026E01A76C0 /* DeepWatch */ = {
+			isa = PBXGroup;
+			children = (
+				9DE41BD782ECF0E5AC0D9E2A /* DeepWatchApp.swift */,
+				7845381A91B4820DCFABE5EB /* ContentView.swift */,
+				4ADCF39EA093B9F147CF434F /* Sky.xcassets */,
+				9CC6076363386303D1E5CCA1 /* Resources */,
+			);
+			name = DeepWatch;
+			path = DeepWatch/DeepWatch;
+			sourceTree = SOURCE_ROOT;
+		};
+		9CC6076363386303D1E5CCA1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				698FF43941A8E4908316ECC6 /* brush.flo.h */,
+				1CB675EC235F4AECBA547BDE /* camera.flo.h */,
+				40D0783A6741182FFF6963C9 /* canvas.flo.h */,
+				81B616CA7D289172F67FD07C /* cell.flo.h */,
+				1AC9B6306B030AE474640B7D /* chat.flo.h */,
+				699D584FE40ECDA6375444DB /* draw.flo.h */,
+				CCDC2FE739B9C6602AE7547F /* hand.flo.h */,
+				6B43B7D96EE1BED4356C8FDE /* midi.flo.h */,
+				C2CB717A3BE51BE2A198DF69 /* more.flo.h */,
+				915D0DC5229A49A2D5516529 /* pipe.flo.h */,
+				D7E81821BBCA3062228351BF /* plato.flo.h */,
+				339F7596AEC8E1A373F11AFA /* sky.flo.h */,
+				58978F49A29417BAA84407E1 /* tape.flo.h */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		BCE4842DF01C6FF7F425A2E2 /* watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				09D1785EDB1986CF57FCE8DD /* Foundation.framework */,
+			);
+			name = watchOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,10 +361,12 @@
 				8014B7C22700DE3800691126 /* Sources */,
 				8014B7C32700DE3800691126 /* Frameworks */,
 				8014B7C42700DE3800691126 /* Resources */,
+				C576D0C45B232BCF4F0F454C /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AF9970A4BF22D43B9EF7FED1 /* PBXTargetDependency */,
 			);
 			name = DeepMenu;
 			packageProductDependencies = (
@@ -297,11 +413,31 @@
 				8014B7E22700DE3A00691126 /* PBXTargetDependency */,
 			);
 			name = DeepMenuUITests;
-			packageProductDependencies = (
-			);
 			productName = DeepMenuUITests;
 			productReference = 8014B7E02700DE3A00691126 /* DeepMenuUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		E543CD552D4D09138C6E9FFC /* DeepMenuWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB9296BD888A9A95F5F965CF /* Build configuration list for PBXNativeTarget "DeepMenuWatch" */;
+			buildPhases = (
+				3C8BECC04D7B170E47391542 /* Sources */,
+				765844B6C86B9C32340BFC3B /* Frameworks */,
+				AB52AEB11A501DB443C5843A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeepMenuWatch;
+			packageProductDependencies = (
+				E8B7E783E587E8A7539BB2DE /* MuMenu */,
+				544BE2DF5ED295F7FA30D7F5 /* MuFlo */,
+				32458543FF2E43CB02EE5065 /* MuPeers */,
+			);
+			productName = DeepMenuWatch;
+			productReference = 59C597B5A049F0D13BEDB16E /* DeepMenuWatch.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -340,6 +476,10 @@
 				802C2B532856902500332BF7 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				80BE50872AAD18D200DBF8E6 /* XCRemoteSwiftPackageReference "MuMenu" */,
 				80E8A2C92BC1F369009D7253 /* XCRemoteSwiftPackageReference "MuSky" */,
+				80481D652BC2F9D800AED325 /* XCRemoteSwiftPackageReference "MuVision" */,
+				1095E3573F58894C736FE222 /* XCLocalSwiftPackageReference "MuMenu" */,
+				76BB25CFEE25E06542E04ADD /* XCLocalSwiftPackageReference "MuFlo" */,
+				322031C516942D43134AC987 /* XCLocalSwiftPackageReference "MuPeers" */,
 			);
 			productRefGroup = 8014B7C72700DE3800691126 /* Products */;
 			projectDirPath = "";
@@ -348,6 +488,7 @@
 				8014B7C52700DE3800691126 /* DeepMenu */,
 				8014B7D52700DE3A00691126 /* DeepMenuTests */,
 				8014B7DF2700DE3A00691126 /* DeepMenuUITests */,
+				E543CD552D4D09138C6E9FFC /* DeepMenuWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -378,9 +519,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AB52AEB11A501DB443C5843A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D5971CCFC5DE6F2A5B4CCFE /* Sky.xcassets in Resources */,
+				E6E3D1B481270116BE1195E7 /* brush.flo.h in Resources */,
+				B7CA24C0BE8DEE78403B9804 /* camera.flo.h in Resources */,
+				1802760B1DD9443031DF4507 /* canvas.flo.h in Resources */,
+				522CA86EABF7882787C28910 /* cell.flo.h in Resources */,
+				1664FFF50DDD5050AE6BD3E2 /* chat.flo.h in Resources */,
+				0244934E78265202D2BD4928 /* draw.flo.h in Resources */,
+				99C43E8C50FC95D1F8E66B8C /* hand.flo.h in Resources */,
+				E7D210DE0217C142F33AACA9 /* midi.flo.h in Resources */,
+				CAE9B81D6594B462B8985DDE /* more.flo.h in Resources */,
+				F77DF7501F55EE1B28CC7F63 /* pipe.flo.h in Resources */,
+				48678C153CCD5A1AF40F6011 /* plato.flo.h in Resources */,
+				7C2AD7E45094FC3C9149228E /* sky.flo.h in Resources */,
+				742A024FCD88E7F38B213852 /* tape.flo.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3C8BECC04D7B170E47391542 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88B22C981D390C4E18F48280 /* DeepWatchApp.swift in Sources */,
+				0B0A535952BC4F325FC05E20 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8014B7C22700DE3800691126 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -426,9 +597,62 @@
 			target = 8014B7C52700DE3800691126 /* DeepMenu */;
 			targetProxy = 8014B7E12700DE3A00691126 /* PBXContainerItemProxy */;
 		};
+		AF9970A4BF22D43B9EF7FED1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DeepMenuWatch;
+			target = E543CD552D4D09138C6E9FFC /* DeepMenuWatch */;
+			targetProxy = D4EC4B399723D7163478D266 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		4E427D80299E6DE2A2CEDBD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9AVP5GX45R;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DeepWatch/DeepWatch/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deepmuse.DeepMenu.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = NO;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		7707CEBCE410642C931C6C0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9AVP5GX45R;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DeepWatch/DeepWatch/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deepmuse.DeepMenu.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = NO;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
 		8014B7E82700DE3A00691126 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -568,8 +792,8 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 26;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 26;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -583,6 +807,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6,7";
+				XROS_DEPLOYMENT_TARGET = 2.6;
 			};
 			name = Debug;
 		};
@@ -607,8 +832,8 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 26;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 26;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -622,6 +847,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6,7";
+				XROS_DEPLOYMENT_TARGET = 2.6;
 			};
 			name = Release;
 		};
@@ -760,7 +986,31 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		BB9296BD888A9A95F5F965CF /* Build configuration list for PBXNativeTarget "DeepMenuWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E427D80299E6DE2A2CEDBD9 /* Release */,
+				7707CEBCE410642C931C6C0E /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		1095E3573F58894C736FE222 /* XCLocalSwiftPackageReference "MuMenu" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Deep/Mu/MuMenu;
+		};
+		322031C516942D43134AC987 /* XCLocalSwiftPackageReference "MuPeers" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Deep/Mu/MuPeers;
+		};
+		76BB25CFEE25E06542E04ADD /* XCLocalSwiftPackageReference "MuFlo" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Deep/Mu/MuFlo;
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
@@ -777,6 +1027,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
+			};
+		};
+		80481D652BC2F9D800AED325 /* XCRemoteSwiftPackageReference "MuVision" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/musesum/MuVision";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		80BE50872AAD18D200DBF8E6 /* XCRemoteSwiftPackageReference "MuMenu" */ = {
@@ -798,6 +1056,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		32458543FF2E43CB02EE5065 /* MuPeers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 322031C516942D43134AC987 /* XCLocalSwiftPackageReference "MuPeers" */;
+			productName = MuPeers;
+		};
+		544BE2DF5ED295F7FA30D7F5 /* MuFlo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 76BB25CFEE25E06542E04ADD /* XCLocalSwiftPackageReference "MuFlo" */;
+			productName = MuFlo;
+		};
 		57A0A26027BED18A00B5598B /* ViewInspector */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 57A0A25F27BED18A00B5598B /* XCRemoteSwiftPackageReference "ViewInspector" */;
@@ -816,6 +1084,11 @@
 		80BE50882AAD18D200DBF8E6 /* MuMenu */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80BE50872AAD18D200DBF8E6 /* XCRemoteSwiftPackageReference "MuMenu" */;
+			productName = MuMenu;
+		};
+		E8B7E783E587E8A7539BB2DE /* MuMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1095E3573F58894C736FE222 /* XCLocalSwiftPackageReference "MuMenu" */;
 			productName = MuMenu;
 		};
 /* End XCSwiftPackageProductDependency section */

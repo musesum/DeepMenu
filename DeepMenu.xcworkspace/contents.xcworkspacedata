@@ -4,4 +4,32 @@
    <FileRef
       location = "container:DeepMenu.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:../Deep/Mu"
+      name = "Mu">
+      <FileRef
+         location = "group:MuMenu">
+      </FileRef>
+      <FileRef
+         location = "group:MuSky">
+      </FileRef>
+      <FileRef
+         location = "group:MuVision">
+      </FileRef>
+      <FileRef
+         location = "group:MuFlo">
+      </FileRef>
+      <FileRef
+         location = "group:MuHands">
+      </FileRef>
+      <FileRef
+         location = "group:MuPeers">
+      </FileRef>
+      <FileRef
+         location = "group:MuExtensions">
+      </FileRef>
+      <FileRef
+         location = "group:MuSkyFlo">
+      </FileRef>
+   </Group>
 </Workspace>

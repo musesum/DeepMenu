@@ -7,5 +7,7 @@
 		<string>_deepmuse-peer._tcp</string>
 		<string>_deepmuse-peer._udp</string>
 	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>DeepMenu syncs with nearby iPads, iPhones, and Apple Watches over the local network.</string>
 </dict>
 </plist>

@@ -1,5 +1,5 @@
 {
-  "originHash" : "e6987def8715d2adc5c9387adf55f6b228c1b02e7a5e201723248f706efb4330",
+  "originHash" : "09d43c32694adbee488a736580965e1080b0a5241911f547a17cd3d9cac27b22",
   "pins" : [
     {
       "identity" : "muflo",
@@ -11,12 +11,12 @@
       }
     },
     {
-      "identity" : "muhand",
+      "identity" : "muhands",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuHand.git",
+      "location" : "https://github.com/musesum/MuHands.git",
       "state" : {
         "branch" : "main",
-        "revision" : "0974192034bf604300aaa81952a7f1cd9dc2f0eb"
+        "revision" : "1f007ff8201be3c20a5e39818b3689da0c4f6ba8"
       }
     },
     {
@@ -25,25 +25,16 @@
       "location" : "https://github.com/musesum/MuMenu",
       "state" : {
         "branch" : "main",
-        "revision" : "2720c763783c7f034e64bd10c084f4b2a1e102e9"
+        "revision" : "9193aec7bf1283a9f21deba81d659f4e4c2752bb"
       }
     },
     {
-      "identity" : "mumetal",
+      "identity" : "mupeers",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuMetal.git",
+      "location" : "https://github.com/musesum/MuPeers.git",
       "state" : {
         "branch" : "main",
-        "revision" : "33c907d59aaf18d9bc09f721c77cdec57a0729dd"
-      }
-    },
-    {
-      "identity" : "mupeer",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuPeer.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "df618f847b73160dc4e9ebf21176c44caece878e"
+        "revision" : "47e9c66004265f40060ed0227c01dd23201929b8"
       }
     },
     {
@@ -58,7 +49,7 @@
     {
       "identity" : "muvision",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuVision.git",
+      "location" : "https://github.com/musesum/MuVision",
       "state" : {
         "branch" : "main",
         "revision" : "d504b2e1af4084f0e2e7daa66d336a02bd734262"
